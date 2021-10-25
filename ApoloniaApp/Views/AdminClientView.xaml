@@ -1,0 +1,897 @@
+﻿<UserControl x:Class="ApoloniaApp.Views.AdminClientView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ApoloniaApp.Views"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+
+        <!-- // Subtitle Orange Font Style Template // -->
+
+        <Style x:Key="fontH2" TargetType="TextBlock">
+
+            <Setter Property="FontFamily"
+                    Value="/Assets/Fonts/Roboto-Bold.ttf #Roboto Bold"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+
+            <Setter Property="Foreground"
+                    Value="#F7C13A"/>
+
+            <Setter Property="FontSize"
+                    Value="18"/>
+
+        </Style>
+
+        <!-- // Title Font Style Template // -->
+
+        <Style x:Key="fontTitle" TargetType="TextBlock">
+
+            <Setter Property="FontFamily"
+                    Value="/Assets/Fonts/Roboto-Medium.ttf #Roboto Bold"/>
+
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Foreground"
+                    Value="#FF314F8D"/>
+
+            <Setter Property="FontSize"
+                    Value="25"/>
+
+        </Style>
+
+        <!-- // Subtitle Font Style Template // -->
+        <Style x:Key="fontSubtitle" TargetType="TextBlock">
+
+            <Setter Property="FontFamily"
+                    Value="/Assets/Fonts/Roboto-Bold.ttf #Roboto Bold"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+
+            <Setter Property="Foreground"
+                    Value="#FF4AAFD9"/>
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+        </Style>
+
+
+        <!-- // Mid Title Font Style Template // -->
+        <Style x:Key="fontMidTitle" TargetType="{x:Type TextBlock}">
+
+            <Setter Property="FontFamily"
+                    Value="/Assets/Fonts/Roboto-Medium.ttf #Roboto Bold"/>
+
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Foreground"
+                    Value="#F7C13A"/>
+
+            <Setter Property="FontSize"
+                    Value="22"/>
+
+        </Style>
+
+        <!-- // Lables Font Style Template // -->
+        <Style x:Key="fontLabels" TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="/Assets/Fonts/Roboto-Bold.ttf #Roboto Bold"/>
+
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Foreground"
+                    Value="#494949"/>
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+
+        </Style>
+
+        <!-- // Subtitle Font Style Template // -->
+
+        <Style x:Key="TextBoxDisabled" TargetType="TextBox">
+
+            <Setter Property="FontFamily"
+                    Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Light"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+
+            <Setter Property="Foreground"
+                    Value="#FF4AAFD9"/>
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+        </Style>
+
+        <!-- // Disabled TextBox - Rounded Corners Style // -->
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FF4AAFD9"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF314f8D"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#ff3c82BE"/>
+
+        <Style x:Key="TextBoxRoundedCorners" TargetType="{x:Type TextBox}">
+
+            <Setter Property="FontFamily"
+                    Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Light"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+
+            <Setter Property="Foreground"
+                    Value="#FF4AAFD9"/>
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+            <Setter Property="Padding"
+                    Value="4"/>
+
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Left"/>
+
+            <Setter Property="IsReadOnly"
+                    Value="True"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Background" 
+                    Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+
+            <Setter Property="BorderBrush" 
+                    Value="{StaticResource TextBox.Static.Border}"/>
+
+            <Setter Property="Foreground" 
+                    Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+
+            <Setter Property="BorderThickness" 
+                    Value="1"/>
+
+            <Setter Property="KeyboardNavigation.TabNavigation" 
+                    Value="None"/>
+            <Setter Property="HorizontalContentAlignment" 
+                    Value="Left"/>
+
+            <Setter Property="FocusVisualStyle" 
+                    Value="{x:Null}"/>
+
+            <Setter Property="AllowDrop" 
+                    Value="true"/>
+
+            <Setter Property="ScrollViewer.PanningMode" 
+                    Value="VerticalFirst"/>
+
+            <Setter Property="Stylus.IsFlicksEnabled" 
+                    Value="False"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+
+                        <Border x:Name="border" CornerRadius="4" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}" 
+                                SnapsToDevicePixels="True">
+
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                          Focusable="false" 
+                                          HorizontalScrollBarVisibility="Hidden" 
+                                          VerticalScrollBarVisibility="Hidden"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsEnabled" Value="false">
+
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" 
+                                     Value="true">
+
+                                <Setter Property="BorderBrush" 
+                                        TargetName="border" 
+                                        Value="{StaticResource TextBox.MouseOver.Border}"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsKeyboardFocused" 
+                                     Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" 
+                                        Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+            <Style.Triggers>
+                <MultiTrigger>
+
+                    <MultiTrigger.Conditions>
+
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+
+                    </MultiTrigger.Conditions>
+
+                    <Setter Property="SelectionBrush" 
+                            Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+
+                </MultiTrigger>
+
+            </Style.Triggers>
+        </Style>
+
+        <!-- // Disabled TextBox - Rounded Corners Style // -->
+
+        <Style x:Key="EnabledTxtRoundCorners" TargetType="{x:Type TextBox}">
+
+            <Setter Property="FontFamily"
+                    Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Light"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+
+            <Setter Property="Foreground"
+                    Value="#FF4AAFD9"/>
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+            <Setter Property="Padding"
+                    Value="4"/>
+
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Left"/>
+
+            <Setter Property="IsReadOnly"
+                    Value="False"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Background" 
+                    Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+
+            <Setter Property="BorderBrush" 
+                    Value="{StaticResource TextBox.Static.Border}"/>
+
+            <Setter Property="Foreground" 
+                    Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+
+            <Setter Property="BorderThickness" 
+                    Value="1"/>
+
+            <Setter Property="KeyboardNavigation.TabNavigation" 
+                    Value="None"/>
+            <Setter Property="HorizontalContentAlignment" 
+                    Value="Left"/>
+
+            <Setter Property="FocusVisualStyle" 
+                    Value="{x:Null}"/>
+
+            <Setter Property="AllowDrop" 
+                    Value="true"/>
+
+            <Setter Property="ScrollViewer.PanningMode" 
+                    Value="VerticalFirst"/>
+
+            <Setter Property="Stylus.IsFlicksEnabled" 
+                    Value="False"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+
+                        <Border x:Name="border" CornerRadius="4" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}" 
+                                SnapsToDevicePixels="True">
+
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                          Focusable="false" 
+                                          HorizontalScrollBarVisibility="Hidden" 
+                                          VerticalScrollBarVisibility="Hidden"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsEnabled" Value="false">
+
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" 
+                                     Value="true">
+
+                                <Setter Property="BorderBrush" 
+                                        TargetName="border" 
+                                        Value="{StaticResource TextBox.MouseOver.Border}"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsKeyboardFocused" 
+                                     Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" 
+                                        Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+            <Style.Triggers>
+                <MultiTrigger>
+
+                    <MultiTrigger.Conditions>
+
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+
+                    </MultiTrigger.Conditions>
+
+                    <Setter Property="SelectionBrush" 
+                            Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+
+                </MultiTrigger>
+
+            </Style.Triggers>
+        </Style>
+
+        <!-- // Buttons Styles //  -->
+
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="ButtonStyleRoundedCorner" TargetType="{x:Type Button}">
+            <!--<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>-->
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="4" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <!-- // Custom Button Font Style Template // -->
+        <Style x:Key="ButtonBarCustomStyled" TargetType="{x:Type Button}">
+            <Setter Property="FontFamily" Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Bold"/>
+            <!--<Setter Property="Foreground" Value="#FFE8B200"/>-->
+
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="#FF48A1D9"/>
+            <Setter Property="BorderBrush" Value="#FF48A1D9"/>
+            <Setter Property="Foreground" Value="White"/>
+
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="white"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF48A1D9"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF48A1D9"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#FFE8B200"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FFE8B200"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel x:Name="spCurrentContent" Orientation="Vertical">
+            <StackPanel x:Name="spHeader" Orientation="Vertical" Width="auto">
+
+                <TextBlock Text="Gestión de Usuarios"
+                Margin="5,10,0,10"  
+                Style="{StaticResource fontTitle}"/>
+
+            </StackPanel>
+
+            <StackPanel x:Name="spToolBar" Orientation="Horizontal">
+
+                <Button x:Name="btnAddUser" Content="Crear Usuario"
+                        Width="120" Height="30" Margin="20,0,0,10"
+                        Style="{DynamicResource ButtonBarCustomStyled}"
+                        Command="{Binding NavigationCreateUsers}"/>
+
+            </StackPanel>
+
+            <!-- // VIEW UNITS - Stack Panel  // -->
+            <StackPanel x:Name="spViewUsers" Orientation="Vertical" 
+                        HorizontalAlignment="Left"  Margin="5,0,0,5"
+                        Visibility="Visible">
+
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,5">
+
+                    <TextBlock Text="Usuarios"
+                               Margin="5,0,0,0" 
+                               Style="{StaticResource fontH2}"/>
+                </StackPanel>
+
+                <!-- // SECTION 1: LISTADO DE USUARIOS  // -->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Grid.Column="0"  Grid.Row="0" 
+                                           Text="LISTADO DE USUARIOS"
+                                           Margin="10,0,0,5" 
+                                           Style="{StaticResource fontSubtitle}"/>
+
+                    <Image x:Name="imgUserDtg" Source="/Assets/Icons/ico_collapseup.png"
+                                   Width="12"
+                                   Height="12"
+                                   Margin="5,0,0,5"
+                                   VerticalAlignment="Center"                           
+                                   Visibility="Visible"/>
+                </StackPanel>
+
+                <DataGrid Grid.Column="0" Grid.Row="1" x:Name="dtgUsers"
+                      CanUserReorderColumns="False"
+                      SelectionMode="Single"
+                      IsReadOnly="True"
+                      AutoGenerateColumns="False"
+                      ColumnWidth="auto"
+                      Margin="10" Height="160"
+                      HorizontalScrollBarVisibility="Visible"
+                      ItemsSource="{Binding Usuarios}"
+                          SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn 
+                        Header="RUN" 
+                        Width="70"
+                        MinWidth="70"
+                        Binding="{Binding Run}"/>
+                        <DataGridTextColumn 
+                        Header="NOMBRES" 
+                        Width="100"
+                        MinWidth="100"
+                        Binding="{Binding Nombre}"/>
+                        <DataGridTextColumn 
+                        Header="APE. PATERNO" 
+                        Binding="{Binding ApellidoP}"/>
+                        <DataGridTextColumn 
+                        Header="APE. MATERNO" 
+                        Width="100" 
+                        MinWidth="100"
+                        Binding="{Binding ApellidoM}"/>
+                        <DataGridTextColumn 
+                        Header="CORREO" 
+                        Width="150" 
+                        MinWidth="150"
+                        Binding="{Binding Email}"/>
+                        <DataGridTextColumn 
+                        Header="UNIDAD" 
+                        Width="150" 
+                        MinWidth="150"
+                        Binding="{Binding DescripcionUnidad}"/>
+                        <DataGridTextColumn 
+                        Header="SUBUNIDAD" 
+                        Width="150" 
+                        MinWidth="150"
+                        Binding="{Binding DescripcionSubUni}"/>
+                        <DataGridTextColumn 
+                        Header="PERFIL" 
+                        Width="150" 
+                        MinWidth="150"
+                        Binding="{Binding DescripcionRol}"/>
+                        <DataGridTextColumn 
+                        Header="ESTADO" 
+                        Width="100" 
+                        MinWidth="100"
+                        Binding="{Binding DescripcionEstado}"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!--// USERS VIEW > USERS GRAL INFO //-->
+                <StackPanel x:Name="spUserInfo" Margin="10,0,0,0" Orientation="Vertical">
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock 
+                            Grid.Column="0" 
+                            Grid.Row="2"
+                            x:Name="tbkTitleUser"
+                            Text="Usuario: RUN Usuario"
+                            FontSize="20"
+                            Margin="0,10,0,10" 
+                            Style="{StaticResource fontTitle}"/>
+
+                        <Button 
+                            x:Name="btnEditUser" 
+                            Content="Modificar Datos" 
+                            Width="120" 
+                            Height="30"
+                            Margin="20,0,0,0" 
+                            IsEnabled="True" 
+                            Style="{DynamicResource ButtonBarCustomStyled}"
+                            Command="{Binding NavigationEditUsers}"/>
+
+                    </StackPanel>
+
+                    <!-- // SECTION 1: INFORMACIÓN PERSONAL  // -->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock 
+                            Grid.Column="0"  
+                            Grid.Row="0" 
+                            Text="INFORMACIÓN PERSONAL"
+                            Margin="0,10,0,0" 
+                            Style="{StaticResource fontSubtitle}"/>
+                    </StackPanel>
+
+                    <Grid x:Name="grdUserPersonalInfo">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="210"/>
+                            <ColumnDefinition Width="210"/>
+                            <ColumnDefinition Width="210"/>
+                            <ColumnDefinition Width="210"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- // RUN: Label // -->
+                        <StackPanel Grid.Column="0"  Grid.Row="0" Orientation="Horizontal">
+
+                            <Label Name="lblRun" 
+                                   Content="RUN"
+                                   Style="{StaticResource fontLabels}"/>
+
+                        </StackPanel>
+
+                        <!-- // RUN: TextBox // -->
+                        <StackPanel Grid.Column="0"  Grid.Row="1" Orientation="Horizontal">
+
+                            <TextBox x:Name="txtRun" 
+                                     Width="150"
+                                     Text="{Binding Run}"
+                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+
+                        </StackPanel>
+
+                        <!-- // FirstName: Label // -->
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+
+                            <Label Name="lblFirstName"
+                                   Content="Nombres"
+                                   Style="{StaticResource fontLabels}"/>
+
+                        </StackPanel>
+
+                        <!-- // FirstName: TextBox // -->
+                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+
+                            <TextBox Name="txtFirstName" 
+                                     Width="180" 
+                                     Text="{Binding Nombre}"
+                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+
+                        </StackPanel>
+
+                        <!-- // FatherSurname: Label // -->
+                        <StackPanel Grid.Column="2"  Grid.Row="0"
+                                    Orientation="Horizontal">
+
+                            <Label Name="lblDadSurname" 
+                                   Content="Apellido Parterno"
+                                   Style="{StaticResource fontLabels}"/>
+
+                        </StackPanel>
+
+                        <!-- // FaherSurname: TextBox // -->
+                        <StackPanel Grid.Column="2"  Grid.Row="1" Orientation="Horizontal">
+
+                            <TextBox Name="txtDadSurname"
+                                     Width="180"
+                                     Text="{Binding ApellidoP}"
+                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+                        </StackPanel>
+
+                        <!-- // MotherSurname: Label // -->
+                        <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Horizontal">
+
+                            <Label Name="lblMomSurname" 
+                                   Content="Apellido Materno"
+                                   Style="{StaticResource fontLabels}"/>
+
+                        </StackPanel>
+
+                        <!-- // MotherSurname: TextBox // -->
+                        <StackPanel Grid.Row="1" Grid.Column="3" 
+                                    Orientation="Horizontal">
+
+                            <TextBox Name="txtMomSurname"
+                                     Width="180"
+                                     Text="{Binding ApellidoM}"
+                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+
+                        </StackPanel>
+
+                        <!-- // E-Mail: Label // -->
+                        <StackPanel Grid.Column="0"  Grid.Row="2" Orientation="Horizontal">
+
+                            <Label Name="lblMail"
+                                   Content="Correo Electrónico"
+                                   Style="{StaticResource fontLabels}"/>
+
+                        </StackPanel>
+
+                        <!-- // E-Mail: TextBox // -->
+                        <StackPanel Grid.Column="0"  Grid.Row="3" Grid.ColumnSpan="2" 
+                                    Orientation="Horizontal">
+
+                            <TextBox Name="txtMail"
+                                     Width="380"
+                                     Text="{Binding Email}"
+                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- // SECTION 2: INFORMACIÓN CORPORATIVA  // -->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Grid.Column="0"  Grid.Row="0" 
+                                           Text="INFORMACIÓN CORPORATIVA"
+                                           Margin="0,10,0,0"  
+                                           Style="{StaticResource fontSubtitle}"/>
+                    </StackPanel>
+
+                    <Grid x:Name="grdUserUnitInfo">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="210"/>
+                            <ColumnDefinition Width="210"/>
+                            <ColumnDefinition Width="210"/>
+                            <ColumnDefinition Width="210"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- // Business Unit: Label // -->
+                        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+
+                            <Label Name="lblBizUnit" 
+                                   Content="Unidad"
+                                   Style="{StaticResource fontLabels}"/>
+
+                        </StackPanel>
+
+                        <!-- //  Bussiness Unit: TextBox // -->
+                        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal"
+                                    Grid.ColumnSpan="2">
+
+                            <TextBox Name="txtBizUnit" 
+                                     Width="380" 
+                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+                        </StackPanel>
+
+                        <!-- // Sub Business Unit: Label // -->
+                        <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal">
+
+                            <Label Name="lblSubBizUnit" 
+                                   Content="Subunidad"
+                                   Style="{StaticResource fontLabels}"/>
+
+                        </StackPanel>
+
+                        <!-- // Sub Business Unit: TextBox // -->
+                        <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal"
+                                    Grid.ColumnSpan="2">
+
+                            <TextBox Name="txtSubBizUnit" 
+                                         Width="380" 
+                                         Style="{DynamicResource TextBoxRoundedCorners}"/>
+                        </StackPanel>
+
+                    </Grid>
+
+                    <!-- // SECTION 3: INFORMACIÓN CORPORATIVA  // -->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Grid.Column="0"  Grid.Row="0" 
+                                           Text="INFORMACIÓN DE LA CUENTA"
+                                           Margin="0,10,0,0" 
+                                           Style="{StaticResource fontSubtitle}"/>
+                    </StackPanel>
+
+                    <Grid x:Name="grdUserAccountInfo">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="139"/>
+                            <ColumnDefinition Width="72"/>
+                            <ColumnDefinition Width="210"/>
+                            <ColumnDefinition Width="210"/>
+                            <ColumnDefinition Width="210"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- // User Account Name: Label // -->
+                        <StackPanel Grid.Column="0" Grid.Row="0" 
+                            Orientation="Horizontal" Grid.ColumnSpan="2">
+
+                            <Label Name="lblUserName"
+                                   Content="Nombre de Usuario"
+                                   Style="{StaticResource fontLabels}"/>
+
+                        </StackPanel>
+
+                        <!-- // User Account Name: TextBox // -->
+                        <StackPanel Grid.Column="0" Grid.Row="1" 
+                                    Orientation="Horizontal" Grid.ColumnSpan="2">
+
+                            <TextBox Name="txtUserName"
+                                     Width="180"
+                                     Text="{Binding Username}"
+                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+
+                        </StackPanel>
+
+                        <!-- // User Profile: Label // -->
+                        <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal">
+
+                            <Label Name="lblUserProfile" 
+                                   Content="Perfil de Usuario"
+                                   Style="{StaticResource fontLabels}"/>
+
+                        </StackPanel>
+
+                        <!-- // User Profile: TextBox // -->
+                        <StackPanel Grid.Column="2"  Grid.Row="1" Orientation="Horizontal">
+
+                            <TextBox Name="txtUserProfile" 
+                                     Width="180" 
+                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+
+                        </StackPanel>
+
+                        <!--// User Status: Label //-->
+                        <StackPanel Grid.Column="3" Grid.Row="0" 
+                            Orientation="Horizontal">
+
+                            <Label Name="lblUserStatus" 
+                                   Content="Estado Cuenta"
+                                   Style="{StaticResource fontLabels}"/>
+
+                        </StackPanel>
+
+                        <!-- // User Status: Textbox // -->
+                        <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Horizontal">
+
+                            <TextBox Name="txtUserStatus" 
+                                     Width="180" 
+                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+                        </StackPanel>
+
+                    </Grid>
+
+
+                </StackPanel>
+
+
+            </StackPanel>
+
+        </StackPanel>
+
+
+
+    </Grid>
+</UserControl>

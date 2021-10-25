@@ -1,0 +1,769 @@
+﻿<UserControl x:Class="ApoloniaApp.Views.AdminUnitView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ApoloniaApp.Views"
+             mc:Ignorable="d">
+    <Grid Background="White">
+        <StackPanel x:Name="spHeader" Orientation="Vertical" Width="auto">
+            <StackPanel  Orientation="Vertical">
+
+                <TextBlock Text="Gestión de Unidades"
+                           Margin="5,10,0,10" />
+
+            </StackPanel>
+
+            <StackPanel x:Name="spToolBar" Orientation="Horizontal">
+                <Button x:Name="btnNewUnit" 
+                        Content="Crear Unidad"
+                        Width="120" 
+                        Height="30" 
+                        Margin="20,0,0,10"
+                        Command="{Binding NavigationCreateUnit}"/>
+
+            </StackPanel>
+
+            <!-- // VIEW UNITS - Stack Panel  // -->
+            <StackPanel x:Name="spViewUnits" Orientation="Vertical" HorizontalAlignment="Left" Margin="5,0,0,5" Visibility="Visible">
+
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,5">
+
+                    <Image Width="25"
+                           Height="25"
+                           Margin="0,0,3,0"
+                           VerticalAlignment="Center"                           
+                           Visibility="Visible"/>
+                    <TextBlock Text="Unidades"
+                               Margin="5,0,0,0"/>
+                </StackPanel>
+
+                <!-- // SECTION 1: LISTADO DE UNIDADES  // -->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Grid.Column="0"  
+                               Grid.Row="0" 
+                               Text="LISTADO DE UNIDADES"
+                               Margin="10,0,0,5"/>
+
+                    <Image x:Name="imgUnitDtg" 
+                           Width="12"
+                           Height="12"
+                           Margin="5,0,0,5"
+                           VerticalAlignment="Center"                           
+                           Visibility="Visible"/>
+                </StackPanel>
+
+                <DataGrid Grid.Column="0" Grid.Row="1" x:Name="dtgUnits" CanUserReorderColumns="False" SelectionMode="Single" 
+                          IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="auto" Margin="10,0,0,0" Height="160" 
+                          HorizontalScrollBarVisibility="Visible">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn 
+                            Header="RUT" 
+                            Width="70"
+                            MinWidth="70"
+                            Binding="{Binding Rut}"/>
+                        <DataGridTextColumn 
+                            Header="RAZÓN SOCIAL" 
+                            Width="100"
+                            MinWidth="100"
+                            Binding="{Binding RazonSocial}"/>
+                        <DataGridTextColumn 
+                            Header="RUBRO" 
+                            Binding="{Binding Rubro}"/>
+                        <DataGridTextColumn 
+                            Header="DIRECCIÓN (CALLE)" 
+                            Width="100" 
+                            MinWidth="100"
+                            Binding="{Binding DireccionCalle}"/>
+                        <DataGridTextColumn 
+                            Header="NÚMERO CALLE" 
+                            Width="150" 
+                            MinWidth="150"
+                            Binding="{Binding DireccionNumero}"/>
+                        <DataGridTextColumn 
+                            Header="COMPLEMENTO" 
+                            Width="150" 
+                            MinWidth="150"
+                            Binding="{Binding DireccionComplemento}"/>
+                        <DataGridTextColumn 
+                            Header="COMUNA" 
+                            Width="150" 
+                            MinWidth="150"
+                            Binding="{Binding DireccionComuna}"/>
+                        <DataGridTextColumn 
+                            Header="CIUDAD" 
+                            Width="150" 
+                            MinWidth="150"
+                            Binding="{Binding DireccionCiudad}"/>
+                        <DataGridTextColumn 
+                            Header="PAÍS" 
+                            Width="100" 
+                            MinWidth="100"
+                            Binding="{Binding DireccionPais}"/>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+                <!--// UNIT VIEW > UNIT GRAL INFO //-->
+                <StackPanel x:Name="spUnitInfo" Margin="10,0,0,0" Orientation="Vertical">
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="tbkTitleUnit"
+                                Grid.Column="0"
+                                Grid.Row="2"
+                                Text="Unidad : UNIT NAME"
+                                FontSize="20"
+                                Margin="0,10,0,10"/>
+
+                        <Button x:Name="btnEditUnit" 
+                                Content="Modificar Datos" 
+                                Width="120" Height="30"
+                                Margin="20,0,0,0" 
+                                IsEnabled="True"
+                                Command="{Binding NavigationEditUnit}"/>
+
+
+                    </StackPanel>
+
+                    <!-- // SECTION 1: INFORMACIÓN PERSONAL  // -->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Grid.Column="0"  
+                                   Grid.Row="0" 
+                                   Text="INFORMACIÓN GENERAL"
+                                   Margin="0,0,0,0"/>
+
+                        <Image x:Name="imgGralInfo" 
+                               Width="12"
+                               Height="12"
+                               Margin="5,0,0,0"
+                               VerticalAlignment="Center"                           
+                               Visibility="Visible"/>
+                    </StackPanel>
+
+                    <Grid x:Name="grdUnitGralInfo">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- // RUT: Label // -->
+                        <StackPanel Grid.Row="1" Grid.Column="1"
+                                    Orientation="Horizontal">
+
+                            <Label x:Name="lblRut" 
+                                   Content="RUT"/>
+
+                            <Image Width="12"                                        
+                                   Height="12"
+                                   VerticalAlignment="Center"
+                                   ToolTip="Este campo es obligatorio."
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // RUN: TextBox // -->
+                        <StackPanel Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal">
+
+                            <TextBox x:Name="txtRut" 
+                                     IsReadOnly="True"
+                                     Width="150"/>
+
+                            <Image Height="17"
+                                   Width="17"
+                                   Margin="5,0,0,0"
+                                   ToolTip="Número de RUN iválido."
+                                   VerticalAlignment="Center"
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Company Name: Label // -->
+                        <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal">
+
+                            <Label x:Name="lblCompanyName"
+                                   Content="Razón Social"/>
+
+                            <Image Width="12"
+                                   Height="12"
+                                   VerticalAlignment="Center"
+                                   ToolTip="Este campo es obligatorio."
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Company Name: TextBox // -->
+                        <StackPanel Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="4" Orientation="Horizontal">
+
+                            <TextBox x:Name="txtCompanyName" 
+                                     IsReadOnly="True"
+                                     Width="380"/>
+
+                            <Image Height="17"
+                                   Width="17"
+                                   Margin="5,0,0,0"
+                                   ToolTip="Número de RUN iválido."
+                                   VerticalAlignment="Center"
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Market Area: TextBox // -->
+                        <StackPanel  Grid.Column="7" Grid.Row="1" Orientation="Horizontal">
+
+                            <Label x:Name="lblMarketArea"
+                               Content="Rubro"/>
+
+                            <Image Width="12"
+                                    Height="12"
+                                    VerticalAlignment="Center"
+                                    ToolTip="Este campo es obligatorio."
+                                    Visibility="Hidden"/>
+
+                        </StackPanel>
+                        <!-- // mARKET aREA: TextBox // -->
+
+                        <StackPanel  Grid.Column="7" Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal">
+
+                            <TextBox x:Name="txtMarketArea"
+                                     IsReadOnly="True"
+                                     Width="280" />
+
+                            <Image Height="17"
+                           Width="17"
+                           Margin="5,0,0,0"
+                           ToolTip="Número de RUN iválido."
+                           VerticalAlignment="Center"
+                           Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <!-- // SECTION 2: INFORMACIÓN DOMICIALIARIA  // -->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Grid.Column="0" 
+                                   Grid.Row="0" 
+                                   Text="INFORMACIÓN DOMICILIARIA"
+                                   Margin="0,15,0,0"/>
+
+                        <Image x:Name="imgLocationInfo"
+                                   Width="12"
+                                   Height="12"
+                                   Margin="5,0,0,2"
+                                   VerticalAlignment="Bottom"                           
+                                   Visibility="Visible"/>
+
+                    </StackPanel>
+
+                    <Grid x:Name="grdUnitLocationInfo">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- // VIEW SECTION: Unit Address Street: Label // -->
+                        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+
+                            <Label x:Name="lblAdrStreet" 
+                                       Content="Calle (Dirección)"/>
+
+                            <Image Width="12" Height="12"
+                                   VerticalAlignment="Center"
+                                   ToolTip="Este campo es obligatorio."
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Address Street: TextBox // -->
+                        <StackPanel Grid.Column="1"  Grid.Row="2" Grid.ColumnSpan="4" Orientation="Horizontal">
+
+                            <TextBox x:Name="txtAdrStreet"
+                                     IsReadOnly="True"
+                                     Width="380"/>
+
+                            <Image Height="17"
+                                   Width="17"
+                                   Margin="5,0,0,0"
+                                   ToolTip="Número de RUN iválido."
+                                   VerticalAlignment="Center"
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Address Number: Label // -->
+                        <StackPanel Grid.Row="1" Grid.Column="5" Orientation="Horizontal">
+
+                            <Label x:Name="lblAdrNumber" 
+                               Content="Número"/>
+
+                            <Image Width="12" Height="12"
+                               VerticalAlignment="Center"
+                               ToolTip="Este campo es obligatorio."
+                               Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Unit Address Number: TextBox // -->
+                        <StackPanel Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" Orientation="Horizontal">
+
+                            <TextBox x:Name="txtAdrNumber"
+                                     IsReadOnly="True"
+                                     Width="180"/>
+
+                            <Image Height="17"
+                                   Width="17"
+                                   Margin="5,0,0,0"
+                                   ToolTip="Número de RUN iválido."
+                                   VerticalAlignment="Center"
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!--// Address Complement: Label //-->
+                        <StackPanel Grid.Row="1" Grid.Column="7"  Orientation="Horizontal">
+
+                            <Label x:Name="lblAdrComplement" 
+                                   Content="Complemento"/>
+
+                            <Image Width="12"
+                                   Height="12"
+                                   VerticalAlignment="Center"
+                                   ToolTip="Este campo es obligatorio."
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Address Complement: Textbox // -->
+                        <StackPanel Grid.Column="7" Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal">
+
+                            <TextBox x:Name="txtAdrComplement"
+                                     IsReadOnly="True"
+                                     Width="280"/>
+
+                            <Image Height="17"
+                                   Width="17"
+                                   Margin="5,0,0,0"
+                                   ToolTip="Número de RUN iválido."
+                                   VerticalAlignment="Center"
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Country: Label // -->
+                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+
+                            <Label x:Name="lblRegión" 
+                                   Content="Región"/>
+
+                            <Image Width="12"
+                                   Height="12"
+                                   VerticalAlignment="Center"
+                                   ToolTip="Este campo es obligatorio."
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Region: TextBox // -->
+                        <StackPanel Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal">
+
+                            <TextBox x:Name="txtCountry"
+                                     IsReadOnly="True"
+                                     Width="280"/>
+
+                            <Image Height="17"
+                                   Width="17"
+                                   Margin="5,0,0,0"
+                                   ToolTip="Número de RUN iválido."
+                                   VerticalAlignment="Center"
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Province (Ciudad): Label // -->
+                        <StackPanel Grid.Row="3" Grid.Column="4" Orientation="Horizontal">
+
+                            <Label x:Name="lblProvince" 
+                                   Content="Ciudad (Provincia)"/>
+
+                            <Image Width="12"
+                                   Height="12"
+                                   VerticalAlignment="Center"
+                                   ToolTip="Este campo es obligatorio."
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- //  Province (Cuidad): TextBox // -->
+                        <StackPanel  Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="3" Orientation="Horizontal">
+
+                            <TextBox x:Name="txtProvince"
+                                     IsReadOnly="True"
+                                     Width="280"/>
+
+                            <Image Height="17"
+                                   Width="17"
+                                   Margin="5,0,0,0"
+                                   ToolTip="Número de RUN iválido."
+                                   VerticalAlignment="Center"
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Town (Comuna): Label // -->
+                        <StackPanel Grid.Row="3" Grid.Column="7" Orientation="Horizontal">
+
+                            <Label x:Name="lblTown"
+                                   Content="Comuna"/>
+
+                            <Image Width="12" Height="12"
+                                   VerticalAlignment="Center"
+                                   ToolTip="Este campo es obligatorio."
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Town (Comuna): TextBox // -->
+                        <StackPanel Grid.Row="4" Grid.Column="7" Grid.ColumnSpan="3" Orientation="Horizontal">
+
+                            <TextBox x:Name="txtTown"
+                                     IsReadOnly="True"
+                                     Width="280"/>
+
+                            <Image Height="17"
+                                   Width="17"
+                                   Margin="5,0,0,0"
+                                   ToolTip="Número de RUN iválido."
+                                   VerticalAlignment="Center"
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Grid.Column="0"  
+                                   Grid.Row="0" 
+                                   Text="Información de Contacto"
+                                   Margin="0,0,0,0"/>
+
+                        <Image 
+                               Width="12"
+                               Height="12"
+                               Margin="5,0,0,0"
+                               VerticalAlignment="Center"                           
+                               Visibility="Visible"/>
+                    </StackPanel>
+                    <Grid x:Name="grdUnitContactInfo">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- // VIEW SECTION: Unit Contact Info: Label // -->
+                        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+
+                            <Label x:Name="lblContactName" 
+                                       Content="Persona de Contacto"/>
+
+                            <Image Width="12" Height="12"
+                                   VerticalAlignment="Center"
+                                   ToolTip="Este campo es obligatorio."
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Contact Name: TextBox // -->
+                        <StackPanel Grid.Column="1"  Grid.Row="2" Grid.ColumnSpan="4" Orientation="Horizontal">
+
+                            <TextBox x:Name="txtContactName"
+                                     IsReadOnly="True"
+                                     Width="380"/>
+
+                            <Image Height="17"
+                                   Width="17"
+                                   Margin="5,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Phone Number: Label // -->
+                        <StackPanel Grid.Row="1" Grid.Column="5" Orientation="Horizontal">
+
+                            <Label x:Name="lblPhoneNumber" 
+                               Content="Teléfono"/>
+
+                            <Image Width="12" Height="12"
+                               VerticalAlignment="Center"
+                               Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Phone Number: TextBox // -->
+                        <StackPanel Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" Orientation="Horizontal">
+
+                            <TextBox x:Name="txtPhoneNumber"
+                                     IsReadOnly="True"
+                                     Width="180"/>
+
+                            <Image Height="17"
+                                   Width="17"
+                                   Margin="5,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Contact Email: Label // -->
+                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+
+                            <Label x:Name="lblContactEmail" 
+                                   Content="Correo Electrónico"/>
+
+                            <Image Width="12"
+                                   Height="12"
+                                   VerticalAlignment="Center"
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Contact Email: TextBox // -->
+                        <StackPanel Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal">
+
+                            <TextBox x:Name="txtContactEmail"
+                                     IsReadOnly="True"
+                                     Width="280"/>
+
+                            <Image Height="17"
+                                   Width="17"
+                                   Margin="5,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Grid.Column="0"  
+                                   Grid.Row="0" 
+                                   Text="Responsable de Cuenta"
+                                   Margin="0,0,0,0"/>
+
+                        <Image 
+                               Width="12"
+                               Height="12"
+                               Margin="5,0,0,0"
+                               VerticalAlignment="Center"                           
+                               Visibility="Visible"/>
+                    </StackPanel>
+
+                    <Grid x:Name="grdUnitResponsible">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="10*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+
+                            <Label x:Name="lblResponsible" 
+                                       Content="Persona de Contacto"/>
+
+                            <Image Width="12" Height="12"
+                                   VerticalAlignment="Center"
+                                   ToolTip="Este campo es obligatorio."
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+
+                        <!-- // Contact Name: TextBox // -->
+                        <StackPanel Grid.Column="1"  Grid.Row="2" Grid.ColumnSpan="4" Orientation="Horizontal">
+
+                            <TextBox x:Name="txtResponsible"
+                                     IsReadOnly="True"
+                                     Width="380"/>
+
+                            <Image Height="17"
+                                   Width="17"
+                                   Margin="5,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Visibility="Hidden"/>
+
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <!-- // VIEW SUBUNITS & EMPLOYEES - Stack Panel  // -->
+                <StackPanel x:Name="spSubUnitsView" Orientation="Vertical" HorizontalAlignment="Left" Margin="5,0,0,5" Visibility="Visible">
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- // Subtitles // -->
+
+
+                        <TextBlock Grid.Column="1"  
+                               Grid.Row="0" 
+                               Text="FUNCIONARIOS"
+                               Margin="10,10,0,5"/>
+                        <DockPanel Grid.Column="0" Grid.Row="0" Margin="0,0,10,170" Grid.RowSpan="2">
+                            <TextBlock Grid.Row="0" 
+                               Text="SUBUNIDADES"
+                               Margin="10,10,0,5" Width="141"/>
+                            <Button Grid.Column="0" 
+                                    Content="Eliminar"
+                                    Margin="0,10,0,5"
+                                    DockPanel.Dock="Right"
+                                    Width="54"/>
+                            <Button Grid.Column="0" 
+                                    Content="Modificar"
+                                    Margin="0,10,0,5"
+                                    DockPanel.Dock="Right" 
+                                    Width="62"/>
+                            <Button Grid.Column="0" 
+                                    Content="Nueva"
+                                    Margin="0,10,0,5"
+                                    DockPanel.Dock="Right"
+                                    Width="65"/>
+                        </DockPanel>
+
+                        <!-- // DataGrid SubUnits // -->
+
+                        <DataGrid Grid.Column="1" Grid.Row="1" x:Name="dtgEmployees" CanUserReorderColumns="False" SelectionMode="Single"
+                              IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="auto" Margin="10,0,10,10" Height="160"
+                              HorizontalScrollBarVisibility="Visible" >
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn 
+                                            Header="RUN" 
+                                            Width="70"
+                                            MinWidth="70"
+                                            Binding="{Binding Id}"/>
+                                <DataGridTextColumn 
+                                            Header="NOMBRES" 
+                                            Width="150"
+                                            MinWidth="150"
+                                            Binding="{Binding FIRSTNAME}"/>
+                                <DataGridTextColumn 
+                                            Header="APE. PATERNO" 
+                                            Width="150"
+                                            MinWidth="150"
+                                            Binding="{Binding DADSURNAME}"/>
+                                <DataGridTextColumn 
+                                            Header="APE. MATERNO" 
+                                            Width="150"
+                                            MinWidth="150"
+                                            Binding="{Binding MONSURNAME}"/>
+                                <DataGridTextColumn 
+                                            Header="CORREO ELECTRÓNICO" 
+                                            Width="200"
+                                            MinWidth="200"
+                                            Binding="{Binding EMAIL}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <!-- // DataGrid Employees // -->
+
+                        <DataGrid Grid.Column="0" Grid.Row="1" x:Name="dtgSubUnits" CanUserReorderColumns="False" SelectionMode="Single" IsReadOnly="True"
+                              AutoGenerateColumns="False" ColumnWidth="auto" Margin="10,0,10,10" Height="160" HorizontalScrollBarVisibility="Visible" >
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn 
+                                            Header="ID" 
+                                            Width="70"
+                                            MinWidth="50"
+                                            Binding="{Binding Id}"/>
+                                <DataGridTextColumn 
+                                            Header="NOMBRE" 
+                                            Width="250"
+                                            MinWidth="250"
+                                            Binding="{Binding SubUnit}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
