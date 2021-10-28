@@ -12,34 +12,33 @@ namespace ApoloniaApp.ViewModels
     {
         private readonly FrameStore _frameStore;
 
-        public Usuario CurrentAccount;
+        public UsuarioInterno CurrentAccount;
 
-        private Usuario _newUser = new Usuario()
+        private UsuarioInterno _newUser = new UsuarioInterno()
         {
-            UnidadId = "333333333",
-            SubunidadId = 1,
-            RolId = 1,
-            Estado = 1,
+
+            IdPerfil = 1,
+            IdEstado = 1,
             Password = "1234"
         };
 
         #region Property
-        public string Run
-        {
-            get { return _newUser.Run; }
-            set
-            {
-                _newUser.Run = value;
-                Username = value.Replace(".", "").Replace("-", "");
-                OnPropertyChanged("Run");
-            }
-        }
+        //public string Run
+        //{
+        //    get { return _newUser.Run; }
+        //    set
+        //    {
+        //        _newUser.Run = value;
+        //        Username = value.Replace(".", "").Replace("-", "");
+        //        OnPropertyChanged("Run");
+        //    }
+        //}
         public string Nombre
         {
-            get { return _newUser.Nombre; }
+            get { return _newUser.Nombres; }
             set
             {
-                _newUser.Nombre = value;
+                _newUser.Nombres = value;
                 OnPropertyChanged("Nombre");
             }
         }
@@ -84,63 +83,63 @@ namespace ApoloniaApp.ViewModels
             }
         }
 
-        public int SubunidadId
-        {
-            get { return _newUser.SubunidadId; }
-            set
-            {
-                _newUser.SubunidadId = value;
-                OnPropertyChanged("SubunidadId");
-            }
-        }
+        //public int SubunidadId
+        //{
+        //    get { return _newUser.SubunidadId; }
+        //    set
+        //    {
+        //        _newUser.SubunidadId = value;
+        //        OnPropertyChanged("SubunidadId");
+        //    }
+        //}
 
         public int RolId
         {
-            get { return _newUser.RolId; }
+            get { return _newUser.IdPerfil; }
             set
             {
-                _newUser.RolId = value;
+                _newUser.IdPerfil = value;
                 OnPropertyChanged("RolId");
             }
         }
 
-        public String UnidadId
-        {
-            get { return _newUser.UnidadId; }
-            set
-            {
-                _newUser.UnidadId = value;
-                OnPropertyChanged("UnidadId");
-            }
-        }
+        //public String UnidadId
+        //{
+        //    get { return _newUser.UnidadId; }
+        //    set
+        //    {
+        //        _newUser.UnidadId = value;
+        //        OnPropertyChanged("UnidadId");
+        //    }
+        //}
 
         public int Estado
         {
-            get { return _newUser.Estado; }
+            get { return _newUser.IdEstado; }
             set
             {
-                _newUser.Estado = value;
+                _newUser.IdEstado = value;
                 OnPropertyChanged("Estado");
             }
         }
 
-        public string Username
-        {
-            get { return _newUser.Username; }
-            set
-            {
-                _newUser.Username = value;
-                OnPropertyChanged("Username");
-            }
-        }
+        //public string Username
+        //{
+        //    get { return _newUser.Username; }
+        //    set
+        //    {
+        //        _newUser.Username = value;
+        //        OnPropertyChanged("Username");
+        //    }
+        //}
         #endregion
-        public AdminClientCreateViewModel(FrameStore frameStore, Usuario currentAccount)
+        public AdminClientCreateViewModel(FrameStore frameStore, UsuarioInterno currentAccount)
         {
             _frameStore = frameStore;
             CurrentAccount = currentAccount;
 
             NavigationUsers = new NavigatePanelCommand<AdminClientViewModel>(_frameStore, () => new AdminClientViewModel(_frameStore, CurrentAccount));
-            CreateUser = new CreateCommand<AdminClientViewModel,Usuario>(() => _newUser.Create(), () => new AdminClientViewModel(_frameStore, CurrentAccount), _frameStore,()=>_newUser.ReadByRun(),_newUser);
+            CreateUser = new CreateCommand<AdminClientViewModel,UsuarioInterno>(() => _newUser.Create(), () => new AdminClientViewModel(_frameStore, CurrentAccount), _frameStore,()=>_newUser.ReadByRun(),_newUser);
         }
 
         public ICommand NavigationUsers { get; }

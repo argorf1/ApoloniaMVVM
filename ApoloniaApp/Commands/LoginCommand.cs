@@ -23,7 +23,7 @@ namespace ApoloniaApp.Commands
 
         public override void Execute(object parameter)
         {
-            Usuario acc = new Usuario()
+            UsuarioInterno acc = new UsuarioInterno()
             {
                 Run = _viewModel.Username,
                 Password = _viewModel.Password
@@ -31,7 +31,7 @@ namespace ApoloniaApp.Commands
             if(acc.Read_Login())
             {
                 _accountStore.CurrentAccount = acc;
-                switch (acc.RolId)
+                switch (acc.IdPerfil)
                 {
                     case 1:
                         _navigationStore.CurrentViewModel=new AdminViewModel(_navigationStore,_accountStore);

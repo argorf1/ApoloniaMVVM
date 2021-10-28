@@ -7,20 +7,19 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    public class Usuario : EntityModelBase
+    public class UsuarioInterno : EntityModelBase
     {
         #region Atributos
         public string Run { get; set; }
-        public string Nombre { get; set; }
+        public string Nombres { get; set; }
         public string ApellidoP { get; set; }
         public string ApellidoM { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public int SubunidadId { get; set; }
-        public int RolId { get; set; }
-        public string UnidadId { get; set; }
-        public int Estado { get; set; }
-        public string Username { get; set; }
+        public string PerfilDet { get; set; }
+        public string EstadoDet { get; set; }
+        public int IdPerfil { get; set; }
+        public int IdEstado { get; set; }
 
         #endregion
         private OracleConnection conn = new OracleConnection();
@@ -36,17 +35,13 @@ namespace ApoloniaApp.Models
                 OracleCommand cmd = new OracleCommand("C_USUARIOS", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("RUN1", OracleDbType.NVarchar2).Value = this.Run;
-                cmd.Parameters.Add("NOMBRES1", OracleDbType.NVarchar2).Value = this.Nombre;
+                cmd.Parameters.Add("NOMBRES1", OracleDbType.NVarchar2).Value = this.Nombres;
                 cmd.Parameters.Add("APELLIDO1", OracleDbType.NVarchar2).Value = this.ApellidoP;
                 cmd.Parameters.Add("APELLIDO2", OracleDbType.NVarchar2).Value = this.ApellidoM;
                 cmd.Parameters.Add("EMAIL1", OracleDbType.NVarchar2).Value = this.Email;
                 cmd.Parameters.Add("PASSWORD1", OracleDbType.NVarchar2).Value = this.Password;
-                cmd.Parameters.Add("SUBUNIDAD1", OracleDbType.Int32).Value = this.SubunidadId;
-                cmd.Parameters.Add("ROL1", OracleDbType.Int32).Value = this.RolId;
-                cmd.Parameters.Add("UNIDAD1", OracleDbType.NVarchar2).Value = this.UnidadId;
-                cmd.Parameters.Add("ESTADO1", OracleDbType.Int32).Value = this.Estado;
-                cmd.Parameters.Add("USERNAME1", OracleDbType.NVarchar2).Value = this.Username;
-
+                cmd.Parameters.Add("ROL1", OracleDbType.Int32).Value = this.IdPerfil;
+                cmd.Parameters.Add("ESTADO1", OracleDbType.Int32).Value = this.IdEstado;
 
                 int a = cmd.ExecuteNonQuery();
                 conn.Close();
@@ -67,10 +62,10 @@ namespace ApoloniaApp.Models
             }
         }
         #region Read
-        public List<Usuario> ReadAll()
+        public List<UsuarioInterno> ReadAll()
         {
 
-            List<Usuario> listaNegocio = new List<Usuario>();
+            List<UsuarioInterno> listaNegocio = new List<UsuarioInterno>();
 
             try
             {
@@ -78,7 +73,7 @@ namespace ApoloniaApp.Models
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "R_USUARIOS_ALL";
+                cmd.CommandText = "r_usuarios_inter_all";
                 cmd.CommandType = CommandType.StoredProcedure;
                 OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
                 o.Direction = ParameterDirection.Output;
@@ -89,12 +84,19 @@ namespace ApoloniaApp.Models
                 r = ((OracleRefCursor)o.Value).GetDataReader();
                 while (r.Read())
                 {
-                    Usuario u = new Usuario();
-                    u.Run = r.GetString(0);
-                    u.Nombre = r.GetString(1);
-                    u.ApellidoP = r.GetString(2);
-                    u.ApellidoM = r.GetString(3);
-                    u.Email = r.GetString(4);
+                    UsuarioInterno u = new UsuarioInterno()
+                    {
+                        Run = r.GetString(0),
+                        Nombres = r.GetString(1),
+                        ApellidoP = r.GetString(2),
+                        ApellidoM = r.GetString(3),
+                        Email = r.GetString(4),
+                        EstadoDet = r.GetString(5),
+                        PerfilDet = r.GetString(6),
+                        IdPerfil = r.GetInt32(7),
+                        IdEstado = r.GetInt32(8)
+                    };
+                    
                     listaNegocio.Add(u);
                 }
 
@@ -104,7 +106,7 @@ namespace ApoloniaApp.Models
             catch (Exception e)
             {
                 conn.Close();
-                throw;
+                return listaNegocio;
             }
 
 
@@ -117,7 +119,7 @@ namespace ApoloniaApp.Models
             try
             {
                 conn = new Conexion().abrirConexion();
-                OracleCommand cmd = new OracleCommand("select nombres, apellidoP, apellidoM, Email, Rol_Id from USUARIOs where RUN = :username AND PASSWORD = :pass AND ESTADO = 1", conn);
+                OracleCommand cmd = new OracleCommand("select nombres, apellidoP, apellidoM, Email, ID_PERFIL from usuario_internos where RUN = :username AND PASSWORD = :pass AND ID_ESTADO = 1", conn);
                 cmd.Parameters.Add(":username", OracleDbType.NVarchar2).Value = this.Run;
                 cmd.Parameters.Add(":pass", OracleDbType.NVarchar2).Value = this.Password;
 
@@ -125,11 +127,11 @@ namespace ApoloniaApp.Models
 
                 if (r.Read())
                 {
-                    this.Nombre = r.GetString(0);
+                    this.Nombres = r.GetString(0);
                     this.ApellidoP = r.GetString(1);
                     this.ApellidoM = r.GetString(2);
                     this.Email = r.GetString(3);
-                    this.RolId = r.GetInt32(4);
+                    this.IdPerfil = r.GetInt32(4);
                     this.Password = String.Empty;
                     conn.Close();
                     return true;
@@ -143,17 +145,16 @@ namespace ApoloniaApp.Models
             catch (Exception e)
             {
                 conn.Close();
-                throw;
+                return false;
             }
 
         }
         public bool ReadByRun()
         {
-            conn = new OracleConnection();
             try
             {
                 conn = new Conexion().abrirConexion();
-                OracleCommand cmd = new OracleCommand("select * from USUARIOs where RUN = :username", conn);
+                OracleCommand cmd = new OracleCommand("select * from usuario_internos where RUN = :username", conn);
                 cmd.Parameters.Add(":username", OracleDbType.NVarchar2).Value = this.Run;
                 r = cmd.ExecuteReader();
 

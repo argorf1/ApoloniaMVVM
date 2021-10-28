@@ -12,7 +12,7 @@ namespace ApoloniaApp.ViewModels
     public class LoginViewModel : ViewModelBase
     {
         private readonly AccountStore _accountStore;
-        public Usuario CurrentAccount => _accountStore.CurrentAccount;
+        public UsuarioInterno CurrentAccount => _accountStore.CurrentAccount;
 
         private string _username;
         public string Username

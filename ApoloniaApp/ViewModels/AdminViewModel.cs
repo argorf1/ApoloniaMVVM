@@ -16,7 +16,7 @@ namespace ApoloniaApp.ViewModels
         private readonly FrameStore _frameStore;
         
         public  ViewModelBase CurrentViewModel => _frameStore.CurrentViewModel;
-        public Usuario CurrentAccount;
+        public UsuarioInterno CurrentAccount;
 
         private string _logUser;
         public string LogUser
@@ -35,8 +35,8 @@ namespace ApoloniaApp.ViewModels
             _frameStore = new FrameStore();
             CurrentAccount = accountStore.CurrentAccount;
 
-            Rol rol = new Rol(CurrentAccount.RolId);
-            LogUser += CurrentAccount.Nombre + " " + CurrentAccount.ApellidoP + "(" + rol.Detalle + ")";
+            Rol rol = new Rol(CurrentAccount.IdPerfil);
+            LogUser += CurrentAccount.Nombres + " " + CurrentAccount.ApellidoP + "(" + rol.Detalle + ")";
             _frameStore.CurrentViewModelChanged += OnCurrentPanelChanged;
 
             NavigationUser = new NavigatePanelCommand<AdminUserViewModel>(_frameStore, () => new AdminUserViewModel(_frameStore,CurrentAccount));

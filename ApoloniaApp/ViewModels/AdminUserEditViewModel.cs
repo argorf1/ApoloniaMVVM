@@ -11,19 +11,100 @@ namespace ApoloniaApp.ViewModels
     class AdminUserEditViewModel : ViewModelBase
     {
         private readonly FrameStore _frameStore;
-        public Usuario CurrentAccount;
-        private Usuario _usuario;
 
-        public AdminUserEditViewModel(FrameStore frameStore, Usuario usuario, Usuario currentAccount)
+        public UsuarioInterno CurrentAccount;
+
+        private UsuarioInterno _newUser = new UsuarioInterno()
+        {
+
+            IdEstado = 1,
+            Password = "1234"
+        };
+
+        #region Property
+        public string Nombre
+        {
+            get { return _newUser.Nombres; }
+            set
+            {
+                _newUser.Nombres = value;
+                OnPropertyChanged("Nombre");
+            }
+        }
+
+        public string ApellidoP
+        {
+            get { return _newUser.ApellidoP; }
+            set
+            {
+                _newUser.ApellidoP = value;
+                OnPropertyChanged("ApellidoP");
+            }
+        }
+
+        public string ApellidoM
+        {
+            get { return _newUser.ApellidoM; }
+            set
+            {
+                _newUser.ApellidoM = value;
+                OnPropertyChanged("ApellidoM");
+            }
+        }
+
+        public string Email
+        {
+            get { return _newUser.Email; }
+            set
+            {
+                _newUser.Email = value;
+                OnPropertyChanged("Email");
+            }
+        }
+
+        public string Password
+        {
+            get { return _newUser.Password; }
+            set
+            {
+                _newUser.Password = value;
+                OnPropertyChanged("Password");
+            }
+        }
+
+
+        public int RolId
+        {
+            get { return _newUser.IdPerfil; }
+            set
+            {
+                _newUser.IdPerfil = value;
+                OnPropertyChanged("RolId");
+            }
+        }
+
+
+        public int Estado
+        {
+            get { return _newUser.IdEstado; }
+            set
+            {
+                _newUser.IdEstado = value;
+                OnPropertyChanged("Estado");
+            }
+        }
+
+        #endregion
+        public AdminUserEditViewModel(FrameStore frameStore, UsuarioInterno currentAccount, UsuarioInterno usuarioUp)
         {
             _frameStore = frameStore;
-            _usuario = usuario;
             CurrentAccount = currentAccount;
 
-            NavigationUsers = new NavigatePanelCommand<AdminClientViewModel>(_frameStore, () => new AdminClientViewModel(_frameStore, CurrentAccount));
-
+            NavigationUsers = new NavigatePanelCommand<AdminUserViewModel>(_frameStore, () => new AdminUserViewModel(_frameStore, CurrentAccount));
+            //CreateUser = new CreateCommand<AdminUserViewModel, UsuarioInterno>(() => _newUser.Update(), () => new AdminUserViewModel(_frameStore, CurrentAccount), _frameStore, () => _newUser.ReadByRun(), _newUser);
         }
 
         public ICommand NavigationUsers { get; }
+        public ICommand CreateUser { get; }
     }
 }

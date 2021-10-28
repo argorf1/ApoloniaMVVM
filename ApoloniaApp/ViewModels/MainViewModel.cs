@@ -12,7 +12,7 @@ namespace ApoloniaApp.ViewModels
         private readonly AccountStore _accountStore;
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
-        public Usuario CurrentAccount => _accountStore.CurrentAccount;
+        public UsuarioInterno CurrentAccount => _accountStore.CurrentAccount;
 
 
         public MainViewModel(NavigationStore navigationStore, AccountStore accountStore)

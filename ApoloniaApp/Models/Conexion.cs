@@ -11,7 +11,7 @@ namespace ApoloniaApp.Models
         OracleConnection conn;
         public OracleConnection abrirConexion()
         {
-            string connectionString = "USER ID=APOLONIAPP; PASSWORD=chachesoflo;DATA SOURCE=oraclegcp.bellann.cl;PERSIST SECURITY INFO=True";
+            string connectionString = "USER ID=APOLONIADB; PASSWORD=chachesoflo;DATA SOURCE=oraclegcp.bellann.cl;PERSIST SECURITY INFO=True";
             conn = new OracleConnection(connectionString);
 
             try

@@ -22,7 +22,7 @@ namespace ApoloniaApp
             AccountStore accountStore = new AccountStore();
 
             navigationStore.CurrentViewModel = new LoginViewModel(accountStore, navigationStore);
-            accountStore.CurrentAccount = new Usuario();
+            accountStore.CurrentAccount = new UsuarioInterno();
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(navigationStore,accountStore)

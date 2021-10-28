@@ -11,10 +11,10 @@ namespace ApoloniaApp.ViewModels
     class AdminClientEditViewModel : ViewModelBase
     {
         private readonly FrameStore _frameStore;
-        public Usuario CurrentAccount;
-        private Usuario _usuario;
+        public UsuarioInterno CurrentAccount;
+        private UsuarioInterno _usuario;
 
-        public AdminClientEditViewModel(FrameStore frameStore, Usuario usuario, Usuario currentAccount)
+        public AdminClientEditViewModel(FrameStore frameStore, UsuarioInterno usuario, UsuarioInterno currentAccount)
         {
             _frameStore = frameStore;
             _usuario = usuario;

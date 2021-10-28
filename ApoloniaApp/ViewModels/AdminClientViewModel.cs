@@ -29,9 +29,9 @@ namespace ApoloniaApp.ViewModels
         private string _username;
 
         private readonly FrameStore _frameStore;
-        private readonly ObservableCollection<Usuario> _usuarios;
-        public IEnumerable<Usuario> Usuarios => _usuarios;
-        public Usuario CurrentAccount;
+        private readonly ObservableCollection<UsuarioInterno> _usuarios;
+        public IEnumerable<UsuarioInterno> Usuarios => _usuarios;
+        public UsuarioInterno CurrentAccount;
 
         #region Property
 
@@ -62,7 +62,7 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    return Usuarios.ElementAt<Usuario>(SelectedIndex).Run;
+                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).Run;
                 }
                 else
                 {
@@ -81,7 +81,7 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    return Usuarios.ElementAt<Usuario>(SelectedIndex).Nombre;
+                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).Nombres;
                 }
                 else
                 {
@@ -101,7 +101,7 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    return Usuarios.ElementAt<Usuario>(SelectedIndex).ApellidoP;
+                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).ApellidoP;
                 }
                 else
                 {
@@ -121,7 +121,7 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    return Usuarios.ElementAt<Usuario>(SelectedIndex).ApellidoM;
+                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).ApellidoM;
                 }
                 else
                 {
@@ -141,7 +141,7 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    return Usuarios.ElementAt<Usuario>(SelectedIndex).Email;
+                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).Email;
                 }
                 else
                 {
@@ -155,25 +155,25 @@ namespace ApoloniaApp.ViewModels
             }
         }
 
-        public int SubunidadId
-        {
-            get
-            {
-                if (SelectedIndex > -1)
-                {
-                    return Usuarios.ElementAt<Usuario>(SelectedIndex).SubunidadId;
-                }
-                else
-                {
-                    return _subunidadId;
-                }
-            }
-            set
-            {
-                _subunidadId = value;
-                OnPropertyChanged("SubunidadId");
-            }
-        }
+        //public int SubunidadId
+        //{
+        //    get
+        //    {
+        //        if (SelectedIndex > -1)
+        //        {
+        //            return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).SubunidadId;
+        //        }
+        //        else
+        //        {
+        //            return _subunidadId;
+        //        }
+        //    }
+        //    set
+        //    {
+        //        _subunidadId = value;
+        //        OnPropertyChanged("SubunidadId");
+        //    }
+        //}
 
         public int RolId
         {
@@ -181,7 +181,7 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    return Usuarios.ElementAt<Usuario>(SelectedIndex).RolId;
+                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).IdPerfil;
                 }
                 else
                 {
@@ -195,25 +195,25 @@ namespace ApoloniaApp.ViewModels
             }
         }
 
-        public string UnidadId
-        {
-            get
-            {
-                if (SelectedIndex > -1)
-                {
-                    return Usuarios.ElementAt<Usuario>(SelectedIndex).UnidadId;
-                }
-                else
-                {
-                    return _unidadId;
-                }
-            }
-            set
-            {
-                _unidadId = value;
-                OnPropertyChanged("UnidadId");
-            }
-        }
+        //public string UnidadId
+        //{
+        //    get
+        //    {
+        //        if (SelectedIndex > -1)
+        //        {
+        //            return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).UnidadId;
+        //        }
+        //        else
+        //        {
+        //            return _unidadId;
+        //        }
+        //    }
+        //    set
+        //    {
+        //        _unidadId = value;
+        //        OnPropertyChanged("UnidadId");
+        //    }
+        //}
 
         public int Estado
         {
@@ -221,7 +221,7 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    return Usuarios.ElementAt<Usuario>(SelectedIndex).Estado;
+                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).IdEstado;
                 }
                 else
                 {
@@ -235,39 +235,39 @@ namespace ApoloniaApp.ViewModels
             }
         }
 
-        public string Username
-        {
-            get
-            {
-                if (SelectedIndex > -1)
-                {
-                    return Usuarios.ElementAt<Usuario>(SelectedIndex).Username;
-                }
-                else
-                {
-                    return _username;
-                }
-            }
-            set
-            {
-                _username = value;
-                OnPropertyChanged("Username");
-            }
-        }
+        //public string Username
+        //{
+        //    get
+        //    {
+        //        if (SelectedIndex > -1)
+        //        {
+        //            return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).Username;
+        //        }
+        //        else
+        //        {
+        //            return _username;
+        //        }
+        //    }
+        //    set
+        //    {
+        //        _username = value;
+        //        OnPropertyChanged("Username");
+        //    }
+        //}
         #endregion
 
-        public AdminClientViewModel(FrameStore frameStore, Usuario currentAccount)
+        public AdminClientViewModel(FrameStore frameStore, UsuarioInterno currentAccount)
         {
             _frameStore = frameStore;
             CurrentAccount = currentAccount;
-            _usuarios = new ObservableCollection<Usuario>();
+            _usuarios = new ObservableCollection<UsuarioInterno>();
             _selectedIndex = -1;
-            foreach (Usuario user in new Usuario().ReadAll())
+            foreach (UsuarioInterno user in new UsuarioInterno().ReadAll())
             {
                 _usuarios.Add(user);
             }
             NavigationCreateUsers = new NavigatePanelCommand<AdminClientCreateViewModel>(_frameStore, () => new AdminClientCreateViewModel(_frameStore, CurrentAccount));
-            NavigationEditUsers = new NavigatePanelCommand<AdminClientEditViewModel>(_frameStore, () => new AdminClientEditViewModel(_frameStore, new Usuario(), CurrentAccount));
+            NavigationEditUsers = new NavigatePanelCommand<AdminClientEditViewModel>(_frameStore, () => new AdminClientEditViewModel(_frameStore, new UsuarioInterno(), CurrentAccount));
 
         }
 

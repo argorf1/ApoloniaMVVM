@@ -12,9 +12,9 @@ namespace ApoloniaApp.ViewModels
     {
         private readonly FrameStore _frameStore;
         private Unidad _unidad;
-        public Usuario CurrentAccount;
+        public UsuarioInterno CurrentAccount;
 
-        public AdminUnitEditViewModel(FrameStore frameStore, Usuario currentAccount, Unidad unidad)
+        public AdminUnitEditViewModel(FrameStore frameStore, UsuarioInterno currentAccount, Unidad unidad)
         {
             _frameStore = frameStore;
             CurrentAccount = currentAccount;
