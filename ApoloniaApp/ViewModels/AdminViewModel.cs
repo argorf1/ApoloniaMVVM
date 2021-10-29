@@ -35,7 +35,7 @@ namespace ApoloniaApp.ViewModels
             _frameStore = new FrameStore();
             CurrentAccount = accountStore.CurrentAccount;
 
-            Rol rol = new Rol(CurrentAccount.IdPerfil);
+            Perfil rol = new Perfil(CurrentAccount.IdPerfil);
             LogUser += CurrentAccount.Nombres + " " + CurrentAccount.ApellidoP + "(" + rol.Detalle + ")";
             _frameStore.CurrentViewModelChanged += OnCurrentPanelChanged;
 

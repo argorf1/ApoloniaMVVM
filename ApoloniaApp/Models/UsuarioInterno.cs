@@ -20,7 +20,7 @@ namespace ApoloniaApp.Models
         public string EstadoDet { get; set; }
         public int IdPerfil { get; set; }
         public int IdEstado { get; set; }
-
+        // lista dependenci
         #endregion
         private OracleConnection conn = new OracleConnection();
         private OracleDataReader r = null;
@@ -32,28 +32,22 @@ namespace ApoloniaApp.Models
             {
                 conn = new Conexion().abrirConexion();
 
-                OracleCommand cmd = new OracleCommand("C_USUARIOS", conn);
+                OracleCommand cmd = new OracleCommand("c_usuario_interno", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("RUN1", OracleDbType.NVarchar2).Value = this.Run;
-                cmd.Parameters.Add("NOMBRES1", OracleDbType.NVarchar2).Value = this.Nombres;
-                cmd.Parameters.Add("APELLIDO1", OracleDbType.NVarchar2).Value = this.ApellidoP;
-                cmd.Parameters.Add("APELLIDO2", OracleDbType.NVarchar2).Value = this.ApellidoM;
-                cmd.Parameters.Add("EMAIL1", OracleDbType.NVarchar2).Value = this.Email;
-                cmd.Parameters.Add("PASSWORD1", OracleDbType.NVarchar2).Value = this.Password;
-                cmd.Parameters.Add("ROL1", OracleDbType.Int32).Value = this.IdPerfil;
-                cmd.Parameters.Add("ESTADO1", OracleDbType.Int32).Value = this.IdEstado;
+                cmd.Parameters.Add("i_run", OracleDbType.NVarchar2).Value = this.Run;
+                cmd.Parameters.Add("i_nombres", OracleDbType.NVarchar2).Value = this.Nombres;
+                cmd.Parameters.Add("i_apellidop", OracleDbType.NVarchar2).Value = this.ApellidoP;
+                cmd.Parameters.Add("i_apellidom", OracleDbType.NVarchar2).Value = this.ApellidoM;
+                cmd.Parameters.Add("i_email", OracleDbType.NVarchar2).Value = this.Email;
+                cmd.Parameters.Add("i_password", OracleDbType.NVarchar2).Value = this.Password;
+                cmd.Parameters.Add("i_id_perfil", OracleDbType.Int32).Value = this.IdPerfil;
+                cmd.Parameters.Add("i_estado", OracleDbType.Int32).Value = this.IdEstado;
 
-                int a = cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
+
                 conn.Close();
-                if (a > 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
+                
+                 return true;
             }
             catch (Exception e)
             {

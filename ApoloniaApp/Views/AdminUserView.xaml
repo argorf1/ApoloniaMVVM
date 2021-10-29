@@ -560,7 +560,7 @@
                         Header="NOMBRES" 
                         Width="100"
                         MinWidth="100"
-                        Binding="{Binding Nombre}"/>
+                        Binding="{Binding Nombres}"/>
                         <DataGridTextColumn 
                         Header="APE. PATERNO" 
                         Binding="{Binding ApellidoP}"/>
@@ -573,12 +573,12 @@
                         Header="PERFIL" 
                         Width="150" 
                         MinWidth="150"
-                        Binding="{Binding DescripcionRol}"/>
+                        Binding="{Binding PerfilDet}"/>
                         <DataGridTextColumn 
                         Header="ESTADO" 
                         Width="100" 
                         MinWidth="100"
-                        Binding="{Binding DescripcionEstado}"/>
+                        Binding="{Binding EstadoDet}"/>
 
                     </DataGrid.Columns>
                 </DataGrid>

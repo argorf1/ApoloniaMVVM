@@ -132,59 +132,26 @@
                 <TextBlock Grid.Row="8" Grid.Column="0"
                                Margin="0,10,0,0"
                                Text="INFORMACIÓN CUENTA DE USUARIO"/>
-
-
-                <!-- // Account Name: Label // -->
-                <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal">
-
-                    <Label x:Name="lblNewUserName" Content="Nombre de Usuario"/>
-                </StackPanel>
-
-                <!-- // Account Name: TextBox // -->
-                <StackPanel Grid.Row="10" Grid.Column="0"  Orientation="Horizontal">
-
-                    <TextBox x:Name="txtNewUserName"
-                             Text="{Binding Username}"
-                             Width="180" IsReadOnly="True"/>
-                </StackPanel>
-
                 <!-- // User Profile: Label // -->
-                <StackPanel Grid.Row="9" Grid.Column="2" Orientation="Horizontal">
+                <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal">
 
                     <Label x:Name="lblNewUserProfile" Content="Perfil de Usuario"/>
                 </StackPanel>
 
                 <!-- // User Profile: ComboBox // -->
-                <StackPanel Grid.Row="10" Grid.Column="2" Orientation="Horizontal">
+                <StackPanel Grid.Row="10" Grid.Column="0" Orientation="Horizontal">
 
-                    <ComboBox x:Name="ddlNewUserProfile" Width="180">
-
-                        <ComboBoxItem Content ="-Seleccione Perfil-"/>
-                        <ComboBoxItem Content =" Admin"/>
-                        <ComboBoxItem Content =" Diseñador de Procesos"/>
-                        <ComboBoxItem Content =" Funcionario Supervisor"/>
-                        <ComboBoxItem Content =" Funcionario"/>
-                    </ComboBox>
+                    <ComboBox x:Name="ddlNewUserProfile" 
+                              Width="180" 
+                              ItemsSource="{Binding Perfiles}"
+                              DisplayMemberPath="Detalle"
+                              SelectedValuePath="Detalle"
+                              SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
+                              SelectedValue="{Binding SelectedPerfil.Detalle}"
+                              SelectedItem="{Binding SelectedPerfil, Mode=TwoWay}"/>
                 </StackPanel>
 
                 <!-- // User Status: Label // -->
-                <StackPanel Grid.Row="9" Grid.Column="3" Orientation="Horizontal">
-
-                    <Label x:Name="lblNewUserStatus" Content="Estado Usuario"/>
-                </StackPanel>
-
-                <!-- //  User Status: ComboBox // -->
-                <StackPanel Grid.Row="10" Grid.Column="3" Orientation="Horizontal">
-
-                    <ComboBox x:Name="ddlNewUserStatus" Width="180" Height="24" 
-                                  VerticalAlignment="Top" SelectedIndex="0">
-                        <ComboBoxItem Content =" -Seleccione Estado-"/>
-                        <ComboBoxItem Content =" Activo"/>
-                        <ComboBoxItem Content =" Suspendido"/>
-                        <ComboBoxItem Content =" Desactivado"/>
-                    </ComboBox>
-                </StackPanel>
-
                 <!-- // NEW UNIT: Command Buttons // -->
                 <StackPanel Grid.Column="2" Grid.Row="11" 
                             Grid.ColumnSpan="3"
