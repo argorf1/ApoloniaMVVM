@@ -53,9 +53,18 @@
                            Visibility="Visible"/>
                 </StackPanel>
 
-                <DataGrid Grid.Column="0" Grid.Row="1" x:Name="dtgUnits" CanUserReorderColumns="False" SelectionMode="Single" 
-                          IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="auto" Margin="10,0,0,0" Height="160" 
-                          HorizontalScrollBarVisibility="Visible">
+                <DataGrid Grid.Column="0" Grid.Row="1" 
+                          x:Name="dtgUnits" 
+                          CanUserReorderColumns="False" 
+                          SelectionMode="Single" 
+                          IsReadOnly="True" 
+                          AutoGenerateColumns="False" 
+                          ColumnWidth="auto" 
+                          Margin="10,0,0,0" 
+                          Height="160" 
+                          HorizontalScrollBarVisibility="Visible" 
+                          ItemsSource="{Binding Unidades}"
+                          SelectedIndex="{Binding SelectedUnitIndex, Mode=TwoWay}">
 
                     <DataGrid.Columns>
                         <DataGridTextColumn 
@@ -75,32 +84,32 @@
                             Header="DIRECCIÓN (CALLE)" 
                             Width="100" 
                             MinWidth="100"
-                            Binding="{Binding DireccionCalle}"/>
+                            Binding="{Binding Calle}"/>
                         <DataGridTextColumn 
                             Header="NÚMERO CALLE" 
                             Width="150" 
                             MinWidth="150"
-                            Binding="{Binding DireccionNumero}"/>
+                            Binding="{Binding Numero}"/>
                         <DataGridTextColumn 
                             Header="COMPLEMENTO" 
                             Width="150" 
                             MinWidth="150"
-                            Binding="{Binding DireccionComplemento}"/>
+                            Binding="{Binding Complemento}"/>
+                        <DataGridTextColumn 
+                            Header="REGIÓN" 
+                            Width="150" 
+                            MinWidth="150"
+                            Binding="{Binding Region}"/>
+                        <DataGridTextColumn 
+                            Header="PROVINCIA" 
+                            Width="150" 
+                            MinWidth="150"
+                            Binding="{Binding Provincia}"/>
                         <DataGridTextColumn 
                             Header="COMUNA" 
-                            Width="150" 
-                            MinWidth="150"
-                            Binding="{Binding DireccionComuna}"/>
-                        <DataGridTextColumn 
-                            Header="CIUDAD" 
-                            Width="150" 
-                            MinWidth="150"
-                            Binding="{Binding DireccionCiudad}"/>
-                        <DataGridTextColumn 
-                            Header="PAÍS" 
                             Width="100" 
                             MinWidth="100"
-                            Binding="{Binding DireccionPais}"/>
+                            Binding="{Binding Comuna}"/>
 
                     </DataGrid.Columns>
 
@@ -191,7 +200,8 @@
 
                             <TextBox x:Name="txtRut" 
                                      IsReadOnly="True"
-                                     Width="150"/>
+                                     Width="150"
+                                     Text="{Binding Rut}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -221,7 +231,8 @@
 
                             <TextBox x:Name="txtCompanyName" 
                                      IsReadOnly="True"
-                                     Width="380"/>
+                                     Width="380"
+                                     Text="{Binding RazonSocial}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -251,7 +262,8 @@
 
                             <TextBox x:Name="txtMarketArea"
                                      IsReadOnly="True"
-                                     Width="280" />
+                                     Width="280" 
+                                     Text="{Binding Rubro}"/>
 
                             <Image Height="17"
                            Width="17"
@@ -321,7 +333,8 @@
 
                             <TextBox x:Name="txtAdrStreet"
                                      IsReadOnly="True"
-                                     Width="380"/>
+                                     Width="380"
+                                     Text="{Binding Calle}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -350,7 +363,8 @@
 
                             <TextBox x:Name="txtAdrNumber"
                                      IsReadOnly="True"
-                                     Width="180"/>
+                                     Width="180"
+                                     Text="{Binding Numero}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -380,7 +394,8 @@
 
                             <TextBox x:Name="txtAdrComplement"
                                      IsReadOnly="True"
-                                     Width="280"/>
+                                     Width="280"
+                                     Text="{Binding Complemento}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -410,7 +425,8 @@
 
                             <TextBox x:Name="txtCountry"
                                      IsReadOnly="True"
-                                     Width="280"/>
+                                     Width="280"
+                                     Text="{Binding Region}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -440,7 +456,8 @@
 
                             <TextBox x:Name="txtProvince"
                                      IsReadOnly="True"
-                                     Width="280"/>
+                                     Width="280"
+                                     Text="{Binding Provincia}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -469,7 +486,8 @@
 
                             <TextBox x:Name="txtTown"
                                      IsReadOnly="True"
-                                     Width="280"/>
+                                     Width="280"
+                                     Text="{Binding Comuna}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -518,7 +536,7 @@
                         </Grid.RowDefinitions>
 
                         <!-- // VIEW SECTION: Unit Contact Info: Label // -->
-                        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                        <StackPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
 
                             <Label x:Name="lblContactName" 
                                        Content="Persona de Contacto"/>
@@ -535,7 +553,8 @@
 
                             <TextBox x:Name="txtContactName"
                                      IsReadOnly="True"
-                                     Width="380"/>
+                                     Width="380"
+                                     Text="{Binding PersonaContacto}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -562,7 +581,8 @@
 
                             <TextBox x:Name="txtPhoneNumber"
                                      IsReadOnly="True"
-                                     Width="180"/>
+                                     Width="180"
+                                     Text="{Binding TelefonoContacto}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -573,7 +593,7 @@
                         </StackPanel>
 
                         <!-- // Contact Email: Label // -->
-                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
 
                             <Label x:Name="lblContactEmail" 
                                    Content="Correo Electrónico"/>
@@ -590,7 +610,8 @@
 
                             <TextBox x:Name="txtContactEmail"
                                      IsReadOnly="True"
-                                     Width="280"/>
+                                     Width="280"
+                                     Text="{Binding EmailContacto}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -637,10 +658,10 @@
                             <RowDefinition Height="10*"/>
                         </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                        <StackPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
 
                             <Label x:Name="lblResponsible" 
-                                       Content="Persona de Contacto"/>
+                                       Content="Diseñador de Procesos" Width="217"/>
 
                             <Image Width="12" Height="12"
                                    VerticalAlignment="Center"
@@ -654,7 +675,8 @@
 
                             <TextBox x:Name="txtResponsible"
                                      IsReadOnly="True"
-                                     Width="380"/>
+                                     Width="380"
+                                     Text="{Binding ResponsableNombre}"/>
 
                             <Image Height="17"
                                    Width="17"

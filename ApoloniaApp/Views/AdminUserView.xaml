@@ -548,7 +548,7 @@
                       Margin="10" Height="160"
                       HorizontalScrollBarVisibility="Visible"
                       ItemsSource="{Binding Usuarios}"
-                          SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
+                      SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
 
                     <DataGrid.Columns>
                         <DataGridTextColumn 
@@ -815,7 +815,8 @@
 
                             <TextBox Name="txtUserProfile" 
                                      Width="180" 
-                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+                                     Style="{DynamicResource TextBoxRoundedCorners}"
+                                     Text="{Binding Perfil}"/>
 
                         </StackPanel>
 
@@ -834,7 +835,8 @@
 
                             <TextBox Name="txtUserStatus" 
                                      Width="180" 
-                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+                                     Style="{DynamicResource TextBoxRoundedCorners}"
+                                     Text="{Binding Estado}"/>
                         </StackPanel>
 
                     </Grid>

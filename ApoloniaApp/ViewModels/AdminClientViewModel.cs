@@ -29,9 +29,9 @@ namespace ApoloniaApp.ViewModels
         private string _username;
 
         private readonly FrameStore _frameStore;
-        private readonly ObservableCollection<UsuarioInterno> _usuarios;
-        public IEnumerable<UsuarioInterno> Usuarios => _usuarios;
-        public UsuarioInterno CurrentAccount;
+        private readonly ObservableCollection<UsuarioInternoModel> _usuarios;
+        public IEnumerable<UsuarioInternoModel> Usuarios => _usuarios;
+        public UsuarioInternoModel CurrentAccount;
 
         #region Property
 
@@ -62,7 +62,7 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).Run;
+                    return Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).Run;
                 }
                 else
                 {
@@ -81,7 +81,7 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).Nombres;
+                    return Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).Nombres;
                 }
                 else
                 {
@@ -101,7 +101,7 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).ApellidoP;
+                    return Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).ApellidoP;
                 }
                 else
                 {
@@ -121,7 +121,7 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).ApellidoM;
+                    return Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).ApellidoM;
                 }
                 else
                 {
@@ -141,7 +141,7 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).Email;
+                    return Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).Email;
                 }
                 else
                 {
@@ -181,7 +181,7 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).IdPerfil;
+                    return Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).IdPerfil;
                 }
                 else
                 {
@@ -221,7 +221,7 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).IdEstado;
+                    return Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).IdEstado;
                 }
                 else
                 {
@@ -256,18 +256,18 @@ namespace ApoloniaApp.ViewModels
         //}
         #endregion
 
-        public AdminClientViewModel(FrameStore frameStore, UsuarioInterno currentAccount)
+        public AdminClientViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount)
         {
             _frameStore = frameStore;
             CurrentAccount = currentAccount;
-            _usuarios = new ObservableCollection<UsuarioInterno>();
+            _usuarios = new ObservableCollection<UsuarioInternoModel>();
             _selectedIndex = -1;
-            foreach (UsuarioInterno user in new UsuarioInterno().ReadAll())
+            foreach (UsuarioInternoModel user in new UsuarioInternoModel().ReadAll())
             {
                 _usuarios.Add(user);
             }
             NavigationCreateUsers = new NavigatePanelCommand<AdminClientCreateViewModel>(_frameStore, () => new AdminClientCreateViewModel(_frameStore, CurrentAccount));
-            NavigationEditUsers = new NavigatePanelCommand<AdminClientEditViewModel>(_frameStore, () => new AdminClientEditViewModel(_frameStore, new UsuarioInterno(), CurrentAccount));
+            NavigationEditUsers = new NavigatePanelCommand<AdminClientEditViewModel>(_frameStore, () => new AdminClientEditViewModel(_frameStore, new UsuarioInternoModel(), CurrentAccount));
 
         }
 

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    public class UsuarioInterno : EntityModelBase
+    public class UsuarioInternoModel : EntityModelBase
     {
         #region Atributos
         public string Run { get; set; }
@@ -20,7 +20,7 @@ namespace ApoloniaApp.Models
         public string EstadoDet { get; set; }
         public int IdPerfil { get; set; }
         public int IdEstado { get; set; }
-        // lista dependenci
+        public string NombreCompleto { get; set; }
         #endregion
         private OracleConnection conn = new OracleConnection();
         private OracleDataReader r = null;
@@ -56,10 +56,10 @@ namespace ApoloniaApp.Models
             }
         }
         #region Read
-        public List<UsuarioInterno> ReadAll()
+        public List<UsuarioInternoModel> ReadAll()
         {
 
-            List<UsuarioInterno> listaNegocio = new List<UsuarioInterno>();
+            List<UsuarioInternoModel> listaNegocio = new List<UsuarioInternoModel>();
 
             try
             {
@@ -78,7 +78,7 @@ namespace ApoloniaApp.Models
                 r = ((OracleRefCursor)o.Value).GetDataReader();
                 while (r.Read())
                 {
-                    UsuarioInterno u = new UsuarioInterno()
+                    UsuarioInternoModel u = new UsuarioInternoModel()
                     {
                         Run = r.GetString(0),
                         Nombres = r.GetString(1),
@@ -106,7 +106,49 @@ namespace ApoloniaApp.Models
 
             return listaNegocio;
         }
+        public List<UsuarioInternoModel> ReadDesigner()
+        {
 
+            List<UsuarioInternoModel> listaNegocio = new List<UsuarioInternoModel>();
+
+            try
+            {
+                conn = new Conexion().abrirConexion();
+
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "r_desginers_act";
+                cmd.CommandType = CommandType.StoredProcedure;
+                OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
+                o.Direction = ParameterDirection.Output;
+
+                cmd.ExecuteNonQuery();
+
+
+                r = ((OracleRefCursor)o.Value).GetDataReader();
+                while (r.Read())
+                {
+                    UsuarioInternoModel u = new UsuarioInternoModel()
+                    {
+                        Run = r.GetString(0),
+                        NombreCompleto = r.GetString(1)          
+                    };
+
+                    listaNegocio.Add(u);
+                }
+
+                conn.Close();
+
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return listaNegocio;
+            }
+
+
+            return listaNegocio;
+        }
         public bool Read_Login()
         {
             conn = new OracleConnection();
@@ -169,6 +211,36 @@ namespace ApoloniaApp.Models
                 return false;
             }
 
+        }
+
+        public bool Update()
+        {
+            OracleConnection conn = new OracleConnection();
+
+            try
+            {
+                conn = new Conexion().abrirConexion();
+
+                OracleCommand cmd = new OracleCommand("u_usuario_interno", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_run", OracleDbType.NVarchar2).Value = this.Run;
+                cmd.Parameters.Add("i_nombres", OracleDbType.NVarchar2).Value = this.Nombres;
+                cmd.Parameters.Add("i_apellidop", OracleDbType.NVarchar2).Value = this.ApellidoP;
+                cmd.Parameters.Add("i_apellidom", OracleDbType.NVarchar2).Value = this.ApellidoM;
+                cmd.Parameters.Add("i_email", OracleDbType.NVarchar2).Value = this.Email;
+                cmd.Parameters.Add("i_password", OracleDbType.NVarchar2).Value = this.Password;
+                cmd.Parameters.Add("i_id_perfil", OracleDbType.Int32).Value = this.IdPerfil;
+                cmd.Parameters.Add("i_estado", OracleDbType.Int32).Value = this.IdEstado;
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                return false;
+            }
         }
         #endregion
         #endregion

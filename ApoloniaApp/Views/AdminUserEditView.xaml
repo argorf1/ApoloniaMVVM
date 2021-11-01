@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="ApoloniaApp.Views.AdminUserEditView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:components="clr-namespace:PasswordBoxMVVM.Components;assembly=PasswordBoxMVVM"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ApoloniaApp.Views"
@@ -55,8 +56,9 @@
                 <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
 
                     <TextBox x:Name="txtNewRun"
-                                 Width="120"
-                                 MaxLength="9"/>
+                             Width="120"
+                             MaxLength="9"
+                             Text="{Binding Run}"/>
 
                     <Image x:Name="imgNewRun"
                                Height="17"
@@ -78,7 +80,9 @@
                 <!-- // FirstName: TextBox // -->
                 <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
 
-                    <TextBox x:Name="txtNewFirstName" Width="180"/>
+                    <TextBox x:Name="txtNewFirstName" 
+                             Width="180"
+                             Text="{Binding Nombres}"/>
                 </StackPanel>
 
                 <!-- // FaherSurname: Label // -->
@@ -91,7 +95,8 @@
                 <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
 
                     <TextBox x:Name="txtNewDadSurname"
-                         Width="180"/>
+                             Width="180"
+                             Text="{Binding ApellidoP}"/>
 
                 </StackPanel>
 
@@ -105,7 +110,8 @@
                 <StackPanel Grid.Row="2" Grid.Column="3" Orientation="Horizontal">
 
                     <TextBox x:Name="txtNewMomSurname"
-                            Width="180"/>
+                             Width="180"
+                             Text="{Binding ApellidoM}"/>
                 </StackPanel>
 
                 <!-- // E-Mail: Label // -->
@@ -118,7 +124,9 @@
                 <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
 
                     <TextBox x:Name="txtNewMail"
-                                 Width="390" VerticalAlignment="Bottom"/>
+                             Width="390" 
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Email}"/>
                 </StackPanel>
 
                 <!-- // SECTION 3:  INFORMACIÓN GENERAL  // -->
@@ -128,31 +136,37 @@
 
 
                 <!-- // Account Name: Label // -->
-                <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal">
-
-                    <Label x:Name="lblNewUserName" Content="Nombre de Usuario"/>
-                </StackPanel>
+                <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal"/>
 
                 <!-- // Account Name: TextBox // -->
-                <StackPanel Grid.Row="10" Grid.Column="0"  Orientation="Horizontal">
-
-                    <TextBox x:Name="txtNewUserName"
-                                     Width="180" IsReadOnly="True"/>
-                </StackPanel>
+                <StackPanel Grid.Row="10" Grid.Column="0"  Orientation="Horizontal"/>
 
 
                 <!-- // Password: Label // -->
-                <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal" Width="210">
+                <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal" Width="210">
 
                     <Label x:Name="lblNewPassword" Content="Contraseña"/>
                 </StackPanel>
 
                 <!-- // Password: TextBox // -->
+                <StackPanel Grid.Row="10" Grid.Column="0" Orientation="Horizontal">
+
+                    <components:BindablePasswordBox x:Name="txtNewPassword"
+                                                    Width="180"
+                                                    Password="{Binding Password}"/>
+                </StackPanel>
+                <!-- // Password: Label // -->
+                <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal" Width="210">
+
+                    <Label x:Name="lblConfirmationPassword" Content="Confirmación Contraseña"/>
+                </StackPanel>
+
+                <!-- // Password: TextBox // -->
                 <StackPanel Grid.Row="10" Grid.Column="1" Orientation="Horizontal">
 
-                    <PasswordBox x:Name="txtNewPassword" Width="180"/>
+                    <components:BindablePasswordBox x:Name="txtConfirmationPassword" Width="180"/>
                 </StackPanel>
-                
+
 
                 <!-- // User Profile: Label // -->
                 <StackPanel Grid.Row="9" Grid.Column="2" Orientation="Horizontal">
@@ -163,14 +177,15 @@
                 <!-- // User Profile: ComboBox // -->
                 <StackPanel Grid.Row="10" Grid.Column="2" Orientation="Horizontal">
 
-                    <ComboBox x:Name="ddlNewUserProfile" Width="180">
+                    <ComboBox x:Name="ddlNewUserProfile" 
+                              Width="180" 
+                              ItemsSource="{Binding Perfiles}"
+                              DisplayMemberPath="Detalle"
+                              SelectedValuePath="Detalle"
+                              SelectedIndex="{Binding SelectedPerfilIndex, Mode=TwoWay}"
+                              SelectedValue="{Binding SelectedPerfil.Detalle}"
+                              SelectedItem="{Binding SelectedPerfil, Mode=TwoWay}"/>
 
-                        <ComboBoxItem Content ="-Seleccione Perfil-"/>
-                        <ComboBoxItem Content =" Admin"/>
-                        <ComboBoxItem Content =" Diseñador de Procesos"/>
-                        <ComboBoxItem Content =" Funcionario Supervisor"/>
-                        <ComboBoxItem Content =" Funcionario"/>
-                    </ComboBox>
                 </StackPanel>
 
                 <!-- // User Status: Label // -->
@@ -182,13 +197,15 @@
                 <!-- //  User Status: ComboBox // -->
                 <StackPanel Grid.Row="10" Grid.Column="3" Orientation="Horizontal">
 
-                    <ComboBox x:Name="ddlNewUserStatus" Width="180" Height="24" 
-                                  VerticalAlignment="Top" SelectedIndex="0">
-                        <ComboBoxItem Content =" -Seleccione Estado-"/>
-                        <ComboBoxItem Content =" Activo"/>
-                        <ComboBoxItem Content =" Suspendido"/>
-                        <ComboBoxItem Content =" Desactivado"/>
-                    </ComboBox>
+                    <ComboBox x:Name="ddlNewUserStatus" 
+                              Width="180" 
+                              ItemsSource="{Binding Estados}"
+                              DisplayMemberPath="Detalle"
+                              SelectedValuePath="Detalle"
+                              SelectedIndex="{Binding SelectedEstadoIndex, Mode=TwoWay}"
+                              SelectedValue="{Binding SelectedEstado.Detalle}"
+                              SelectedItem="{Binding SelectedEstado, Mode=TwoWay}"/>
+
                 </StackPanel>
 
                 <!-- // NEW UNIT: Command Buttons // -->
@@ -202,7 +219,8 @@
                                 Content="Modificar Usuario"  Height="35" 
                                 HorizontalAlignment="Right" Margin="0,20,30,0" 
                                 VerticalContentAlignment="Center" 
-                                VerticalAlignment="Top" Width="180"/>
+                                VerticalAlignment="Top" Width="180"
+                            Command="{Binding EditUser}"/>
 
                     <Button x:Name="btnCancel"
                             Content="Cancelar"  

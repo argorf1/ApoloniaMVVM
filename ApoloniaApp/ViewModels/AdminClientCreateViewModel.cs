@@ -12,9 +12,9 @@ namespace ApoloniaApp.ViewModels
     {
         private readonly FrameStore _frameStore;
 
-        public UsuarioInterno CurrentAccount;
+        public UsuarioInternoModel CurrentAccount;
 
-        private UsuarioInterno _newUser = new UsuarioInterno()
+        private UsuarioInternoModel _newUser = new UsuarioInternoModel()
         {
 
             IdPerfil = 1,
@@ -133,13 +133,13 @@ namespace ApoloniaApp.ViewModels
         //    }
         //}
         #endregion
-        public AdminClientCreateViewModel(FrameStore frameStore, UsuarioInterno currentAccount)
+        public AdminClientCreateViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount)
         {
             _frameStore = frameStore;
             CurrentAccount = currentAccount;
 
             NavigationUsers = new NavigatePanelCommand<AdminClientViewModel>(_frameStore, () => new AdminClientViewModel(_frameStore, CurrentAccount));
-            CreateUser = new CreateCommand<AdminClientViewModel,UsuarioInterno>(() => _newUser.Create(), () => new AdminClientViewModel(_frameStore, CurrentAccount), _frameStore,()=>_newUser.ReadByRun(),_newUser);
+            CreateUser = new CRUDCommand<AdminClientViewModel,UsuarioInternoModel>(() => _newUser.Create(), () => new AdminClientViewModel(_frameStore, CurrentAccount), _frameStore,()=>_newUser.ReadByRun(),_newUser);
         }
 
         public ICommand NavigationUsers { get; }

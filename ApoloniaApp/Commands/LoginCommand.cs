@@ -23,7 +23,7 @@ namespace ApoloniaApp.Commands
 
         public override void Execute(object parameter)
         {
-            UsuarioInterno acc = new UsuarioInterno()
+            UsuarioInternoModel acc = new UsuarioInternoModel()
             {
                 Run = _viewModel.Username,
                 Password = _viewModel.Password

@@ -7,26 +7,16 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    public class Perfil
+    class EstadoModel
     {
-
         public int Id { get; set; }
         public string Detalle { get; set; }
 
-        public Perfil()
-        {
-        }
 
-        public Perfil(int id)
-        {
-            Id = id;
-            ReadById(); 
-        }
-
-        public List<Perfil> ReadAll()
+        public List<EstadoModel> ReadAll()
         {
 
-            List<Perfil> listaNegocio = new List<Perfil>();
+            List<EstadoModel> listaNegocio = new List<EstadoModel>();
 
             OracleConnection conn = new OracleConnection();
             try
@@ -35,7 +25,7 @@ namespace ApoloniaApp.Models
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "R_PERFIL_USUARIOS_ALL";
+                cmd.CommandText = "R_ESTADO_USUARIOS_ALL";
                 cmd.CommandType = CommandType.StoredProcedure;
                 OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
                 o.Direction = ParameterDirection.Output;
@@ -46,12 +36,12 @@ namespace ApoloniaApp.Models
                 OracleDataReader r = ((OracleRefCursor)o.Value).GetDataReader();
                 while (r.Read())
                 {
-                    Perfil rol = new Perfil()
+                    EstadoModel e = new EstadoModel()
                     {
                         Detalle = r.GetString(0),
                         Id = r.GetInt32(1)
                     };
-                    listaNegocio.Add(rol);
+                    listaNegocio.Add(e);
                 }
 
                 conn.Close();
@@ -65,34 +55,5 @@ namespace ApoloniaApp.Models
             return listaNegocio;
         }
 
-        public void ReadById()
-        {
-            OracleConnection conn = new OracleConnection();
-            try
-            {
-                conn = new Conexion().abrirConexion();
-                OracleCommand cmd = new OracleCommand("select nombre from Rol where ID = :id", conn);
-                cmd.Parameters.Add(":id", OracleDbType.NVarchar2).Value = this.Id;
-                OracleDataReader r = cmd.ExecuteReader();
-
-                if (r.Read())
-                {
-                    this.Detalle = r.GetString(0);
-                    conn.Close();
-                    return;
-                }
-                else
-                {
-                    conn.Close();
-                    return;
-                }
-            }
-            catch (Exception)
-            {
-                conn.Close();
-                return;
-            }
-
-        }
     }
 }

@@ -16,7 +16,7 @@ namespace ApoloniaApp.ViewModels
         private readonly FrameStore _frameStore;
         
         public  ViewModelBase CurrentViewModel => _frameStore.CurrentViewModel;
-        public UsuarioInterno CurrentAccount;
+        public UsuarioInternoModel CurrentAccount;
 
         private string _logUser;
         public string LogUser
@@ -35,7 +35,7 @@ namespace ApoloniaApp.ViewModels
             _frameStore = new FrameStore();
             CurrentAccount = accountStore.CurrentAccount;
 
-            Perfil rol = new Perfil(CurrentAccount.IdPerfil);
+            PerfilModel rol = new PerfilModel(CurrentAccount.IdPerfil);
             LogUser += CurrentAccount.Nombres + " " + CurrentAccount.ApellidoP + "(" + rol.Detalle + ")";
             _frameStore.CurrentViewModelChanged += OnCurrentPanelChanged;
 
