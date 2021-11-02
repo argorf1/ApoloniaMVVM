@@ -434,7 +434,7 @@
                               SelectedValue="{Binding SelectedResponsable.NombreCompleto}"
                               SelectedItem="{Binding SelectedResponsable, Mode=TwoWay}"/>
                 </StackPanel>
-                <TextBlock Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="3"
+                <!--<TextBlock Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="3"
                            Text="SUBUNIDADES"
                            Margin="0,15,0,5"/>
                 <DataGrid Grid.Column="1" Grid.Row="18" Grid.ColumnSpan="3" Grid.RowSpan="3" x:Name="dtgSubUnits" SelectionMode="Single" Height="160"
@@ -451,7 +451,7 @@
                                             Binding="{Binding Add}"
                                             IsReadOnly="{Binding IsSetted}"/>
                     </DataGrid.Columns>
-                </DataGrid>
+                </DataGrid>-->
                 <!-- // NEW UNIT: Command Buttons // -->
                 <StackPanel Grid.Row="21" Grid.Column="6" Grid.ColumnSpan="4" Width="390" Orientation="Horizontal" HorizontalAlignment="Left">
 
@@ -462,7 +462,8 @@
                             Margin="0,20,25,0" 
                             HorizontalAlignment="Right"
                             VerticalContentAlignment="Center" 
-                            VerticalAlignment="Top"/>
+                            VerticalAlignment="Top"
+                            Command="{Binding CreateUnit}"/>
 
                     <Button x:Name="btnCancel" 
                             Content="Cancelar"
