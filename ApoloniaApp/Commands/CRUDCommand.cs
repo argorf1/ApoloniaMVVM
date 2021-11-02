@@ -57,7 +57,15 @@ namespace ApoloniaApp.Commands
 
                     if (!_checkModel())
                     {
-                        
+                        if (_createModel())
+                        {
+                            MessageBox.Show("Actualización de " + _model.GetType().Name + " realizada con exito");
+                            _frameStore.CurrentViewModel = _viewModel();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Fallo de Conexión con la Base de Datos");
+                        }
                     }
                     else
                     {

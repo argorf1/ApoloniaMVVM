@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    class UnidadModel : EntityModelBase
+    public class UnidadModel : EntityModelBase
     {
         #region Atributos
         #region Unidad
@@ -30,7 +30,6 @@ namespace ApoloniaApp.Models
         public string Comuna { get; set; }
         public int ComunaId { get; set; }
         #endregion
-        public List<SubUnidadModel> SubUnidadesTipo { get; set; }
         #region Detalle
         public string Rubro { get; set; }
         public string ResponsableNombre { get; set; }
@@ -42,10 +41,7 @@ namespace ApoloniaApp.Models
         OracleDataReader r = null;
         #region CRUD
 
-        public UnidadModel()
-        {
-            SubUnidadesTipo = new List<SubUnidadModel>();
-        }
+
 
         public bool Create()
         {
@@ -53,7 +49,7 @@ namespace ApoloniaApp.Models
             {
                 conn = new Conexion().abrirConexion();
 
-                OracleCommand cmd = new OracleCommand("c_usuario_interno", conn);
+                OracleCommand cmd = new OracleCommand("c_unidad");
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("i_rut", OracleDbType.NVarchar2).Value = this.Rut;
                 cmd.Parameters.Add("i_razon_social", OracleDbType.NVarchar2).Value = this.RazonSocial;
@@ -138,6 +134,34 @@ namespace ApoloniaApp.Models
 
 
             return listaNegocio;
+        }
+
+        public bool ReadByRut()
+        {
+            try
+            {
+                conn = new Conexion().abrirConexion();
+                OracleCommand cmd = new OracleCommand("select * from unidades where RUT = :rut", conn);
+                cmd.Parameters.Add(":rut", OracleDbType.NVarchar2).Value = this.Rut;
+                r = cmd.ExecuteReader();
+
+                if (r.Read())
+                {
+                    conn.Close();
+                    return true;
+                }
+                else
+                {
+                    conn.Close();
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                conn.Close();
+                return false;
+            }
+
         }
         #endregion
 

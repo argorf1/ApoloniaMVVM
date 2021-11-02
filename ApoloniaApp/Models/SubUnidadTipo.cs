@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    class SubUnidadTipo
+    public class SubUnidadTipo
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

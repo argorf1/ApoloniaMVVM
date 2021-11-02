@@ -43,9 +43,9 @@ namespace ApoloniaApp.ViewModels
         private UsuarioInternoModel _selectedResponsable;
         private int _selectedReponsableIndex;
 
-        private readonly ObservableCollection<SubUnidadTipo> _subUnidadTipo;
-        public IEnumerable<SubUnidadTipo> SubUnidadTipo => _subUnidadTipo;
-        private SubUnidadTipo _selectedSubUnidad;
+        //private readonly ObservableCollection<SubUnidadTipo> _subUnidadTipo;
+        //public IEnumerable<SubUnidadTipo> SubUnidadTipo => _subUnidadTipo;
+        //private SubUnidadTipo _selectedSubUnidad;
         #endregion
 
         #region Propiedades
@@ -69,7 +69,7 @@ namespace ApoloniaApp.ViewModels
             }
             set
             {
-                _createUnit.Rut = value;
+                _createUnit.RazonSocial = value;
                 OnPropertyChanged("RazonSocial");
             }
         }
@@ -286,33 +286,6 @@ namespace ApoloniaApp.ViewModels
                 OnPropertyChanged("SelectedResponsable");
             }
         }
-        public SubUnidadTipo SelectedSubUnidad
-        {
-            get { return _selectedSubUnidad; }
-            set
-            {
-                _selectedSubUnidad = value;
-                if (_selectedSubUnidad.Add)
-                {
-                    SubUnidadModel s = new SubUnidadModel()
-                    {
-                        Nombre = _selectedSubUnidad.Nombre,
-                        Descripcion = _selectedSubUnidad.Descripcion,
-                        RutUnidad = _createUnit.Rut
-                    };
-                    if (_selectedSubUnidad.Id != 1)
-                    {
-                        s.SubUnidadPadre = 1;
-                    }
-                    _createUnit.SubUnidadesTipo.Add(s);
-                }
-                else
-                {
-                    _createUnit.SubUnidadesTipo.RemoveAll(s => s.Nombre == _selectedSubUnidad.Nombre);
-                }
-                OnPropertyChanged("SelectedSubUnidad");
-            }
-        }
         #endregion
 
         public AdminUnitCreateViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount)
@@ -322,7 +295,7 @@ namespace ApoloniaApp.ViewModels
 
             #region Listas
             _rubros = new ObservableCollection<RubroModel>();
-            _rubros.Add(new RubroModel() { Id = 0, Detalle = "--Seleccione--" });
+            _rubros.Add(new RubroModel() { Id = 0, Detalle = "--Seleccionar--" });
             foreach (RubroModel r in new RubroModel().ReadAll())
             {
                 _rubros.Add(r);
@@ -349,16 +322,16 @@ namespace ApoloniaApp.ViewModels
                 _comunas.Add(c);
             }
 
-            _subUnidadTipo = new ObservableCollection<SubUnidadTipo>();
-            foreach (SubUnidadTipo s in new SubUnidadTipo().ReadAll())
-            {
-                if (s.Id == 1)
-                {
-                    s.Add = true;
-                    s.Editable = false;
-                }
-                _subUnidadTipo.Add(s);
-            }
+            //_subUnidadTipo = new ObservableCollection<SubUnidadTipo>();
+            //foreach (SubUnidadTipo s in new SubUnidadTipo().ReadAll())
+            //{
+            //    if (s.Id == 1)
+            //    {
+            //        s.Add = true;
+            //        s.Editable = false;
+            //    }
+            //    _subUnidadTipo.Add(s);
+            //}
 
             _responsables = new ObservableCollection<UsuarioInternoModel>();
             _responsables.Add(new UsuarioInternoModel() {NombreCompleto = "-- Seleccionar --" });
@@ -374,14 +347,18 @@ namespace ApoloniaApp.ViewModels
             SelectedRegion = _regiones.ElementAt(SelectedRegionIndex);
             SelectedProvincia = Provincias.ElementAt(SelectedProvinciaIndex);
             SelectedComuna = Comunas.ElementAt(SelectedComunaIndex);
-            SelectedSubUnidad = _subUnidadTipo.ElementAt(0);
+            //SelectedSubUnidad = _subUnidadTipo.ElementAt(0);
             SelectedResponsable = _responsables.ElementAt(0);
             #endregion
+
+            #region Buttons
             NavigationUnit = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore, CurrentAccount));
+            CreateUnit = new CRUDCommand<AdminUserViewModel, UnidadModel>(() => _createUnit.Create(), () => new AdminUserViewModel(_frameStore, CurrentAccount), _frameStore, () => _createUnit.ReadByRut(), _createUnit);
+            #endregion
         }
 
         public ICommand NavigationUnit { get; }
         
-        public ICommand CreatUnit { get; }
+        public ICommand CreateUnit { get; }
     }
 }
