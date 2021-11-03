@@ -10,17 +10,19 @@ using Oracle.ManagedDataAccess.Client;
 namespace ApoloniaApp.Test
 {
     [TestFixture]
-    public class SubUnidadModelTest
-
+    public class EstadoModelTest
     {
         [Test]
-        public void 
+        public void ReadAll()
+        {
+            EstadoModel e = new EstadoModel()
             {
-            Id = 0,
-            Nombre = "",
-            Descripcion = "",
-            SubUnidadPadre= ,
-            RutUnidad =""
+                Detalle = "Activo",
+                Id = 1
             };
+
+            List<EstadoModel> response = e.ReadAll();
+            Assert.AreEqual(false, response);
+        }
     }
 }

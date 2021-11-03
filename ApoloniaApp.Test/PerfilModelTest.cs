@@ -10,17 +10,20 @@ using Oracle.ManagedDataAccess.Client;
 namespace ApoloniaApp.Test
 {
     [TestFixture]
-    public class SubUnidadModelTest
-
+    public class PerfilModelTest
     {
         [Test]
-        public void 
+        public void ReadAll()
+        {
+            PerfilModel u = new PerfilModel()
             {
-            Id = 0,
-            Nombre = "",
-            Descripcion = "",
-            SubUnidadPadre= ,
-            RutUnidad =""
+                Detalle = "Diseñador",
+                Id = 2
             };
+
+            List<PerfilModel> response = u.ReadAll();
+            Assert.AreEqual(false, response);
+        }
+            
     }
 }

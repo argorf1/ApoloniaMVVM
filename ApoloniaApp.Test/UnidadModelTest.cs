@@ -19,17 +19,17 @@ namespace ApoloniaApp.Test
             var UnidadModel = new UnidadModel();
             UnidadModel u = new UnidadModel()
             {
-                Rut = "",
-                RazonSocial = " ",
-                RubroId = "",
-                Calle = "",
-                Numero = "",
+                Rut = "96.575.280-3",
+                RazonSocial = "Natura cosméticos ",
+                RubroId = 0,
+                Calle = "Av. Padre Hurtado Sur",
+                Numero = "875",
                 Complemento = "",
-                ComunaId = "",
-                PersonaContacto = "",
-                TelefonoContacto = "",
-                EmailContacto = "",
-                ResponsableRun = ""
+                ComunaId = 13114,
+                PersonaContacto = "Pia Fernandez",
+                TelefonoContacto = 22343454,
+                EmailContacto = "pfernandez@natura.cl",
+                ResponsableRun = "100787989"
             };
 
             bool result = u.Create();
@@ -42,34 +42,28 @@ namespace ApoloniaApp.Test
         {
             UnidadModel u = new UnidadModel()
             {
-                Rut = "",
-                RazonSocial = "",
-                Rubro = "",
-                Calle = "",
-                Numero = "",
+                Rut = "760254940",
+                RazonSocial = "Rotter & Krauss",
+                Rubro = "Industria Manufacturera",
+                Calle = "Nueva Tobalaba",
+                Numero = "12",
                 Complemento = "",
-                Region = "",
-                Provincia = " ",
-                Comuna = "",
-                PersonaContacto = "",
-                TelefonoContacto = "",
-                EmailContacto = "",
-                ResponsableRun = "",
-                ResponsableNombre = "",
-                Estado = "",
-                EstadoId = 0,
-                DireccionId = 0
+                Region = "Región Metropolitana",
+                Provincia = "Santiago",
+                Comuna = "Providencia",
+                PersonaContacto = "Lorena Alvarez",
+                TelefonoContacto = 25716260,
+                EmailContacto = "lalvarez@Rotter&Krauss.cl",
+                ResponsableRun = "10712019K",
+                ResponsableNombre = "Ivan Nikoi",
+                Estado = "Activa",
+                EstadoId = 1,
+                DireccionId = 18
             };
 
             List<UnidadModel> response = u.ReadAll();
             Assert.AreEqual(false, response);
         }
-
-
-
-
-
-
 
     }
 }

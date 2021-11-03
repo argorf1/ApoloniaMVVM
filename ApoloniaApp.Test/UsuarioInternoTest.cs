@@ -34,7 +34,8 @@ namespace ApoloniaApp.Test
             };
 
             bool result = u.Create();
-            Assert.That(result, Is.True);
+
+            Assert.AreEqual(false, result);
         }
 
         [Test]
@@ -49,13 +50,26 @@ namespace ApoloniaApp.Test
                 ApellidoM = "Prohens",
                 Email = "vero.c87@gmail.com",
                 EstadoDet = "Activo",
-                PerfilDet = "Desarrollador",
+                PerfilDet = "Administrador",
                 IdPerfil = 1,
                 IdEstado = 1
 
             };
 
             List<UsuarioInternoModel> response = u.ReadAll();
+
+            Assert.AreEqual(false, response);
+        }
+
+        [Test]
+        public void ReadDesignerTest()
+        {
+            UsuarioInternoModel u = new UsuarioInternoModel()
+            {
+                Run = "122972569",
+                NombreCompleto = "Andres Moya Guerra"
+            };
+            List<UsuarioInternoModel> response = u.ReadDesigner();
             Assert.AreEqual(false, response);
         }
 
@@ -64,12 +78,12 @@ namespace ApoloniaApp.Test
         {
             UsuarioInternoModel u = new UsuarioInternoModel()
             {
-                Nombres = "",
-                ApellidoP = "",
-                ApellidoM = "",
-                Email = "",
-                IdPerfil = 0,
-                Password = ""
+                Nombres = "Veronica",
+                ApellidoP = "Chelen",
+                ApellidoM = "Prohens",
+                Email = "vchelen@process.cl",
+                IdPerfil = 1,
+                Password = "12345678"
             };
 
             bool response = u.Read_Login();
@@ -77,6 +91,13 @@ namespace ApoloniaApp.Test
         }
               
        
+        [Test]
+        public void ReadByRunTest()
+        {
+
+        }
+
+
         [Test]
         public void Update()
         {
@@ -86,13 +107,13 @@ namespace ApoloniaApp.Test
                 Nombres = "Veronica",
                 ApellidoP = "Prohens",
                 ApellidoM = "Soissa",
-                Email = "vprohens@process.cl",
-                Password = "12345678",
-                IdPerfil = 1,
-                IdEstado = 1
+                Email = "veronicap@process.cl",
+                Password = "1234",
+                IdPerfil = 2,
+                IdEstado = 2
             };
             bool result = u.Update();
-            Assert.That(result, Is.True);
+            Assert.AreEqual(false, result);
         }
 
     }

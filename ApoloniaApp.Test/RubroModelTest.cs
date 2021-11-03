@@ -18,8 +18,8 @@ namespace ApoloniaApp.Test
 
             RubroModel rubro = new RubroModel()
             {
-                Detalle = "",
-                Id = 0
+                Detalle = "Construcción",
+                Id = 11113
             };
 
             List<RubroModel> response = rubro.ReadAll();

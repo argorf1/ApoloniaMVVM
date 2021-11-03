@@ -10,17 +10,12 @@ using Oracle.ManagedDataAccess.Client;
 namespace ApoloniaApp.Test
 {
     [TestFixture]
-    public class SubUnidadModelTest
-
+    public class ProvinciaModelTest
     {
         [Test]
-        public void 
-            {
-            Id = 0,
-            Nombre = "",
-            Descripcion = "",
-            SubUnidadPadre= ,
-            RutUnidad =""
-            };
+        public void ReadAll()
+        {
+
+        }
     }
 }
