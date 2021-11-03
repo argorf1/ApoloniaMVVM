@@ -15,9 +15,8 @@
                        Visibility="Visible"
                        Margin="0,0,10,0"/>
 
-                <TextBlock x:Name="txtbNuevaUnidad" 
-                           Text="Nueva Unidad"
-                           Margin="0,10,0,10"/>
+                <TextBlock x:Name="txtbNuevaUnidad"
+                           Margin="0,10,0,10"><Run Language="es-mx" Text="Modificar"/><Run Text=" Unidad"/></TextBlock>
 
             </StackPanel>
 
@@ -85,7 +84,8 @@
 
                     <TextBox x:Name="txtNewRut"
                              Width="150" 
-                             MaxLength="9"/>
+                             MaxLength="9"
+                             Text="{Binding Rut}"/>
 
                     <Image x:Name="imgNewRut"
                            Height="17"
@@ -115,7 +115,8 @@
                 <StackPanel Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="4" Orientation="Horizontal">
 
                     <TextBox x:Name="txtNewCompanyName" 
-                             Width="385"/>
+                             Width="385"
+                             Text="{Binding RazonSocial}"/>
 
                     <Image x:Name="imgNewCompanyName"
                            Height="17"
@@ -148,35 +149,14 @@
                                  Visibility="Collapsed"
                                  Width="280"/>
 
-                    <ComboBox x:Name="ddlNewMarketArea" SelectedIndex="0" Width="280">
-
-                        <ComboBoxItem Content="- Seleccione Rubro -"/>
-                        <ComboBoxItem Content="ACTIVIDADES ARTÍSTICAS DE ENTRETENIMIENTO Y RECREATIVAS"/>
-                        <ComboBoxItem Content="ACTIVIDADES DE ALOJAMIENTO Y DE SERVICIO DE COMIDAS"/>
-                        <ComboBoxItem Content="ACTIVIDADES DE ATENCIÓN DE LA SALUD HUMANA Y DE ASISTENCIA SOCIAL"/>
-                        <ComboBoxItem Content="ACTIVIDADES DE LOS HOGARES COMO EMPLEADORES"/>
-                        <ComboBoxItem Content="ACTIVIDADES DE ORGANIZACIONES Y ÓRGANOS EXTRATERRITORIALES"/>
-                        <ComboBoxItem Content="ACTIVIDADES DE SERVICIOS ADMINISTRATIVOS Y DE APOYO"/>
-                        <ComboBoxItem Content="ACTIVIDADES FINANCIERAS Y DE SEGUROS"/>
-                        <ComboBoxItem Content="ACTIVIDADES INMOBILIARIAS"/>
-                        <ComboBoxItem Content="ACTIVIDADES NO DIFERENCIADAS DE LOS HOGARES "/>
-                        <ComboBoxItem Content="ACTIVIDADES PROFESIONALES, CIENTIFICAS Y TÉCNICAS"/>
-                        <ComboBoxItem Content="ADMINISTRACIÓN PÚBLICA Y DEFENSA"/>
-                        <ComboBoxItem Content="AGRICULTURA, GANADERÍA, SILVICULTURA Y PESCA"/>
-                        <ComboBoxItem Content="COMERCIO AL POR MAYOR Y AL POR MENOR"/>
-                        <ComboBoxItem Content="CONSTRUCCIÓN"/>
-                        <ComboBoxItem Content="ENSEÑANZA"/>
-                        <ComboBoxItem Content="EVACUACIÓN DE AGUAS RESIDUALES, GESTIÓN DE DESECHOS Y DESCONTAMINACIÓN"/>
-                        <ComboBoxItem Content="EXPLOTACIÓN DE MINAS Y CANTERAS"/>
-                        <ComboBoxItem Content="INDUSTRIA MANUFACTURERA"/>
-                        <ComboBoxItem Content="INFORMACIÓN Y COMUNICACIONES"/>
-                        <ComboBoxItem Content="OTRAS ACTIVIDADES DE SERVICIOS"/>
-                        <ComboBoxItem Content="PLANES DE SEGURIDAD SOCIAL DE AFILIACIÓN OBLIGATORIA"/>
-                        <ComboBoxItem Content="REPARACIÓN DE VEHICULOS AUTOMOTORES Y MOTOCICLETAS"/>
-                        <ComboBoxItem Content="SUMINISTRO DE AGUA"/>
-                        <ComboBoxItem Content="SUMINISTRO DE ELECTRICIDAD, GAS, VAPOR Y AIRE ACONDICIONADO"/>
-                        <ComboBoxItem Content="TRANSPORTE Y ALMACENAMIENTO"/>
-                    </ComboBox>
+                    <ComboBox x:Name="ddlNewMarketArea" 
+                              Width="280"
+                               ItemsSource="{Binding Rubros}"
+                              DisplayMemberPath="Detalle"
+                              SelectedValuePath="Detalle"
+                              SelectedIndex="{Binding SelectedRubroIndex, Mode=TwoWay}"
+                              SelectedValue="{Binding SelectedRubro.Detalle}"
+                              SelectedItem="{Binding SelectedRubro, Mode=TwoWay}"/>
 
                     <Image x:Name="imgNewMarketArea"
                            Height="17"
@@ -213,7 +193,8 @@
                 <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="4" Orientation="Horizontal">
 
                     <TextBox x:Name="txtNewAdrStreet"
-                             Width="380"/>
+                             Width="380"
+                             Text="{Binding Calle}"/>
 
                     <Image x:Name="imgNewAdrStreet" 
                            Height="17"  Width="17"
@@ -240,7 +221,8 @@
                 <StackPanel Grid.Row="6"  Grid.Column="5" Grid.ColumnSpan="2" Orientation="Horizontal" >
 
                     <TextBox x:Name="txtNewAdrNumber"
-                             Width="175"/>
+                             Width="175"
+                             Text="{Binding Numero}"/>
 
                     <Image x:Name="imgNewAdrNumber"
                            Height="17" Width="17"
@@ -267,7 +249,8 @@
                 <StackPanel Grid.Row="6" Grid.Column="7" Grid.ColumnSpan="3" Orientation="Horizontal">
 
                     <TextBox x:Name="txtNewAdrComplement"
-                             Width="280"/>
+                             Width="280"
+                             Text="{Binding Complemento}"/>
 
                     <Image x:Name="imgNewAdrComplement"
                            Height="17" Width="17"
@@ -295,7 +278,13 @@
                 <StackPanel Grid.Column="7" Grid.Row="8" Grid.ColumnSpan="3" Orientation="Horizontal">
 
                     <ComboBox x:Name="ddlNewTown" 
-                              Width="280"/>
+                              Width="280"
+                              ItemsSource="{Binding Comunas}"
+                              DisplayMemberPath="Detalle"
+                              SelectedValuePath="Detalle"
+                              SelectedIndex="{Binding SelectedComunaIndex, Mode=TwoWay}"
+                              SelectedValue="{Binding SelectedComuna.Detalle}"
+                              SelectedItem="{Binding SelectedComuna, Mode=TwoWay}"/>
 
                     <Image x:Name="imgNewTown" 
                            Height="17" Width="17"
@@ -322,7 +311,13 @@
                 <StackPanel Grid.Column="4" Grid.Row="8" Grid.ColumnSpan="3" Orientation="Horizontal">
 
                     <ComboBox x:Name="ddlNewProvince"
-                              Width="280"/>
+                              Width="280"
+                              ItemsSource="{Binding Provincias, Mode=TwoWay}"
+                              DisplayMemberPath="Detalle"
+                              SelectedValuePath="Detalle"
+                              SelectedIndex="{Binding SelectedProvinciaIndex, Mode=TwoWay}"
+                              SelectedValue="{Binding SelectedProvincia.Detalle}"
+                              SelectedItem="{Binding SelectedProvincia, Mode=TwoWay}"/>
 
                     <Image x:Name="imgNewProvince" 
                            Height="17" Width="17"
@@ -349,8 +344,13 @@
                 <StackPanel Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="3" Orientation="Horizontal" >
 
                     <ComboBox x:Name="ddlNewRegion"
-                              SelectedIndex="0"
-                              Width="280"/>
+                              Width="280"
+                               ItemsSource="{Binding Regiones}"
+                              DisplayMemberPath="Detalle"
+                              SelectedValuePath="Detalle"
+                              SelectedIndex="{Binding SelectedRegionIndex, Mode=TwoWay}"
+                              SelectedValue="{Binding SelectedRegion.Detalle}"
+                              SelectedItem="{Binding SelectedRegion, Mode=TwoWay}"/>
 
 
                     <Image Height="17" Width="17"
@@ -382,7 +382,8 @@
                 </StackPanel>
                 <StackPanel Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="4" Orientation="Horizontal">
                     <TextBox x:Name="txtContactName"
-                             Width="380"/>
+                             Width="380"
+                             Text="{Binding PersonaContacto}"/>
                 </StackPanel>
                 <!--Phone Number-->
                 <StackPanel Grid.Row="10" Grid.Column="5">
@@ -392,7 +393,8 @@
                 <StackPanel Grid.Row="11"  Grid.Column="5" Grid.ColumnSpan="2" Orientation="Horizontal" >
 
                     <TextBox x:Name="txtPhoneNumber"
-                             Width="175"/>
+                             Width="175"
+                             Text="{Binding TelefonoContacto}"/>
 
                     <Image Height="17" Width="17"
                            Margin="5,0,0,0"
@@ -408,7 +410,8 @@
                 </StackPanel>
                 <StackPanel Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="4" Orientation="Horizontal">
                     <TextBox x:Name="txtContactEmail"
-                             Width="380"/>
+                             Width="380"
+                             Text="{Binding EmailContacto}"/>
                 </StackPanel>
                 <!-- // NEW UNIT: SECTION 4 - RESPONSABLE DE CUENTA// -->
                 <TextBlock Grid.Row="14" 
@@ -422,38 +425,57 @@
                 </StackPanel>
                 <StackPanel Grid.Row="16" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,10,0,0" HorizontalAlignment="Left">
                     <ComboBox x:Name="ddlDesigner"
-                              SelectedIndex="0"
-                              Width="280"/>
+                              Width="280"
+                              ItemsSource="{Binding Responsables}"
+                              DisplayMemberPath="NombreCompleto"
+                              SelectedValuePath="NombreCompleto"
+                              SelectedIndex="{Binding SelectedResponsableIndex, Mode=TwoWay}"
+                              SelectedValue="{Binding SelectedResponsable.NombreCompleto}"
+                              SelectedItem="{Binding SelectedResponsable, Mode=TwoWay}"/>
                 </StackPanel>
-                <TextBlock Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="3"
+                <StackPanel Grid.Row="15" Grid.Column="6" Grid.ColumnSpan="2">
+                    <Label Name="lblEstado"
+                           Content="Estado Unidad"/>
+                </StackPanel>
+                <StackPanel Grid.Row="16" Grid.Column="6" Grid.ColumnSpan="3" Margin="0,10,0,0" HorizontalAlignment="Left">
+                    <ComboBox x:Name="ddlEstado"
+                              Width="280"
+                              ItemsSource="{Binding Estados}"
+                              DisplayMemberPath="Detalle"
+                              SelectedValuePath="Detalle"
+                              SelectedValue="{Binding SelectedEstado.Detalle}"
+                              SelectedItem="{Binding SelectedEstado, Mode=TwoWay}"/>
+                </StackPanel>
+                <!--<TextBlock Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="3"
                            Text="SUBUNIDADES"
                            Margin="0,15,0,5"/>
-                <DataGrid Grid.Column="1" Grid.Row="18" Grid.ColumnSpan="3" Grid.RowSpan="3" x:Name="dtgSubUnits" SelectionMode="Single"
-                              AutoGenerateColumns="False" ColumnWidth="auto" Margin="0,10,0,0" HorizontalScrollBarVisibility="Visible" ItemsSource="{Binding SubUnits}">
+                <DataGrid Grid.Column="1" Grid.Row="18" Grid.ColumnSpan="3" Grid.RowSpan="3" x:Name="dtgSubUnits" SelectionMode="Single" Height="160"
+                              AutoGenerateColumns="False" ColumnWidth="auto" Margin="0,10,0,0" HorizontalScrollBarVisibility="Visible" ItemsSource="{Binding SubUnidadTipo}" SelectedItem="{Binding SelectedSubUnidad}">
                     <DataGrid.Columns>
                         <DataGridTextColumn 
                                             Header="NOMBRE" 
                                             Binding="{Binding Nombre}"/>
                         <DataGridTextColumn 
                                             Header="Descripción" 
-                                            Binding="{Binding Descripcion}"/>
+                                            Binding="{Binding Descripcions}"/>
                         <DataGridCheckBoxColumn 
                                             Header="Añadir"
                                             Binding="{Binding Add}"
                                             IsReadOnly="{Binding IsSetted}"/>
                     </DataGrid.Columns>
-                </DataGrid>
+                </DataGrid>-->
                 <!-- // NEW UNIT: Command Buttons // -->
                 <StackPanel Grid.Row="21" Grid.Column="6" Grid.ColumnSpan="4" Width="390" Orientation="Horizontal" HorizontalAlignment="Left">
 
                     <Button x:Name="btnCreateUnit" 
-                            Content="Crear Unidad"
+                            Content="Modificar Unidad"
                             Height="35" 
                             Width="180"
                             Margin="0,20,25,0" 
                             HorizontalAlignment="Right"
                             VerticalContentAlignment="Center" 
-                            VerticalAlignment="Top"/>
+                            VerticalAlignment="Top"
+                            Command="{Binding EditUnit}"/>
 
                     <Button x:Name="btnCancel" 
                             Content="Cancelar"

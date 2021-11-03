@@ -80,7 +80,7 @@
                 <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
 
                     <TextBox x:Name="txtNewFirstName"
-                             Text="{Binding Nombre}"
+                             Text="{Binding Nombres}"
                              Width="180"/>
                 </StackPanel>
 

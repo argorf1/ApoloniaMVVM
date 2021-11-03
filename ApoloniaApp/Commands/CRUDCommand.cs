@@ -59,7 +59,7 @@ namespace ApoloniaApp.Commands
                     {
                         if (_createModel())
                         {
-                            MessageBox.Show("Actualización de " + _model.GetType().Name + " realizada con exito");
+                            MessageBox.Show("Creación de " + _model.GetType().Name + " realizada con exito");
                             _frameStore.CurrentViewModel = _viewModel();
                         }
                         else

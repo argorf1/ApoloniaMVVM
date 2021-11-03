@@ -64,14 +64,15 @@
                           Height="160" 
                           HorizontalScrollBarVisibility="Visible" 
                           ItemsSource="{Binding Unidades}"
-                          SelectedIndex="{Binding SelectedUnitIndex, Mode=TwoWay}">
+                          SelectedIndex="{Binding SelectedUnitIndex, Mode=TwoWay}"
+                          SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}">
 
                     <DataGrid.Columns>
                         <DataGridTextColumn 
                             Header="RUT" 
                             Width="70"
                             MinWidth="70"
-                            Binding="{Binding Rut}"/>
+                            Binding="{Binding Rut,Mode=OneWay}"/>
                         <DataGridTextColumn 
                             Header="RAZÓN SOCIAL" 
                             Width="100"
@@ -766,8 +767,19 @@
 
                         <!-- // DataGrid Employees // -->
 
-                        <DataGrid Grid.Column="0" Grid.Row="1" x:Name="dtgSubUnits" CanUserReorderColumns="False" SelectionMode="Single" IsReadOnly="True"
-                              AutoGenerateColumns="False" ColumnWidth="auto" Margin="10,0,10,10" Height="160" HorizontalScrollBarVisibility="Visible" >
+                        <DataGrid x:Name="dtgSubUnits"
+                                  Grid.Column="0" 
+                                  Grid.Row="1"
+                                  CanUserReorderColumns="False" 
+                                  SelectionMode="Single" 
+                                  IsReadOnly="True"
+                                  AutoGenerateColumns="False" 
+                                  ColumnWidth="auto" 
+                                  Margin="10,0,10,10" 
+                                  Height="160" 
+                                  HorizontalScrollBarVisibility="Visible" 
+                                  ItemsSource="{Binding Subunidades}"
+                                  SelectedItem="{Binding SelectedSubnidad, Mode=TwoWay}">
 
                             <DataGrid.Columns>
                                 <DataGridTextColumn 

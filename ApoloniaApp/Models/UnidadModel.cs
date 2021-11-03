@@ -49,7 +49,7 @@ namespace ApoloniaApp.Models
             {
                 conn = new Conexion().abrirConexion();
 
-                OracleCommand cmd = new OracleCommand("c_unidad");
+                OracleCommand cmd = new OracleCommand("c_unidad", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("i_rut", OracleDbType.NVarchar2).Value = this.Rut;
                 cmd.Parameters.Add("i_razon_social", OracleDbType.NVarchar2).Value = this.RazonSocial;
@@ -117,7 +117,8 @@ namespace ApoloniaApp.Models
                         ResponsableNombre = r.GetString(13),
                         Estado = r.GetString(14),
                         EstadoId = r.GetInt32(15),
-                        DireccionId = r.GetInt32(16)
+                        DireccionId = r.GetInt32(16),
+                        RubroId = r.GetInt32(17)
                     };
 
                     listaNegocio.Add(u);
@@ -164,6 +165,42 @@ namespace ApoloniaApp.Models
 
         }
         #endregion
+
+        public bool Update()
+        {
+            try
+            {
+                conn = new Conexion().abrirConexion();
+
+                OracleCommand cmd = new OracleCommand("u_unidad", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_rut", OracleDbType.NVarchar2).Value = this.Rut;
+                cmd.Parameters.Add("i_razon_social", OracleDbType.NVarchar2).Value = this.RazonSocial;
+                cmd.Parameters.Add("i_id_rubro", OracleDbType.Int32).Value = this.RubroId;
+                cmd.Parameters.Add("i_id_direccion", OracleDbType.Int32).Value = this.DireccionId;
+                cmd.Parameters.Add("i_calle", OracleDbType.NVarchar2).Value = this.Calle;
+                cmd.Parameters.Add("i_numero", OracleDbType.NVarchar2).Value = this.Numero;
+                cmd.Parameters.Add("i_complemento", OracleDbType.NVarchar2).Value = this.Complemento;
+                cmd.Parameters.Add("i_id_comuna", OracleDbType.Int32).Value = this.ComunaId;
+                cmd.Parameters.Add("i_persona_contacto", OracleDbType.NVarchar2).Value = this.PersonaContacto;
+                cmd.Parameters.Add("i_telefono_contacto", OracleDbType.Int32).Value = this.TelefonoContacto;
+                cmd.Parameters.Add("i_email_contacto", OracleDbType.NVarchar2).Value = this.EmailContacto;
+                cmd.Parameters.Add("i_run_resp_cuenta", OracleDbType.NVarchar2).Value = this.ResponsableRun;
+                cmd.Parameters.Add("i_id_estado_unidad", OracleDbType.Int32).Value = this.EstadoId;
+
+
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
+        }
 
         #endregion
     }

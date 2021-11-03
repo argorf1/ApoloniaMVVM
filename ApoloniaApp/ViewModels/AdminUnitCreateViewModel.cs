@@ -22,6 +22,7 @@ namespace ApoloniaApp.ViewModels
         private readonly ObservableCollection<RubroModel> _rubros;
         public IEnumerable<RubroModel> Rubros => _rubros;
         private RubroModel _selectedRubro;
+        private int _selectedRubroIndex;
 
         private readonly ObservableCollection<RegionModel> _regiones;
         public IEnumerable<RegionModel> Regiones => _regiones;
@@ -77,11 +78,11 @@ namespace ApoloniaApp.ViewModels
         {
             get
             {
-                return _createUnit.RubroId;
+                return _selectedRubroIndex;
             }
             set
             {
-                _createUnit.RubroId = value;
+                _selectedRubroIndex = value;
                 OnPropertyChanged("SelectedRubroIndex");
             }
         }
@@ -90,7 +91,8 @@ namespace ApoloniaApp.ViewModels
             get { return _selectedRubro; }
             set
             {
-                _selectedRubro = Rubros.ElementAt(_createUnit.RubroId);
+                _selectedRubro = Rubros.ElementAt(_selectedRubroIndex);
+                _createUnit.RubroId = _selectedRubro.Id;
                 OnPropertyChanged("SelectedRubro");
             }
         }
@@ -191,6 +193,7 @@ namespace ApoloniaApp.ViewModels
             set
             {
                 _selectedComuna = Comunas.ElementAt(_selectedComunaIndex);
+                _createUnit.ComunaId = _selectedComuna.Id;
                 OnPropertyChanged("SelectedComuna");
             }
         }
@@ -353,7 +356,7 @@ namespace ApoloniaApp.ViewModels
 
             #region Buttons
             NavigationUnit = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore, CurrentAccount));
-            CreateUnit = new CRUDCommand<AdminUserViewModel, UnidadModel>(() => _createUnit.Create(), () => new AdminUserViewModel(_frameStore, CurrentAccount), _frameStore, () => _createUnit.ReadByRut(), _createUnit);
+            CreateUnit = new CRUDCommand<AdminUnitViewModel, UnidadModel>(() => _createUnit.Create(), () => new AdminUnitViewModel(_frameStore, CurrentAccount), _frameStore, () => _createUnit.ReadByRut(), _createUnit);
             #endregion
         }
 
