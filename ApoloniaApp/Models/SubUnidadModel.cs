@@ -99,7 +99,40 @@ namespace ApoloniaApp.Models
 
             return listaNegocio;
         }
+
+        public bool ReadByName()
+        {
+            return false;
+        }
         #endregion
+
+        public bool Update()
+        {
+            try
+            {
+                conn = new Conexion().abrirConexion();
+
+                OracleCommand cmd = new OracleCommand("u_subunidad", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_id_subunidad", OracleDbType.Int32).Value = this.Id;
+                cmd.Parameters.Add("i_nombre", OracleDbType.NVarchar2).Value = this.Nombre;
+                cmd.Parameters.Add("i_descripcion", OracleDbType.NVarchar2).Value = this.Descripcion;
+                cmd.Parameters.Add("i_id_subunidad_padre", OracleDbType.Int32).Value = this.SubUnidadPadreId;
+                cmd.Parameters.Add("i_rut_unidad", OracleDbType.NVarchar2).Value = this.RutUnidad;
+
+
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
+        }
         #endregion
     }
 }

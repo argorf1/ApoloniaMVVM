@@ -722,12 +722,14 @@
                                     Content="Modificar"
                                     Margin="0,10,0,5"
                                     DockPanel.Dock="Right" 
-                                    Width="62"/>
+                                    Width="62"
+                                    Command="{Binding NavigationEditSubunit}"/>
                             <Button Grid.Column="0" 
                                     Content="Nueva"
                                     Margin="0,10,0,5"
                                     DockPanel.Dock="Right"
-                                    Width="65"/>
+                                    Width="65"
+                                    Command="{Binding NavigationCreateSubunit}"/>
                         </DockPanel>
 
                         <!-- // DataGrid SubUnits // -->

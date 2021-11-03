@@ -329,10 +329,12 @@ namespace ApoloniaApp.ViewModels
 
             NavigationCreateUnit = new NavigatePanelCommand<AdminUnitCreateViewModel>(_frameStore, () => new AdminUnitCreateViewModel(_frameStore, CurrentAccount));
             NavigationEditUnit = new NavigatePanelCommand<AdminUnitEditViewModel>(_frameStore, () => new AdminUnitEditViewModel(_frameStore, CurrentAccount, _editUnit));
-
+            NavigationCreateSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(frameStore, currentAccount, new SubUnidadModel() { RutUnidad = _editUnit.Rut }, _subunidades, 1));
         }
 
         public ICommand NavigationCreateUnit { get; }
         public ICommand NavigationEditUnit { get; }
+        public ICommand NavigationCreateSubunit { get; }
+        public ICommand NavigationEditSubunit { get; }
     }
 }

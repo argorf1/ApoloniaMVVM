@@ -12,24 +12,24 @@ namespace ApoloniaApp.Commands
         where TViewModel : ViewModelBase
         where TModel : EntityModelBase
     {
-        private readonly Func<bool> _createModel;
+        private readonly Func<bool> _crudModel;
         private readonly Func<bool> _checkModel;
         private readonly Func<TViewModel> _viewModel;
         private readonly TModel _model;
         private FrameStore _frameStore;
 
-        public CRUDCommand(Func<bool> createModel, Func<TViewModel> viewModel, FrameStore frameStore, Func<bool> checkModel, TModel model)
+        public CRUDCommand(Func<bool> crudModel, Func<TViewModel> viewModel, FrameStore frameStore, Func<bool> checkModel, TModel model)
         {
-            _createModel = createModel;
+            _crudModel = crudModel;
             _viewModel = viewModel;
             _frameStore = frameStore;
             _checkModel = checkModel;
             _model = model;
         }
 
-        public CRUDCommand(Func<bool> createModel, Func<TViewModel> viewModel, FrameStore frameStore, TModel model)
+        public CRUDCommand(Func<bool> crudModel, Func<TViewModel> viewModel, FrameStore frameStore, TModel model)
         {
-            _createModel = createModel;
+            _crudModel = crudModel;
             _viewModel = viewModel;
             _frameStore = frameStore;
             _checkModel = null;
@@ -42,7 +42,7 @@ namespace ApoloniaApp.Commands
             {
                 if (_checkModel == null)
                 {
-                    if (_createModel())
+                    if (_crudModel())
                     {
                         MessageBox.Show("Actualización de " + _model.GetType().Name + " realizada con exito");
                         _frameStore.CurrentViewModel = _viewModel();
@@ -57,7 +57,7 @@ namespace ApoloniaApp.Commands
 
                     if (!_checkModel())
                     {
-                        if (_createModel())
+                        if (_crudModel())
                         {
                             MessageBox.Show("Creación de " + _model.GetType().Name + " realizada con exito");
                             _frameStore.CurrentViewModel = _viewModel();

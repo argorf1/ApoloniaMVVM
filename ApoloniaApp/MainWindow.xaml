@@ -37,6 +37,9 @@
         <DataTemplate x:Name="AdminClientEditViewTemplate" DataType="{x:Type viewmodels:AdminClientEditViewModel}">
             <views:AdminClientEditView DataContext="{Binding}"/>
         </DataTemplate>
+        <DataTemplate x:Name="AdminSubunitViewTemplate" DataType="{x:Type viewmodels:AdminSubunitCrudViewModel}">
+            <views:AdminSubunitCRUD DataContext="{Binding}"/>
+        </DataTemplate>
 
         <Style x:Key="FocusVisual">
 
