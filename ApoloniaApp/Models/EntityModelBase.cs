@@ -7,6 +7,6 @@ namespace ApoloniaApp.Models
 {
     public class EntityModelBase
     {
-
+      
     }
 }

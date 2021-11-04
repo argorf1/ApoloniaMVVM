@@ -213,6 +213,7 @@ namespace ApoloniaApp.Models
 
         }
 
+        #endregion
         public bool Update()
         {
             OracleConnection conn = new OracleConnection();
@@ -242,7 +243,6 @@ namespace ApoloniaApp.Models
                 return false;
             }
         }
-        #endregion
         #endregion
     }
 }

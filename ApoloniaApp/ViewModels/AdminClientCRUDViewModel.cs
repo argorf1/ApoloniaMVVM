@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace ApoloniaApp.ViewModels
 {
-    class AdminClientCreateViewModel : ViewModelBase
+    class AdminClientCRUDViewModel : ViewModelBase
     {
         private readonly FrameStore _frameStore;
 
@@ -133,7 +133,7 @@ namespace ApoloniaApp.ViewModels
         //    }
         //}
         #endregion
-        public AdminClientCreateViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount)
+        public AdminClientCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount)
         {
             _frameStore = frameStore;
             CurrentAccount = currentAccount;
