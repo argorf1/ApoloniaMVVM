@@ -158,12 +158,12 @@ namespace ApoloniaApp.ViewModels
             }
 
         }
-        public int TelefonoContacto
+        public string TelefonoContacto
         {
             get
             {
 
-                return _editUnit.TelefonoContacto;
+                return _editUnit.TelefonoContacto.ToString();
 
             }
             set
@@ -331,6 +331,11 @@ namespace ApoloniaApp.ViewModels
                 OnPropertyChanged("SelectedSubunidad");
             }
         }
+
+        private readonly ObservableCollection<FuncionarioModel> _funcionarios;
+        private IEnumerable<SubUnidadModel> funcionarios;
+
+        //public IEnumerable<>
 
         public bool CanCreateSubunit
         {

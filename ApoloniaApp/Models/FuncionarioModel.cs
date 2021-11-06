@@ -21,7 +21,6 @@ namespace ApoloniaApp.Models
         public UnidadModel Unidad { get; set; }
         public SubUnidadModel Subunidad { get; set; }
         public string Username { get; set; }
-        public PerfilModel Perfil { get; set; } 
         #endregion
 
         private OracleConnection conn = new OracleConnection();
@@ -33,7 +32,6 @@ namespace ApoloniaApp.Models
             Rol = new RolModel();
             Unidad = new UnidadModel();
             Subunidad = new SubUnidadModel();
-            Perfil = new PerfilModel();
         }
 
 
@@ -45,7 +43,7 @@ namespace ApoloniaApp.Models
             {
                 conn = new Conexion().abrirConexion();
 
-                OracleCommand cmd = new OracleCommand("c_usuario_interno", conn);
+                OracleCommand cmd = new OracleCommand("c_funcionario", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("i_run", OracleDbType.NVarchar2).Value = this.Run;
                 cmd.Parameters.Add("i_nombres", OracleDbType.NVarchar2).Value = this.Nombre;
@@ -53,11 +51,10 @@ namespace ApoloniaApp.Models
                 cmd.Parameters.Add("i_apellidom", OracleDbType.NVarchar2).Value = this.ApellidoM;
                 cmd.Parameters.Add("i_email", OracleDbType.NVarchar2).Value = this.Email;
                 cmd.Parameters.Add("i_rut_unidad", OracleDbType.NVarchar2).Value = this.Unidad.Rut;
-                cmd.Parameters.Add("i_id_subunidad", OracleDbType.NVarchar2).Value = this.Email;
-                cmd.Parameters.Add("i_id_rol", OracleDbType.NVarchar2).Value = this.Email;
-                cmd.Parameters.Add("i_id_Perfil", OracleDbType.Int32).Value = 1;
+                cmd.Parameters.Add("i_id_subunidad", OracleDbType.Int32).Value = this.Subunidad.Id;
+                cmd.Parameters.Add("i_id_rol", OracleDbType.Int32).Value = this.Rol.Id;
                 cmd.Parameters.Add("i_password", OracleDbType.NVarchar2).Value = this.Password;
-                cmd.Parameters.Add("i_estado", OracleDbType.Int32).Value = this.Estado.Id;
+                cmd.Parameters.Add("i_id_estado_usuario", OracleDbType.Int32).Value = this.Estado.Id;
 
                 cmd.ExecuteNonQuery();
 
@@ -83,7 +80,7 @@ namespace ApoloniaApp.Models
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "r_usuarios_inter_all";
+                cmd.CommandText = "r_funcionarios_all";
                 cmd.CommandType = CommandType.StoredProcedure;
                 OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
                 o.Direction = ParameterDirection.Output;
@@ -94,25 +91,21 @@ namespace ApoloniaApp.Models
                 r = ((OracleRefCursor)o.Value).GetDataReader();
                 while (r.Read())
                 {
-                    UnidadModel u = new UnidadModel() { RazonSocial = r.GetString(5), Rut = r.GetString(9)};
-                    SubUnidadModel s = new SubUnidadModel() { Nombre = r.GetString(6), Id = r.GetInt32(10)};
-                    RolModel ro = new RolModel() {Nombre = r.GetString(7), Id = r.GetInt32(11) };
-                    EstadoModel e = new EstadoModel() { Detalle = r.GetString(8), Id=r.GetInt32(13)};
-                    PerfilModel p = new PerfilModel() { Id = r.GetInt32(12) };
 
                     FuncionarioModel f = new FuncionarioModel()
                     {
                         Run = r.GetString(0),
+                        Username = r.GetString(0),
                         Nombre = r.GetString(1),
                         ApellidoP = r.GetString(2),
                         ApellidoM = r.GetString(3),
-                        Email = r.GetString(4),
-                        Unidad = u,
-                        Subunidad = s,
-                        Rol = ro,
-                        Estado = e,
-                        Perfil = p,
+                        Email = r.GetString(4)
                     };
+
+                    f.Unidad = new UnidadModel() { RazonSocial = r.GetString(5), Rut = r.GetString(9) };
+                    f.Subunidad = new SubUnidadModel() { Nombre = r.GetString(6), Id = r.GetInt32(10) };
+                    f.Rol = new RolModel() { Nombre = r.GetString(7), Id = r.GetInt32(11) };
+                    f.Estado = new EstadoModel() { Detalle = r.GetString(8), Id = r.GetInt32(12) };
 
                     listaNegocio.Add(f);
                 }
@@ -129,50 +122,67 @@ namespace ApoloniaApp.Models
 
             return listaNegocio;
         }
-        public List<UsuarioInternoModel> ReadDesigner()
-        {
 
-            List<UsuarioInternoModel> listaNegocio = new List<UsuarioInternoModel>();
+        public bool ReadByRun()
+        {
+            try
+            {
+                conn = new Conexion().abrirConexion();
+                OracleCommand cmd = new OracleCommand("select * from funcionarios where RUN = :username", conn);
+                cmd.Parameters.Add(":username", OracleDbType.NVarchar2).Value = this.Run;
+                r = cmd.ExecuteReader();
+
+                if (r.Read())
+                {
+                    conn.Close();
+                    return true;
+                }
+                else
+                {
+                    conn.Close();
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                conn.Close();
+                return false;
+            }
+        }
+        #endregion
+
+        public bool Update()
+        {
+            OracleConnection conn = new OracleConnection();
 
             try
             {
                 conn = new Conexion().abrirConexion();
 
-                OracleCommand cmd = new OracleCommand();
-                cmd.Connection = conn;
-                cmd.CommandText = "r_desginers_act";
+                OracleCommand cmd = new OracleCommand("u_funcionario", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
-                o.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("i_run", OracleDbType.NVarchar2).Value = this.Run;
+                cmd.Parameters.Add("i_nombres", OracleDbType.NVarchar2).Value = this.Nombre;
+                cmd.Parameters.Add("i_apellidop", OracleDbType.NVarchar2).Value = this.ApellidoP;
+                cmd.Parameters.Add("i_apellidom", OracleDbType.NVarchar2).Value = this.ApellidoM;
+                cmd.Parameters.Add("i_email", OracleDbType.NVarchar2).Value = this.Email;
+                cmd.Parameters.Add("i_rut_unidad", OracleDbType.NVarchar2).Value = this.Unidad.Rut;
+                cmd.Parameters.Add("i_id_subunidad", OracleDbType.Int32).Value = this.Subunidad.Id;
+                cmd.Parameters.Add("i_id_rol", OracleDbType.Int32).Value = this.Rol.Id;
+                cmd.Parameters.Add("i_password", OracleDbType.NVarchar2).Value = this.Password;
+                cmd.Parameters.Add("i_id_estado_usuario", OracleDbType.Int32).Value = this.Estado.Id;
 
                 cmd.ExecuteNonQuery();
-
-
-                r = ((OracleRefCursor)o.Value).GetDataReader();
-                while (r.Read())
-                {
-                    UsuarioInternoModel u = new UsuarioInternoModel()
-                    {
-                        Run = r.GetString(0),
-                        NombreCompleto = r.GetString(1)
-                    };
-
-                    listaNegocio.Add(u);
-                }
-
                 conn.Close();
-
+                return true;
             }
             catch (Exception e)
             {
                 conn.Close();
-                return listaNegocio;
+                return false;
             }
-
-
-            return listaNegocio;
         }
-        #endregion
+
         #endregion
     }
 }

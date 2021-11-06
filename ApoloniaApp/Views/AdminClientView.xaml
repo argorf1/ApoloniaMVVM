@@ -539,26 +539,26 @@
                                    Visibility="Visible"/>
                 </StackPanel>
                 <StackPanel>
-                    <ComboBox x:Name="ddlNewUserProfile"
+                    <ComboBox x:Name="ddlUnit"
                               Grid.Column="6"  Grid.Row="0"
                               Width="180"
                               HorizontalAlignment="Right"
                               ItemsSource="{Binding Unidades}"
                               DisplayMemberPath="RazonSocial"
                               SelectedValuePath="RazonSocial"
-                              SelectedValue="{Binding SelectedUnidad}"
+                              SelectedValue="{Binding SelectedUnidad.RazonSocial}"
                               SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}"/>
                 </StackPanel>
                 <DataGrid Grid.Column="0" Grid.Row="1" x:Name="dtgUsers"
-                      CanUserReorderColumns="False"
-                      SelectionMode="Single"
-                      IsReadOnly="True"
-                      AutoGenerateColumns="False"
-                      ColumnWidth="auto"
-                      Margin="10" Height="160"
-                      HorizontalScrollBarVisibility="Visible"
-                      ItemsSource="{Binding Usuarios}"
-                          SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
+                          CanUserReorderColumns="False"
+                          SelectionMode="Single"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False"
+                          ColumnWidth="auto"
+                          Margin="10" Height="160"
+                          HorizontalScrollBarVisibility="Visible"
+                          ItemsSource="{Binding Funcionarios}"
+                          SelectedItem="{Binding SelectedFuncionario, Mode=TwoWay}">
 
                     <DataGrid.Columns>
                         <DataGridTextColumn 
@@ -588,22 +588,22 @@
                         Header="UNIDAD" 
                         Width="150" 
                         MinWidth="150"
-                        Binding="{Binding DescripcionUnidad}"/>
+                        Binding="{Binding Unidad.RazonSocial}"/>
                         <DataGridTextColumn 
                         Header="SUBUNIDAD" 
                         Width="150" 
                         MinWidth="150"
-                        Binding="{Binding DescripcionSubUni}"/>
+                        Binding="{Binding Subunidad.Nombre}"/>
                         <DataGridTextColumn 
-                        Header="PERFIL" 
+                        Header="ROL" 
                         Width="150" 
                         MinWidth="150"
-                        Binding="{Binding DescripcionRol}"/>
+                        Binding="{Binding Rol.Nombre}"/>
                         <DataGridTextColumn 
                         Header="ESTADO" 
                         Width="100" 
                         MinWidth="100"
-                        Binding="{Binding DescripcionEstado}"/>
+                        Binding="{Binding Estado.Detalle}"/>
 
                     </DataGrid.Columns>
                     </DataGrid>
@@ -790,7 +790,8 @@
 
                                 <TextBox Name="txtBizUnit" 
                                      Width="380" 
-                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+                                     Style="{DynamicResource TextBoxRoundedCorners}"
+                                         Text="{Binding Unidad}"/>
                             </StackPanel>
 
                             <!-- // Sub Business Unit: Label // -->
@@ -808,7 +809,8 @@
 
                                 <TextBox Name="txtSubBizUnit" 
                                          Width="380" 
-                                         Style="{DynamicResource TextBoxRoundedCorners}"/>
+                                         Style="{DynamicResource TextBoxRoundedCorners}"
+                                         Text="{Binding Subunidad}"/>
                             </StackPanel>
 
                         </Grid>
@@ -850,7 +852,7 @@
 
                                 <TextBox Name="txtUserName"
                                      Width="180"
-                                     Text="{Binding Username}"
+                                     Text="{Binding Run}"
                                      Style="{DynamicResource TextBoxRoundedCorners}"/>
 
                             </StackPanel>
@@ -859,7 +861,7 @@
                             <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal">
 
                                 <Label Name="lblUserProfile" 
-                                   Content="Perfil de Usuario"
+                                   Content="Rol de Usuario"
                                    Style="{StaticResource fontLabels}"/>
 
                             </StackPanel>
@@ -869,7 +871,8 @@
 
                                 <TextBox Name="txtUserProfile" 
                                      Width="180" 
-                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+                                     Style="{DynamicResource TextBoxRoundedCorners}"
+                                         Text="{Binding Rol}"/>
 
                             </StackPanel>
 
@@ -888,7 +891,8 @@
 
                                 <TextBox Name="txtUserStatus" 
                                      Width="180" 
-                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+                                     Style="{DynamicResource TextBoxRoundedCorners}"
+                                         Text="{Binding Estado}"/>
                             </StackPanel>
 
                         </Grid>

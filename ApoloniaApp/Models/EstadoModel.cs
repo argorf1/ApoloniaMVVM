@@ -7,11 +7,16 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    public class EstadoModel
+    public class EstadoModel: ModelBase
     {
         public int Id { get; set; }
         public string Detalle { get; set; }
 
+
+        public EstadoModel()
+        {
+            Id = 1;
+        }
 
         public List<EstadoModel> ReadAll()
         {

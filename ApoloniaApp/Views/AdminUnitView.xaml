@@ -72,7 +72,7 @@
                             Header="RUT" 
                             Width="70"
                             MinWidth="70"
-                            Binding="{Binding Rut,Mode=OneWay}"/>
+                            Binding="{Binding Rut}"/>
                         <DataGridTextColumn 
                             Header="RAZÓN SOCIAL" 
                             Width="100"

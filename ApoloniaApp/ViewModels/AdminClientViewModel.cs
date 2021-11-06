@@ -19,14 +19,14 @@ namespace ApoloniaApp.ViewModels
         
         private readonly FrameStore _frameStore;
         private FuncionarioModel _crudFuncionario;
+        public UsuarioInternoModel CurrentAccount;
 
         private readonly ObservableCollection<UnidadModel> _unidades;
-        private IEnumerable<UnidadModel> Unidades => _unidades;
+        public IEnumerable<UnidadModel> Unidades => _unidades;
         private UnidadModel _selectedUnidad;
 
         private readonly ObservableCollection<FuncionarioModel> _funcionarios;
         private IEnumerable<FuncionarioModel> funcionarios;
-        public UsuarioInternoModel CurrentAccount;
 
         #region Property
 
@@ -36,7 +36,7 @@ namespace ApoloniaApp.ViewModels
             set
             {
                 _selectedUnidad = value;
-                if(_selectedUnidad.Rut != "")
+                if(_selectedUnidad.Rut != "-- Unidad --")
                 {
                     Funcionarios = _funcionarios.Where(p => p.Unidad.Rut == _selectedUnidad.Rut);
                 }
@@ -184,7 +184,7 @@ namespace ApoloniaApp.ViewModels
             get { return _crudFuncionario.Unidad.RazonSocial; }
             set
             {
-                _crudFuncionario.Unidad.RazonSocial = value;
+                _crudFuncionario.Unidad.RazonSocial= value;
                 OnPropertyChanged("Unidad");
             }
         }
@@ -218,9 +218,11 @@ namespace ApoloniaApp.ViewModels
             {
                 _funcionarios.Add(f);
             }
+
             Funcionarios = _funcionarios;
-            NavigationCreateUsers = new NavigatePanelCommand<AdminClientCRUDViewModel>(_frameStore, () => new AdminClientCRUDViewModel(_frameStore, CurrentAccount));
-            NavigationEditUsers = new NavigatePanelCommand<AdminClientCRUDViewModel>(_frameStore, () => new AdminClientCRUDViewModel(_frameStore, CurrentAccount));
+            SelectedUnidad = _unidades.First(p => p.Rut == _crudFuncionario.Unidad.Rut);
+            NavigationCreateUsers = new NavigatePanelCommand<AdminClientCRUDViewModel>(_frameStore, () => new AdminClientCRUDViewModel(1,_frameStore, CurrentAccount, new FuncionarioModel() { Password = "12345678"}));
+            NavigationEditUsers = new NavigatePanelCommand<AdminClientCRUDViewModel>(_frameStore, () => new AdminClientCRUDViewModel(2, _frameStore, CurrentAccount, _crudFuncionario));
 
         }
 

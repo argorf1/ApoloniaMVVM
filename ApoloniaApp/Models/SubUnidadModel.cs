@@ -98,7 +98,37 @@ namespace ApoloniaApp.Models
 
         public bool ReadByName()
         {
-            return false;
+            try
+            {
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "r_subunidad_by_name";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_nombre_subunidad", OracleDbType.NVarchar2).Value = this.Nombre;
+                cmd.Parameters.Add("i_rut_unidad", OracleDbType.NVarchar2).Value = this.RutUnidad;
+                OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
+                o.Direction = ParameterDirection.Output;
+
+
+
+                cmd.ExecuteNonQuery();
+
+                if (r.Read())
+                {
+                    conn.Close();
+                    return true;
+                }
+                else
+                {
+                    conn.Close();
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                conn.Close();
+                return false;
+            }
         }
         #endregion
 
