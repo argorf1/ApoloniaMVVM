@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace ApoloniaApp.Views
 {
     /// <summary>
-    /// Lógica de interacción para AdminUserEditView.xaml
+    /// Lógica de interacción para AdminUserCreateView.xaml
     /// </summary>
-    public partial class AdminClientEditView : UserControl
+    public partial class AdminClientCRUDView : UserControl
     {
-        public AdminClientEditView()
+        public AdminClientCRUDView()
         {
             InitializeComponent();
         }

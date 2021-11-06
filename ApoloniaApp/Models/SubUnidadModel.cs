@@ -19,8 +19,16 @@ namespace ApoloniaApp.Models
         public int NumProcesos { get; set; }
 
 
-        OracleConnection conn = new OracleConnection();
+        OracleConnection conn = null;
         OracleDataReader r = null;
+
+        public SubUnidadModel()
+        {
+            conn = null;
+            r = null;
+        }
+
+
 
         #region CRUD
         public bool Create()
@@ -31,10 +39,10 @@ namespace ApoloniaApp.Models
 
                 OracleCommand cmd = new OracleCommand("c_subunidad", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_rut_unidad", OracleDbType.NVarchar2).Value = this.RutUnidad;
                 cmd.Parameters.Add("i_nombre", OracleDbType.NVarchar2).Value = this.Nombre;
                 cmd.Parameters.Add("i_descripcion", OracleDbType.NVarchar2).Value = this.Descripcion;
                 cmd.Parameters.Add("i_id_subunidad_padre", OracleDbType.Int32).Value = this.SubUnidadPadreId;
-                cmd.Parameters.Add("i_rut_unidad", OracleDbType.NVarchar2).Value = this.RutUnidad;
                 
 
                 cmd.ExecuteNonQuery();
@@ -56,21 +64,15 @@ namespace ApoloniaApp.Models
 
             List<SubUnidadModel> listaNegocio = new List<SubUnidadModel>();
 
+            conn = new OracleConnection();
             try
             {
                 conn = new Conexion().abrirConexion();
-
-                OracleCommand cmd = new OracleCommand();
-                cmd.Connection = conn;
-                cmd.CommandText = "r_unidad_all";
-                cmd.CommandType = CommandType.StoredProcedure;
-                OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
-                o.Direction = ParameterDirection.Output;
-
-                cmd.ExecuteNonQuery();
+                OracleCommand cmd = new OracleCommand("select id, nombre, descripcion, coalesce(subunidad_padre, 0), rut_unidad from subunidades", conn);
 
 
-                r = ((OracleRefCursor)o.Value).GetDataReader();
+                r = cmd.ExecuteReader();
+
                 while (r.Read())
                 {
                     SubUnidadModel s = new SubUnidadModel()
@@ -78,31 +80,55 @@ namespace ApoloniaApp.Models
                         Id = r.GetInt32(0),
                         Nombre = r.GetString(1),
                         Descripcion = r.GetString(2),
-                        SubUnidadPadre = r.GetString(3),
-                        SubUnidadPadreId = r.GetInt32(4),
-                        NumFuncionarios = r.GetInt32(5),
-                        NumProcesos = r.GetInt32(6)
+                        SubUnidadPadreId = r.GetInt32(3),
+                        RutUnidad = r.GetString(4)
                     };
-
                     listaNegocio.Add(s);
                 }
-
-                conn.Close();
-
+                    conn.Close();
+                    return listaNegocio;
+                
             }
             catch (Exception e)
             {
                 conn.Close();
                 return listaNegocio;
             }
-
-
-            return listaNegocio;
         }
 
         public bool ReadByName()
         {
-            return false;
+            try
+            {
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "r_subunidad_by_name";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_nombre_subunidad", OracleDbType.NVarchar2).Value = this.Nombre;
+                cmd.Parameters.Add("i_rut_unidad", OracleDbType.NVarchar2).Value = this.RutUnidad;
+                OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
+                o.Direction = ParameterDirection.Output;
+
+
+
+                cmd.ExecuteNonQuery();
+
+                if (r.Read())
+                {
+                    conn.Close();
+                    return true;
+                }
+                else
+                {
+                    conn.Close();
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                conn.Close();
+                return false;
+            }
         }
         #endregion
 

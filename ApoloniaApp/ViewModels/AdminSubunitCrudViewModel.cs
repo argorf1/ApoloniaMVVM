@@ -24,13 +24,21 @@ namespace ApoloniaApp.ViewModels
         private SubUnidadModel _selectedSubunidad;
 
 
-        public AdminSubunitCrudViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, SubUnidadModel createSubunidad, ObservableCollection<SubUnidadModel> subunidades,int estado)
+        public AdminSubunitCrudViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, SubUnidadModel createSubunidad, IEnumerable<SubUnidadModel> subunidades,int estado)
         {
+            _estado = estado;
             _frameStore = frameStore;
             CurrentAccount = currentAccount;
             _crudSubunidad = createSubunidad;
-            _subunidades = subunidades;
-            _estado = estado;
+
+            _subunidades = new ObservableCollection<SubUnidadModel>();
+            foreach (SubUnidadModel s in subunidades)
+            {
+                _subunidades.Add(s);
+            }
+            SelectedSubunidad = _subunidades.FirstOrDefault(p => p.Id == _crudSubunidad.SubUnidadPadreId);
+            if(estado ==2)
+                _subunidades.Remove(_subunidades.First(p => p.Id == _crudSubunidad.Id));
 
             #region CargaDiccionario
             _estadoDetalle.Add(1, "Crear Subnidad");
@@ -52,6 +60,8 @@ namespace ApoloniaApp.ViewModels
                 default:
                     break;
             }
+            NavigationUnit = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore, CurrentAccount));
+
         }
 
         public string Nombre
@@ -87,8 +97,10 @@ namespace ApoloniaApp.ViewModels
             set
             {
                 _selectedSubunidad = value;
-                if(_selectedSubunidad != null)
-                    _crudSubunidad.SubUnidadPadreId = _selectedSubunidad.SubUnidadPadreId;
+                if (_selectedSubunidad != null)
+                    _crudSubunidad.SubUnidadPadreId = _selectedSubunidad.Id;
+                else
+                    _crudSubunidad.SubUnidadPadreId = 0;
                 OnPropertyChanged("SelectedSubunidad");
             }
         }
@@ -102,7 +114,6 @@ namespace ApoloniaApp.ViewModels
             }
         }
         public ICommand CrudSubunit { get; }
-
-
+        public ICommand NavigationUnit { get; }
     }
 }

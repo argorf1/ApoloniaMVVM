@@ -15,63 +15,76 @@ namespace ApoloniaApp.ViewModels
 {
     class AdminClientViewModel : ViewModelBase
     {
-        private int _selectedIndex;
 
-        private string _run;
-        private string _nombre;
-        private string _apellidoP;
-        private string _apellidoM;
-        private string _email;
-        private int _subunidadId;
-        private int _rolId;
-        private string _unidadId;
-        private int _estado;
-        private string _username;
-
+        
         private readonly FrameStore _frameStore;
-        private readonly ObservableCollection<UsuarioInternoModel> _usuarios;
-        public IEnumerable<UsuarioInternoModel> Usuarios => _usuarios;
+        private FuncionarioModel _crudFuncionario;
         public UsuarioInternoModel CurrentAccount;
+
+        private readonly ObservableCollection<UnidadModel> _unidades;
+        public IEnumerable<UnidadModel> Unidades => _unidades;
+        private UnidadModel _selectedUnidad;
+
+        private readonly ObservableCollection<FuncionarioModel> _funcionarios;
+        private IEnumerable<FuncionarioModel> funcionarios;
 
         #region Property
 
-        public int SelectedIndex
+        public UnidadModel SelectedUnidad
         {
-            get { return _selectedIndex; }
+            get { return _selectedUnidad; }
             set
             {
-                _selectedIndex = value;
-                OnPropertyChanged("SelectedIndex");
+                _selectedUnidad = value;
+                if(_selectedUnidad.Rut != "-- Unidad --")
+                {
+                    Funcionarios = _funcionarios.Where(p => p.Unidad.Rut == _selectedUnidad.Rut);
+                }
+                OnPropertyChanged("SelectedUnidad");
+            }
+        }
+
+        public IEnumerable<FuncionarioModel> Funcionarios
+        {
+            get { return funcionarios; } 
+            set
+            {
+                funcionarios = value;
+                OnPropertyChanged("Funcionarios");
+            }
+        }
+
+        public FuncionarioModel SelectedFuncionario
+        {
+            get { return _crudFuncionario; }
+            set
+            {
+                _crudFuncionario = value;
+                OnPropertyChanged("SelectedFuncionario");
 
                 OnPropertyChanged("Run");
                 OnPropertyChanged("Nombre");
                 OnPropertyChanged("ApellidoP");
                 OnPropertyChanged("ApellidoM");
                 OnPropertyChanged("Email");
-                OnPropertyChanged("SubunidadId");
-                OnPropertyChanged("RolId");
-                OnPropertyChanged("UnidadId");
+                OnPropertyChanged("Rol");
                 OnPropertyChanged("Estado");
                 OnPropertyChanged("Username");
-
+                OnPropertyChanged("Unidad");
+                OnPropertyChanged("Subunidad");
             }
         }
+
+
         public string Run
         {
             get
             {
-                if (SelectedIndex > -1)
-                {
-                    return Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).Run;
-                }
-                else
-                {
-                    return _run;
-                }
+                return _crudFuncionario.Run;
             }
             set
             {
-                _run = value;
+                _crudFuncionario.Run = value;
                 OnPropertyChanged("Run");
             }
         }
@@ -79,18 +92,11 @@ namespace ApoloniaApp.ViewModels
         {
             get
             {
-                if (SelectedIndex > -1)
-                {
-                    return Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).Nombres;
-                }
-                else
-                {
-                    return _nombre;
-                }
+                return _crudFuncionario.Nombre;
             }
             set
             {
-                _nombre = value;
+                _crudFuncionario.Nombre = value;
                 OnPropertyChanged("Nombre");
             }
         }
@@ -99,18 +105,11 @@ namespace ApoloniaApp.ViewModels
         {
             get
             {
-                if (SelectedIndex > -1)
-                {
-                    return Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).ApellidoP;
-                }
-                else
-                {
-                    return _apellidoP;
-                }
+                return _crudFuncionario.ApellidoP;
             }
             set
             {
-                _apellidoP = value;
+                _crudFuncionario.ApellidoP = value;
                 OnPropertyChanged("ApellidoP");
             }
         }
@@ -119,18 +118,11 @@ namespace ApoloniaApp.ViewModels
         {
             get
             {
-                if (SelectedIndex > -1)
-                {
-                    return Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).ApellidoM;
-                }
-                else
-                {
-                    return _apellidoM;
-                }
+                return _crudFuncionario.ApellidoM;
             }
             set
             {
-                _apellidoM = value;
+                _crudFuncionario.ApellidoM = value;
                 OnPropertyChanged("ApellidoM");
             }
         }
@@ -139,135 +131,98 @@ namespace ApoloniaApp.ViewModels
         {
             get
             {
-                if (SelectedIndex > -1)
-                {
-                    return Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).Email;
-                }
-                else
-                {
-                    return _email;
-                }
+                return _crudFuncionario.Email;
             }
             set
             {
-                _email = value;
+                _crudFuncionario.Email = value;
                 OnPropertyChanged("Email");
             }
         }
 
-        //public int SubunidadId
-        //{
-        //    get
-        //    {
-        //        if (SelectedIndex > -1)
-        //        {
-        //            return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).SubunidadId;
-        //        }
-        //        else
-        //        {
-        //            return _subunidadId;
-        //        }
-        //    }
-        //    set
-        //    {
-        //        _subunidadId = value;
-        //        OnPropertyChanged("SubunidadId");
-        //    }
-        //}
-
-        public int RolId
+        public string Rol
         {
             get
             {
-                if (SelectedIndex > -1)
-                {
-                    return Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).IdPerfil;
-                }
-                else
-                {
-                    return _rolId;
-                }
+                return _crudFuncionario.Rol.Nombre;
             }
             set
             {
-                _rolId = value;
-                OnPropertyChanged("RolId");
+                _crudFuncionario.Rol.Nombre = value;
+                OnPropertyChanged("Rol");
             }
         }
 
-        //public string UnidadId
-        //{
-        //    get
-        //    {
-        //        if (SelectedIndex > -1)
-        //        {
-        //            return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).UnidadId;
-        //        }
-        //        else
-        //        {
-        //            return _unidadId;
-        //        }
-        //    }
-        //    set
-        //    {
-        //        _unidadId = value;
-        //        OnPropertyChanged("UnidadId");
-        //    }
-        //}
-
-        public int Estado
+        public string Estado
         {
             get
             {
-                if (SelectedIndex > -1)
-                {
-                    return Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).IdEstado;
-                }
-                else
-                {
-                    return _estado;
-                }
+                return _crudFuncionario.Estado.Detalle;
             }
             set
             {
-                _estado = value;
+                _crudFuncionario.Estado.Detalle = value;
                 OnPropertyChanged("Estado");
             }
         }
 
-        //public string Username
-        //{
-        //    get
-        //    {
-        //        if (SelectedIndex > -1)
-        //        {
-        //            return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).Username;
-        //        }
-        //        else
-        //        {
-        //            return _username;
-        //        }
-        //    }
-        //    set
-        //    {
-        //        _username = value;
-        //        OnPropertyChanged("Username");
-        //    }
-        //}
+        public string Username
+        {
+            get
+            {
+                return _crudFuncionario.Username;
+            }
+            set
+            {
+                _crudFuncionario.Username = value;
+                OnPropertyChanged("Username");
+            }
+        }
+
+        public string Unidad
+        {
+            get { return _crudFuncionario.Unidad.RazonSocial; }
+            set
+            {
+                _crudFuncionario.Unidad.RazonSocial= value;
+                OnPropertyChanged("Unidad");
+            }
+        }
+
+        public string Subunidad
+        {
+            get { return _crudFuncionario.Subunidad.Nombre; }
+            set
+            {
+                _crudFuncionario.Subunidad.Nombre = value;
+                OnPropertyChanged("Subunidad");
+            }
+        }
         #endregion
 
         public AdminClientViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount)
         {
             _frameStore = frameStore;
             CurrentAccount = currentAccount;
-            _usuarios = new ObservableCollection<UsuarioInternoModel>();
-            _selectedIndex = -1;
-            foreach (UsuarioInternoModel user in new UsuarioInternoModel().ReadAll())
+            _crudFuncionario = new FuncionarioModel();
+
+            _unidades = new ObservableCollection<UnidadModel>();
+            _unidades.Add(new UnidadModel() { RazonSocial = "-- Unidad --" });
+            foreach (UnidadModel u in new UnidadModel().ReadAll())
             {
-                _usuarios.Add(user);
+                _unidades.Add(u);
             }
-            NavigationCreateUsers = new NavigatePanelCommand<AdminClientCreateViewModel>(_frameStore, () => new AdminClientCreateViewModel(_frameStore, CurrentAccount));
-            NavigationEditUsers = new NavigatePanelCommand<AdminClientEditViewModel>(_frameStore, () => new AdminClientEditViewModel(_frameStore, new UsuarioInternoModel(), CurrentAccount));
+
+            _funcionarios = new ObservableCollection<FuncionarioModel>();
+            foreach (FuncionarioModel f in new FuncionarioModel().ReadAll())
+            {
+                _funcionarios.Add(f);
+            }
+
+            Funcionarios = _funcionarios;
+            SelectedUnidad = _unidades.First(p => p.Rut == _crudFuncionario.Unidad.Rut);
+            NavigationCreateUsers = new NavigatePanelCommand<AdminClientCRUDViewModel>(_frameStore, () => new AdminClientCRUDViewModel(1,_frameStore, CurrentAccount, new FuncionarioModel() { Password = "12345678"}));
+            NavigationEditUsers = new NavigatePanelCommand<AdminClientCRUDViewModel>(_frameStore, () => new AdminClientCRUDViewModel(2, _frameStore, CurrentAccount, _crudFuncionario));
 
         }
 

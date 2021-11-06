@@ -16,7 +16,7 @@ namespace ApoloniaApp.Models
         public int RubroId { get; set; }
         public int DireccionId { get; set; }
         public string PersonaContacto { get; set; }
-        public int TelefonoContacto { get; set; }
+        public long TelefonoContacto { get; set; }
         public string EmailContacto { get; set; }
         public string ResponsableRun { get; set; }
         public int EstadoId { get; set; }
@@ -39,6 +39,29 @@ namespace ApoloniaApp.Models
 
         OracleConnection conn = new OracleConnection();
         OracleDataReader r = null;
+
+        public UnidadModel()
+        {
+            Rut = "";
+            RazonSocial = "";
+            RubroId = 0;
+            DireccionId = 0;
+            PersonaContacto = "";
+            TelefonoContacto = 0;
+            EmailContacto = "";
+            ResponsableRun = "";
+            EstadoId = 0;
+            Calle = "";
+            Numero = "";
+            Complemento = "";
+            Region = "";
+            Provincia = "";
+            Comuna = "";
+            ComunaId = 0;
+            Rubro = "";
+            ResponsableNombre = "";
+            Estado = "";
+        }
         #region CRUD
 
 
@@ -111,7 +134,7 @@ namespace ApoloniaApp.Models
                         Provincia = r.GetString(7),
                         Comuna = r.GetString(8),
                         PersonaContacto = r.GetString(9),
-                        TelefonoContacto = r.GetInt32(10),
+                        TelefonoContacto = r.GetInt64(10),
                         EmailContacto = r.GetString(11),
                         ResponsableRun = r.GetString(12),
                         ResponsableNombre = r.GetString(13),

@@ -7,21 +7,23 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    public class EstadoModel: ModelBase
+    public class RolModel : EntityModelBase
     {
         public int Id { get; set; }
-        public string Detalle { get; set; }
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public SubUnidadModel Subunidad { get; set; }
+        public int RolSuperior { get; set; }
+        public int Nivel { get; set; }
 
-
-        public EstadoModel()
+        public RolModel()
         {
-            Id = 1;
+            Subunidad = new SubUnidadModel();
         }
 
-        public List<EstadoModel> ReadAll()
+        public List<RolModel> ReadAll()
         {
-
-            List<EstadoModel> listaNegocio = new List<EstadoModel>();
+            List<RolModel> listaNegocio = new List<RolModel>();
 
             OracleConnection conn = new OracleConnection();
             try
@@ -30,7 +32,7 @@ namespace ApoloniaApp.Models
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "R_ESTADO_USUARIOS_ALL";
+                cmd.CommandText = "r_roles_all";
                 cmd.CommandType = CommandType.StoredProcedure;
                 OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
                 o.Direction = ParameterDirection.Output;
@@ -41,12 +43,18 @@ namespace ApoloniaApp.Models
                 OracleDataReader r = ((OracleRefCursor)o.Value).GetDataReader();
                 while (r.Read())
                 {
-                    EstadoModel e = new EstadoModel()
+                    
+
+                    RolModel ro = new RolModel()
                     {
-                        Detalle = r.GetString(0),
-                        Id = r.GetInt32(1)
+                        Id = r.GetInt32(0),
+                        Nombre = r.GetString(1),
+                        Descripcion = r.GetString(2),
+                        Nivel = r.GetInt32(3)
                     };
-                    listaNegocio.Add(e);
+                    ro.Subunidad.Nombre = r.GetString(4);
+                    ro.Subunidad.Id = r.GetInt32(6);
+                    listaNegocio.Add(ro);
                 }
 
                 conn.Close();
@@ -57,8 +65,8 @@ namespace ApoloniaApp.Models
                 conn.Close();
                 return null;
             }
+
             return listaNegocio;
         }
-
     }
 }

@@ -41,11 +41,13 @@ namespace ApoloniaApp.ViewModels
 
             NavigationUser = new NavigatePanelCommand<AdminUserViewModel>(_frameStore, () => new AdminUserViewModel(_frameStore,CurrentAccount));
             NavigationUnit = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore,CurrentAccount));
+            NavigationClient = new NavigatePanelCommand<AdminClientViewModel>(_frameStore, () => new AdminClientViewModel(_frameStore,CurrentAccount));
             LogoutCommand = new LogoutCommand(_navigationStore, _accountStore);
         }
 
         public ICommand NavigationUnit { get; }
         public ICommand NavigationUser { get; }
+        public ICommand NavigationClient { get; }
         public ICommand LogoutCommand { get; }
 
         private void OnCurrentPanelChanged()

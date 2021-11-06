@@ -20,7 +20,7 @@ namespace ApoloniaApp.ViewModels
         public IEnumerable<UnidadModel> Unidades => _unidades;
         private UnidadModel _editUnit;
         private int _selectedUnitIndex;
-
+        private bool _canEditUnit;
         
 
         public int SelectedUnitIndex
@@ -55,6 +55,14 @@ namespace ApoloniaApp.ViewModels
             {
                 _editUnit = value;
                 Subunidades = _subunidades.Where(p => p.RutUnidad == _editUnit.Rut).ToList();
+                if (_editUnit != null)
+                {
+                    CanCreateSubunit = true;
+                }
+                else
+                {
+                    CanCreateSubunit = false;
+                }
                 OnPropertyChanged("SelectedUnidad");
 
                 OnPropertyChanged("Rut");
@@ -72,6 +80,15 @@ namespace ApoloniaApp.ViewModels
                 OnPropertyChanged("Rubro");
                 OnPropertyChanged("ResponsableNombre");
                 OnPropertyChanged("Estado");
+            }
+        }
+        public bool CanEditUnit
+        {
+            get { return _canEditUnit; }
+            set
+            {
+                _canEditUnit = value;
+                OnPropertyChanged("CanEditUnit");
             }
         }
         public string Rut
@@ -141,12 +158,12 @@ namespace ApoloniaApp.ViewModels
             }
 
         }
-        public int TelefonoContacto
+        public string TelefonoContacto
         {
             get
             {
 
-                return _editUnit.TelefonoContacto;
+                return _editUnit.TelefonoContacto.ToString();
 
             }
             set
@@ -285,7 +302,8 @@ namespace ApoloniaApp.ViewModels
         private readonly ObservableCollection<SubUnidadModel> _subunidades;
         private IEnumerable<SubUnidadModel> subunidades;
         private SubUnidadModel _editSubunit;
-
+        private bool _canCreateSubunit;
+        private bool _canEditSubunit;
         public IEnumerable<SubUnidadModel> Subunidades
         {
             get { return subunidades; }
@@ -302,7 +320,39 @@ namespace ApoloniaApp.ViewModels
             set
             {
                 _editSubunit = value;
+                if (_editSubunit != null)
+                {
+                    CanEditSubunit = true;
+                }
+                else
+                {
+                    CanEditSubunit = false;
+                }
                 OnPropertyChanged("SelectedSubunidad");
+            }
+        }
+
+        private readonly ObservableCollection<FuncionarioModel> _funcionarios;
+        private IEnumerable<SubUnidadModel> funcionarios;
+
+        //public IEnumerable<>
+
+        public bool CanCreateSubunit
+        {
+            get { return _canCreateSubunit; }
+            set
+            {
+                _canCreateSubunit = value;
+                OnPropertyChanged("CanCreateSubunit");
+            }
+        }
+        public bool CanEditSubunit
+        {
+            get { return _canEditSubunit; }
+            set
+            {
+                _canEditSubunit = value;
+                OnPropertyChanged("CanEditSubunit");
             }
         }
         #endregion
@@ -329,7 +379,8 @@ namespace ApoloniaApp.ViewModels
 
             NavigationCreateUnit = new NavigatePanelCommand<AdminUnitCreateViewModel>(_frameStore, () => new AdminUnitCreateViewModel(_frameStore, CurrentAccount));
             NavigationEditUnit = new NavigatePanelCommand<AdminUnitEditViewModel>(_frameStore, () => new AdminUnitEditViewModel(_frameStore, CurrentAccount, _editUnit));
-            NavigationCreateSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(frameStore, currentAccount, new SubUnidadModel() { RutUnidad = _editUnit.Rut }, _subunidades, 1));
+            NavigationCreateSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(frameStore, currentAccount, new SubUnidadModel() { RutUnidad = _editUnit.Rut }, subunidades, 1));
+            NavigationEditSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(frameStore, currentAccount, _editSubunit, subunidades, 2));
         }
 
         public ICommand NavigationCreateUnit { get; }

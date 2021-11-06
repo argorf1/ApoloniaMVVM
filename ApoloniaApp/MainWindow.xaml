@@ -31,11 +31,8 @@
         <DataTemplate x:Name="AdminClientViewTemplate" DataType="{x:Type viewmodels:AdminClientViewModel}">
             <views:AdminClientView DataContext="{Binding}"/>
         </DataTemplate>
-        <DataTemplate x:Name="AdminClientCreateViewTemplate" DataType="{x:Type viewmodels:AdminClientCreateViewModel}">
-            <views:AdminClientCreateView DataContext="{Binding}"/>
-        </DataTemplate>
-        <DataTemplate x:Name="AdminClientEditViewTemplate" DataType="{x:Type viewmodels:AdminClientEditViewModel}">
-            <views:AdminClientEditView DataContext="{Binding}"/>
+        <DataTemplate x:Name="AdminClientCreateViewTemplate" DataType="{x:Type viewmodels:AdminClientCRUDViewModel}">
+            <views:AdminClientCRUDView DataContext="{Binding}"/>
         </DataTemplate>
         <DataTemplate x:Name="AdminSubunitViewTemplate" DataType="{x:Type viewmodels:AdminSubunitCrudViewModel}">
             <views:AdminSubunitCRUD DataContext="{Binding}"/>

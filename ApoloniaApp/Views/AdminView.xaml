@@ -244,11 +244,11 @@
                             <StackPanel Orientation="Horizontal"
                                     Width="250">
 
-                                <Button Name="btnFuncionarios"
+                                <Button Name="btnRoles"
                                         Width="55"
-                                        Content="Funcionarios"
-                                        Command="{Binding NavigationClient}"/>
-
+                                        Content="Roles"
+                                        Command="{Binding NavigationRole}"/>
+                                
                                 <TextBlock Text="Flujos de Trabajo"
                                        Margin="15,0,0,0"/>
 
@@ -273,10 +273,12 @@
                             <StackPanel Orientation="Horizontal"
                                     Width="250">
 
-                                <Button Name="btnRoles"
+                                <Button Name="btnFuncionarios"
                                         Width="55"
-                                        Content="Roles"
-                                        Command="{Binding NavigationRole}"/>
+                                        Content="Funcionarios"
+                                        Command="{Binding NavigationClient}"/>
+
+                                
 
                                 <TextBlock Text="Gestión de Reportería"
                                        Margin="15,0,0,0"/>
