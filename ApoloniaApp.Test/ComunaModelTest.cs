@@ -11,24 +11,25 @@ using System.Linq;
 namespace ApoloniaApp.Test
 {
     [TestFixture]
-    public class ProvinciaModelTest
+    class ComunaModelTest
+
     {
         [Test]
         public void ReadAll()
         {
-            List<ProvinciaModel> datosBD = new ProvinciaModel.ReadAll();
-            List<ProvinciaModel> listaNegocio = new List<ProvinciaModel>();
+            List<ComunaModel> datosBD = new ComunaModel.ReadAll();
+            List<ComunaModel> listaNegocio = new List<ComunaModel>();
 
 
-            ProvinciaModel e = new ProvinciaModel();
-            e.Detalle = "Habia una vez";
-            e.Id = 2;
-
+            ComunaModel e = new ComunaModel();
+            e.Detalle = "";
+                e.Id = 0;
+                e.IdProvincia = 0;
+            
             listaNegocio.Add(e);
 
             //Assert.AreEqual(listaNegocio[0].Detalle, datosBD[0].Detalle);
             Assert.AreEqual(datosBD.Count(), listaNegocio.Count());
-
         }
     }
 }

@@ -6,6 +6,7 @@ using ApoloniaApp.ViewModels;
 using ApoloniaApp;
 using NUnit.Framework;
 using Oracle.ManagedDataAccess.Client;
+using System.Linq;
 
 namespace ApoloniaApp.Test
 {
@@ -15,14 +16,24 @@ namespace ApoloniaApp.Test
         [Test]
         public void ReadAll()
         {
-            EstadoModel e = new EstadoModel()
+            
             {
-                Detalle = "Activo",
-                Id = 1
-            };
+                List<EstadoModel> datosBD = new EstadoModel.ReadAll();
+                List<EstadoModel> listaNegocio = new List<EstadoModel>();
 
-            List<EstadoModel> response = e.ReadAll();
-            Assert.AreEqual(false, response);
+                EstadoModel e = new EstadoModel();
+
+                e.Detalle = "Activo";
+                e.Id = 1;
+                
+                listaNegocio.Add(e);
+                Assert.AreEqual(datosBD.Count(), listaNegocio.Count());
+
+            };
+            
+
         }
+
+
     }
 }

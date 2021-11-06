@@ -6,6 +6,7 @@ using ApoloniaApp.ViewModels;
 using ApoloniaApp;
 using NUnit.Framework;
 using Oracle.ManagedDataAccess.Client;
+using System.Linq;
 
 namespace ApoloniaApp.Test
 {
@@ -15,14 +16,28 @@ namespace ApoloniaApp.Test
         [Test]
         public void ReadAll()
         {
-            PerfilModel u = new PerfilModel()
-            {
-                Detalle = "Diseñador",
-                Id = 2
-            };
+            List<PerfilModel> datosBD = new PerfilModel.ReadAll();
+            List<PerfilModel> listaNegocio = new List<PerfilModel>();
 
-            List<PerfilModel> response = u.ReadAll();
-            Assert.AreEqual(false, response);
+
+            PerfilModel e = new PerfilModel();
+            e.Id = 2;
+
+            listaNegocio.Add(e);
+
+            Assert.AreEqual(listaNegocio[0].Detalle, datosBD[0].Detalle);
+            Assert.AreEqual(datosBD.Count(), listaNegocio.Count());
+        }
+
+        [Test]
+        public void ReadByIdTest()
+        {
+            PerfilModel u = new PerfilModel
+            {
+                Id = 0
+            };
+            bool result = u.ReadByIdTest();
+            Assert.That(result, Is.True);
         }
             
     }

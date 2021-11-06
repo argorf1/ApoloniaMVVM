@@ -21,7 +21,7 @@ namespace ApoloniaApp.Test
             var UsuarioInternoModel = new UsuarioInternoModel();
             UsuarioInternoModel u = new UsuarioInternoModel()
             {
-                Run = "70367343",
+                Run = "703673463",
                 Nombres = "Veronica",
                 ApellidoP = "Prohens",
                 ApellidoM = "Soissa",
@@ -53,12 +53,10 @@ namespace ApoloniaApp.Test
                 PerfilDet = "Administrador",
                 IdPerfil = 1,
                 IdEstado = 1
-
             };
 
             List<UsuarioInternoModel> response = u.ReadAll();
-
-            Assert.AreEqual(false, response);
+            CollectionAssert.AreEqual(u, response);
         }
 
         [Test]
@@ -70,7 +68,8 @@ namespace ApoloniaApp.Test
                 NombreCompleto = "Andres Moya Guerra"
             };
             List<UsuarioInternoModel> response = u.ReadDesigner();
-            Assert.AreEqual(false, response);
+            CollectionAssert.AreEqual(u, response);
+
         }
 
         [Test]
@@ -89,13 +88,35 @@ namespace ApoloniaApp.Test
             bool response = u.Read_Login();
             Assert.AreEqual(false, response);
         }
-              
-       
+
+
         [Test]
         public void ReadByRunTest()
         {
-
+            UsuarioInternoModel u = new UsuarioInternoModel()
+            {
+                Run = "167635059"
+            };
+            bool response = u.ReadByRun();
+            Assert.AreEqual(false, response);
         }
+
+        public bool ReadDesignerTest()
+        {
+            UsuarioInternoModel u = new UsuarioInternoModel()
+            {
+                Nombres = "Andres",
+                ApellidoP = "Moya",
+                ApellidoM = "Guerra",
+                Email = "amoya@process.cl",
+                IdPerfil = 2,
+                Password = "13243254"
+            };
+            bool response = u.ReadDesigner();
+            Assert.AreEqual(false, response);
+        }
+
+
 
 
         [Test]

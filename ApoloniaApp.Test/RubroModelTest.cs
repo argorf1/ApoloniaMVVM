@@ -6,6 +6,7 @@ using ApoloniaApp.ViewModels;
 using ApoloniaApp;
 using NUnit.Framework;
 using Oracle.ManagedDataAccess.Client;
+using System.Linq;
 
 namespace ApoloniaApp.Test
 {
@@ -14,16 +15,19 @@ namespace ApoloniaApp.Test
     {
         [Test]
         public void ReadAll()
-        { 
+        {
 
-            RubroModel rubro = new RubroModel()
-            {
-                Detalle = "Construcción",
-                Id = 11113
-            };
+            //List<RubroModel> datosBD = new RubroModel.ReadAll();
+            //List<RubroModel> listaNegocio = new List<RubroModel>();
+            //RubroModel e = new RubroModel();
+            //{
+            //    e.Detalle = "Construcción";
+            //    e.Id = 11113;
+            //};
 
-            List<RubroModel> response = rubro.ReadAll();
-            Assert.AreEqual(false, response);
+            //listaNegocio.Add(e);
+
+            //Assert.AreEqual(datosBD.Count(), listaNegocio.Count());
         }
     }
 }

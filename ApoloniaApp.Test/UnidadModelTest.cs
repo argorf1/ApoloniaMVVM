@@ -6,6 +6,7 @@ using ApoloniaApp.ViewModels;
 using ApoloniaApp;
 using NUnit.Framework;
 using Oracle.ManagedDataAccess.Client;
+using System.Linq;
 
 namespace ApoloniaApp.Test
 {
@@ -21,7 +22,7 @@ namespace ApoloniaApp.Test
             {
                 Rut = "96.575.280-3",
                 RazonSocial = "Natura cosméticos ",
-                RubroId = 0,
+                RubroId = 11118,
                 Calle = "Av. Padre Hurtado Sur",
                 Numero = "875",
                 Complemento = "",
@@ -32,37 +33,64 @@ namespace ApoloniaApp.Test
                 ResponsableRun = "100787989"
             };
 
-            bool result = u.Create();
+            bool result = u.ReadByRutTest();
             Assert.That(result, Is.True);
 
         }
 
         [Test]
-        public void ReadAll()
+        public void ReadAllTest()
+        {
+            List<UnidadModel> datosBD = new UnidadModel.ReadAll();
+            List<UnidadModel> listaNegocio = new List<UnidadModel>();
+
+
+            UnidadModel e = new UnidadModel();
+            e.Detalle = "Habia una vez";
+            e.Id = 2;
+
+            listaNegocio.Add(e);
+
+            //Assert.AreEqual(listaNegocio[0].Detalle, datosBD[0].Detalle);
+            Assert.AreEqual(datosBD.Count(), listaNegocio.Count());
+        }
+
+
+        [Test]
+        public bool ReadByRutTest()
         {
             UnidadModel u = new UnidadModel()
             {
-                Rut = "760254940",
-                RazonSocial = "Rotter & Krauss",
-                Rubro = "Industria Manufacturera",
-                Calle = "Nueva Tobalaba",
-                Numero = "12",
-                Complemento = "",
-                Region = "Región Metropolitana",
-                Provincia = "Santiago",
-                Comuna = "Providencia",
-                PersonaContacto = "Lorena Alvarez",
-                TelefonoContacto = 25716260,
-                EmailContacto = "lalvarez@Rotter&Krauss.cl",
-                ResponsableRun = "10712019K",
-                ResponsableNombre = "Ivan Nikoi",
-                Estado = "Activa",
-                EstadoId = 1,
-                DireccionId = 18
-            };
+                Rut = ""
 
-            List<UnidadModel> response = u.ReadAll();
-            Assert.AreEqual(false, response);
+            };
+            bool result = u.ReadByRutTest();
+            Assert.That(result, Is.True);
+
+        }
+
+        [Test]
+        public bool UpdateTest()
+        {
+            UnidadModel u = new UnidadModel()
+            {
+                Rut = "",
+                RazonSocial = "",
+                RubroId = 0,
+                DireccionId = 0,
+                Calle = "",
+                Numero = "",
+                Complemento = "",
+                ComunaId = 0,
+                PersonaContacto = "",
+                TelefonoContacto = 0,
+                EmailContacto = "",
+                ResponsableRun = "167635059",
+                EstadoId = 0
+            };
+            bool result = u.UpdateTest();
+            Assert.That(result, Is.True);
+
         }
 
     }
