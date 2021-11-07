@@ -21,7 +21,7 @@ namespace ApoloniaApp.Models
             OracleConnection conn = new OracleConnection();
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;

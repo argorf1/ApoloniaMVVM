@@ -70,7 +70,7 @@ namespace ApoloniaApp.Models
         {
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("c_unidad", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -107,7 +107,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -168,7 +168,7 @@ namespace ApoloniaApp.Models
             conn = new OracleConnection();
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "r_subunidades";
@@ -208,7 +208,7 @@ namespace ApoloniaApp.Models
         {
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
                 OracleCommand cmd = new OracleCommand("select * from unidades where RUT = :rut", conn);
                 cmd.Parameters.Add(":rut", OracleDbType.NVarchar2).Value = this.Rut;
                 r = cmd.ExecuteReader();
@@ -237,7 +237,7 @@ namespace ApoloniaApp.Models
         {
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("u_unidad", conn);
                 cmd.CommandType = CommandType.StoredProcedure;

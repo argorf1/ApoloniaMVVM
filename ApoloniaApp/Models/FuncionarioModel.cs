@@ -41,7 +41,7 @@ namespace ApoloniaApp.Models
         {
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("c_funcionario", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -76,7 +76,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -127,7 +127,7 @@ namespace ApoloniaApp.Models
         {
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
                 OracleCommand cmd = new OracleCommand("select * from funcionarios where RUN = :username", conn);
                 cmd.Parameters.Add(":username", OracleDbType.NVarchar2).Value = this.Run;
                 r = cmd.ExecuteReader();
@@ -157,7 +157,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("u_funcionario", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
