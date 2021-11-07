@@ -13,19 +13,57 @@ namespace ApoloniaApp.Models
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public SubUnidadModel Subunidad { get; set; }
+        public UnidadModel Unidad { get; set; }
         public int RolSuperior { get; set; }
         public int Nivel { get; set; }
+
+        OracleConnection conn = null;
+        OracleDataReader r = null;
 
         public RolModel()
         {
             Subunidad = new SubUnidadModel();
+            Unidad = new UnidadModel();
         }
 
+        public RolModel(UnidadModel unidad)
+        {
+            Subunidad = new SubUnidadModel();
+            Unidad = unidad;
+        }
+
+        #region CRUD
+        public bool Create()
+        {
+            try
+            {
+                conn = new Conexion().abrirConexion();
+
+                OracleCommand cmd = new OracleCommand("c_rol", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_nombre_rol", OracleDbType.NVarchar2).Value = this.Nombre;
+                cmd.Parameters.Add("i_descripcion", OracleDbType.NVarchar2).Value = this.Descripcion;
+                cmd.Parameters.Add("i_id_subunidad", OracleDbType.NVarchar2).Value = this.Subunidad.Id;
+                cmd.Parameters.Add("i_id_rol_superior", OracleDbType.NVarchar2).Value = this.RolSuperior;
+                cmd.Parameters.Add("i_nivel", OracleDbType.NVarchar2).Value = this.Nivel;
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
+        }
+
+        #region Read
         public List<RolModel> ReadAll()
         {
             List<RolModel> listaNegocio = new List<RolModel>();
 
-            OracleConnection conn = new OracleConnection();
             try
             {
                 conn = new Conexion().abrirConexion();
@@ -40,10 +78,10 @@ namespace ApoloniaApp.Models
                 cmd.ExecuteNonQuery();
 
 
-                OracleDataReader r = ((OracleRefCursor)o.Value).GetDataReader();
+                r = ((OracleRefCursor)o.Value).GetDataReader();
                 while (r.Read())
                 {
-                    
+
 
                     RolModel ro = new RolModel()
                     {
@@ -54,6 +92,8 @@ namespace ApoloniaApp.Models
                     };
                     ro.Subunidad.Nombre = r.GetString(4);
                     ro.Subunidad.Id = r.GetInt32(6);
+                    ro.Unidad.RazonSocial = r.GetString(5);
+                    ro.Unidad.Rut = r.GetString(7);
                     listaNegocio.Add(ro);
                 }
 
@@ -68,5 +108,39 @@ namespace ApoloniaApp.Models
 
             return listaNegocio;
         }
+
+        public bool ReadByNombre()
+        {
+            return true;
+        }
+        #endregion
+        public bool Update()
+        {
+
+            try
+            {
+                conn = new Conexion().abrirConexion();
+
+                OracleCommand cmd = new OracleCommand("u_funcionario", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_id_rol", OracleDbType.Int32).Value = this.Id;
+                cmd.Parameters.Add("i_nombre_rol", OracleDbType.NVarchar2).Value = this.Nombre;
+                cmd.Parameters.Add("i_descripcion", OracleDbType.NVarchar2).Value = this.Descripcion;
+                cmd.Parameters.Add("i_id_subunidad", OracleDbType.Int32).Value = this.Subunidad.Id;
+                cmd.Parameters.Add("i_id_rol_superior", OracleDbType.Int32).Value = this.RolSuperior;
+                cmd.Parameters.Add("i_nivel", OracleDbType.Int32).Value = this.Id;
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
+        }
     }
+
+    #endregion
 }

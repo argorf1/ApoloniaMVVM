@@ -143,7 +143,6 @@ namespace ApoloniaApp.ViewModels
         #endregion
         public AdminClientCRUDViewModel(int estado, FrameStore frameStore, UsuarioInternoModel currentAccount, FuncionarioModel crudFuncionario)
         {
-            _estado = estado;
             _frameStore = frameStore;
             CurrentAccount = currentAccount;
             _crudFuncionario = crudFuncionario;
@@ -151,6 +150,7 @@ namespace ApoloniaApp.ViewModels
 
             #region Configuracion Estado
 
+            _estado = estado;
             #region CargaDiccionario
             _estadoDetalle.Add(1, "Crear Funcionario");
             _estadoDetalle.Add(2, "Modificar Funcionario");

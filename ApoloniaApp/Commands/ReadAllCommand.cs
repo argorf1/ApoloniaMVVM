@@ -21,5 +21,16 @@ namespace ApoloniaApp.Commands
 
             return listModel;
         }
+
+        public ObservableCollection<TModel> ReadAll(Func<List<TModel>> readModel)
+        {
+            ObservableCollection<TModel> listModel = new ObservableCollection<TModel>();
+            foreach (TModel m in readModel())
+            {
+                listModel.Add(m);
+            }
+
+            return listModel;
+        }
     }
 }

@@ -160,6 +160,50 @@ namespace ApoloniaApp.Models
             return listaNegocio;
         }
 
+        public List<SubUnidadModel> ReadByUnidad()
+        {
+
+            List<SubUnidadModel> listaNegocio = new List<SubUnidadModel>();
+
+            conn = new OracleConnection();
+            try
+            {
+                conn = new Conexion().abrirConexion();
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "r_subunidades";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_rut_unidad", OracleDbType.NVarchar2).Value = this.Rut;
+                OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
+                o.Direction = ParameterDirection.Output;
+
+                cmd.ExecuteNonQuery();
+
+                r = ((OracleRefCursor)o.Value).GetDataReader();
+                while (r.Read())
+                {
+                    SubUnidadModel s = new SubUnidadModel()
+                    {
+                        Id = r.GetInt32(0),
+                        Nombre = r.GetString(1),
+                        Descripcion = r.GetString(2),
+                        SubUnidadPadreId = r.GetInt32(4),
+                        RutUnidad = this.Rut
+                    };
+                    listaNegocio.Add(s);
+                }
+                conn.Close();
+                return listaNegocio;
+
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return listaNegocio;
+            }
+        }
+
+
         public bool ReadByRut()
         {
             try
