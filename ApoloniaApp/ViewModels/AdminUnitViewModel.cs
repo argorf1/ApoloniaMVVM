@@ -57,11 +57,11 @@ namespace ApoloniaApp.ViewModels
                 Subunidades = _subunidades.Where(p => p.RutUnidad == _editUnit.Rut).ToList();
                 if (_editUnit != null)
                 {
-                    CanCreateSubunit = true;
+                    CanEditUnit = true;
                 }
                 else
                 {
-                    CanCreateSubunit = false;
+                    CanEditUnit = false;
                 }
                 OnPropertyChanged("SelectedUnidad");
 

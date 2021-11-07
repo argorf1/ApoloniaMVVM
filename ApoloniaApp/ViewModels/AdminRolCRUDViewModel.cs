@@ -48,7 +48,7 @@ namespace ApoloniaApp.ViewModels
             _subunidades = new ObservableCollection<SubUnidadModel>();
             _roles = new ObservableCollection<RolModel>();
 
-            _subunidades = new ReadAllCommand<SubUnidadModel>().ReadAll(() => _crudRol.Unidad.ReadByUnidad(), new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad --" });
+            _subunidades = new ReadAllCommand<SubUnidadModel>().ReadAll(() => _crudRol.Unidad.ReadSubunidadByUnidad(), new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad --" });
             _roles = new ReadAllCommand<RolModel>().ReadAll(() => new RolModel().ReadAll(), new RolModel() { Id = 0, Nombre="-- Rol --"});
             _roles.Remove(_roles.FirstOrDefault(r => r.Id == _crudRol.Id));
 

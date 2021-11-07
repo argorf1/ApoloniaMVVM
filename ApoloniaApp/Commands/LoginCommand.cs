@@ -37,7 +37,7 @@ namespace ApoloniaApp.Commands
                         _navigationStore.CurrentViewModel=new AdminViewModel(_navigationStore,_accountStore);
                         break;
                     case 2:
-                        _navigationStore.CurrentViewModel = new ProcessDesignerViewModel(_navigationStore);
+                        _navigationStore.CurrentViewModel = new ProcessDesignerViewModel(_navigationStore, _accountStore);
                         break;
                     default:
                         break;

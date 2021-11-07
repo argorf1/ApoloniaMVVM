@@ -21,7 +21,7 @@
 
                 <Frame x:Name="CurrenContent" 
                        NavigationUIVisibility="Hidden" 
-                       Content="Process" Margin="72,40,0,0"/>
+                       Content="{Binding CurrentViewModel}" Margin="72,40,0,0"/>
 
             </Grid>
 
@@ -50,7 +50,7 @@
                             VerticalAlignment="Center">
 
                     <Label x:Name="tbLoggedUser" 
-                           Content="Nombre Usuario Logeado"/>
+                           Content="{Binding LogUser}"/>
 
 
 

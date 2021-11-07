@@ -21,7 +21,7 @@ namespace ApoloniaApp.ViewModels
         private string _logUser;
         public string LogUser
         {
-            get { return string.IsNullOrEmpty(CurrentAccount.PerfilDet).ToString(); }
+            get { return _logUser; }
             set {
                 _logUser = value;
                 OnPropertyChanged("LogUser"); 

@@ -70,18 +70,17 @@
                             DockPanel.Dock="Right"
                             Margin="0,0,10,0"
                             VerticalContentAlignment="Center" 
-                            Command="{Binding NavigationCreateRol}"/>
+                            Command="{Binding NavigationCreateProceso}"/>
                     <Button Content="Modificar Proceso"
                             Margin="10,0,10,0"
                             VerticalContentAlignment="Center" 
                             DockPanel.Dock="Right"
-
-                            Command="{Binding NavigationCreateRol}"/>
+                            Command="{Binding NavigationUpdateProceso}"/>
                     <Button Content="Crear Proceso"
                             Margin="30,0,0,0"
                             VerticalContentAlignment="Center"
                             DockPanel.Dock="Right"
-                            Command="{Binding NavigationCreateRol}" Width="100"/>
+                            Command="{Binding NavigationCreateProceso}" Width="100"/>
                 </DockPanel>
                 <DataGrid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="6" x:Name="dtgProcesos"
                           CanUserReorderColumns="False"
@@ -105,18 +104,11 @@
                         Width="auto"
                         MinWidth="300"
                         Binding="{Binding Descripcion}"/>
-                        <DataGridComboBoxColumn 
-                        Header="Responsables" 
-                        Width="200"
-                        MinWidth="70"
-                        ItemsSource="{Binding Responsables}"
-                        DisplayMemberPath="Nombre"
-                        SelectedValuePath="Nombre"/>
                         <DataGridTextColumn 
                         Header="Diseñador" 
                         Width="150"
                         MinWidth="70"
-                        Binding="{Binding Encargado.Nombre}"/>
+                        Binding="{Binding Creador.NombreCompleto}"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
@@ -161,6 +153,13 @@
                         Width="auto"
                         MinWidth="300"
                         Binding="{Binding Descripcion}"/>
+                        <DataGridComboBoxColumn 
+                        Header="Responsables" 
+                        Width="200"
+                        MinWidth="70"
+                        ItemsSource="{Binding Responsables}"
+                        DisplayMemberPath="Nombre"
+                        SelectedValuePath="Nombre"/>
                         <DataGridTextColumn 
                         Header="Diseñador" 
                         Width="150"

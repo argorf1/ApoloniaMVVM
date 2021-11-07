@@ -21,6 +21,7 @@ namespace ApoloniaApp.ViewModels
             CurrentAccount = currentAccount;
             _crudRol = new RolModel();
 
+            #region Carga Listas
             _unidades = new ObservableCollection<UnidadModel>();
             _roles = new ObservableCollection<RolModel>();
 
@@ -28,7 +29,8 @@ namespace ApoloniaApp.ViewModels
             _roles = new ReadAllCommand<RolModel>().ReadAll(() => new RolModel().ReadAll());
 
             SelectedUnidad = _unidades.ElementAt(0);
-            SelectedRol = new RolModel();
+            SelectedRol = new RolModel(); 
+            #endregion
 
             NavigationCreateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount, new RolModel(_selectedUnidad),1));
             NavigationUpdateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount,_crudRol,2));

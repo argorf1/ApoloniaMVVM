@@ -21,8 +21,8 @@ namespace ApoloniaApp
             NavigationStore navigationStore = new NavigationStore();
             AccountStore accountStore = new AccountStore();
             accountStore.CurrentAccount = new UsuarioInternoModel() { Run = "1", IdPerfil=1};
-            //navigationStore.CurrentViewModel = new LoginViewModel(accountStore, navigationStore);
-            navigationStore.CurrentViewModel = new AdminViewModel(navigationStore,accountStore);
+            navigationStore.CurrentViewModel = new LoginViewModel(accountStore, navigationStore);
+            //navigationStore.CurrentViewModel = new ProcessDesignerViewModel(navigationStore,accountStore);
             accountStore.CurrentAccount = new UsuarioInternoModel();
             MainWindow = new MainWindow()
             {

@@ -348,7 +348,7 @@ namespace ApoloniaApp.ViewModels
 
             _responsables = new ObservableCollection<UsuarioInternoModel>();
             _responsables.Add(new UsuarioInternoModel() { NombreCompleto = "-- Seleccionar --" });
-            foreach (UsuarioInternoModel u in new UsuarioInternoModel().ReadDesigner())
+            foreach (UsuarioInternoModel u in new UsuarioInternoModel().ReadByDesignerPerfil())
             {
                 _responsables.Add(u);
             }

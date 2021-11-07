@@ -43,6 +43,15 @@
         <DataTemplate x:Name="AdminRolCRUDViewTemplate" DataType="{x:Type viewmodels:AdminRolCRUDViewModel}">
             <views:AdminRolCRUDView DataContext="{Binding}"/>
         </DataTemplate>
+        <DataTemplate x:Name="DPViewTemplate" DataType="{x:Type viewmodels:ProcessDesignerViewModel}">
+            <views:ProcessDesignerView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="DPProcesoViewTemplate" DataType="{x:Type viewmodels:DPProcesosViewModel}">
+            <views:DPProcesosView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="DPProcesoCRUDViewTemplate" DataType="{x:Type viewmodels:DPProcesosCRUDViewModel}">
+            <views:DPProcesosCRUDView DataContext="{Binding}"/>
+        </DataTemplate>
 
         <Style x:Key="FocusVisual">
 

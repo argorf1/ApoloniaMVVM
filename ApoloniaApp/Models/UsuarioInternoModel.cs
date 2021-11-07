@@ -106,7 +106,7 @@ namespace ApoloniaApp.Models
 
             return listaNegocio;
         }
-        public List<UsuarioInternoModel> ReadDesigner()
+        public List<UsuarioInternoModel> ReadByDesignerPerfil()
         {
 
             List<UsuarioInternoModel> listaNegocio = new List<UsuarioInternoModel>();
@@ -132,6 +132,66 @@ namespace ApoloniaApp.Models
                     {
                         Run = r.GetString(0),
                         NombreCompleto = r.GetString(1)          
+                    };
+
+                    listaNegocio.Add(u);
+                }
+
+                conn.Close();
+
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return listaNegocio;
+            }
+
+
+            return listaNegocio;
+        }
+
+        public List<UnidadModel> ReadByDesigner()
+        {
+
+            List<UnidadModel> listaNegocio = new List<UnidadModel>();
+
+            try
+            {
+                conn = new Conexion().AbrirConexion();
+
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "r_unidades_by_designer";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_run_designer", OracleDbType.NVarchar2).Value = this.Run;
+                OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
+                o.Direction = ParameterDirection.Output;
+
+                cmd.ExecuteNonQuery();
+
+
+                r = ((OracleRefCursor)o.Value).GetDataReader();
+                while (r.Read())
+                {
+                    UnidadModel u = new UnidadModel()
+                    {
+                        Rut = r.GetString(0),
+                        RazonSocial = r.GetString(1),
+                        Rubro = r.GetString(2),
+                        Calle = r.GetString(3),
+                        Numero = r.GetString(4),
+                        Complemento = r.GetString(5),
+                        Region = r.GetString(6),
+                        Provincia = r.GetString(7),
+                        Comuna = r.GetString(8),
+                        PersonaContacto = r.GetString(9),
+                        TelefonoContacto = r.GetInt64(10),
+                        EmailContacto = r.GetString(11),
+                        ResponsableRun = r.GetString(12),
+                        ResponsableNombre = r.GetString(13),
+                        Estado = r.GetString(14),
+                        EstadoId = r.GetInt32(15),
+                        DireccionId = r.GetInt32(16)
                     };
 
                     listaNegocio.Add(u);
