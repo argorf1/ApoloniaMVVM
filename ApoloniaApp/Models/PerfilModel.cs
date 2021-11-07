@@ -71,7 +71,7 @@ namespace ApoloniaApp.Models
             try
             {
                 conn = new Conexion().abrirConexion();
-                OracleCommand cmd = new OracleCommand("select nombre from Rol where ID = :id", conn);
+                OracleCommand cmd = new OracleCommand("select nombre from perfil_usuarios where ID = :id", conn);
                 cmd.Parameters.Add(":id", OracleDbType.NVarchar2).Value = this.Id;
                 OracleDataReader r = cmd.ExecuteReader();
 
