@@ -5,14 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ApoloniaApp.Views">
     <Grid Background="White">
-        <StackPanel x:Name="spNewUser" Orientation="Vertical" 
+        <StackPanel x:Name="spRol" Orientation="Vertical" 
                         HorizontalAlignment="Left"  Margin="5,0,0,5"
                         Visibility="Visible">
 
 
             <StackPanel Orientation="Horizontal"
                     Margin="0">
-                <TextBlock x:Name="tbkTitleAddUser" Text="{Binding EstadoView}"
+                <TextBlock x:Name="tbkTitleAddUser" Text="Gestion de Roles"
                     Margin="0,10,0,10"/>
 
             </StackPanel>
@@ -45,8 +45,6 @@
                 </Grid.RowDefinitions>
 
                 <!-- // SECTION 1: INFORMACIÓN PERSONAL  // -->
-                <TextBlock Grid.Column="0" Grid.Row="0"
-                            Text="Gestion de Roles"/>
                 <TextBlock Grid.Column="0" Grid.Row="1"
                             Text="Roles de Usuarios Cliente"/>
                 <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
@@ -121,7 +119,7 @@
                             Content="Modifiar Rol"  Height="20" 
                             VerticalContentAlignment="Center" 
                             Width="100"
-                            Command="{Binding NavigationEditRol}" Margin="80,3,30,3"/>
+                            Command="{Binding NavigationUpdateRol}" Margin="80,3,30,3"/>
 
                 <!-- // E-Mail: Label // -->
                 <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal">
