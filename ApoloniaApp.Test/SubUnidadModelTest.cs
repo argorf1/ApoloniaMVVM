@@ -6,6 +6,7 @@ using ApoloniaApp.ViewModels;
 using ApoloniaApp;
 using NUnit.Framework;
 using Oracle.ManagedDataAccess.Client;
+using System.Linq;
 
 namespace ApoloniaApp.Test
 {
@@ -19,10 +20,10 @@ namespace ApoloniaApp.Test
             var SubUnidadModel = new SubUnidadModel();
             SubUnidadModel u = new SubUnidadModel()
             {
-                Nombre = "",
-                Descripcion = "",
-                SubUnidadPadreId = 0,
-                RutUnidad = ""
+                Nombre = "Finanzas",
+                Descripcion = "Area encargada de gastos",
+                SubUnidadPadreId = 1,
+                RutUnidad = "273229523"
             };
             bool result = u.Create();
             Assert.AreEqual(false, result);
@@ -31,36 +32,21 @@ namespace ApoloniaApp.Test
         [Test]
         public void ReadAllTest()
         {
+            List<SubUnidadModel> datosBD = new SubUnidadModel().ReadAll();
 
-            //SubUnidadModel u = new SubUnidadModel()
-            //{
-            //    Id = 0,
-            //    Nombre = "",
-            //    Descripcion = "",
-            //    SubUnidadPadre = "",
-            //    SubUnidadPadreId = 0,
-            //    NumFuncionarios = 12,
-            //    NumProcesos = 0
-            //};
-
-            //List<SubUnidadModel> response = u.ReadAll();
-            //CollectionAssert.AreEqual(u, response);
+            Assert.AreEqual(datosBD.Any(), true);
         }
 
         [Test]
         public void ReadByName()
         {
-            SubUnidadModel u = new SubUnidadModel()
-            {
-                Nombre = "NOMBREPRUEBA"
-            };
-            //List<SubUnidadModel> response = u.ReadByName(u.Nombre.ToString());
-            string  response = u.ReadByName_RRA(u.Nombre.ToString());
-            CollectionAssert.AreEqual(u.Nombre, response);
+            List<SubUnidadModel> datosBD = new SubUnidadModel().ReadAll();
+
+            Assert.AreEqual(datosBD.Any(), true);
 
         }
 
-        
+
         [Test]
         public void Update()
         {
@@ -73,7 +59,7 @@ namespace ApoloniaApp.Test
                 RutUnidad=""  
             };
             bool result = u.Update();
-            Assert.AreEqual(false, result);
+            Assert.AreEqual(true, result);
         }
 
     }

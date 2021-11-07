@@ -17,19 +17,9 @@ namespace ApoloniaApp.Test
         [Test]
         public void ReadAll()
         {
-            List<ComunaModel> datosBD = new ComunaModel.ReadAll();
-            List<ComunaModel> listaNegocio = new List<ComunaModel>();
-
-
-            ComunaModel e = new ComunaModel();
-            e.Detalle = "";
-                e.Id = 0;
-                e.IdProvincia = 0;
+            List<ComunaModel> datosBD = new ComunaModel().ReadAll();
             
-            listaNegocio.Add(e);
-
-            //Assert.AreEqual(listaNegocio[0].Detalle, datosBD[0].Detalle);
-            Assert.AreEqual(datosBD.Count(), listaNegocio.Count());
+            Assert.AreEqual(datosBD.Any(), true);
         }
     }
 }

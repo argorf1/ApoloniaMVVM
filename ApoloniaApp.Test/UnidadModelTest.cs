@@ -33,44 +33,35 @@ namespace ApoloniaApp.Test
                 ResponsableRun = "100787989"
             };
 
-            bool result = u.ReadByRutTest();
-            Assert.That(result, Is.True);
+            bool result = u.Create();
+            Assert.AreEqual(false, result);
 
         }
 
         [Test]
         public void ReadAllTest()
         {
-            List<UnidadModel> datosBD = new UnidadModel.ReadAll();
-            List<UnidadModel> listaNegocio = new List<UnidadModel>();
+            List<UnidadModel> datosBD = new UnidadModel().ReadAll();
 
-
-            UnidadModel e = new UnidadModel();
-            e.Detalle = "Habia una vez";
-            e.Id = 2;
-
-            listaNegocio.Add(e);
-
-            //Assert.AreEqual(listaNegocio[0].Detalle, datosBD[0].Detalle);
-            Assert.AreEqual(datosBD.Count(), listaNegocio.Count());
+            Assert.AreEqual(datosBD.Any(), true);
         }
 
 
         [Test]
-        public bool ReadByRutTest()
+        public void ReadByRutTest()
         {
             UnidadModel u = new UnidadModel()
             {
-                Rut = ""
+                Rut = "273229523"
 
             };
-            bool result = u.ReadByRutTest();
-            Assert.That(result, Is.True);
+            bool response = u.ReadByRut();
+            Assert.AreEqual(false, response);
 
         }
 
         [Test]
-        public bool UpdateTest()
+        public void UpdateTest()
         {
             UnidadModel u = new UnidadModel()
             {
@@ -88,8 +79,8 @@ namespace ApoloniaApp.Test
                 ResponsableRun = "167635059",
                 EstadoId = 0
             };
-            bool result = u.UpdateTest();
-            Assert.That(result, Is.True);
+            bool result = u.Update();
+            Assert.AreEqual(true, result);
 
         }
 
