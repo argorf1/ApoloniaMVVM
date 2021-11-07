@@ -59,10 +59,10 @@
                 <!-- // RUN: TextBox // -->
                 <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal">
 
-                    <TextBox x:Name="txtNewRun"
+                    <TextBox x:Name="txtRol"
                              Text="{Binding Nombre}"
                              Width="387"
-                             MaxLength="9"/>
+                             MaxLength="30"/>
 
                     <Image x:Name="imgNewRun"
                            Height="17"
@@ -98,7 +98,7 @@
                 <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
                                 Orientation="Horizontal">
 
-                    <ComboBox x:Name="ddlNewBizUnit" Width="389"
+                    <ComboBox x:Name="ddlSubunit" Width="389"
                               ItemsSource="{Binding Subunidades}"
                               DisplayMemberPath="Nombre"
                               SelectedValuePath="Nombre"

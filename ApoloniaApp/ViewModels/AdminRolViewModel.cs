@@ -19,6 +19,7 @@ namespace ApoloniaApp.ViewModels
         {
             _frameStore = frameStore;
             CurrentAccount = currentAccount;
+            _crudRol = new RolModel();
 
             _unidades = new ObservableCollection<UnidadModel>();
             _roles = new ObservableCollection<RolModel>();
@@ -30,7 +31,7 @@ namespace ApoloniaApp.ViewModels
             SelectedRol = new RolModel();
 
             NavigationCreateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount, new RolModel(_selectedUnidad),1));
-            NavigationUpdateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount,_selectedRol,2));
+            NavigationUpdateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount,_crudRol,2));
 
         }
 
@@ -50,7 +51,7 @@ namespace ApoloniaApp.ViewModels
                 _selectedUnidad = value;
                 if (_selectedUnidad.Rut != "0")
                 {
-                    _selectedRol.Unidad = _selectedUnidad;
+                    _crudRol.Unidad = _selectedUnidad;
                 }
                     Roles = _roles.Where(s => s.Unidad.Rut == _selectedUnidad.Rut || s.Id == 0);
                 OnPropertyChanged("SelectedUnidad");
@@ -59,7 +60,6 @@ namespace ApoloniaApp.ViewModels
 
         private ObservableCollection<RolModel> _roles;
         private IEnumerable<RolModel> roles;
-        private RolModel _selectedRol;
 
 
         public IEnumerable<RolModel> Roles
@@ -73,10 +73,10 @@ namespace ApoloniaApp.ViewModels
         }
         public RolModel SelectedRol
         {
-            get { return _selectedRol; }
+            get { return _crudRol; }
             set
             {
-                _selectedRol = value;
+                _crudRol = value;
 
                 OnPropertyChanged("SelectedRol");
 
@@ -91,7 +91,7 @@ namespace ApoloniaApp.ViewModels
         #region Propiedades
         public string Nombre
         {
-            get { return _selectedRol.Nombre; }
+            get { return _crudRol.Nombre; }
             set
             {
                 OnPropertyChanged("Nombre");
@@ -99,7 +99,7 @@ namespace ApoloniaApp.ViewModels
         }
         public string Descripcion
         {
-            get { return _selectedRol.Descripcion; }
+            get { return _crudRol.Descripcion; }
             set
             {
                 OnPropertyChanged("Descripcion");
@@ -110,8 +110,8 @@ namespace ApoloniaApp.ViewModels
         {
             get 
             {
-                if (_selectedRol.Id != 0)
-                    return roles.FirstOrDefault(r => r.RolSuperior == _selectedRol.RolSuperior).Nombre;
+                if (_crudRol.Id != 0)
+                    return roles.FirstOrDefault(r => r.RolSuperior == _crudRol.RolSuperior).Nombre;
                 else
                     return "";
             }
@@ -123,7 +123,7 @@ namespace ApoloniaApp.ViewModels
 
         public string Subunidad
         {
-            get { return _selectedRol.Subunidad.Nombre; }
+            get { return _crudRol.Subunidad.Nombre; }
             set { OnPropertyChanged("Subunidad"); }
         }
         #endregion

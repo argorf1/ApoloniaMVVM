@@ -180,7 +180,8 @@
                                     Width="250">
 
                                 <Button Width="100"
-                                        Command="{Binding NavigationLoginCommand}"/>
+                                        Content="Procesos"
+                                        Command="{Binding NavigationProcesos}"/>
 
                                 <TextBlock Text="Gestión de Unidades"
                                        Margin="15,0,0,0"/>
@@ -206,6 +207,9 @@
                             <StackPanel Orientation="Horizontal"
                                     Width="250">
 
+                                <Button Width="100"
+                                        Content="Monitoreo"
+                                        Command="{Binding NavigationMonitoreo}"/>
 
 
                                 <TextBlock Text="Gestión de Usuarios"
@@ -283,6 +287,9 @@
                             <StackPanel Orientation="Horizontal"
                                     Width="250">
 
+                                <Button Width="100"
+                                        Content="Logout"
+                                        Command="{Binding Logout}"/>
 
 
                                 <TextBlock Text="Cerrar Sesión"

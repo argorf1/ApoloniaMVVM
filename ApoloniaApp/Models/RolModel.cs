@@ -43,9 +43,9 @@ namespace ApoloniaApp.Models
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("i_nombre_rol", OracleDbType.NVarchar2).Value = this.Nombre;
                 cmd.Parameters.Add("i_descripcion", OracleDbType.NVarchar2).Value = this.Descripcion;
-                cmd.Parameters.Add("i_id_subunidad", OracleDbType.NVarchar2).Value = this.Subunidad.Id;
-                cmd.Parameters.Add("i_id_rol_superior", OracleDbType.NVarchar2).Value = this.RolSuperior;
-                cmd.Parameters.Add("i_nivel", OracleDbType.NVarchar2).Value = this.Nivel;
+                cmd.Parameters.Add("i_id_subunidad", OracleDbType.Int32).Value = this.Subunidad.Id;
+                cmd.Parameters.Add("i_id_rol_superior", OracleDbType.Int32).Value = this.RolSuperior;
+                cmd.Parameters.Add("i_nivel", OracleDbType.Int32).Value = this.Nivel;
                 cmd.ExecuteNonQuery();
 
                 conn.Close();
@@ -88,12 +88,13 @@ namespace ApoloniaApp.Models
                         Id = r.GetInt32(0),
                         Nombre = r.GetString(1),
                         Descripcion = r.GetString(2),
-                        Nivel = r.GetInt32(3)
+                        Nivel = r.GetInt32(3),
+                        RolSuperior = r.GetInt32(4)
                     };
-                    ro.Subunidad.Nombre = r.GetString(4);
-                    ro.Subunidad.Id = r.GetInt32(6);
-                    ro.Unidad.RazonSocial = r.GetString(5);
-                    ro.Unidad.Rut = r.GetString(7);
+                    ro.Subunidad.Nombre = r.GetString(5);
+                    ro.Subunidad.Id = r.GetInt32(7);
+                    ro.Unidad.RazonSocial = r.GetString(6);
+                    ro.Unidad.Rut = r.GetString(8);
                     listaNegocio.Add(ro);
                 }
 
@@ -103,7 +104,7 @@ namespace ApoloniaApp.Models
             catch (Exception e)
             {
                 conn.Close();
-                return null;
+                return new List<RolModel>();
             }
 
             return listaNegocio;
@@ -111,7 +112,35 @@ namespace ApoloniaApp.Models
 
         public bool ReadByNombre()
         {
-            return true;
+            bool read = true;
+            try
+            {
+                conn = new Conexion().abrirConexion();
+
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "r_rol_by_nombre";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_nombre_rol", OracleDbType.NVarchar2).Value = this.Nombre;
+                cmd.Parameters.Add("i_id_subunidad", OracleDbType.Int32).Value = this.Subunidad.Id;
+                OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
+                o.Direction = ParameterDirection.Output;
+
+                cmd.ExecuteNonQuery();
+
+
+                r = ((OracleRefCursor)o.Value).GetDataReader();
+                if (!r.Read())
+                {
+                    read = false;
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return read;
+            }
+            return read;
         }
         #endregion
         public bool Update()
@@ -121,14 +150,14 @@ namespace ApoloniaApp.Models
             {
                 conn = new Conexion().abrirConexion();
 
-                OracleCommand cmd = new OracleCommand("u_funcionario", conn);
+                OracleCommand cmd = new OracleCommand("u_rol", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("i_id_rol", OracleDbType.Int32).Value = this.Id;
                 cmd.Parameters.Add("i_nombre_rol", OracleDbType.NVarchar2).Value = this.Nombre;
                 cmd.Parameters.Add("i_descripcion", OracleDbType.NVarchar2).Value = this.Descripcion;
                 cmd.Parameters.Add("i_id_subunidad", OracleDbType.Int32).Value = this.Subunidad.Id;
                 cmd.Parameters.Add("i_id_rol_superior", OracleDbType.Int32).Value = this.RolSuperior;
-                cmd.Parameters.Add("i_nivel", OracleDbType.Int32).Value = this.Id;
+                cmd.Parameters.Add("i_nivel", OracleDbType.Int32).Value = this.Nivel;
 
                 cmd.ExecuteNonQuery();
                 conn.Close();
