@@ -17,17 +17,9 @@ namespace ApoloniaApp.Test
         public void ReadAllTest()
             
         {
-            List<RegionModel> datosBD = new RegionModel.ReadAll();
-            List<RegionModel> listaNegocio = new List<RegionModel>();
-
-
-            RegionModel e = new RegionModel();
-            e.Detalle = "Habia una vez";
-            e.Id = 2;
-
-            listaNegocio.Add(e);
-
-            Assert.AreEqual(datosBD.Count(), listaNegocio.Count());
+            List<RegionModel> datosBD = new RegionModel().ReadAll();
+           
+            Assert.AreEqual(datosBD.Any(), true);
 
         }
 

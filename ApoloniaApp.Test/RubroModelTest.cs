@@ -17,17 +17,9 @@ namespace ApoloniaApp.Test
         public void ReadAll()
         {
 
-            //List<RubroModel> datosBD = new RubroModel.ReadAll();
-            //List<RubroModel> listaNegocio = new List<RubroModel>();
-            //RubroModel e = new RubroModel();
-            //{
-            //    e.Detalle = "Construcción";
-            //    e.Id = 11113;
-            //};
-
-            //listaNegocio.Add(e);
-
-            //Assert.AreEqual(datosBD.Count(), listaNegocio.Count());
+            List<RubroModel> datosBD = new RubroModel().ReadAll();
+            
+            Assert.AreEqual(datosBD.Any(), true);
         }
     }
 }

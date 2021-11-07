@@ -18,17 +18,12 @@ namespace ApoloniaApp.Test
         [Test]
         public void ReadAll()
         {
-                       
-            SubUnidadTipo u = new SubUnidadTipo();
-            {
-                Nombre = "Gerencia General";
-                Descripcion = "Área que está relacionada con el proceso de la operación general de la empresa. En ella se definen los objetivos, se toman las decisiones más importantes y desde ahí se dirigen todas las operaciones de la organización. Dado que es la responsable de que todo funcione bien, se relaciona directamente con todas las otras áreas y las controla";
-                Id = 1;
-            };
+            List<SubUnidadTipo> datosBD = new SubUnidadTipo().ReadAll();
+            
+            
+            Assert.AreEqual(datosBD.Any(), true);
 
-            SubUnidadTipo response = u.ReadAll();
-            Assert.AreEqual(u, response);
-
+            
         }
     }
 }

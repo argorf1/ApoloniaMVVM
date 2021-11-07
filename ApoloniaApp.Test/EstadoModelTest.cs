@@ -14,20 +14,13 @@ namespace ApoloniaApp.Test
     public class EstadoModelTest
     {
         [Test]
-        public void ReadAll()
+        public void ReadAllTest()
         {
             
             {
-                List<EstadoModel> datosBD = new EstadoModel.ReadAll();
-                List<EstadoModel> listaNegocio = new List<EstadoModel>();
-
-                EstadoModel e = new EstadoModel();
-
-                e.Detalle = "Activo";
-                e.Id = 1;
+                List<EstadoModel> datosBD = new EstadoModel().ReadAll();
                 
-                listaNegocio.Add(e);
-                Assert.AreEqual(datosBD.Count(), listaNegocio.Count());
+                Assert.AreEqual(datosBD.Any(), true);
 
             };
             

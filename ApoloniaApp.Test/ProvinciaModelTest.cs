@@ -16,7 +16,7 @@ namespace ApoloniaApp.Test
         [Test]
         public void ReadAll()
         {
-            List<ProvinciaModel> datosBD = new ProvinciaModel.ReadAll();
+            List<ProvinciaModel> datosBD = new ProvinciaModel().ReadAll();
             List<ProvinciaModel> listaNegocio = new List<ProvinciaModel>();
 
 
@@ -26,7 +26,6 @@ namespace ApoloniaApp.Test
 
             listaNegocio.Add(e);
 
-            //Assert.AreEqual(listaNegocio[0].Detalle, datosBD[0].Detalle);
             Assert.AreEqual(datosBD.Count(), listaNegocio.Count());
 
         }

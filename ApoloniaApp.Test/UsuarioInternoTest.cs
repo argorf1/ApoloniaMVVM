@@ -6,8 +6,7 @@ using ApoloniaApp.ViewModels;
 using ApoloniaApp;
 using NUnit.Framework;
 using Oracle.ManagedDataAccess.Client;
-
-
+using System.Linq;
 
 namespace ApoloniaApp.Test
 {
@@ -42,35 +41,29 @@ namespace ApoloniaApp.Test
         public void ReadAllTest()
         {
 
-            UsuarioInternoModel u = new UsuarioInternoModel()
             {
-                Run = "167635059",
-                Nombres = "Veronica",
-                ApellidoP = "Chelen",
-                ApellidoM = "Prohens",
-                Email = "vero.c87@gmail.com",
-                EstadoDet = "Activo",
-                PerfilDet = "Administrador",
-                IdPerfil = 1,
-                IdEstado = 1
-            };
+                List<UsuarioInternoModel> datosBD = new UsuarioInternoModel().ReadAll();
+                List<UsuarioInternoModel> listaNegocio = new List<UsuarioInternoModel>();
 
-            List<UsuarioInternoModel> response = u.ReadAll();
-            CollectionAssert.AreEqual(u, response);
+                UsuarioInternoModel e = new UsuarioInternoModel();
+
+                e.Run = "167635059";
+                e.Nombres = "Veronica";
+                e.ApellidoP = "Chelen";
+                e.ApellidoM = "Prohens";
+                e.Email = "vero.c87@gmail.com";
+                e.EstadoDet = "Activo";
+                e.PerfilDet = "Administrador";
+                e.IdPerfil = 1;
+                e.IdEstado = 1;
+
+                listaNegocio.Add(e);
+
+                Assert.AreEqual(datosBD.Any(), true);
+            };
         }
 
-        [Test]
-        public void ReadDesignerTest()
-        {
-            UsuarioInternoModel u = new UsuarioInternoModel()
-            {
-                Run = "122972569",
-                NombreCompleto = "Andres Moya Guerra"
-            };
-            List<UsuarioInternoModel> response = u.ReadDesigner();
-            CollectionAssert.AreEqual(u, response);
 
-        }
 
         [Test]
         public void Read_LoginTest()
@@ -101,19 +94,12 @@ namespace ApoloniaApp.Test
             Assert.AreEqual(false, response);
         }
 
-        public bool ReadDesignerTest()
+        [Test]
+        public void ReadDesignerTest()
         {
-            UsuarioInternoModel u = new UsuarioInternoModel()
-            {
-                Nombres = "Andres",
-                ApellidoP = "Moya",
-                ApellidoM = "Guerra",
-                Email = "amoya@process.cl",
-                IdPerfil = 2,
-                Password = "13243254"
-            };
-            bool response = u.ReadDesigner();
-            Assert.AreEqual(false, response);
+            List<UnidadModel> datosBD = new UnidadModel().ReadAll();
+
+            Assert.AreEqual(datosBD.Any(), true);
         }
 
 
@@ -134,7 +120,7 @@ namespace ApoloniaApp.Test
                 IdEstado = 2
             };
             bool result = u.Update();
-            Assert.AreEqual(false, result);
+            Assert.AreEqual(true, result);
         }
 
     }
