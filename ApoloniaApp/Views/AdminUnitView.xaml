@@ -736,36 +736,38 @@
 
                         <!-- // DataGrid SubUnits // -->
 
-                        <DataGrid Grid.Column="1" Grid.Row="1" x:Name="dtgEmployees" CanUserReorderColumns="False" SelectionMode="Single"
+                        <DataGrid Grid.Column="1" Grid.Row="1" x:Name="dtgEmployees" 
+                                  CanUserReorderColumns="False" 
+                                  SelectionMode="Single"
                               IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="auto" Margin="10,0,10,10" Height="160"
-                              HorizontalScrollBarVisibility="Visible" >
+                              HorizontalScrollBarVisibility="Visible" ItemsSource="{Binding Funcionarios}">
 
                             <DataGrid.Columns>
                                 <DataGridTextColumn 
                                             Header="RUN" 
                                             Width="70"
                                             MinWidth="70"
-                                            Binding="{Binding Id}"/>
+                                            Binding="{Binding Run}"/>
                                 <DataGridTextColumn 
                                             Header="NOMBRES" 
                                             Width="150"
                                             MinWidth="150"
-                                            Binding="{Binding FIRSTNAME}"/>
+                                            Binding="{Binding Nombre}"/>
                                 <DataGridTextColumn 
                                             Header="APE. PATERNO" 
                                             Width="150"
                                             MinWidth="150"
-                                            Binding="{Binding DADSURNAME}"/>
+                                            Binding="{Binding ApellidoP}"/>
                                 <DataGridTextColumn 
                                             Header="APE. MATERNO" 
                                             Width="150"
                                             MinWidth="150"
-                                            Binding="{Binding MONSURNAME}"/>
+                                            Binding="{Binding ApellidoM}"/>
                                 <DataGridTextColumn 
                                             Header="CORREO ELECTRÓNICO" 
                                             Width="200"
                                             MinWidth="200"
-                                            Binding="{Binding EMAIL}"/>
+                                            Binding="{Binding Email}"/>
                             </DataGrid.Columns>
                         </DataGrid>
 

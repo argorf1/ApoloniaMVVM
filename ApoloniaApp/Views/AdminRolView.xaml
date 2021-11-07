@@ -1,0 +1,176 @@
+﻿<UserControl x:Class="ApoloniaApp.Views.AdminRolView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ApoloniaApp.Views">
+    <Grid Background="White">
+        <StackPanel x:Name="spNewUser" Orientation="Vertical" 
+                        HorizontalAlignment="Left"  Margin="5,0,0,5"
+                        Visibility="Visible">
+
+
+            <StackPanel Orientation="Horizontal"
+                    Margin="0">
+                <TextBlock x:Name="tbkTitleAddUser" Text="{Binding EstadoView}"
+                    Margin="0,10,0,10"/>
+
+            </StackPanel>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="210"/>
+                    <ColumnDefinition Width="210"/>
+                    <ColumnDefinition Width="210"/>
+                    <ColumnDefinition Width="210"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                </Grid.RowDefinitions>
+
+                <!-- // SECTION 1: INFORMACIÓN PERSONAL  // -->
+                <TextBlock Grid.Column="0" Grid.Row="0"
+                            Text="Gestion de Roles"/>
+                <TextBlock Grid.Column="0" Grid.Row="1"
+                            Text="Roles de Usuarios Cliente"/>
+                <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
+
+                    <Label x:Name="lblUnidad" Content="Unidad"/>
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal">
+                    <ComboBox x:Name="dd"
+                              Grid.Column="6"  Grid.Row="0"
+                              Width="270"
+                              HorizontalAlignment="Right"
+                              ItemsSource="{Binding Unidades}"
+                              DisplayMemberPath="RazonSocial"
+                              SelectedValuePath="RazonSocial"
+                              SelectedValue="{Binding SelectedUnidad.RazonSocial}"
+                              SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}"/>
+                    <Button x:Name="btnCreateRol" Margin="20,0,0,0"
+                            Content="Nuevo Rol"  Height="20" 
+                            VerticalContentAlignment="Center" 
+                            Width="100"
+                            Command="{Binding NavigationCreateRol}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal">
+
+                    <Label x:Name="lblRoles" Content="LISTADO DE ROLES DE USUARIO CLIENTE"/>
+                </StackPanel>
+                <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" x:Name="dtg"
+                          CanUserReorderColumns="False"
+                          SelectionMode="Single"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False"
+                          ColumnWidth="auto" Height="160"
+                          HorizontalScrollBarVisibility="Visible"
+                          ItemsSource="{Binding Roles}"
+                          SelectedItem="{Binding SelectedRol, Mode=TwoWay}" Margin="0,0,30,26" Grid.RowSpan="2">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn 
+                            Header="ID" 
+                            Width="70"
+                            MinWidth="70"
+                            Binding="{Binding Id}"/>
+                        <DataGridTextColumn 
+                            Header="Nombre" 
+                            Width="70"
+                            MinWidth="70"
+                            Binding="{Binding Nombre}"/>
+                        <DataGridTextColumn 
+                            Header="Subunidad" 
+                            Width="70"
+                            MinWidth="70"
+                            Binding="{Binding Subunidad.Nombre}"/>
+                        <DataGridTextColumn 
+                            Header="Nivel" 
+                            Width="70"
+                            MinWidth="70"
+                            Binding="{Binding Nivel}"/>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+                <!-- // RUN: Label // -->
+                <StackPanel Grid.Column="0" Grid.Row="7" Orientation="Horizontal">
+
+                    <Label x:Name="lblRolNombre" Content="ROL:"/>
+                    <Label x:Name="lblRolNombreSelec" Content="{Binding Nombre}"/>
+
+
+                </StackPanel>
+                <Button x:Name="btnCancel"
+                        Grid.Column="1" Grid.Row="7"
+                            Content="Modifiar Rol"  Height="20" 
+                            VerticalContentAlignment="Center" 
+                            Width="100"
+                            Command="{Binding NavigationEditRol}" Margin="80,3,30,3"/>
+
+                <!-- // E-Mail: Label // -->
+                <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal">
+
+                    <Label x:Name="lblNewMail" Content="Descripción*"/>
+                </StackPanel>
+
+                <!-- // E-Mail: TextBox // -->
+                <StackPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+
+                    <TextBox x:Name="txtDescripcion"
+                             Text="{Binding Descripcion}"
+                             Width="387" Height="120"
+                             IsEnabled="False"
+                             VerticalAlignment="Bottom"/>
+                </StackPanel>
+
+                <!-- // Business Unit: Label // -->
+                <StackPanel Grid.Row="11" Grid.Column="0" Orientation="Horizontal">
+
+                    <Label x:Name="lblSubunidad" Content="Subunidad"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" 
+                                Orientation="Horizontal">
+
+                    <TextBox Text="{Binding Subunidad}" Width="387" />
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="13" Grid.Column="0" Orientation="Horizontal">
+
+                    <Label x:Name="lblRol" Content="Superior (a quién reporta)*"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" 
+                                Orientation="Horizontal">
+
+                    <TextBox Text="{Binding Superior}" Width="386"/>
+                </StackPanel>
+
+                <!-- // ROLE: Command Buttons // -->
+                <StackPanel Grid.Column="0" Grid.Row="16" 
+                            Grid.ColumnSpan="3"
+                            Width="390" 
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Left"/>
+            </Grid>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

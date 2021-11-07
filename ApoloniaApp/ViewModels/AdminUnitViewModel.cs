@@ -328,14 +328,23 @@ namespace ApoloniaApp.ViewModels
                 {
                     CanEditSubunit = false;
                 }
+                    Funcionarios = _funcionarios.Where(f => f.Subunidad.Id == _editSubunit.Id);
                 OnPropertyChanged("SelectedSubunidad");
             }
         }
 
         private readonly ObservableCollection<FuncionarioModel> _funcionarios;
-        private IEnumerable<SubUnidadModel> funcionarios;
+        private IEnumerable<FuncionarioModel> funcionarios;
 
-        //public IEnumerable<>
+        public IEnumerable<FuncionarioModel> Funcionarios
+        {
+            get { return funcionarios; }
+            set
+            {
+                funcionarios = value;
+                OnPropertyChanged("Funcionarios");
+            }
+        }
 
         public bool CanCreateSubunit
         {
@@ -366,16 +375,13 @@ namespace ApoloniaApp.ViewModels
             _selectedUnitIndex = -1;
 
             _unidades = new ObservableCollection<UnidadModel>();
-            foreach (UnidadModel u in new UnidadModel().ReadAll())
-            {
-                _unidades.Add(u);
-            }
-
             _subunidades = new ObservableCollection<SubUnidadModel>();
-            foreach (SubUnidadModel s in new SubUnidadModel().ReadAll())
-            {
-                _subunidades.Add(s);
-            }
+            _funcionarios = new ObservableCollection<FuncionarioModel>();
+
+            _unidades = new ReadAllCommand<UnidadModel>().ReadAll(() => new UnidadModel().ReadAll());
+            _subunidades = new ReadAllCommand<SubUnidadModel>().ReadAll(() => new SubUnidadModel().ReadAll());
+            _funcionarios = new ReadAllCommand<FuncionarioModel>().ReadAll(() => new FuncionarioModel().ReadAll());
+           
 
             NavigationCreateUnit = new NavigatePanelCommand<AdminUnitCreateViewModel>(_frameStore, () => new AdminUnitCreateViewModel(_frameStore, CurrentAccount));
             NavigationEditUnit = new NavigatePanelCommand<AdminUnitEditViewModel>(_frameStore, () => new AdminUnitEditViewModel(_frameStore, CurrentAccount, _editUnit));

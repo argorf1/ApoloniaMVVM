@@ -247,7 +247,7 @@
                                 <Button Name="btnRoles"
                                         Width="55"
                                         Content="Roles"
-                                        Command="{Binding NavigationRole}"/>
+                                        Command="{Binding NavigationRol}"/>
                                 
                                 <TextBlock Text="Flujos de Trabajo"
                                        Margin="15,0,0,0"/>

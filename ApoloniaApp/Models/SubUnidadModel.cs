@@ -68,11 +68,16 @@ namespace ApoloniaApp.Models
             try
             {
                 conn = new Conexion().abrirConexion();
-                OracleCommand cmd = new OracleCommand("select id, nombre, descripcion, coalesce(subunidad_padre, 0), rut_unidad from subunidades", conn);
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "r_subunidades_all";
+                cmd.CommandType = CommandType.StoredProcedure;
+                OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
+                o.Direction = ParameterDirection.Output;
 
+                cmd.ExecuteNonQuery();
 
-                r = cmd.ExecuteReader();
-
+                r = ((OracleRefCursor)o.Value).GetDataReader();
                 while (r.Read())
                 {
                     SubUnidadModel s = new SubUnidadModel()
@@ -96,6 +101,7 @@ namespace ApoloniaApp.Models
             }
         }
 
+        
         public bool ReadByName()
         {
             try
