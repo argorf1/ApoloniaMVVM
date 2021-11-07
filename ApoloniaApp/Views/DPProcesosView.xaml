@@ -139,8 +139,8 @@
                           ColumnWidth="auto"
                           Margin="10" Height="160"
                           HorizontalScrollBarVisibility="Visible"
-                          ItemsSource="{Binding Procesos}"
-                          SelectedItem="{Binding SelectedProceso, Mode=TwoWay}">
+                          ItemsSource="{Binding Tareas}"
+                          SelectedItem="{Binding SelectedTarea, Mode=TwoWay}">
 
                     <DataGrid.Columns>
                         <DataGridTextColumn 
@@ -164,7 +164,7 @@
                         Header="Diseñador" 
                         Width="150"
                         MinWidth="70"
-                        Binding="{Binding Encargado.Nombre}"/>
+                        Binding="{Binding Creador.Nombre}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

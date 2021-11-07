@@ -15,6 +15,7 @@ namespace ApoloniaApp.ViewModels
         private readonly FrameStore _frameStore;
         public UsuarioInternoModel CurrentAccount;
         private ProcesoModel _crudProceso = new ProcesoModel();
+        private TareaModel _crudTarea = new TareaModel();
         //private TareaModel _crudTarea;
 
         #region CommandButtons
@@ -64,7 +65,7 @@ namespace ApoloniaApp.ViewModels
         }
 
         //Lista que necesita filtrarse
-        private ObservableCollection<ProcesoModel> _procesos;
+        private readonly ObservableCollection<ProcesoModel> _procesos;
         private IEnumerable<ProcesoModel> procesos;
 
 
@@ -88,6 +89,28 @@ namespace ApoloniaApp.ViewModels
             }
         }
 
+        private readonly ObservableCollection<TareaModel> _tareas;
+        private IEnumerable<TareaModel> tareas;
+
+        public IEnumerable<TareaModel> Tareas
+        {
+            get => tareas;
+            set
+            {
+                tareas = value;
+                OnPropertyChanged("Tareas");
+            }
+        }
+
+        public TareaModel SelectedTarea
+        {
+            get => _crudTarea;
+            set
+            {
+                _crudTarea = value;
+                OnPropertyChanged("SelectedTarea");
+            }
+        }
         #endregion
     }
 }
