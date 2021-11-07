@@ -30,7 +30,7 @@ namespace ApoloniaApp.Models
         {
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("c_usuario_interno", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -63,7 +63,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -113,7 +113,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -154,7 +154,7 @@ namespace ApoloniaApp.Models
             conn = new OracleConnection();
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
                 OracleCommand cmd = new OracleCommand("select nombres, apellidoP, apellidoM, Email, ID_PERFIL from usuario_internos where RUN = :username AND PASSWORD = :pass AND ID_ESTADO = 1", conn);
                 cmd.Parameters.Add(":username", OracleDbType.NVarchar2).Value = this.Run;
                 cmd.Parameters.Add(":pass", OracleDbType.NVarchar2).Value = this.Password;
@@ -189,7 +189,7 @@ namespace ApoloniaApp.Models
         {
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
                 OracleCommand cmd = new OracleCommand("select * from usuario_internos where RUN = :username", conn);
                 cmd.Parameters.Add(":username", OracleDbType.NVarchar2).Value = this.Run;
                 r = cmd.ExecuteReader();
@@ -220,7 +220,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("u_usuario_interno", conn);
                 cmd.CommandType = CommandType.StoredProcedure;

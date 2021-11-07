@@ -31,7 +31,7 @@ namespace ApoloniaApp.Models
             OracleConnection conn = new OracleConnection();
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -70,7 +70,7 @@ namespace ApoloniaApp.Models
             OracleConnection conn = new OracleConnection();
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
                 OracleCommand cmd = new OracleCommand("select nombre from perfil_usuarios where ID = :id", conn);
                 cmd.Parameters.Add(":id", OracleDbType.NVarchar2).Value = this.Id;
                 OracleDataReader r = cmd.ExecuteReader();

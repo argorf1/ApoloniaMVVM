@@ -33,9 +33,10 @@ namespace ApoloniaApp.Models
         #region CRUD
         public bool Create()
         {
+            return false;
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("c_subunidad", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -67,7 +68,7 @@ namespace ApoloniaApp.Models
             conn = new OracleConnection();
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "r_subunidades_all";
@@ -106,6 +107,8 @@ namespace ApoloniaApp.Models
         {
             try
             {
+                conn = new Conexion().AbrirConexion();
+
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "r_subunidad_by_name";
@@ -119,6 +122,7 @@ namespace ApoloniaApp.Models
 
                 cmd.ExecuteNonQuery();
 
+                r = ((OracleRefCursor)o.Value).GetDataReader();
                 if (r.Read())
                 {
                     conn.Close();
@@ -142,7 +146,7 @@ namespace ApoloniaApp.Models
         {
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("u_subunidad", conn);
                 cmd.CommandType = CommandType.StoredProcedure;

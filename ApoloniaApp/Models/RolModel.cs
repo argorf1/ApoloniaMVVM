@@ -37,7 +37,7 @@ namespace ApoloniaApp.Models
         {
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("c_rol", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -66,7 +66,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -115,7 +115,7 @@ namespace ApoloniaApp.Models
             bool read = true;
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -148,7 +148,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("u_rol", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
