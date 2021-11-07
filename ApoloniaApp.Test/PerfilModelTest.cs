@@ -27,7 +27,7 @@ namespace ApoloniaApp.Test
             PerfilModel p = new PerfilModel(1);
                       
 
-            Assert.AreEqual(!string.IsNullOrEmpty(p.Detalle), true);
+            Assert.AreEqual(string.IsNullOrEmpty(p.Detalle), false);
         }
 
     }

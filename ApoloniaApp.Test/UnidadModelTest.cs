@@ -39,7 +39,7 @@ namespace ApoloniaApp.Test
         }
 
         [Test]
-        public void ReadAllTest()
+        public void ReadDesignerTest()
         {
             List<UnidadModel> datosBD = new UnidadModel().ReadDesigner();
 
