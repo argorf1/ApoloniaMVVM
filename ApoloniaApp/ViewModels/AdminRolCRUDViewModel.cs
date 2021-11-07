@@ -26,18 +26,18 @@ namespace ApoloniaApp.ViewModels
             #region Configuracion Estado
 
             #region CargaDiccionario
-            _estadoDetalle.Add(1, "Crear Funcionario");
-            _estadoDetalle.Add(2, "Modificar Funcionario");
+            _estadoDetalle.Add(1, "Crear Rol");
+            _estadoDetalle.Add(2, "Modificar Rol");
             #endregion
 
 
             switch (_estado)
             {
                 case 1:
-                    CrudRol = new CRUDCommand<AdminClientViewModel, RolModel>(() => _crudRol.Create(), () => new AdminClientViewModel(_frameStore, CurrentAccount), _frameStore, () => _crudRol.ReadByNombre(), _crudRol);
+                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Create(), () => new AdminRolViewModel(_frameStore, CurrentAccount), _frameStore, () => _crudRol.ReadByNombre(), _crudRol);
                     break;
                 case 2:
-                    CrudRol = new CRUDCommand<AdminClientViewModel, RolModel>(() => _crudRol.Update(), () => new AdminClientViewModel(_frameStore, CurrentAccount), _frameStore, _crudRol);
+                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Update(), () => new AdminRolViewModel(_frameStore, CurrentAccount), _frameStore, _crudRol);
                     break;
                 default:
                     break;
@@ -49,7 +49,11 @@ namespace ApoloniaApp.ViewModels
             _roles = new ObservableCollection<RolModel>();
 
             _subunidades = new ReadAllCommand<SubUnidadModel>().ReadAll(() => _crudRol.Unidad.ReadByUnidad(), new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad --" });
-            _roles = new ReadAllCommand<RolModel>().ReadAll(() => new RolModel().ReadAll());
+            _roles = new ReadAllCommand<RolModel>().ReadAll(() => new RolModel().ReadAll(), new RolModel() { Id = 0, Nombre="-- Rol --"});
+            _roles.Remove(_roles.FirstOrDefault(r => r.Id == _crudRol.Id));
+
+            SelectedSubunidad = _subunidades.LastOrDefault(s => s.Id == _crudRol.Subunidad.Id || s.Id == 0);
+            SelectedRol = _roles.LastOrDefault(r => r.Id == _crudRol.RolSuperior || r.Id == 0);
             #endregion
         }
 
@@ -122,6 +126,7 @@ namespace ApoloniaApp.ViewModels
             {
                 _selectedRol = value;
                 _crudRol.RolSuperior = _selectedRol.Id;
+                _crudRol.Nivel = _selectedRol.Nivel + 1;
 
                 OnPropertyChanged("SelectedRol");
 
