@@ -130,10 +130,10 @@ namespace ApoloniaApp.Models
                     return false;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 conn.Close();
-                return false;
+                return true;
             }
         }
         #endregion
