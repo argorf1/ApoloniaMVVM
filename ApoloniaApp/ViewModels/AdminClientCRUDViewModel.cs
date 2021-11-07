@@ -177,7 +177,7 @@ namespace ApoloniaApp.ViewModels
             _roles = new ObservableCollection<RolModel>();
             _estados = new ObservableCollection<EstadoModel>();
 
-            _unidades = new ReadAllCommand<UnidadModel>().ReadAll(() => new UnidadModel().ReadAll(), new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
+            _unidades = new ReadAllCommand<UnidadModel>().ReadAll(() => new UnidadModel().ReadDesigner(), new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
             _subunidades = new ReadAllCommand<SubUnidadModel>().ReadAll(() => new SubUnidadModel().ReadAll(), new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad" });
             _roles = new ReadAllCommand<RolModel>().ReadAll(() => new RolModel().ReadAll(), new RolModel() { Id = 0, Nombre = "-- Rol --" });
             _estados = new ReadAllCommand<EstadoModel>().ReadAll(() => new EstadoModel().ReadAll(), new EstadoModel() { Id = 0, Detalle = "-- Estado --" });

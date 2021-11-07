@@ -38,11 +38,17 @@ namespace ApoloniaApp.Test
         }
 
         [Test]
-        public void ReadByName()
+        public void ReadByNameTest()
         {
-            List<SubUnidadModel> datosBD = new SubUnidadModel().ReadAll();
+            SubUnidadModel u = new SubUnidadModel()
+            {
+                Nombre = "Natura",
+                RutUnidad = "27322952"
 
-            Assert.AreEqual(datosBD.Any(), true);
+            };
+            bool result = u.ReadByName();
+            Assert.AreEqual(false, result);
+
 
         }
 

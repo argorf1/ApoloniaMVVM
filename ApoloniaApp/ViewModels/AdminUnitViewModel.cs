@@ -378,7 +378,7 @@ namespace ApoloniaApp.ViewModels
             _subunidades = new ObservableCollection<SubUnidadModel>();
             _funcionarios = new ObservableCollection<FuncionarioModel>();
 
-            _unidades = new ReadAllCommand<UnidadModel>().ReadAll(() => new UnidadModel().ReadAll());
+            _unidades = new ReadAllCommand<UnidadModel>().ReadAll(() => new UnidadModel().ReadDesigner());
             _subunidades = new ReadAllCommand<SubUnidadModel>().ReadAll(() => new SubUnidadModel().ReadAll());
             _funcionarios = new ReadAllCommand<FuncionarioModel>().ReadAll(() => new FuncionarioModel().ReadAll());
            

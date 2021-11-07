@@ -208,7 +208,7 @@ namespace ApoloniaApp.ViewModels
 
             _unidades = new ObservableCollection<UnidadModel>();
             _unidades.Add(new UnidadModel() { RazonSocial = "-- Unidad --" });
-            foreach (UnidadModel u in new UnidadModel().ReadAll())
+            foreach (UnidadModel u in new UnidadModel().ReadDesigner())
             {
                 _unidades.Add(u);
             }

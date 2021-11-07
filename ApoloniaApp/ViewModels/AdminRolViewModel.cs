@@ -23,7 +23,7 @@ namespace ApoloniaApp.ViewModels
             _unidades = new ObservableCollection<UnidadModel>();
             _roles = new ObservableCollection<RolModel>();
 
-            _unidades = new ReadAllCommand<UnidadModel>().ReadAll(() => new UnidadModel().ReadAll(), new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
+            _unidades = new ReadAllCommand<UnidadModel>().ReadAll(() => new UnidadModel().ReadDesigner(), new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
             _roles = new ReadAllCommand<RolModel>().ReadAll(() => new RolModel().ReadAll());
 
             SelectedUnidad = _unidades.ElementAt(0);
