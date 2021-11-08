@@ -65,10 +65,10 @@ namespace ApoloniaApp.ViewModels
 
         public string Nombres
         {
-            get { return _newUser.Nombres; }
+            get { return _newUser.Nombre; }
             set
             {
-                _newUser.Nombres = value;
+                _newUser.Nombre = value;
                 OnPropertyChanged("Nombres");
             }
         }

@@ -21,6 +21,8 @@ namespace ApoloniaApp.ViewModels
         #region CommandButtons
         public ICommand NavigationCreateProceso { get; }
         public ICommand NavigationUpdateProceso { get; }
+        public ICommand NavigationCreateTarea { get; }
+        public ICommand NavigationUpdateTarea { get; }
         #endregion
 
         public DPProcesosViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount)
@@ -32,6 +34,7 @@ namespace ApoloniaApp.ViewModels
 
             _unidades = new ReadAllCommand<UnidadModel>().ReadAll(() => CurrentAccount.ReadByDesigner(), new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
             _procesos = new ReadAllCommand<ProcesoModel>().ReadAll(() => new ProcesoModel().ReadAll());
+            _tareas = new ReadAllCommand<TareaModel>().ReadAll(() => _crudTarea.ReadAll());
 
             SelectedUnidad = _unidades.ElementAt(0);
             #endregion
@@ -39,6 +42,8 @@ namespace ApoloniaApp.ViewModels
             #region Configuracion Botones
             NavigationCreateProceso = new NavigatePanelCommand<DPProcesosCRUDViewModel>(frameStore, () => new DPProcesosCRUDViewModel(frameStore,currentAccount,new ProcesoModel(_selectedUnidad),1));
             NavigationUpdateProceso = new NavigatePanelCommand<DPProcesosCRUDViewModel>(frameStore, () => new DPProcesosCRUDViewModel(frameStore,currentAccount,_crudProceso,2));
+            NavigationCreateTarea = new NavigatePanelCommand<DPTareaCRUDViewModel>(frameStore, () => new DPTareaCRUDViewModel(frameStore,currentAccount,new TareaModel(),1));
+            NavigationUpdateTarea = new NavigatePanelCommand<DPTareaCRUDViewModel>(frameStore, () => new DPTareaCRUDViewModel(frameStore,currentAccount,_crudTarea,2));
             #endregion
         }
 
@@ -84,7 +89,10 @@ namespace ApoloniaApp.ViewModels
             set
             {
                 _crudProceso = value;
-
+                if (_crudProceso.Id != 0)
+                {
+                    Tareas = _tareas.Where(t => t.Proceso.Id == _crudProceso.Id);
+                }
                 OnPropertyChanged("SelectedProceso");
             }
         }

@@ -76,8 +76,8 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    _editUser.Nombres = Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).Nombres;
-                    return _editUser.Nombres;
+                    _editUser.Nombre = Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).Nombre;
+                    return _editUser.Nombre;
                 }
                 else
                 {

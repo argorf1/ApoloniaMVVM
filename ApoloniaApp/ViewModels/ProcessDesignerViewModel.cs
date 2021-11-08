@@ -37,7 +37,7 @@ namespace ApoloniaApp.ViewModels
             CurrentAccount = accountStore.CurrentAccount;
 
             PerfilModel rol = new PerfilModel(CurrentAccount.IdPerfil);
-            LogUser += CurrentAccount.Nombres + " " + CurrentAccount.ApellidoP + "(" + rol.Detalle + ")";
+            LogUser += CurrentAccount.Nombre + " " + CurrentAccount.ApellidoP + "(" + rol.Detalle + ")";
             _frameStore.CurrentViewModelChanged += OnCurrentPanelChanged;
 
             NavigationProcesos = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore,CurrentAccount));

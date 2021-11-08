@@ -34,17 +34,17 @@ namespace ApoloniaApp.ViewModels
             get { return _editUser.Run; }
             set
             {
-                _editUser.Nombres = value;
+                _editUser.Nombre = value;
                 OnPropertyChanged("Run");
             }
         }
 
         public string Nombres
         {
-            get { return _editUser.Nombres; }
+            get { return _editUser.Nombre; }
             set
             {
-                _editUser.Nombres = value;
+                _editUser.Nombre = value;
                 OnPropertyChanged("Nombres");
             }
         }

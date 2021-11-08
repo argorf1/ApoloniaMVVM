@@ -21,7 +21,7 @@ namespace ApoloniaApp.Test
             UsuarioInternoModel u = new UsuarioInternoModel()
             {
                 Run = "703673463",
-                Nombres = "Veronica",
+                Nombre = "Veronica",
                 ApellidoP = "Prohens",
                 ApellidoM = "Soissa",
                 Email = "veroka.ps@gmail.com",
@@ -48,7 +48,7 @@ namespace ApoloniaApp.Test
                 UsuarioInternoModel e = new UsuarioInternoModel();
 
                 e.Run = "167635059";
-                e.Nombres = "Veronica";
+                e.Nombre = "Veronica";
                 e.ApellidoP = "Chelen";
                 e.ApellidoM = "Prohens";
                 e.Email = "vero.c87@gmail.com";
@@ -70,7 +70,7 @@ namespace ApoloniaApp.Test
         {
             UsuarioInternoModel u = new UsuarioInternoModel()
             {
-                Nombres = "Veronica",
+                Nombre = "Veronica",
                 ApellidoP = "Chelen",
                 ApellidoM = "Prohens",
                 Email = "vchelen@process.cl",
@@ -111,7 +111,7 @@ namespace ApoloniaApp.Test
             UsuarioInternoModel u = new UsuarioInternoModel()
             {
                 Run = "76366163",
-                Nombres = "Veronica",
+                Nombre = "Veronica",
                 ApellidoP = "Prohens",
                 ApellidoM = "Soissa",
                 Email = "veronicap@process.cl",

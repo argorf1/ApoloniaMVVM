@@ -2,6 +2,7 @@
 using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Text;
 
@@ -16,8 +17,8 @@ namespace ApoloniaApp.Models
         public ProcesoModel Proceso { get; set; }
         public bool Depencia { get; set; }
         public UsuarioInternoModel Creador { get; set; }
-        public IEnumerable<FuncionarioModel> Responsables { get; set; }
-        public IEnumerable<TareaModel> Dependencias { get; set; }
+        public ObservableCollection<FuncionarioModel> Responsables { get; set; }
+        public ObservableCollection<TareaModel> Dependencias { get; set; }
 
         OracleConnection conn = null;
         OracleDataReader r = null;
@@ -52,7 +53,7 @@ namespace ApoloniaApp.Models
                         Duracion = r.GetInt32(3),
                         Depencia = r.GetBoolean(4)
                     };
-                    t.Creador = new UsuarioInternoModel() { NombreCompleto = r.GetString(5), Run = r.GetString(6)};
+                    t.Creador = new UsuarioInternoModel() { Nombre = r.GetString(5), Run = r.GetString(6)};
                     t.Proceso = new ProcesoModel() { Nombre = r.GetString(7), Id = r.GetInt32(8) };
                     t.Responsables = t.ReadByResponsable();
                     if (t.Depencia)
@@ -70,9 +71,9 @@ namespace ApoloniaApp.Models
             }
         }
 
-        public List<FuncionarioModel> ReadByResponsable()
+        public ObservableCollection<FuncionarioModel> ReadByResponsable()
         {
-            List<FuncionarioModel> listaNegocio = new List<FuncionarioModel>();
+            ObservableCollection<FuncionarioModel> listaNegocio = new ObservableCollection<FuncionarioModel>();
 
             conn = new OracleConnection();
             try
@@ -107,13 +108,13 @@ namespace ApoloniaApp.Models
             catch (Exception e)
             {
                 conn.Close();
-                return new List<FuncionarioModel>();
+                return new ObservableCollection<FuncionarioModel>();
             }
         }
 
-        public List<TareaModel> ReadByDependencia()
+        public ObservableCollection<TareaModel> ReadByDependencia()
         {
-            List<TareaModel> listaNegocio = new List<TareaModel>();
+            ObservableCollection<TareaModel> listaNegocio = new ObservableCollection<TareaModel>();
 
             conn = new OracleConnection();
             try
@@ -147,7 +148,7 @@ namespace ApoloniaApp.Models
             catch (Exception e)
             {
                 conn.Close();
-                return new List<TareaModel>();
+                return new ObservableCollection<TareaModel>();
             }
         }
         #endregion

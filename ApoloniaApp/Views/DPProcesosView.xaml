@@ -114,22 +114,20 @@
 
                 <DockPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" Margin="10,0,0,0">
                     <Label Content="Unidad"/>
-                    <Button Content="Eliminar Proceso"
+                    <Button Content="Eliminar Tarea"
                             DockPanel.Dock="Right"
                             Margin="0,0,10,0"
-                            VerticalContentAlignment="Center" 
+                            VerticalContentAlignment="Center"
                             Command="{Binding NavigationCreateRol}"/>
-                    <Button Content="Modificar Proceso"
+                    <Button Content="Modificar Tarea"
                             Margin="10,0,10,0"
                             VerticalContentAlignment="Center" 
                             DockPanel.Dock="Right"
-
-                            Command="{Binding NavigationCreateRol}"/>
-                    <Button Content="Crear Proceso"
-                            Margin="30,0,0,0"
+                            Command="{Binding NavigationUpdateTarea}"/>
+                    <Button Content="Crear Tarea"
                             VerticalContentAlignment="Center"
                             DockPanel.Dock="Right"
-                            Command="{Binding NavigationCreateRol}" Width="100"/>
+                            Command="{Binding NavigationCreateTarea}" Width="100"/>
                 </DockPanel>
                 <DataGrid Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="6" x:Name="dtgTareas"
                           CanUserReorderColumns="False"
@@ -153,13 +151,14 @@
                         Width="auto"
                         MinWidth="300"
                         Binding="{Binding Descripcion}"/>
-                        <DataGridComboBoxColumn 
+                        <!--<DataGridComboBoxColumn 
                         Header="Responsables" 
                         Width="200"
                         MinWidth="70"
                         ItemsSource="{Binding Responsables}"
                         DisplayMemberPath="Nombre"
-                        SelectedValuePath="Nombre"/>
+                        SelectedValuePath="Nombre"
+                        SelectedItemBinding="{Binding Nombre}"/>-->
                         <DataGridTextColumn 
                         Header="Diseñador" 
                         Width="150"

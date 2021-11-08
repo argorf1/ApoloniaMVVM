@@ -11,7 +11,7 @@ namespace ApoloniaApp.Models
     {
         #region Atributos
         public string Run { get; set; }
-        public string Nombres { get; set; }
+        public string Nombre { get; set; }
         public string ApellidoP { get; set; }
         public string ApellidoM { get; set; }
         public string Email { get; set; }
@@ -35,7 +35,7 @@ namespace ApoloniaApp.Models
                 OracleCommand cmd = new OracleCommand("c_usuario_interno", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("i_run", OracleDbType.NVarchar2).Value = this.Run;
-                cmd.Parameters.Add("i_nombres", OracleDbType.NVarchar2).Value = this.Nombres;
+                cmd.Parameters.Add("i_nombres", OracleDbType.NVarchar2).Value = this.Nombre;
                 cmd.Parameters.Add("i_apellidop", OracleDbType.NVarchar2).Value = this.ApellidoP;
                 cmd.Parameters.Add("i_apellidom", OracleDbType.NVarchar2).Value = this.ApellidoM;
                 cmd.Parameters.Add("i_email", OracleDbType.NVarchar2).Value = this.Email;
@@ -81,7 +81,7 @@ namespace ApoloniaApp.Models
                     UsuarioInternoModel u = new UsuarioInternoModel()
                     {
                         Run = r.GetString(0),
-                        Nombres = r.GetString(1),
+                        Nombre = r.GetString(1),
                         ApellidoP = r.GetString(2),
                         ApellidoM = r.GetString(3),
                         Email = r.GetString(4),
@@ -223,7 +223,7 @@ namespace ApoloniaApp.Models
 
                 if (r.Read())
                 {
-                    this.Nombres = r.GetString(0);
+                    this.Nombre = r.GetString(0);
                     this.ApellidoP = r.GetString(1);
                     this.ApellidoM = r.GetString(2);
                     this.Email = r.GetString(3);
@@ -285,7 +285,7 @@ namespace ApoloniaApp.Models
                 OracleCommand cmd = new OracleCommand("u_usuario_interno", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("i_run", OracleDbType.NVarchar2).Value = this.Run;
-                cmd.Parameters.Add("i_nombres", OracleDbType.NVarchar2).Value = this.Nombres;
+                cmd.Parameters.Add("i_nombres", OracleDbType.NVarchar2).Value = this.Nombre;
                 cmd.Parameters.Add("i_apellidop", OracleDbType.NVarchar2).Value = this.ApellidoP;
                 cmd.Parameters.Add("i_apellidom", OracleDbType.NVarchar2).Value = this.ApellidoM;
                 cmd.Parameters.Add("i_email", OracleDbType.NVarchar2).Value = this.Email;
