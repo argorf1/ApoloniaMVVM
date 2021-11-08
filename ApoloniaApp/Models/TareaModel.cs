@@ -55,9 +55,9 @@ namespace ApoloniaApp.Models
                     };
                     t.Creador = new UsuarioInternoModel() { Nombre = r.GetString(5), Run = r.GetString(6)};
                     t.Proceso = new ProcesoModel() { Nombre = r.GetString(7), Id = r.GetInt32(8) };
-                    t.Responsables = t.ReadByResponsable();
-                    if (t.Depencia)
-                        t.Dependencias = t.ReadByDependencia();
+                    //t.Responsables = t.ReadByResponsable();
+                    //if (t.Depencia)
+                    //    t.Dependencias = t.ReadByDependencia();
                     listaNegocio.Add(t);
                 }
                 conn.Close();
