@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    class Unidad
+    public class ModelBase
     {
     }
 }

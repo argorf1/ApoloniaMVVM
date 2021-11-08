@@ -1,0 +1,172 @@
+﻿<UserControl x:Class="ApoloniaApp.Views.DPProcesosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ApoloniaApp.Views">
+    <Grid Background="White">
+        <StackPanel x:Name="spRol" Orientation="Vertical" 
+                        HorizontalAlignment="Left"  Margin="5,0,0,5"
+                        Visibility="Visible">
+            <StackPanel Orientation="Horizontal"
+                    Margin="0">
+                <TextBlock x:Name="tbkTitleProcesos" Text="Gestion de Procesos"
+                    Margin="0,10,0,10"/>
+            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
+                    <TextBlock x:Name="tbkProcesos" Text="Procesos"
+                    Margin="0,10,0,10"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
+                    <Label Content="Unidad"/>
+                </StackPanel>
+                <DockPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Margin="10,0,0,0">
+                    <ComboBox x:Name="ddlUnidad" 
+                              Width="180"
+                              DockPanel.Dock="Left"
+                              HorizontalAlignment="Left"
+                              ItemsSource="{Binding Unidades}"
+                              DisplayMemberPath="RazonSocial"
+                              SelectedValuePath="RazonSocial"
+                              SelectedValue="{Binding SelectedUnidad.RazonSocial}"
+                              SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}"/>
+
+                    <Button Content="Eliminar Proceso"
+                            DockPanel.Dock="Right"
+                            Margin="0,0,10,0"
+                            VerticalContentAlignment="Center" 
+                            Command="{Binding NavigationCreateProceso}"/>
+                    <Button Content="Modificar Proceso"
+                            Margin="10,0,10,0"
+                            VerticalContentAlignment="Center" 
+                            DockPanel.Dock="Right"
+                            Command="{Binding NavigationUpdateProceso}"/>
+                    <Button Content="Crear Proceso"
+                            Margin="30,0,0,0"
+                            VerticalContentAlignment="Center"
+                            DockPanel.Dock="Right"
+                            Command="{Binding NavigationCreateProceso}" Width="100"/>
+                </DockPanel>
+                <DataGrid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="6" x:Name="dtgProcesos"
+                          CanUserReorderColumns="False"
+                          SelectionMode="Single"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False"
+                          ColumnWidth="auto"
+                          Margin="10" Height="160"
+                          HorizontalScrollBarVisibility="Visible"
+                          ItemsSource="{Binding Procesos}"
+                          SelectedItem="{Binding SelectedProceso, Mode=TwoWay}">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn 
+                        Header="Nombre" 
+                        Width="70"
+                        MinWidth="70"
+                        Binding="{Binding Nombre}"/>
+                        <DataGridTextColumn 
+                        Header="Descripción" 
+                        Width="auto"
+                        MinWidth="300"
+                        Binding="{Binding Descripcion}"/>
+                        <DataGridTextColumn 
+                        Header="Diseñador" 
+                        Width="150"
+                        MinWidth="70"
+                        Binding="{Binding Creador.NombreCompleto}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DockPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" Margin="10,0,0,0">
+                    <Label Content="Unidad"/>
+                    <Button Content="Eliminar Tarea"
+                            DockPanel.Dock="Right"
+                            Margin="0,0,10,0"
+                            VerticalContentAlignment="Center"
+                            Command="{Binding NavigationCreateRol}"/>
+                    <Button Content="Modificar Tarea"
+                            Margin="10,0,10,0"
+                            VerticalContentAlignment="Center" 
+                            DockPanel.Dock="Right"
+                            Command="{Binding NavigationUpdateTarea}"/>
+                    <Button Content="Crear Tarea"
+                            VerticalContentAlignment="Center"
+                            DockPanel.Dock="Right"
+                            Command="{Binding NavigationCreateTarea}" Width="100"/>
+                </DockPanel>
+                <DataGrid Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="6" x:Name="dtgTareas"
+                          CanUserReorderColumns="False"
+                          SelectionMode="Single"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False"
+                          ColumnWidth="auto"
+                          Margin="10" Height="160"
+                          HorizontalScrollBarVisibility="Visible"
+                          ItemsSource="{Binding Tareas}"
+                          SelectedItem="{Binding SelectedTarea, Mode=TwoWay}">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn 
+                        Header="Nombre" 
+                        Width="70"
+                        MinWidth="70"
+                        Binding="{Binding Nombre}"/>
+                        <DataGridTextColumn 
+                        Header="Descripción" 
+                        Width="auto"
+                        MinWidth="300"
+                        Binding="{Binding Descripcion}"/>
+                        <!--<DataGridComboBoxColumn 
+                        Header="Responsables" 
+                        Width="200"
+                        MinWidth="70"
+                        ItemsSource="{Binding Responsables}"
+                        DisplayMemberPath="Nombre"
+                        SelectedValuePath="Nombre"
+                        SelectedItemBinding="{Binding Nombre}"/>-->
+                        <DataGridTextColumn 
+                        Header="Diseñador" 
+                        Width="150"
+                        MinWidth="70"
+                        Binding="{Binding Creador.Nombre}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

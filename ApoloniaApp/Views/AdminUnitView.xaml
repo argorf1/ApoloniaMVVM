@@ -53,9 +53,19 @@
                            Visibility="Visible"/>
                 </StackPanel>
 
-                <DataGrid Grid.Column="0" Grid.Row="1" x:Name="dtgUnits" CanUserReorderColumns="False" SelectionMode="Single" 
-                          IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="auto" Margin="10,0,0,0" Height="160" 
-                          HorizontalScrollBarVisibility="Visible">
+                <DataGrid Grid.Column="0" Grid.Row="1" 
+                          x:Name="dtgUnits" 
+                          CanUserReorderColumns="False" 
+                          SelectionMode="Single" 
+                          IsReadOnly="True" 
+                          AutoGenerateColumns="False" 
+                          ColumnWidth="auto" 
+                          Margin="10,0,0,0" 
+                          Height="160" 
+                          HorizontalScrollBarVisibility="Visible" 
+                          ItemsSource="{Binding Unidades}"
+                          SelectedIndex="{Binding SelectedUnitIndex, Mode=TwoWay}"
+                          SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}">
 
                     <DataGrid.Columns>
                         <DataGridTextColumn 
@@ -75,32 +85,32 @@
                             Header="DIRECCIÓN (CALLE)" 
                             Width="100" 
                             MinWidth="100"
-                            Binding="{Binding DireccionCalle}"/>
+                            Binding="{Binding Calle}"/>
                         <DataGridTextColumn 
                             Header="NÚMERO CALLE" 
                             Width="150" 
                             MinWidth="150"
-                            Binding="{Binding DireccionNumero}"/>
+                            Binding="{Binding Numero}"/>
                         <DataGridTextColumn 
                             Header="COMPLEMENTO" 
                             Width="150" 
                             MinWidth="150"
-                            Binding="{Binding DireccionComplemento}"/>
+                            Binding="{Binding Complemento}"/>
+                        <DataGridTextColumn 
+                            Header="REGIÓN" 
+                            Width="150" 
+                            MinWidth="150"
+                            Binding="{Binding Region}"/>
+                        <DataGridTextColumn 
+                            Header="PROVINCIA" 
+                            Width="150" 
+                            MinWidth="150"
+                            Binding="{Binding Provincia}"/>
                         <DataGridTextColumn 
                             Header="COMUNA" 
-                            Width="150" 
-                            MinWidth="150"
-                            Binding="{Binding DireccionComuna}"/>
-                        <DataGridTextColumn 
-                            Header="CIUDAD" 
-                            Width="150" 
-                            MinWidth="150"
-                            Binding="{Binding DireccionCiudad}"/>
-                        <DataGridTextColumn 
-                            Header="PAÍS" 
                             Width="100" 
                             MinWidth="100"
-                            Binding="{Binding DireccionPais}"/>
+                            Binding="{Binding Comuna}"/>
 
                     </DataGrid.Columns>
 
@@ -121,7 +131,7 @@
                                 Content="Modificar Datos" 
                                 Width="120" Height="30"
                                 Margin="20,0,0,0" 
-                                IsEnabled="True"
+                                IsEnabled="{Binding CanEditUnit}"
                                 Command="{Binding NavigationEditUnit}"/>
 
 
@@ -191,7 +201,8 @@
 
                             <TextBox x:Name="txtRut" 
                                      IsReadOnly="True"
-                                     Width="150"/>
+                                     Width="150"
+                                     Text="{Binding Rut}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -221,7 +232,8 @@
 
                             <TextBox x:Name="txtCompanyName" 
                                      IsReadOnly="True"
-                                     Width="380"/>
+                                     Width="380"
+                                     Text="{Binding RazonSocial}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -251,7 +263,8 @@
 
                             <TextBox x:Name="txtMarketArea"
                                      IsReadOnly="True"
-                                     Width="280" />
+                                     Width="280" 
+                                     Text="{Binding Rubro}"/>
 
                             <Image Height="17"
                            Width="17"
@@ -321,7 +334,8 @@
 
                             <TextBox x:Name="txtAdrStreet"
                                      IsReadOnly="True"
-                                     Width="380"/>
+                                     Width="380"
+                                     Text="{Binding Calle}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -350,7 +364,8 @@
 
                             <TextBox x:Name="txtAdrNumber"
                                      IsReadOnly="True"
-                                     Width="180"/>
+                                     Width="180"
+                                     Text="{Binding Numero}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -380,7 +395,8 @@
 
                             <TextBox x:Name="txtAdrComplement"
                                      IsReadOnly="True"
-                                     Width="280"/>
+                                     Width="280"
+                                     Text="{Binding Complemento}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -410,7 +426,8 @@
 
                             <TextBox x:Name="txtCountry"
                                      IsReadOnly="True"
-                                     Width="280"/>
+                                     Width="280"
+                                     Text="{Binding Region}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -440,7 +457,8 @@
 
                             <TextBox x:Name="txtProvince"
                                      IsReadOnly="True"
-                                     Width="280"/>
+                                     Width="280"
+                                     Text="{Binding Provincia}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -469,7 +487,8 @@
 
                             <TextBox x:Name="txtTown"
                                      IsReadOnly="True"
-                                     Width="280"/>
+                                     Width="280"
+                                     Text="{Binding Comuna}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -518,7 +537,7 @@
                         </Grid.RowDefinitions>
 
                         <!-- // VIEW SECTION: Unit Contact Info: Label // -->
-                        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                        <StackPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
 
                             <Label x:Name="lblContactName" 
                                        Content="Persona de Contacto"/>
@@ -535,7 +554,8 @@
 
                             <TextBox x:Name="txtContactName"
                                      IsReadOnly="True"
-                                     Width="380"/>
+                                     Width="380"
+                                     Text="{Binding PersonaContacto}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -562,7 +582,8 @@
 
                             <TextBox x:Name="txtPhoneNumber"
                                      IsReadOnly="True"
-                                     Width="180"/>
+                                     Width="180"
+                                     Text="{Binding TelefonoContacto}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -573,7 +594,7 @@
                         </StackPanel>
 
                         <!-- // Contact Email: Label // -->
-                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
 
                             <Label x:Name="lblContactEmail" 
                                    Content="Correo Electrónico"/>
@@ -590,7 +611,8 @@
 
                             <TextBox x:Name="txtContactEmail"
                                      IsReadOnly="True"
-                                     Width="280"/>
+                                     Width="280"
+                                     Text="{Binding EmailContacto}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -637,10 +659,10 @@
                             <RowDefinition Height="10*"/>
                         </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                        <StackPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
 
                             <Label x:Name="lblResponsible" 
-                                       Content="Persona de Contacto"/>
+                                       Content="Diseñador de Procesos" Width="217"/>
 
                             <Image Width="12" Height="12"
                                    VerticalAlignment="Center"
@@ -654,7 +676,8 @@
 
                             <TextBox x:Name="txtResponsible"
                                      IsReadOnly="True"
-                                     Width="380"/>
+                                     Width="380"
+                                     Text="{Binding ResponsableNombre}"/>
 
                             <Image Height="17"
                                    Width="17"
@@ -699,53 +722,70 @@
                                     Content="Modificar"
                                     Margin="0,10,0,5"
                                     DockPanel.Dock="Right" 
-                                    Width="62"/>
+                                    Width="62"
+                                    IsEnabled="{Binding CanEditSubunit}"
+                                    Command="{Binding NavigationEditSubunit}"/>
                             <Button Grid.Column="0" 
                                     Content="Nueva"
                                     Margin="0,10,0,5"
                                     DockPanel.Dock="Right"
-                                    Width="65"/>
+                                    Width="65"
+                                    IsEnabled="{Binding CanCreateSubunit}"
+                                    Command="{Binding NavigationCreateSubunit}"/>
                         </DockPanel>
 
                         <!-- // DataGrid SubUnits // -->
 
-                        <DataGrid Grid.Column="1" Grid.Row="1" x:Name="dtgEmployees" CanUserReorderColumns="False" SelectionMode="Single"
+                        <DataGrid Grid.Column="1" Grid.Row="1" x:Name="dtgEmployees" 
+                                  CanUserReorderColumns="False" 
+                                  SelectionMode="Single"
                               IsReadOnly="True" AutoGenerateColumns="False" ColumnWidth="auto" Margin="10,0,10,10" Height="160"
-                              HorizontalScrollBarVisibility="Visible" >
+                              HorizontalScrollBarVisibility="Visible" ItemsSource="{Binding Funcionarios}">
 
                             <DataGrid.Columns>
                                 <DataGridTextColumn 
                                             Header="RUN" 
                                             Width="70"
                                             MinWidth="70"
-                                            Binding="{Binding Id}"/>
+                                            Binding="{Binding Run}"/>
                                 <DataGridTextColumn 
                                             Header="NOMBRES" 
                                             Width="150"
                                             MinWidth="150"
-                                            Binding="{Binding FIRSTNAME}"/>
+                                            Binding="{Binding Nombre}"/>
                                 <DataGridTextColumn 
                                             Header="APE. PATERNO" 
                                             Width="150"
                                             MinWidth="150"
-                                            Binding="{Binding DADSURNAME}"/>
+                                            Binding="{Binding ApellidoP}"/>
                                 <DataGridTextColumn 
                                             Header="APE. MATERNO" 
                                             Width="150"
                                             MinWidth="150"
-                                            Binding="{Binding MONSURNAME}"/>
+                                            Binding="{Binding ApellidoM}"/>
                                 <DataGridTextColumn 
                                             Header="CORREO ELECTRÓNICO" 
                                             Width="200"
                                             MinWidth="200"
-                                            Binding="{Binding EMAIL}"/>
+                                            Binding="{Binding Email}"/>
                             </DataGrid.Columns>
                         </DataGrid>
 
                         <!-- // DataGrid Employees // -->
 
-                        <DataGrid Grid.Column="0" Grid.Row="1" x:Name="dtgSubUnits" CanUserReorderColumns="False" SelectionMode="Single" IsReadOnly="True"
-                              AutoGenerateColumns="False" ColumnWidth="auto" Margin="10,0,10,10" Height="160" HorizontalScrollBarVisibility="Visible" >
+                        <DataGrid x:Name="dtgSubUnits"
+                                  Grid.Column="0" 
+                                  Grid.Row="1"
+                                  CanUserReorderColumns="False" 
+                                  SelectionMode="Single" 
+                                  IsReadOnly="True"
+                                  AutoGenerateColumns="False" 
+                                  ColumnWidth="auto" 
+                                  Margin="10,0,10,10" 
+                                  Height="160" 
+                                  HorizontalScrollBarVisibility="Visible" 
+                                  ItemsSource="{Binding Subunidades}"
+                                  SelectedItem="{Binding SelectedSubunidad, Mode=TwoWay}">
 
                             <DataGrid.Columns>
                                 <DataGridTextColumn 
@@ -757,7 +797,7 @@
                                             Header="NOMBRE" 
                                             Width="250"
                                             MinWidth="250"
-                                            Binding="{Binding SubUnit}"/>
+                                            Binding="{Binding Nombre}"/>
                             </DataGrid.Columns>
                         </DataGrid>
 

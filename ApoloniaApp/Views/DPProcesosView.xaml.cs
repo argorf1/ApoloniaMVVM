@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace ApoloniaApp.Views
 {
     /// <summary>
-    /// Lógica de interacción para AdminUserCreateView.xaml
+    /// Lógica de interacción para DPProcesosView.xaml
     /// </summary>
-    public partial class AdminClientCreateView : UserControl
+    public partial class DPProcesosView : UserControl
     {
-        public AdminClientCreateView()
+        public DPProcesosView()
         {
             InitializeComponent();
         }

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ApoloniaApp": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

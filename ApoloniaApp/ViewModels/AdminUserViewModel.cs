@@ -22,13 +22,13 @@ namespace ApoloniaApp.ViewModels
         private string _apellidoP;
         private string _apellidoM;
         private string _email;
-        private int _idPerfil;
-        private int _idEstado;
-        private UsuarioInterno user;
+        private string _perfil;
+        private string _estado;
+        private UsuarioInternoModel _editUser;
         private readonly FrameStore _frameStore;
-        private readonly ObservableCollection<UsuarioInterno> _usuarios;
-        public IEnumerable<UsuarioInterno> Usuarios => _usuarios;
-        public UsuarioInterno CurrentAccount;
+        private readonly ObservableCollection<UsuarioInternoModel> _usuarios;
+        public IEnumerable<UsuarioInternoModel> Usuarios => _usuarios;
+        public UsuarioInternoModel CurrentAccount;
 
         #region Property
 
@@ -45,11 +45,8 @@ namespace ApoloniaApp.ViewModels
                 OnPropertyChanged("ApellidoP");
                 OnPropertyChanged("ApellidoM");
                 OnPropertyChanged("Email");
-                OnPropertyChanged("SubunidadId");
-                OnPropertyChanged("RolId");
-                OnPropertyChanged("UnidadId");
+                OnPropertyChanged("Perfil");
                 OnPropertyChanged("Estado");
-                OnPropertyChanged("Username");
 
             }
         }
@@ -59,8 +56,8 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    user.Run = Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).Run;
-                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).Run;
+                    _editUser.Run = Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).Run;
+                    return _editUser.Run;
                 }
                 else
                 {   
@@ -79,8 +76,8 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    user.Nombres = Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).Nombres;
-                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).Nombres;
+                    _editUser.Nombre = Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).Nombre;
+                    return _editUser.Nombre;
                 }
                 else
                 {
@@ -100,8 +97,8 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    user.ApellidoP = Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).ApellidoP;
-                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).ApellidoP;
+                    _editUser.ApellidoP = Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).ApellidoP;
+                    return _editUser.ApellidoP;
                 }
                 else
                 {
@@ -121,8 +118,8 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    user.ApellidoM = Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).ApellidoM;
-                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).ApellidoM;
+                    _editUser.ApellidoM = Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).ApellidoM;
+                    return _editUser.ApellidoM;
                 }
                 else
                 {
@@ -142,8 +139,8 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    user.Email = Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).Email;
-                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).Email;
+                    _editUser.Email = Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).Email;
+                    return _editUser.Email;
                 }
                 else
                 {
@@ -159,66 +156,68 @@ namespace ApoloniaApp.ViewModels
 
         
 
-        public int IdPerfil
+        public string Perfil
         {
             get
             {
                 if (SelectedIndex > -1)
                 {
-                    user.IdPerfil = Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).IdPerfil;
-                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).IdPerfil;
+                    _editUser.PerfilDet = Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).PerfilDet;
+                    _editUser.IdPerfil = Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).IdPerfil;
+                    return _editUser.PerfilDet;
                 }
                 else
                 {
-                    return _idPerfil;
+                    return _perfil;
                 }
             }
             set
             {
-                _idPerfil = value;
+                _perfil = value;
                 OnPropertyChanged("RolId");
             }
         }
 
         
 
-        public int IdEstado
+        public string Estado
         {
             get
             {
                 if (SelectedIndex > -1)
                 {
 
-                    user.IdEstado = Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).IdEstado;
-                    return Usuarios.ElementAt<UsuarioInterno>(SelectedIndex).IdEstado;
+                    _editUser.EstadoDet = Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).EstadoDet;
+                    _editUser.IdEstado = Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).IdEstado;
+                    return _editUser.EstadoDet;
                 }
                 else
                 {
-                    return _idEstado;
+                    return _estado;
                 }
             }
             set
             {
-                _idEstado = value;
+                _estado = value;
                 OnPropertyChanged("Estado");
             }
         }
 
         #endregion
 
-        public AdminUserViewModel(FrameStore frameStore, UsuarioInterno currentAccount)
+        public AdminUserViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount)
         {
             _frameStore = frameStore;
             CurrentAccount = currentAccount;
-            user = new UsuarioInterno();
-            _usuarios = new ObservableCollection<UsuarioInterno>();
+            _editUser = new UsuarioInternoModel();
+            _usuarios = new ObservableCollection<UsuarioInternoModel>();
             _selectedIndex = -1;
-            foreach (UsuarioInterno user in new UsuarioInterno().ReadAll())
+            foreach (UsuarioInternoModel user in new UsuarioInternoModel().ReadAll())
             {
                 _usuarios.Add(user);
             }
             NavigationCreateUsers = new NavigatePanelCommand<AdminUserCreateViewModel>(_frameStore, () => new AdminUserCreateViewModel(_frameStore, CurrentAccount));
-            NavigationEditUsers = new NavigatePanelCommand<AdminUserEditViewModel>(_frameStore, () => new AdminUserEditViewModel(_frameStore, new UsuarioInterno(), CurrentAccount));
+            NavigationEditUsers = new NavigatePanelCommand<AdminUserEditViewModel>(_frameStore, () => new AdminUserEditViewModel(_frameStore, new UsuarioInternoModel(), _editUser));
 
         }
 

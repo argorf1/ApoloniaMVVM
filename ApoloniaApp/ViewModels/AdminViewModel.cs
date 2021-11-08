@@ -16,7 +16,7 @@ namespace ApoloniaApp.ViewModels
         private readonly FrameStore _frameStore;
         
         public  ViewModelBase CurrentViewModel => _frameStore.CurrentViewModel;
-        public UsuarioInterno CurrentAccount;
+        public UsuarioInternoModel CurrentAccount;
 
         private string _logUser;
         public string LogUser
@@ -35,17 +35,21 @@ namespace ApoloniaApp.ViewModels
             _frameStore = new FrameStore();
             CurrentAccount = accountStore.CurrentAccount;
 
-            Perfil rol = new Perfil(CurrentAccount.IdPerfil);
-            LogUser += CurrentAccount.Nombres + " " + CurrentAccount.ApellidoP + "(" + rol.Detalle + ")";
+            PerfilModel rol = new PerfilModel(CurrentAccount.IdPerfil);
+            LogUser += CurrentAccount.Nombre + " " + CurrentAccount.ApellidoP + "(" + rol.Detalle + ")";
             _frameStore.CurrentViewModelChanged += OnCurrentPanelChanged;
 
             NavigationUser = new NavigatePanelCommand<AdminUserViewModel>(_frameStore, () => new AdminUserViewModel(_frameStore,CurrentAccount));
             NavigationUnit = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore,CurrentAccount));
+            NavigationClient = new NavigatePanelCommand<AdminClientViewModel>(_frameStore, () => new AdminClientViewModel(_frameStore,CurrentAccount));
+            NavigationRol = new NavigatePanelCommand<AdminRolViewModel>(_frameStore, () => new AdminRolViewModel(_frameStore,CurrentAccount));
             LogoutCommand = new LogoutCommand(_navigationStore, _accountStore);
         }
 
         public ICommand NavigationUnit { get; }
         public ICommand NavigationUser { get; }
+        public ICommand NavigationClient { get; }
+        public ICommand NavigationRol { get; }
         public ICommand LogoutCommand { get; }
 
         private void OnCurrentPanelChanged()

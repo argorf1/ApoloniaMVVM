@@ -7,9 +7,9 @@ namespace ApoloniaApp.Stores
 {
     public class AccountStore
     {
-        private UsuarioInterno _currentAccount;
+        private UsuarioInternoModel _currentAccount;
 
-        public UsuarioInterno CurrentAccount
+        public UsuarioInternoModel CurrentAccount
         {
             get => _currentAccount;
             set

@@ -5,8 +5,8 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    public class EntityModelBase
+    public class EntityModelBase: ModelBase
     {
-
+      
     }
 }

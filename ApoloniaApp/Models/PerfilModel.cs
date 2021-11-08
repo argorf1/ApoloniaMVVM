@@ -7,31 +7,31 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    public class Perfil
+    public class PerfilModel
     {
 
         public int Id { get; set; }
         public string Detalle { get; set; }
 
-        public Perfil()
+        public PerfilModel()
         {
         }
 
-        public Perfil(int id)
+        public PerfilModel(int id)
         {
             Id = id;
             ReadById(); 
         }
 
-        public List<Perfil> ReadAll()
+        public List<PerfilModel> ReadAll()
         {
 
-            List<Perfil> listaNegocio = new List<Perfil>();
+            List<PerfilModel> listaNegocio = new List<PerfilModel>();
 
             OracleConnection conn = new OracleConnection();
             try
             {
-                conn = new Conexion().abrirConexion();
+                conn = new Conexion().AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -46,7 +46,7 @@ namespace ApoloniaApp.Models
                 OracleDataReader r = ((OracleRefCursor)o.Value).GetDataReader();
                 while (r.Read())
                 {
-                    Perfil rol = new Perfil()
+                    PerfilModel rol = new PerfilModel()
                     {
                         Detalle = r.GetString(0),
                         Id = r.GetInt32(1)
@@ -70,8 +70,8 @@ namespace ApoloniaApp.Models
             OracleConnection conn = new OracleConnection();
             try
             {
-                conn = new Conexion().abrirConexion();
-                OracleCommand cmd = new OracleCommand("select nombre from Rol where ID = :id", conn);
+                conn = new Conexion().AbrirConexion();
+                OracleCommand cmd = new OracleCommand("select nombre from perfil_usuarios where ID = :id", conn);
                 cmd.Parameters.Add(":id", OracleDbType.NVarchar2).Value = this.Id;
                 OracleDataReader r = cmd.ExecuteReader();
 

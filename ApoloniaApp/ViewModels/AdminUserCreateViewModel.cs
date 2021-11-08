@@ -14,12 +14,14 @@ namespace ApoloniaApp.ViewModels
     class AdminUserCreateViewModel : ViewModelBase
     {
         private readonly FrameStore _frameStore;
+        public UsuarioInternoModel CurrentAccount;
+
         private int _selectedIndex;
-        public UsuarioInterno CurrentAccount;
-        public ObservableCollection<Perfil> _perfiles;
-        public IEnumerable<Perfil> Perfiles => _perfiles;
-        private Perfil _selectedPerfil;
-        private UsuarioInterno _newUser = new UsuarioInterno()
+        public ObservableCollection<PerfilModel> _perfiles;
+        public IEnumerable<PerfilModel> Perfiles => _perfiles;
+        private PerfilModel _selectedPerfil;
+
+        private UsuarioInternoModel _newUser = new UsuarioInternoModel()
         {
             IdEstado = 1,
             Password = "1234"
@@ -41,12 +43,12 @@ namespace ApoloniaApp.ViewModels
             }
         }
 
-        public Perfil SelectedPerfil
+        public PerfilModel SelectedPerfil
         {
             get { return _selectedPerfil; }
             set 
             {
-                _selectedPerfil = _perfiles.ElementAt<Perfil>(SelectedIndex);
+                _selectedPerfil = _perfiles.ElementAt(SelectedIndex);
                 OnPropertyChanged("SelectedPerfil");
             }
         }
@@ -61,13 +63,13 @@ namespace ApoloniaApp.ViewModels
             }
         }
 
-        public string Nombre
+        public string Nombres
         {
-            get { return _newUser.Nombres; }
+            get { return _newUser.Nombre; }
             set
             {
-                _newUser.Nombres = value;
-                OnPropertyChanged("Nombre");
+                _newUser.Nombre = value;
+                OnPropertyChanged("Nombres");
             }
         }
 
@@ -134,20 +136,21 @@ namespace ApoloniaApp.ViewModels
         }
 
         #endregion
-        public AdminUserCreateViewModel(FrameStore frameStore, UsuarioInterno currentAccount)
+        public AdminUserCreateViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount)
         {
             _frameStore = frameStore;
             CurrentAccount = currentAccount;
-            _perfiles = new ObservableCollection<Perfil>();
-            _perfiles.Add(new Perfil() { Id = 0, Detalle = "--Seleccionar--" });
-            foreach (Perfil p in new Perfil().ReadAll())
+
+            _perfiles = new ObservableCollection<PerfilModel>();
+            _perfiles.Add(new PerfilModel() { Id = 0, Detalle = "--Seleccionar--" });
+            foreach (PerfilModel p in new PerfilModel().ReadAll())
             {
                 _perfiles.Add(p);
             }
-            SelectedIndex = 0;
-            SelectedPerfil = Perfiles.ElementAt<Perfil>(SelectedIndex);
+            SelectedPerfil = Perfiles.ElementAt<PerfilModel>(SelectedIndex);
+
             NavigationUsers = new NavigatePanelCommand<AdminUserViewModel>(_frameStore, () => new AdminUserViewModel(_frameStore, CurrentAccount));
-            CreateUser = new CreateCommand<AdminUserViewModel,UsuarioInterno>(() => _newUser.Create(), () => new AdminUserViewModel(_frameStore, CurrentAccount), _frameStore,()=>_newUser.ReadByRun(),_newUser);
+            CreateUser = new CRUDCommand<AdminUserViewModel,UsuarioInternoModel>(() => _newUser.Create(), () => new AdminUserViewModel(_frameStore, CurrentAccount), _frameStore,()=>_newUser.ReadByRun(),_newUser);
         }
 
         public ICommand NavigationUsers { get; }
