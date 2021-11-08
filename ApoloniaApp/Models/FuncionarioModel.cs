@@ -26,7 +26,13 @@ namespace ApoloniaApp.Models
         private OracleConnection conn = new OracleConnection();
         private OracleDataReader r = null;
 
-
+        public FuncionarioModel()
+        {
+            Estado = new EstadoModel();
+            Rol = new RolModel();
+            Unidad = new UnidadModel();
+            Subunidad = new SubUnidadModel();
+        }
         #region CRUD
         public bool Create()
         {
