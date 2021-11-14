@@ -33,7 +33,7 @@ namespace ApoloniaApp.ViewModels
             #region Carga Listas
 
             _unidades = new ReadAllCommand<UnidadModel>().ReadAll(() => CurrentAccount.ReadByDesigner(), new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
-            _procesos = new ReadAllCommand<ProcesoModel>().ReadAll(() => new ProcesoModel().ReadAll());
+            _procesos = new ReadAllCommand<ProcesoModel>().ReadAll(() => _crudProceso.ReadAll());
             _tareas = new ReadAllCommand<TareaModel>().ReadAll(() => _crudTarea.ReadAll());
 
             SelectedUnidad = _unidades.ElementAt(0);
@@ -42,8 +42,8 @@ namespace ApoloniaApp.ViewModels
             #region Configuracion Botones
             NavigationCreateProceso = new NavigatePanelCommand<DPProcesosCRUDViewModel>(frameStore, () => new DPProcesosCRUDViewModel(frameStore,currentAccount,new ProcesoModel(_selectedUnidad),1));
             NavigationUpdateProceso = new NavigatePanelCommand<DPProcesosCRUDViewModel>(frameStore, () => new DPProcesosCRUDViewModel(frameStore,currentAccount,_crudProceso,2));
-            NavigationCreateTarea = new NavigatePanelCommand<DPTareaCRUDViewModel>(frameStore, () => new DPTareaCRUDViewModel(frameStore,currentAccount,new TareaModel(),1));
-            NavigationUpdateTarea = new NavigatePanelCommand<DPTareaCRUDViewModel>(frameStore, () => new DPTareaCRUDViewModel(frameStore,currentAccount,_crudTarea,2));
+            NavigationCreateTarea = new NavigatePanelCommand<DPTareaCRUDViewModel>(frameStore, () => new DPTareaCRUDViewModel(frameStore,currentAccount,new TareaModel(),1,new ObservableCollection<ResponsableModel>(), new ObservableCollection<DependenciaModel>()));
+            NavigationUpdateTarea = new NavigatePanelCommand<DPTareaCRUDViewModel>(frameStore, () => new DPTareaCRUDViewModel(frameStore,currentAccount,_crudTarea,2,_crudTarea.Responsables,_crudTarea.Dependencias));
             #endregion
         }
 
@@ -116,7 +116,24 @@ namespace ApoloniaApp.ViewModels
             set
             {
                 _crudTarea = value;
+                if(_crudTarea != null)
+                {
+                    Responsables = _crudTarea.Responsables.AsEnumerable();
+                }
                 OnPropertyChanged("SelectedTarea");
+
+            }
+        }
+
+        private IEnumerable<ResponsableModel> _responsables;
+
+        public IEnumerable<ResponsableModel> Responsables
+        {
+            get => _responsables;
+            set
+            {
+                _responsables = value;
+                OnPropertyChanged("Responsables");
             }
         }
         #endregion

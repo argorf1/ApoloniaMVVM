@@ -560,7 +560,7 @@
                         Header="NOMBRES" 
                         Width="100"
                         MinWidth="100"
-                        Binding="{Binding Nombres}"/>
+                        Binding="{Binding Nombre}"/>
                         <DataGridTextColumn 
                         Header="APE. PATERNO" 
                         Binding="{Binding ApellidoP}"/>
