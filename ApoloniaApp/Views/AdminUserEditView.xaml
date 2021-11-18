@@ -14,8 +14,16 @@
 
             <StackPanel Orientation="Horizontal"
                     Margin="0">
+                <Image Source="/Assets/Icons/ico_edituser.png"
+                       Width="30"
+                       Height="30"
+                       VerticalAlignment="Center"
+                       Visibility="Visible"
+                       Margin="0,0,10,0"/>
+                
                 <TextBlock x:Name="tbkTitleAddUser" Text="Modificar Usuario"
-                    Margin="0,10,0,10"/>
+                           Margin="0,10,0,10"
+                           Style="{StaticResource OrangeSubtitle}"/>
 
             </StackPanel>
 
@@ -44,12 +52,14 @@
 
                 <!-- // SECTION 1: INFORMACIÓN PERSONAL  // -->
                 <TextBlock Grid.Column="0" Grid.Row="0"
-                            Text="INFORMACIÓN PERSONAL"/>
+                           Text="INFORMACIÓN PERSONAL"
+                           Style="{StaticResource SectionTitle}"/>
 
                 <!-- // RUN: Label // -->
                 <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
 
-                    <Label x:Name="lblNewRun" Content="RUN"/>
+                    <Label x:Name="lblNewRun" Content="RUN"
+                            Style="{StaticResource FormLabel}"/>
                 </StackPanel>
 
                 <!-- // RUN: TextBox // -->
@@ -58,7 +68,8 @@
                     <TextBox x:Name="txtNewRun"
                              Width="120"
                              MaxLength="9"
-                             Text="{Binding Run}"/>
+                             Text="{Binding Run}"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
 
                     <Image x:Name="imgNewRun"
                                Height="17"
@@ -73,7 +84,8 @@
                 <!-- // FirstName: Label // -->
                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
 
-                    <Label x:Name="lblNewFirstName" Content="Nombres"/>
+                    <Label x:Name="lblNewFirstName" Content="Nombres"
+                            Style="{StaticResource FormLabel}"/>
 
                 </StackPanel>
 
@@ -82,13 +94,15 @@
 
                     <TextBox x:Name="txtNewFirstName" 
                              Width="180"
-                             Text="{Binding Nombres}"/>
+                             Text="{Binding Nombres}"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
                 </StackPanel>
 
                 <!-- // FaherSurname: Label // -->
                 <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
 
-                    <Label x:Name="lblNewDadSurname" Content="Apellido Parterno"/>
+                    <Label x:Name="lblNewDadSurname" Content="Apellido Parterno"
+                            Style="{StaticResource FormLabel}"/>
                 </StackPanel>
 
                 <!-- // FaherSurname: TextBox // -->
@@ -96,14 +110,16 @@
 
                     <TextBox x:Name="txtNewDadSurname"
                              Width="180"
-                             Text="{Binding ApellidoP}"/>
+                             Text="{Binding ApellidoP}"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
 
                 </StackPanel>
 
                 <!-- // MotherSurname: Label // -->
                 <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal">
 
-                    <Label x:Name="lblNewMonSurname" Content="Apellido Materno"/>
+                    <Label x:Name="lblNewMonSurname" Content="Apellido Materno"
+                            Style="{StaticResource FormLabel}"/>
                 </StackPanel>
 
                 <!-- // MotherSurname: TextBox // -->
@@ -111,13 +127,15 @@
 
                     <TextBox x:Name="txtNewMomSurname"
                              Width="180"
-                             Text="{Binding ApellidoM}"/>
+                             Text="{Binding ApellidoM}"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
                 </StackPanel>
 
                 <!-- // E-Mail: Label // -->
                 <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
 
-                    <Label x:Name="lblNewMail" Content="Correo Electrónico"/>
+                    <Label x:Name="lblNewMail" Content="Correo Electrónico"
+                            Style="{StaticResource FormLabel}"/>
                 </StackPanel>
 
                 <!-- // E-Mail: TextBox // -->
@@ -131,8 +149,9 @@
 
                 <!-- // SECTION 3:  INFORMACIÓN GENERAL  // -->
                 <TextBlock Grid.Row="8" Grid.Column="0"
-                               Margin="0,10,0,0"
-                               Text="INFORMACIÓN CUENTA DE USUARIO"/>
+                           Margin="0,10,0,0"
+                           Text="INFORMACIÓN CUENTA DE USUARIO"
+                           Style="{StaticResource SectionTitle}"/>
 
 
                 <!-- // Account Name: Label // -->
@@ -145,7 +164,8 @@
                 <!-- // Password: Label // -->
                 <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal" Width="210">
 
-                    <Label x:Name="lblNewPassword" Content="Contraseña"/>
+                    <Label x:Name="lblNewPassword" Content="Contraseña"
+                            Style="{StaticResource FormLabel}"/>
                 </StackPanel>
 
                 <!-- // Password: TextBox // -->
@@ -158,7 +178,8 @@
                 <!-- // Password: Label // -->
                 <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal" Width="210">
 
-                    <Label x:Name="lblConfirmationPassword" Content="Confirmación Contraseña"/>
+                    <Label x:Name="lblConfirmationPassword" Content="Confirmación Contraseña"
+                            Style="{StaticResource FormLabel}"/>
                 </StackPanel>
 
                 <!-- // Password: TextBox // -->
@@ -171,7 +192,8 @@
                 <!-- // User Profile: Label // -->
                 <StackPanel Grid.Row="9" Grid.Column="2" Orientation="Horizontal">
 
-                    <Label x:Name="lblNewUserProfile" Content="Perfil de Usuario"/>
+                    <Label x:Name="lblNewUserProfile" Content="Perfil de Usuario"
+                            Style="{StaticResource FormLabel}"/>
                 </StackPanel>
 
                 <!-- // User Profile: ComboBox // -->
@@ -184,14 +206,16 @@
                               SelectedValuePath="Detalle"
                               SelectedIndex="{Binding SelectedPerfilIndex, Mode=TwoWay}"
                               SelectedValue="{Binding SelectedPerfil.Detalle}"
-                              SelectedItem="{Binding SelectedPerfil, Mode=TwoWay}"/>
+                              SelectedItem="{Binding SelectedPerfil, Mode=TwoWay}"
+                              Style="{DynamicResource CboRoundedCornersStyle}"/>
 
                 </StackPanel>
 
                 <!-- // User Status: Label // -->
                 <StackPanel Grid.Row="9" Grid.Column="3" Orientation="Horizontal">
 
-                    <Label x:Name="lblNewUserStatus" Content="Estado Usuario"/>
+                    <Label x:Name="lblNewUserStatus" Content="Estado Usuario"
+                            Style="{StaticResource FormLabel}"/>
                 </StackPanel>
 
                 <!-- //  User Status: ComboBox // -->
@@ -204,7 +228,8 @@
                               SelectedValuePath="Detalle"
                               SelectedIndex="{Binding SelectedEstadoIndex, Mode=TwoWay}"
                               SelectedValue="{Binding SelectedEstado.Detalle}"
-                              SelectedItem="{Binding SelectedEstado, Mode=TwoWay}"/>
+                              SelectedItem="{Binding SelectedEstado, Mode=TwoWay}"
+                              Style="{DynamicResource CboRoundedCornersStyle}"/>
 
                 </StackPanel>
 
@@ -216,12 +241,13 @@
                             HorizontalAlignment="Left">
 
                     <Button Name="btnCreateUser"
-                                Content="Modificar Usuario"  Height="35" 
-                                HorizontalAlignment="Right" Margin="0,20,30,0" 
-                                VerticalContentAlignment="Center" 
-                                VerticalAlignment="Top" Width="180"
+                            Content="Modificar Usuario"  Height="35" 
+                            HorizontalAlignment="Right" Margin="0,20,30,0" 
+                            VerticalContentAlignment="Center" 
+                            VerticalAlignment="Top" Width="180"
                             IsEnabled="{Binding CanCrud}"
-                            Command="{Binding EditUser}"/>
+                            Command="{Binding EditUser}"
+                            Style="{DynamicResource SubmitButton}" />
 
                     <Button x:Name="btnCancel"
                             Content="Cancelar"  
@@ -230,7 +256,8 @@
                             Margin="0,20,0,0" 
                             VerticalContentAlignment="Center" 
                             VerticalAlignment="Top" Width="180"
-                            Command="{Binding NavigationUsers}"/>
+                            Command="{Binding NavigationUsers}"
+                            Style="{DynamicResource CancelButton}" />
 
                 </StackPanel>
             </Grid>

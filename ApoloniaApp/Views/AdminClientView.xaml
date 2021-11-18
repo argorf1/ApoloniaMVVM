@@ -6,10 +6,6 @@
              xmlns:local="clr-namespace:ApoloniaApp.Views"
              mc:Ignorable="d">
 
-    <UserControl.Resources>
-
-    
-    </UserControl.Resources>
     <Grid>
         <StackPanel x:Name="spCurrentContent" Orientation="Vertical">
             <StackPanel x:Name="spHeader" Orientation="Vertical" Width="auto">
