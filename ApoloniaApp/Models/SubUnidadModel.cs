@@ -33,7 +33,6 @@ namespace ApoloniaApp.Models
         #region CRUD
         public bool Create()
         {
-            return false;
             try
             {
                 conn = new Conexion().AbrirConexion();

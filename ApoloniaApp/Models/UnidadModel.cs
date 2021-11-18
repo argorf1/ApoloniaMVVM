@@ -37,6 +37,11 @@ namespace ApoloniaApp.Models
         #endregion
         #endregion
 
+        public UnidadModel()
+        {
+            Rut = "0";
+        }
+
         OracleConnection conn = new OracleConnection();
         OracleDataReader r = null;
 
@@ -76,7 +81,7 @@ namespace ApoloniaApp.Models
         }
 
         #region Read
-        public List<UnidadModel> ReadAll()
+        public List<UnidadModel> ReadDesigner()
         {
 
             List<UnidadModel> listaNegocio = new List<UnidadModel>();

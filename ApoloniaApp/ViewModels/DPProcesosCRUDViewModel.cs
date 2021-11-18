@@ -1,5 +1,6 @@
 ﻿using ApoloniaApp.Commands;
 using ApoloniaApp.Models;
+using ApoloniaApp.Services;
 using ApoloniaApp.Stores;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,30 @@ namespace ApoloniaApp.ViewModels
     class DPProcesosCRUDViewModel : ViewModelBase
     {
         private readonly FrameStore _frameStore;
+        private readonly ListStore _listStore;
         public UsuarioInternoModel CurrentAccount;
         private ProcesoModel _crudProceso;
 
+        #region Validation Properties
+        private List<Func<bool>> _validations;
+        private bool _canCrud = false;
+
+        public bool CanCrud
+        {
+            get => _canCrud;
+            set
+            {
+                _canCrud = value;
+                OnPropertyChanged("CanCrud");
+            }
+        }
+        #endregion
         public ICommand CrudCommand { get; }
-        public DPProcesosCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ProcesoModel crudProceso, int estado)
+        public ICommand Return { get; }
+        public DPProcesosCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ProcesoModel crudProceso, int estado, ListStore listStore)
         {
             _frameStore = frameStore;
+            _listStore = listStore;
             CurrentAccount = currentAccount;
             _crudProceso = crudProceso;
             _crudProceso.Creador.Run = CurrentAccount.Run;
@@ -36,21 +54,35 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    CrudCommand = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount), _frameStore, () => _crudProceso.ReadByNombre(), _crudProceso);
+                    CrudCommand = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudProceso.ReadByNombre(), _crudProceso);
                     break;
                 case 2:
-                    CrudCommand = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Update(), () => new DPProcesosViewModel(_frameStore, CurrentAccount), _frameStore, _crudProceso);
+                    CrudCommand = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Update(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudProceso);
                     break;
                 default:
                     break;
             }
+            Return = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore));
             #endregion
 
+           
             #region Carga Listas
-            _subunidades = new ReadAllCommand<SubUnidadModel>().ReadAll(() => _crudProceso.Unidad.ReadSubunidadByUnidad(), new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad --" });
-            _roles = new ReadAllCommand<RolModel>().ReadAll(() => _crudProceso.Unidad.ReadRolByUnidad());
+            _subunidades = new ChargeComboBoxService<SubUnidadModel>().ChargeComboBox(_listStore.subunidades.Where(p => p.RutUnidad == _crudProceso.Unidad.Rut), _subunidades, new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad --" });
+
+            _roles = new ChargeComboBoxService<RolModel>().ChargeComboBox(_listStore.roles.Where(p => p.Unidad.Rut == _crudProceso.Unidad.Rut), _roles, new RolModel() { Id = 0, Nombre = "-- Subunidad --" });
             SelectedSubunidad = _subunidades.Last(s => s.Id == _crudProceso.Subunidad.Id);
             #endregion
+
+            #region CargaValidaciones
+            _validations = new List<Func<bool>>();
+            _validations.AddRange(new List<Func<bool>>()
+            {
+                () => ValidateText(Nombre),
+                () => ValidateText(Descripcion),
+                ValidateSubunidad
+            });
+            #endregion
+
         }
 
         #region Configuracion Vista Estado
@@ -93,10 +125,11 @@ namespace ApoloniaApp.ViewModels
             set
             {
                 _crudProceso.Subunidad = value;
-                if (_crudProceso.Subunidad.Id != 0)
+                if (ValidateSubunidad())
                 {
+                    ValidateAll();
                     roles = _roles.Where(r => r.Subunidad.Id == _crudProceso.Subunidad.Id);
-                    _crudProceso.Rol = roles.FirstOrDefault(r => r.Nivel== roles.Min(r => r.Nivel));
+                    _crudProceso.Rol = roles.FirstOrDefault(r => r.Nivel == roles.Min(r => r.Nivel));
                 }
                 OnPropertyChanged("SelectedSubunidad");
 
@@ -105,22 +138,39 @@ namespace ApoloniaApp.ViewModels
         }
         #endregion
 
+        #region Properties
+        private bool _validNombre = false;
         public string Nombre
         {
             get => _crudProceso.Nombre;
             set
             {
                 _crudProceso.Nombre = value;
+
+                ValidNombre = ValidateText(value);
+                ValidateAll();
                 OnPropertyChanged("Nombre");
             }
         }
-
+        public bool ValidNombre
+        {
+            get => _validNombre;
+            set
+            {
+                _validNombre = value;
+                OnPropertyChanged("ValidNombre");
+            }
+        }
+        private bool _validDescripcion = false;
         public string Descripcion
         {
             get => _crudProceso.Descripcion;
             set
             {
                 _crudProceso.Descripcion = value;
+
+                _validDescripcion = ValidateText(value);
+                ValidateAll();
                 OnPropertyChanged("Descripcion");
             }
         }
@@ -130,8 +180,9 @@ namespace ApoloniaApp.ViewModels
 
         public string Rol
         {
-            get 
-            {   if (_crudProceso.Rol != null)
+            get
+            {
+                if (_crudProceso.Rol != null)
                     return _crudProceso.Rol.Nombre;
                 else
                     return "";
@@ -142,5 +193,30 @@ namespace ApoloniaApp.ViewModels
             }
         }
 
+        #endregion
+
+        #region Validaciones
+
+        private bool ValidateText(string text) => !string.IsNullOrEmpty(text);
+
+        private bool ValidateSubunidad()
+        {
+            return (SelectedSubunidad.Id != 0 ? true : false);
+        }
+        public void ValidateAll()
+        {
+
+            foreach (Func<bool> f in _validations)
+            {
+                if (!f())
+                {
+                    CanCrud = false;
+                    return;
+                }
+            }
+            CanCrud = true;
+        }
+        #endregion    
     }
 }
+

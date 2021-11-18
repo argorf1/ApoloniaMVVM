@@ -289,7 +289,7 @@
 
                                 <Button Width="100"
                                         Content="Logout"
-                                        Command="{Binding Logout}"/>
+                                        Command="{Binding LogoutCommand}"/>
 
 
                                 <TextBlock Text="Cerrar Sesión"

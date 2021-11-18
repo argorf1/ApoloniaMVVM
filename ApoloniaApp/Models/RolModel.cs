@@ -22,11 +22,13 @@ namespace ApoloniaApp.Models
 
         public RolModel()
         {
-           
+            Subunidad = new SubUnidadModel();
+            Unidad = new UnidadModel();
         }
 
         public RolModel(UnidadModel unidad)
         {
+            Subunidad = new SubUnidadModel();
             Unidad = unidad;
         }
 
@@ -89,10 +91,8 @@ namespace ApoloniaApp.Models
                         Nivel = r.GetInt32(3),
                         RolSuperior = r.GetInt32(4)
                     };
-                    ro.Subunidad.Nombre = r.GetString(5);
-                    ro.Subunidad.Id = r.GetInt32(7);
-                    ro.Unidad.RazonSocial = r.GetString(6);
-                    ro.Unidad.Rut = r.GetString(8);
+                    ro.Subunidad = new SubUnidadModel() { Nombre = r.GetString(5), Id = r.GetInt32(7) };
+                    ro.Unidad = new UnidadModel() { RazonSocial = r.GetString(6), Rut = r.GetString(8) };
                     listaNegocio.Add(ro);
                 }
 

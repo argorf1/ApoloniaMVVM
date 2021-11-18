@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    class ProcesoModel : EntityModelBase
+    public class ProcesoModel : EntityModelBase
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

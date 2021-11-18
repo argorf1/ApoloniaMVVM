@@ -76,7 +76,7 @@
                         <TextBox Text="{Binding Duracion}" />
                     </DockPanel>
                     <Label Grid.Column="0" Grid.Row="9" Content="Responsables de Tarea*"/>
-                        <DataGrid Grid.Column="0" Grid.Row="10"
+                    <DataGrid Grid.Column="0" Grid.Row="10"
                           CanUserReorderColumns="False"
                           SelectionMode="Single"
                           IsReadOnly="True"
@@ -87,26 +87,28 @@
                           ItemsSource="{Binding Funcionarios}"
                           SelectedItem="{Binding SelectedFuncionario, Mode=TwoWay}">
 
-                            <DataGrid.Columns>
-                                <DataGridTextColumn 
+                        <DataGrid.Columns>
+                            <DataGridTextColumn 
                                     Header="Nombre" 
                                     Width="70"
                                     MinWidth="70"
                                     Binding="{Binding Nombre}"/>
-                                <DataGridTextColumn 
+                            <DataGridTextColumn 
                                     Header="Apellido" 
                                     Width="70"
                                     MinWidth="70"
                                     Binding="{Binding ApellidoP}"/>
-                                <DataGridTextColumn 
+                            <DataGridTextColumn 
                                     Header="Rol" 
                                     Width="70"
                                     MinWidth="70"
-                                    Binding="{Binding Rol}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    <Button Content=">>" Grid.Column="1" Grid.Row="10" DockPanel.Dock="Top" Height="20" Margin="0,50,0,0"/>
-                    <Button Content="&lt;&lt;" Grid.Column="1" Grid.Row="10" DockPanel.Dock="Top" Height="20" Margin="0,0,0,50"/>
+                                    Binding="{Binding Rol.Nombre}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Content=">>" Grid.Column="1" Grid.Row="10" DockPanel.Dock="Top" 
+                            Height="20" Margin="0,50,0,0" Command="{Binding AddResponsable}"/>
+                    <Button Content="&lt;&lt;" Grid.Column="1" Grid.Row="10" DockPanel.Dock="Top" 
+                            Height="20" Margin="0,0,0,50" Command="{Binding ExtractResponsable}"/>
                     <DataGrid Grid.Column="2" Grid.Row="10"
                           CanUserReorderColumns="False"
                           SelectionMode="Single"
@@ -115,28 +117,28 @@
                           ColumnWidth="auto"
                           Margin="10" Height="160"
                           HorizontalScrollBarVisibility="Visible"
-                                  DockPanel.Dock="Right"
-                          ItemsSource="{Binding Funcionarios}"
-                          SelectedItem="{Binding SelectedFuncionario, Mode=TwoWay}">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn 
+                          DockPanel.Dock="Right"
+                          ItemsSource="{Binding Responsables}"
+                          SelectedItem="{Binding SelectedResponsable, Mode=TwoWay}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn 
                                     Header="Nombre" 
                                     Width="70"
                                     MinWidth="70"
                                     Binding="{Binding Nombre}"/>
-                                <DataGridTextColumn 
+                            <DataGridTextColumn 
                                     Header="Apellido" 
                                     Width="70"
                                     MinWidth="70"
                                     Binding="{Binding ApellidoP}"/>
-                                <DataGridTextColumn 
+                            <DataGridTextColumn 
                                     Header="Rol" 
                                     Width="70"
                                     MinWidth="70"
-                                    Binding="{Binding Rol}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    <!--<Label Grid.Column="0" Grid.Row="11" Content="Dependencias"/>
+                                    Binding="{Binding Rol.Nombre}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Grid.Column="0" Grid.Row="11" Content="Responsables de Tarea*"/>
                     <DataGrid Grid.Column="0" Grid.Row="12"
                           CanUserReorderColumns="False"
                           SelectionMode="Single"
@@ -145,29 +147,51 @@
                           ColumnWidth="auto"
                           Margin="10" Height="160"
                           HorizontalScrollBarVisibility="Visible"
-                                  DockPanel.Dock="Right"
-                          ItemsSource="{Binding Funcionarios}"
-                          SelectedItem="{Binding SelectedFuncionario, Mode=TwoWay}">
+                          ItemsSource="{Binding Tareas}"
+                          SelectedItem="{Binding SelectedTarea, Mode=TwoWay}">
+
                         <DataGrid.Columns>
                             <DataGridTextColumn 
-                                    Header="ID" 
-                                    Width="70"
-                                    MinWidth="70"
-                                    Binding="{Binding Id}"/>
-                            <DataGridTextColumn 
-                                    Header="Nomrbe" 
+                                    Header="Nombre" 
                                     Width="70"
                                     MinWidth="70"
                                     Binding="{Binding Nombre}"/>
-                            <DataGridCheckBoxColumn 
-                                    Header="Dependencia" 
+                            <DataGridTextColumn 
+                                    Header="Descripción" 
+                                    MinWidth="100"
+                                    Binding="{Binding Descripcion}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Content=">>" Grid.Column="1" Grid.Row="12" DockPanel.Dock="Top" 
+                            Height="20" Margin="0,50,0,0" Command="{Binding AddDependencia}"/>
+                    <Button Content="&lt;&lt;" Grid.Column="1" Grid.Row="12" DockPanel.Dock="Top" 
+                            Height="20" Margin="0,0,0,50" Command="{Binding ExtractDependencia}"/>
+                    <DataGrid Grid.Column="2" Grid.Row="12"
+                          CanUserReorderColumns="False"
+                          SelectionMode="Single"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False"
+                          ColumnWidth="auto"
+                          Margin="10" Height="160"
+                          HorizontalScrollBarVisibility="Visible"
+                                  DockPanel.Dock="Right"
+                          ItemsSource="{Binding Dependencias}"
+                          SelectedItem="{Binding SelectedDependencia, Mode=TwoWay}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn 
+                                    Header="Nombre" 
                                     Width="70"
                                     MinWidth="70"
-                                    Binding="{Binding Add}"/>
+                                    Binding="{Binding Nombre}"/>
+                            <DataGridTextColumn 
+                                    Header="Descripcion" 
+                                    Width="70"
+                                    MinWidth="70"
+                                    Binding="{Binding Descripcion}"/>
                         </DataGrid.Columns>
-                    </DataGrid>-->
+                    </DataGrid>
                     <DockPanel Grid.Column="0" Grid.Row="16">
-                        <Button Content="{Binding EstadoView}" Command="{Binding CrudCommand}" Width="100" Height="30"/>
+                        <Button Content="{Binding EstadoView}" Command="{Binding Crud}" IsEnabled="{Binding CanCrud}" Width="100" Height="30"/>
                         <Button Content="Cancelar" Width="100" Command="{Binding Return}" Height="30"/>
                     </DockPanel>
                 </Grid>

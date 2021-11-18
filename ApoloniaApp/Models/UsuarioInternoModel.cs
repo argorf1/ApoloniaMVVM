@@ -41,8 +41,6 @@ namespace ApoloniaApp.Models
                 cmd.Parameters.Add("i_email", OracleDbType.NVarchar2).Value = this.Email;
                 cmd.Parameters.Add("i_password", OracleDbType.NVarchar2).Value = this.Password;
                 cmd.Parameters.Add("i_id_perfil", OracleDbType.Int32).Value = this.IdPerfil;
-                cmd.Parameters.Add("i_estado", OracleDbType.Int32).Value = this.IdEstado;
-
                 cmd.ExecuteNonQuery();
 
                 conn.Close();
