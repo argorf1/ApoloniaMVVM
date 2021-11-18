@@ -3,6 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ApoloniaApp">
     <Application.Resources>
-         
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ResourceDictionaries/ButtonDictionary.xaml"/>
+                <ResourceDictionary Source="/ResourceDictionaries/ComboBoxDictionary.xaml"/>
+                <ResourceDictionary Source="/ResourceDictionaries/LabelDictionary.xaml"/>
+                <ResourceDictionary Source="/ResourceDictionaries/TextBoxDictionary.xaml"/>
+                <ResourceDictionary Source="/ResourceDictionaries/TextBlockDictionary.xaml"/>
+                <ResourceDictionary Source="/ResourceDictionaries/PasswordBoxDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -48,12 +48,14 @@
 
                 <!-- // SECTION 1: INFORMACIÓN PERSONAL  // -->
                 <TextBlock Grid.Column="0" Grid.Row="0"
-                            Text="INFORMACIÓN PERSONAL"/>
+                           Text="INFORMACIÓN PERSONAL"
+                           Style="{StaticResource SectionTitle}"/>
 
                 <!-- // RUN: Label // -->
                 <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
 
-                    <Label x:Name="lblNewRun" Content="Nombre de Rol*"/>
+                    <Label x:Name="lblNewRun" Content="Nombre de Rol*"
+                           Style="{StaticResource FormLabel}"/>
                 </StackPanel>
 
                 <!-- // RUN: TextBox // -->
@@ -62,7 +64,8 @@
                     <TextBox x:Name="txtRol"
                              Text="{Binding Nombre}"
                              Width="387"
-                             MaxLength="30"/>
+                             MaxLength="30"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
 
                     <Image x:Name="imgNewRun"
                            Height="17"
@@ -77,7 +80,8 @@
                 <!-- // E-Mail: Label // -->
                 <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
 
-                    <Label x:Name="lblNewMail" Content="Descripción*"/>
+                    <Label x:Name="lblNewMail" Content="Descripción*"
+                           Style="{StaticResource FormLabel}"/>
                 </StackPanel>
 
                 <!-- // E-Mail: TextBox // -->
@@ -86,13 +90,15 @@
                     <TextBox x:Name="txtDescripcion"
                              Text="{Binding Descripcion}"
                              Width="387" Height="120"
-                             VerticalAlignment="Bottom"/>
+                             VerticalAlignment="Bottom"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
                 </StackPanel>
 
                 <!-- // Business Unit: Label // -->
                 <StackPanel Grid.Row="6" Grid.Column="0" Orientation="Horizontal">
 
-                    <Label x:Name="lblSubunidad" Content="Subunidad"/>
+                    <Label x:Name="lblSubunidad" Content="Subunidad"
+                           Style="{StaticResource FormLabel}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
@@ -103,13 +109,15 @@
                               DisplayMemberPath="Nombre"
                               SelectedValuePath="Nombre"
                               SelectedValue="{Binding SelectedSubunidad.Nombre}"
-                              SelectedItem="{Binding SelectedSubunidad, Mode=TwoWay}"/>
+                              SelectedItem="{Binding SelectedSubunidad, Mode=TwoWay}"
+                              Style="{DynamicResource CboRoundedCornersStyle}" />
 
                 </StackPanel>
 
                 <StackPanel Grid.Row="8" Grid.Column="0" Orientation="Horizontal">
 
-                    <Label x:Name="lblRol" Content="Superior (a quién reporta)*"/>
+                    <Label x:Name="lblRol" Content="Superior (a quién reporta)*"
+                           Style="{StaticResource FormLabel}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" 
@@ -122,7 +130,8 @@
                               DisplayMemberPath="Nombre"
                               SelectedValuePath="Nombre"
                               SelectedValue="{Binding SelectedRol.Nombre}"
-                              SelectedItem="{Binding SelectedRol, Mode=TwoWay}"/>
+                              SelectedItem="{Binding SelectedRol, Mode=TwoWay}"
+                              Style="{DynamicResource CboRoundedCornersStyle}" />
                 </StackPanel>
 
                 <!-- // ROLE: Command Buttons // -->
@@ -137,14 +146,16 @@
                             HorizontalAlignment="Right" Margin="0,20,30,0" 
                             VerticalContentAlignment="Center" 
                             VerticalAlignment="Top" Width="180"
-                            Command="{Binding CrudRol}"/>
+                            Command="{Binding CrudRol}"
+                            Style="{DynamicResource SubmitButton}" />
 
                     <Button x:Name="btnCancel"
                             Content="Cancelar"  Height="35" 
                             HorizontalAlignment="Center" Margin="0,20,0,0" 
                             VerticalContentAlignment="Center" 
                             VerticalAlignment="Top" Width="180"
-                            Command="{Binding NavigationRol}"/>
+                            Command="{Binding NavigationRol}"
+                            Style="{DynamicResource CancelButton}" />
 
                 </StackPanel>
             </Grid>
