@@ -5,9 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ApoloniaApp.Views">
     <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="57*"/>
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
         <StackPanel x:Name="spRol" Orientation="Vertical" 
                         HorizontalAlignment="Left"  Margin="5,0,0,5"
-                        Visibility="Visible">
+                        Visibility="Visible" Grid.ColumnSpan="2">
 
 
             <StackPanel Orientation="Horizontal"
@@ -49,7 +53,8 @@
                             Text="Roles de Usuarios Cliente"/>
                 <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
 
-                    <Label x:Name="lblUnidad" Content="Unidad"/>
+                    <Label x:Name="lblUnidad" Content="Unidad"
+                           Style="{StaticResource FormLabel}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal">
                     <ComboBox x:Name="dd"
@@ -60,16 +65,22 @@
                               DisplayMemberPath="RazonSocial"
                               SelectedValuePath="RazonSocial"
                               SelectedValue="{Binding SelectedUnidad.RazonSocial}"
-                              SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}"/>
+                              SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}"
+                              Style="{DynamicResource CboRoundedCornersStyle}"/>
                     <Button x:Name="btnCreateRol" Margin="20,0,0,0"
                             Content="Nuevo Rol"  Height="20" 
                             VerticalContentAlignment="Center" 
                             Width="100"
-                            Command="{Binding NavigationCreateRol}"/>
+                            Command="{Binding NavigationCreateRol}"
+                            Style="{DynamicResource ToolBtn}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal">
-
-                    <Label x:Name="lblRoles" Content="LISTADO DE ROLES DE USUARIO CLIENTE"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1"
+                                   Text="LISTADO DE ROLES DE USUARIO CLIENTE"
+                                   Margin="10,10,0,0" 
+                                   Style="{StaticResource SectionTitle}"/>
+                    
+                    <!--<Label x:Name="lblRoles" Content="LISTADO DE ROLES DE USUARIO CLIENTE"/>-->
                 </StackPanel>
                 <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" x:Name="dtg"
                           CanUserReorderColumns="False"
@@ -116,49 +127,55 @@
                 </StackPanel>
                 <Button x:Name="btnCancel"
                         Grid.Column="1" Grid.Row="7"
-                            Content="Modifiar Rol"  Height="20" 
-                            VerticalContentAlignment="Center" 
-                            Width="100"
-                            Command="{Binding NavigationUpdateRol}" Margin="80,3,30,3"/>
+                        Content="Modifiar Rol"  Height="20" 
+                        VerticalContentAlignment="Center" 
+                        Width="100"
+                        Margin="80,3,30,3"
+                        Command="{Binding NavigationUpdateRol}" 
+                        Style="{DynamicResource ToolBtn}"/>
 
                 <!-- // E-Mail: Label // -->
                 <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal">
 
-                    <Label x:Name="lblNewMail" Content="Descripción*"/>
+                    <Label x:Name="lblNewMail" Content="Descripción*"
+                           Style="{StaticResource FormLabel}"/>
                 </StackPanel>
 
                 <!-- // E-Mail: TextBox // -->
                 <StackPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-
                     <TextBox x:Name="txtDescripcion"
                              Text="{Binding Descripcion}"
                              Width="387" Height="120"
                              IsEnabled="False"
-                             VerticalAlignment="Bottom"/>
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
                 </StackPanel>
 
                 <!-- // Business Unit: Label // -->
                 <StackPanel Grid.Row="11" Grid.Column="0" Orientation="Horizontal">
 
-                    <Label x:Name="lblSubunidad" Content="Subunidad"/>
+                    <Label x:Name="lblSubunidad" Content="Subunidad"
+                           Style="{StaticResource FormLabel}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" 
                                 Orientation="Horizontal">
 
-                    <TextBox Text="{Binding Subunidad}" Width="387" />
+                    <TextBox Text="{Binding Subunidad}" Width="387"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
 
                 </StackPanel>
 
                 <StackPanel Grid.Row="13" Grid.Column="0" Orientation="Horizontal">
 
-                    <Label x:Name="lblRol" Content="Superior (a quién reporta)*"/>
+                    <Label x:Name="lblRol" Content="Superior (a quién reporta)*"
+                           Style="{StaticResource FormLabel}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" 
                                 Orientation="Horizontal">
 
-                    <TextBox Text="{Binding Superior}" Width="386"/>
+                    <TextBox Text="{Binding Superior}" Width="386"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
                 </StackPanel>
 
                 <!-- // ROLE: Command Buttons // -->
