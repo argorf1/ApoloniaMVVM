@@ -7,13 +7,123 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Icons\icon_invalid.png" />
+    <None Remove="Assets\Icons\ico_addunit.png" />
     <None Remove="Assets\Icons\ico_adduser.png" />
+    <None Remove="Assets\Icons\ico_avatar.png" />
+    <None Remove="Assets\Icons\ico_collapsedown.png" />
+    <None Remove="Assets\Icons\ico_collapseup.png" />
+    <None Remove="Assets\Icons\ico_creating.png" />
+    <None Remove="Assets\Icons\ico_edit.png" />
+    <None Remove="Assets\Icons\ico_editunit.png" />
+    <None Remove="Assets\Icons\ico_edituser.png" />
+    <None Remove="Assets\Icons\ico_error.png" />
+    <None Remove="Assets\Icons\ico_logout.png" />
+    <None Remove="Assets\Icons\ico_menu.png" />
+    <None Remove="Assets\Icons\ico_menu_over.png" />
+    <None Remove="Assets\Icons\ico_newtask.png" />
+    <None Remove="Assets\Icons\ico_newunit.png" />
+    <None Remove="Assets\Icons\ico_penblue.png" />
+    <None Remove="Assets\Icons\ico_penorange.png" />
+    <None Remove="Assets\Icons\ico_process.png" />
+    <None Remove="Assets\Icons\ico_report.png" />
+    <None Remove="Assets\Icons\ico_required.png" />
+    <None Remove="Assets\Icons\ico_roles.png" />
+    <None Remove="Assets\Icons\ico_tasklist.png" />
+    <None Remove="Assets\Icons\ico_unit.png" />
+    <None Remove="Assets\Icons\ico_units.png" />
+    <None Remove="Assets\Icons\ico_users.png" />
+    <None Remove="Assets\Icons\ico_userunit.png" />
+    <None Remove="Assets\Icons\ico_valid.png" />
+    <None Remove="Assets\Icons\ico_workflow.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Icons\icon_invalid.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_addunit.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Icons\ico_adduser.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Assets\Icons\ico_avatar.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_collapsedown.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_collapseup.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_creating.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_edit.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_editunit.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_edituser.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_error.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_logout.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_menu.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_menu_over.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_newtask.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_newunit.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_penblue.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_penorange.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_process.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_report.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_required.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_roles.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_tasklist.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_unit.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_units.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_users.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_userunit.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_valid.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_workflow.png" />
   </ItemGroup>
 
   <ItemGroup>
