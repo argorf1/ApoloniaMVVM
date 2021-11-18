@@ -1,5 +1,6 @@
 ﻿using ApoloniaApp.Commands;
 using ApoloniaApp.Models;
+using ApoloniaApp.Services;
 using ApoloniaApp.Stores;
 using System;
 using System.Collections.Generic;
@@ -13,25 +14,28 @@ namespace ApoloniaApp.ViewModels
     class AdminRolViewModel : ViewModelBase
     {
         private readonly FrameStore _frameStore;
+        private ListStore _listStore;
         public UsuarioInternoModel CurrentAccount;
         private RolModel _crudRol;
-        public AdminRolViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount)
+        public AdminRolViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore)
         {
             _frameStore = frameStore;
+            _listStore = listStore;
             CurrentAccount = currentAccount;
             _crudRol = new RolModel();
 
-            _unidades = new ObservableCollection<UnidadModel>();
-            _roles = new ObservableCollection<RolModel>();
 
-            _unidades = new ReadAllCommand<UnidadModel>().ReadAll(() => new UnidadModel().ReadDesigner(), new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
-            _roles = new ReadAllCommand<RolModel>().ReadAll(() => new RolModel().ReadAll());
+            #region Carga Listas
+            _unidades = new ChargeComboBoxService<UnidadModel>().ChargeComboBox(_listStore.unidades,_unidades, new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
+            _roles = _listStore.roles;
+
 
             SelectedUnidad = _unidades.ElementAt(0);
-            SelectedRol = new RolModel();
+            SelectedRol = new RolModel(); 
+            #endregion
 
-            NavigationCreateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount, new RolModel(_selectedUnidad),1));
-            NavigationUpdateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount,_crudRol,2));
+            NavigationCreateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount, new RolModel(_selectedUnidad),1,_listStore));
+            NavigationUpdateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount,_crudRol,2,_listStore));
 
         }
 

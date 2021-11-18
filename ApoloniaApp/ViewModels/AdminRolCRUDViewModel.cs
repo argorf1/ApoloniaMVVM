@@ -1,5 +1,6 @@
 ﻿using ApoloniaApp.Commands;
 using ApoloniaApp.Models;
+using ApoloniaApp.Services;
 using ApoloniaApp.Stores;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,14 @@ namespace ApoloniaApp.ViewModels
     class AdminRolCRUDViewModel : ViewModelBase
     {
         private readonly FrameStore _frameStore;
+        private ListStore _listStore;
         public UsuarioInternoModel CurrentAccount;
         private RolModel _crudRol;
         public ICommand CrudRol { get; }
-        public AdminRolCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, RolModel crudRol, int estado)
+        public AdminRolCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, RolModel crudRol, int estado, ListStore listStore)
         {
             _frameStore = frameStore;
+            _listStore = listStore;
             CurrentAccount = currentAccount;
             _estado = estado;
             _crudRol = crudRol;
@@ -34,10 +37,10 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Create(), () => new AdminRolViewModel(_frameStore, CurrentAccount), _frameStore, () => _crudRol.ReadByNombre(), _crudRol);
+                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Create(), () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudRol.ReadByNombre(), _crudRol);
                     break;
                 case 2:
-                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Update(), () => new AdminRolViewModel(_frameStore, CurrentAccount), _frameStore, _crudRol);
+                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Update(), () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudRol);
                     break;
                 default:
                     break;
@@ -45,12 +48,10 @@ namespace ApoloniaApp.ViewModels
             #endregion
 
             #region Carga Listas
-            _subunidades = new ObservableCollection<SubUnidadModel>();
-            _roles = new ObservableCollection<RolModel>();
+            _subunidades = new ChargeComboBoxService<SubUnidadModel>().ChargeComboBox(_listStore.subunidades.Where(p=> p.RutUnidad == _crudRol.Unidad.Rut), _subunidades, new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad --" });
+            _roles = new ChargeComboBoxService<RolModel>().ChargeComboBox(_listStore.roles,_roles, new RolModel() { Id = 0, Nombre = "-- Rol --" });
 
-            _subunidades = new ReadAllCommand<SubUnidadModel>().ReadAll(() => _crudRol.Unidad.ReadByUnidad(), new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad --" });
-            _roles = new ReadAllCommand<RolModel>().ReadAll(() => new RolModel().ReadAll(), new RolModel() { Id = 0, Nombre="-- Rol --"});
-            _roles.Remove(_roles.FirstOrDefault(r => r.Id == _crudRol.Id));
+            _roles.Remove(_roles.FirstOrDefault(r => r.Id == _crudRol.Id && r.Id != 0));
 
             SelectedSubunidad = _subunidades.LastOrDefault(s => s.Id == _crudRol.Subunidad.Id || s.Id == 0);
             SelectedRol = _roles.LastOrDefault(r => r.Id == _crudRol.RolSuperior || r.Id == 0);
@@ -126,7 +127,10 @@ namespace ApoloniaApp.ViewModels
             {
                 _selectedRol = value;
                 _crudRol.RolSuperior = _selectedRol.Id;
-                _crudRol.Nivel = _selectedRol.Nivel + 1;
+                if (_selectedRol.Id != 0)
+                    _crudRol.Nivel = _selectedRol.Nivel + 1;
+                else
+                    _crudRol.Nivel = 0;
 
                 OnPropertyChanged("SelectedRol");
 

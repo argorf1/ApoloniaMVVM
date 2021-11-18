@@ -1,5 +1,6 @@
 ﻿using ApoloniaApp.Commands;
 using ApoloniaApp.Models;
+using ApoloniaApp.Services;
 using ApoloniaApp.Stores;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace ApoloniaApp.ViewModels
     class AdminUnitCreateViewModel : ViewModelBase
     {
         private readonly FrameStore _frameStore;
+        private readonly ListStore _listStore;
         public UsuarioInternoModel CurrentAccount;
 
 
@@ -291,72 +293,32 @@ namespace ApoloniaApp.ViewModels
         }
         #endregion
 
-        public AdminUnitCreateViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount)
+        public AdminUnitCreateViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore)
         {
             _frameStore = frameStore;
+            _listStore = listStore;
             CurrentAccount = currentAccount;
 
             #region Listas
-            _rubros = new ObservableCollection<RubroModel>();
-            _rubros.Add(new RubroModel() { Id = 0, Detalle = "--Seleccionar--" });
-            foreach (RubroModel r in new RubroModel().ReadAll())
-            {
-                _rubros.Add(r);
-            }
+            _rubros = _listStore.rubros;
+            _regiones = _listStore.regiones;
+            _provincias = _listStore.provincias;
+            _comunas = _listStore.comunas;
+            _responsables = _listStore.designers;
 
-            _regiones = new ObservableCollection<RegionModel>();
-            _regiones.Add(new RegionModel() { Id = 0, Detalle = "--Seleccionar--" });
-            foreach (RegionModel r in new RegionModel().ReadAll())
-            {
-                _regiones.Add(r);
-            }
-
-            _provincias = new ObservableCollection<ProvinciaModel>();
-            _provincias.Add(new ProvinciaModel() { Id = 0, Detalle = "--Seleccionar--", IdRegion = 0 });
-            foreach (ProvinciaModel p in new ProvinciaModel().ReadAll())
-            {
-                _provincias.Add(p);
-            }
-
-            _comunas = new ObservableCollection<ComunaModel>();
-            _comunas.Add(new ComunaModel() { Id = 0, Detalle = "--Seleccionar--", IdProvincia = 0 });
-            foreach (ComunaModel c in new ComunaModel().ReadAll())
-            {
-                _comunas.Add(c);
-            }
-
-            //_subUnidadTipo = new ObservableCollection<SubUnidadTipo>();
-            //foreach (SubUnidadTipo s in new SubUnidadTipo().ReadAll())
-            //{
-            //    if (s.Id == 1)
-            //    {
-            //        s.Add = true;
-            //        s.Editable = false;
-            //    }
-            //    _subUnidadTipo.Add(s);
-            //}
-
-            _responsables = new ObservableCollection<UsuarioInternoModel>();
-            _responsables.Add(new UsuarioInternoModel() {NombreCompleto = "-- Seleccionar --" });
-            foreach (UsuarioInternoModel u in new UsuarioInternoModel().ReadDesigner())
-            {
-                _responsables.Add(u);
-            }
-
-            Provincias = _provincias.Where(p => p.Id == 0).ToList();
-            Comunas = _comunas.Where(p => p.Id == 0).ToList();
+            Provincias = _provincias.Where(p => p.Id == 0);
+            Comunas = _comunas.Where(p => p.Id == 0);
 
             SelectedRubro = _rubros.ElementAt(SelectedRubroIndex);
             SelectedRegion = _regiones.ElementAt(SelectedRegionIndex);
             SelectedProvincia = Provincias.ElementAt(SelectedProvinciaIndex);
             SelectedComuna = Comunas.ElementAt(SelectedComunaIndex);
-            //SelectedSubUnidad = _subUnidadTipo.ElementAt(0);
             SelectedResponsable = _responsables.ElementAt(0);
             #endregion
 
             #region Buttons
-            NavigationUnit = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore, CurrentAccount));
-            CreateUnit = new CRUDCommand<AdminUnitViewModel, UnidadModel>(() => _createUnit.Create(), () => new AdminUnitViewModel(_frameStore, CurrentAccount), _frameStore, () => _createUnit.ReadByRut(), _createUnit);
+            NavigationUnit = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore));
+            CreateUnit = new CRUDCommand<AdminUnitViewModel, UnidadModel>(() => _createUnit.Create(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _createUnit.ReadByRut(), _createUnit);
             #endregion
         }
 

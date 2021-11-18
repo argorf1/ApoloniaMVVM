@@ -26,6 +26,18 @@ namespace ApoloniaApp.ViewModels
         private string _estado;
         private UsuarioInternoModel _editUser;
         private readonly FrameStore _frameStore;
+        private readonly ListStore _listStore;
+        
+        private bool _canEdit = false;
+        public bool CanEdit
+        {
+            get => _canEdit;
+            set
+            {
+                _canEdit = value;
+                OnPropertyChanged("CanEdit");
+            }
+        }
         private readonly ObservableCollection<UsuarioInternoModel> _usuarios;
         public IEnumerable<UsuarioInternoModel> Usuarios => _usuarios;
         public UsuarioInternoModel CurrentAccount;
@@ -38,6 +50,8 @@ namespace ApoloniaApp.ViewModels
             set
             {
                 _selectedIndex = value;
+
+                CanEdit = _selectedIndex >= 0;
                 OnPropertyChanged("SelectedIndex");
 
                 OnPropertyChanged("Run");
@@ -76,8 +90,8 @@ namespace ApoloniaApp.ViewModels
             {
                 if (SelectedIndex > -1)
                 {
-                    _editUser.Nombres = Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).Nombres;
-                    return _editUser.Nombres;
+                    _editUser.Nombre = Usuarios.ElementAt<UsuarioInternoModel>(SelectedIndex).Nombre;
+                    return _editUser.Nombre;
                 }
                 else
                 {
@@ -205,19 +219,16 @@ namespace ApoloniaApp.ViewModels
 
         #endregion
 
-        public AdminUserViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount)
+        public AdminUserViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore)
         {
             _frameStore = frameStore;
+            _listStore = listStore;
             CurrentAccount = currentAccount;
             _editUser = new UsuarioInternoModel();
-            _usuarios = new ObservableCollection<UsuarioInternoModel>();
+            _usuarios = _listStore.usuarios;
             _selectedIndex = -1;
-            foreach (UsuarioInternoModel user in new UsuarioInternoModel().ReadAll())
-            {
-                _usuarios.Add(user);
-            }
-            NavigationCreateUsers = new NavigatePanelCommand<AdminUserCreateViewModel>(_frameStore, () => new AdminUserCreateViewModel(_frameStore, CurrentAccount));
-            NavigationEditUsers = new NavigatePanelCommand<AdminUserEditViewModel>(_frameStore, () => new AdminUserEditViewModel(_frameStore, new UsuarioInternoModel(), _editUser));
+            NavigationCreateUsers = new NavigatePanelCommand<AdminUserCreateViewModel>(_frameStore, () => new AdminUserCreateViewModel(_frameStore, CurrentAccount, _listStore));
+            NavigationEditUsers = new NavigatePanelCommand<AdminUserEditViewModel>(_frameStore, () => new AdminUserEditViewModel(_frameStore, CurrentAccount, _editUser, _listStore));
 
         }
 

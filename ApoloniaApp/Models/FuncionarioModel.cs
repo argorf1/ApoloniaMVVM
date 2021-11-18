@@ -2,6 +2,7 @@
 using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Text;
 
@@ -33,9 +34,6 @@ namespace ApoloniaApp.Models
             Unidad = new UnidadModel();
             Subunidad = new SubUnidadModel();
         }
-
-
-
         #region CRUD
         public bool Create()
         {
@@ -149,6 +147,52 @@ namespace ApoloniaApp.Models
                 return false;
             }
         }
+
+        public ObservableCollection<FuncionarioModel> ReadByUnidad(string rut)
+        {
+
+            ObservableCollection<FuncionarioModel> listaNegocio = new ObservableCollection<FuncionarioModel>();
+
+            try
+            {
+                conn = new Conexion().AbrirConexion();
+
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "r_funcionarios_by_unidad";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_rut_unidad", OracleDbType.NVarchar2).Value = rut;
+                OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
+                o.Direction = ParameterDirection.Output;
+
+                cmd.ExecuteNonQuery();
+
+
+                r = ((OracleRefCursor)o.Value).GetDataReader();
+                while (r.Read())
+                {
+
+                    FuncionarioModel f = new FuncionarioModel()
+                    {
+                        Run = r.GetString(0),
+                        Nombre = r.GetString(1)
+                    };
+                    listaNegocio.Add(f);
+                }
+
+                conn.Close();
+
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return new ObservableCollection<FuncionarioModel>();
+            }
+
+
+            return listaNegocio;
+        }
+
         #endregion
 
         public bool Update()

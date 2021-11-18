@@ -13,6 +13,7 @@ namespace ApoloniaApp.ViewModels
     class AdminUnitEditViewModel : ViewModelBase
     {
         private readonly FrameStore _frameStore;
+        private readonly ListStore _listStore;
         private UnidadModel _editUnit;
         public UsuarioInternoModel CurrentAccount;
 
@@ -312,53 +313,19 @@ namespace ApoloniaApp.ViewModels
         }
         #endregion
 
-        public AdminUnitEditViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, UnidadModel editUnit)
+        public AdminUnitEditViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, UnidadModel editUnit, ListStore listStore)
         {
             _frameStore = frameStore;
+            _listStore = listStore;
             CurrentAccount = currentAccount;
             _editUnit = editUnit;
             #region Listas
-            _rubros = new ObservableCollection<RubroModel>();
-            _rubros.Add(new RubroModel() { Id = 0, Detalle = "--Seleccionar--" });
-            foreach (RubroModel r in new RubroModel().ReadAll())
-            {
-                _rubros.Add(r);
-            }
-
-            _regiones = new ObservableCollection<RegionModel>();
-            _regiones.Add(new RegionModel() { Id = 0, Detalle = "--Seleccionar--" });
-            foreach (RegionModel r in new RegionModel().ReadAll())
-            {
-                _regiones.Add(r);
-            }
-
-            _provincias = new ObservableCollection<ProvinciaModel>();
-            _provincias.Add(new ProvinciaModel() { Id = 0, Detalle = "--Seleccionar--", IdRegion = 0 });
-            foreach (ProvinciaModel p in new ProvinciaModel().ReadAll())
-            {
-                _provincias.Add(p);
-            }
-
-            _comunas = new ObservableCollection<ComunaModel>();
-            _comunas.Add(new ComunaModel() { Id = 0, Detalle = "--Seleccionar--", IdProvincia = 0 });
-            foreach (ComunaModel c in new ComunaModel().ReadAll())
-            {
-                _comunas.Add(c);
-            }
-
-            _responsables = new ObservableCollection<UsuarioInternoModel>();
-            _responsables.Add(new UsuarioInternoModel() { NombreCompleto = "-- Seleccionar --" });
-            foreach (UsuarioInternoModel u in new UsuarioInternoModel().ReadDesigner())
-            {
-                _responsables.Add(u);
-            }
-
-            _estados = new ObservableCollection<EstadoModel>();
-            _estados.Add(new EstadoModel() { Id = 0, Detalle = "-- Seleccionar --" });
-            foreach (EstadoModel e in new EstadoModel().ReadAll())
-            {
-                _estados.Add(e);
-            }
+            _rubros = _listStore.rubros;
+            _regiones = _listStore.regiones;
+            _provincias = _listStore.provincias;
+            _comunas = _listStore.comunas;
+            _responsables = _listStore.designers;
+            _estados = _listStore.estados;
 
             Provincias = _provincias.Where(p => p.Id == 0).ToList();
             Comunas = _comunas.Where(p => p.Id == 0).ToList();
@@ -372,8 +339,8 @@ namespace ApoloniaApp.ViewModels
             #endregion
 
             #region Buttons
-            NavigationUnit = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore, CurrentAccount));
-            EditUnit = new CRUDCommand<AdminUnitViewModel, UnidadModel>(() => _editUnit.Update(), () => new AdminUnitViewModel(_frameStore, CurrentAccount), _frameStore, _editUnit);
+            NavigationUnit = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore));
+            EditUnit = new CRUDCommand<AdminUnitViewModel, UnidadModel>(() => _editUnit.Update(), () => new AdminUnitViewModel(_frameStore, CurrentAccount,_listStore), _frameStore, _editUnit);
             #endregion
         }
 

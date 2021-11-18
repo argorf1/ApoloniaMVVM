@@ -1,11 +1,13 @@
 ﻿using ApoloniaApp.Commands;
 using ApoloniaApp.Models;
+using ApoloniaApp.Services;
 using ApoloniaApp.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 
 namespace ApoloniaApp.ViewModels
@@ -13,7 +15,23 @@ namespace ApoloniaApp.ViewModels
     class AdminUserEditViewModel : ViewModelBase
     {
         private readonly FrameStore _frameStore;
+        private ListStore _listStore;
         public UsuarioInternoModel CurrentAccount;
+
+        #region Validation Properties
+        private List<Func<bool>> _validations;
+        private bool _canCrud = false;
+
+        public bool CanCrud
+        {
+            get => _canCrud;
+            set
+            {
+                _canCrud = value;
+                OnPropertyChanged("CanCrud");
+            }
+        }
+        #endregion
 
         private int _selectedPerfilIndex;
         private int _selectedEstadoIndex;
@@ -29,26 +47,60 @@ namespace ApoloniaApp.ViewModels
 
         #region Property
 
+        private bool _validRun = false;
+        public bool ValidRun
+        {
+            get => _validRun;
+            set
+            {
+                _validRun = value;
+                OnPropertyChanged("ValidRun");
+            }
+        }
+
         public string Run
         {
             get { return _editUser.Run; }
             set
             {
-                _editUser.Nombres = value;
+                _editUser.Run = value;
+
+                ValidRun = ValidationService.ValidateRun(value);
                 OnPropertyChanged("Run");
+            }
+        }
+
+        private bool _validNombre = false;
+        public bool ValidNombre
+        {
+            get => _validNombre;
+            set
+            {
+                _validNombre = value;
+                OnPropertyChanged("ValidNombre");
             }
         }
 
         public string Nombres
         {
-            get { return _editUser.Nombres; }
+            get { return _editUser.Nombre; }
             set
             {
-                _editUser.Nombres = value;
+                _editUser.Nombre = value;
                 OnPropertyChanged("Nombres");
             }
         }
 
+        private bool _validApellidoP = false;
+        public bool ValidApellidoP
+        {
+            get => _validApellidoP;
+            set
+            {
+                _validApellidoP = value;
+                OnPropertyChanged("ValidApellidoP");
+            }
+        }
         public string ApellidoP
         {
             get { return _editUser.ApellidoP; }
@@ -59,6 +111,16 @@ namespace ApoloniaApp.ViewModels
             }
         }
 
+        private bool _validApellidoM = false;
+        public bool ValidApellidoM
+        {
+            get => _validApellidoM;
+            set
+            {
+                _validApellidoM = value;
+                OnPropertyChanged("ValidApellidoM");
+            }
+        }
         public string ApellidoM
         {
             get { return _editUser.ApellidoM; }
@@ -69,6 +131,16 @@ namespace ApoloniaApp.ViewModels
             }
         }
 
+        private bool _validEmail = false;
+        public bool ValidEmail
+        {
+            get => _validEmail;
+            set
+            {
+                _validEmail = value;
+                OnPropertyChanged("ValidEmail");
+            }
+        }
         public string Email
         {
             get { return _editUser.Email; }
@@ -88,19 +160,16 @@ namespace ApoloniaApp.ViewModels
                 OnPropertyChanged("Password");
             }
         }
-
-
-        public int RolId
+        private bool _validEstado = false;
+        public bool ValidEstado
         {
-            get { return _editUser.IdPerfil; }
+            get => _validEstado;
             set
             {
-                _editUser.IdPerfil = value;
-                OnPropertyChanged("RolId");
+                _validEstado = value;
+                OnPropertyChanged("ValidEstado");
             }
         }
-
-
         public int Estado
         {
             get { return _editUser.IdEstado; }
@@ -111,26 +180,13 @@ namespace ApoloniaApp.ViewModels
             }
         }
 
-        public int SelectedPerfilIndex
-        {
-            get { return _selectedPerfilIndex; }
-            set
-            {
-                _selectedPerfilIndex = value;
-                if (value > 0)
-                {
-                    _editUser.IdPerfil = _selectedPerfilIndex;
-                }
-                OnPropertyChanged("SelectedPerfilIndex");
-            }
-        }
 
         public PerfilModel SelectedPerfil
         {
             get { return _selectedPerfil; }
             set
             {
-                _selectedPerfil = _perfiles.ElementAt<PerfilModel>(SelectedPerfilIndex);
+                _selectedPerfil = value;
                 OnPropertyChanged("SelectedPerfil");
             }
         }
@@ -160,38 +216,41 @@ namespace ApoloniaApp.ViewModels
         }
 
         #endregion
-        public AdminUserEditViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, UsuarioInternoModel editUser)
+        public AdminUserEditViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, UsuarioInternoModel editUser, ListStore listStore)
         {
             _frameStore = frameStore;
+            _listStore = listStore;
             CurrentAccount = currentAccount;
             _editUser = editUser;
 
-            _perfiles = new ObservableCollection<PerfilModel>();
-            _perfiles.Add(new PerfilModel() { Id = 0, Detalle = "--Seleccionar--" });
-            foreach (PerfilModel p in new PerfilModel().ReadAll())
-            {
-                _perfiles.Add(p);
-            }
-
-            _estados = new ObservableCollection<EstadoModel>();
-            _estados.Add(new EstadoModel() { Id = 0, Detalle = "--Seleccionar--" });
-            foreach (EstadoModel e in new EstadoModel().ReadAll())
-            {
-                _estados.Add(e);
-            }
+            _perfiles = _listStore.perfiles;
+            _estados = _listStore.estados;
 
             #region Combobox Constructor
-            SelectedPerfilIndex = _editUser.IdPerfil;
-            SelectedEstadoIndex = _editUser.IdEstado;
-            SelectedPerfil = Perfiles.ElementAt<PerfilModel>(SelectedPerfilIndex);
-            SelectedEstado = Estados.ElementAt<EstadoModel>(SelectedEstadoIndex);
+
+            SelectedPerfil = Perfiles.First(p => p.Id == _editUser.IdPerfil);
+            SelectedEstado = Estados.First(p => p.Id == _editUser.IdEstado);
             #endregion
 
-            NavigationUsers = new NavigatePanelCommand<AdminUserViewModel>(_frameStore, () => new AdminUserViewModel(_frameStore, _editUser));
-            EditUser = new CRUDCommand<AdminUserViewModel, UsuarioInternoModel>(() => _editUser.Update(), () => new AdminUserViewModel(_frameStore, CurrentAccount), _frameStore, _editUser);
+            #region CargaValidaciones
+            _validations = new List<Func<bool>>();
+            _validations.AddRange(new List<Func<bool>>()
+            {
+                ()=>ValidationService.ValidateRun(Run),
+                ()=>ValidationService.ValidateText(Nombres),
+                ()=>ValidationService.ValidateText(ApellidoP),
+                ()=>ValidationService.ValidateText(ApellidoM),
+                ()=>ValidationService.ValidateEmail(Email),
+                () =>ValidationService.ValidateComboBoxId(_selectedPerfil)
+            });
+            #endregion
+
+            NavigationUsers = new NavigatePanelCommand<AdminUserViewModel>(_frameStore, () => new AdminUserViewModel(_frameStore, _editUser, _listStore));
+            EditUser = new CRUDCommand<AdminUserViewModel, UsuarioInternoModel>(() => _editUser.Update(), () => new AdminUserViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _editUser);
         }
 
         public ICommand NavigationUsers { get; }
         public ICommand EditUser { get; }
+
     }
 }

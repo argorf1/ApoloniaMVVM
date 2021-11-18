@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    public class RegionModel
+    public class RegionModel : ModelBase
     {
         public int Id { get; set; }
         public string Detalle { get; set; }

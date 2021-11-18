@@ -18,6 +18,7 @@ namespace ApoloniaApp.ViewModels
 
         
         private readonly FrameStore _frameStore;
+        private ListStore _listStore;
         private FuncionarioModel _crudFuncionario;
         public UsuarioInternoModel CurrentAccount;
 
@@ -200,15 +201,19 @@ namespace ApoloniaApp.ViewModels
         }
         #endregion
 
-        public AdminClientViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount)
+        public AdminClientViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore)
         {
             _frameStore = frameStore;
+            _listStore = listStore;
             CurrentAccount = currentAccount;
             _crudFuncionario = new FuncionarioModel();
 
-            _unidades = new ObservableCollection<UnidadModel>();
-            _unidades.Add(new UnidadModel() { RazonSocial = "-- Unidad --" });
-            foreach (UnidadModel u in new UnidadModel().ReadDesigner())
+            _unidades = _listStore.unidades;
+            _unidades.Insert(0, new UnidadModel() { RazonSocial = "-- Unidad --" });
+            foreach (UnidadModel u in new UnidadModel().ReadAll())
+
+
+
             {
                 _unidades.Add(u);
             }
@@ -221,8 +226,8 @@ namespace ApoloniaApp.ViewModels
 
             Funcionarios = _funcionarios;
             SelectedUnidad = _unidades.First(p => p.Rut == _crudFuncionario.Unidad.Rut);
-            NavigationCreateUsers = new NavigatePanelCommand<AdminClientCRUDViewModel>(_frameStore, () => new AdminClientCRUDViewModel(1,_frameStore, CurrentAccount, new FuncionarioModel() { Password = "12345678"}));
-            NavigationEditUsers = new NavigatePanelCommand<AdminClientCRUDViewModel>(_frameStore, () => new AdminClientCRUDViewModel(2, _frameStore, CurrentAccount, _crudFuncionario));
+            NavigationCreateUsers = new NavigatePanelCommand<AdminClientCRUDViewModel>(_frameStore, () => new AdminClientCRUDViewModel(1,_frameStore, CurrentAccount, new FuncionarioModel() { Password = "12345678"},_listStore));
+            NavigationEditUsers = new NavigatePanelCommand<AdminClientCRUDViewModel>(_frameStore, () => new AdminClientCRUDViewModel(2, _frameStore, CurrentAccount, _crudFuncionario, _listStore));
 
         }
 

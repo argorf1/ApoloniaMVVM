@@ -37,34 +37,15 @@ namespace ApoloniaApp.Models
         #endregion
         #endregion
 
+        public UnidadModel()
+        {
+            Rut = "0";
+        }
+
         OracleConnection conn = new OracleConnection();
         OracleDataReader r = null;
 
-        public UnidadModel()
-        {
-            Rut = "";
-            RazonSocial = "";
-            RubroId = 0;
-            DireccionId = 0;
-            PersonaContacto = "";
-            TelefonoContacto = 0;
-            EmailContacto = "";
-            ResponsableRun = "";
-            EstadoId = 0;
-            Calle = "";
-            Numero = "";
-            Complemento = "";
-            Region = "";
-            Provincia = "";
-            Comuna = "";
-            ComunaId = 0;
-            Rubro = "";
-            ResponsableNombre = "";
-            Estado = "";
-        }
         #region CRUD
-
-
 
         public bool Create()
         {
@@ -160,7 +141,7 @@ namespace ApoloniaApp.Models
             return listaNegocio;
         }
 
-        public List<SubUnidadModel> ReadByUnidad()
+        public List<SubUnidadModel> ReadSubunidadByUnidad()
         {
 
             List<SubUnidadModel> listaNegocio = new List<SubUnidadModel>();
@@ -203,7 +184,53 @@ namespace ApoloniaApp.Models
             }
         }
 
+        public List<RolModel> ReadRolByUnidad()
+        {
+            List<RolModel> listaNegocio = new List<RolModel>();
 
+            try
+            {
+                conn = new Conexion().AbrirConexion();
+
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "r_roles_by_unidad";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_rut_unidad", OracleDbType.NVarchar2).Value = this.Rut;
+                OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
+                o.Direction = ParameterDirection.Output;
+
+                cmd.ExecuteNonQuery();
+
+
+                r = ((OracleRefCursor)o.Value).GetDataReader();
+                while (r.Read())
+                {
+
+
+                    RolModel ro = new RolModel()
+                    {
+                        Id = r.GetInt32(0),
+                        Nombre = r.GetString(1),
+                        Descripcion = r.GetString(2),
+                        Nivel = r.GetInt32(3)
+                    };
+                    ro.Subunidad = new SubUnidadModel() { Nombre = r.GetString(4), Id = r.GetInt32(6) };
+                    ro.Unidad = new UnidadModel() { RazonSocial = r.GetString(5), Rut = r.GetString(7) };
+                    listaNegocio.Add(ro);
+                }
+
+                conn.Close();
+
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return new List<RolModel>();
+            }
+
+            return listaNegocio;
+        }
         public bool ReadByRut()
         {
             try
