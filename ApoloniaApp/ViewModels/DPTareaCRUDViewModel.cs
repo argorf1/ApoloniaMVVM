@@ -4,6 +4,7 @@ using ApoloniaApp.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 
@@ -11,21 +12,25 @@ namespace ApoloniaApp.ViewModels
 {
     class DPTareaCRUDViewModel : ViewModelBase
     {
+        private readonly ListStore _listStore;
         private readonly FrameStore _frameStore;
         public UsuarioInternoModel CurrentAccount;
         private TareaModel _crudTarea;
+        private List<Func<bool>> _validations;
 
         #region Commands
         public ICommand Crud { get; }
+        public ICommand Return { get; }
         #endregion
-        public DPTareaCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, TareaModel crudTarea, int estado, ObservableCollection<ResponsableModel> responsables, ObservableCollection<DependenciaModel> dependencias)
+        public DPTareaCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, TareaModel crudTarea, int estado, UnidadModel unidad, ListStore listStore)
         {
             _frameStore = frameStore;
+            _listStore = listStore;
             CurrentAccount = currentAccount;
             _crudTarea = crudTarea;
+            _crudTarea.Creador = currentAccount;
             _estado = estado;
-            _responsables = responsables;
-            _dependencias = dependencias;
+
             #region Configuracion Estado
 
             #region CargaDiccionario
@@ -37,29 +42,64 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount), _frameStore, () => _crudTarea.ReadByName(), _crudTarea);
+                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudTarea.ReadByName(), _crudTarea);
                     break;
                 case 2:
-                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Update(), () => new DPProcesosViewModel(_frameStore, CurrentAccount), _frameStore, _crudTarea);
+                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Update(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudTarea);
                     break;
                 default:
                     break;
             }
             #endregion
+            Return = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore));
 
             #region Carga Listas
-            _funcionarios = new ReadAllCommand<ResponsableModel>().ReadAll(()=> new ResponsableModel().ReadResponsableAll());
-            _tareas = new ReadAllCommand<DependenciaModel>().ReadAll(() => new DependenciaModel().ReadTareasAll());
+            _funcionarios = new ObservableCollection<FuncionarioModel>();
+            foreach (FuncionarioModel f in _listStore.funcionarios.Where(p=> p.Unidad.Rut == unidad.Rut))
+            {
+                _funcionarios.Add(f);
+            }
+            _tareas = new ObservableCollection<TareaModel>();
+            foreach (TareaModel t in _listStore.tareas.Where(p=> p.Proceso.Id == _crudTarea.Proceso.Id))
+            {
+                _tareas.Add(t);
+            }
+            _responsables = new ObservableCollection<FuncionarioModel>();
+            foreach (ResponsableModel r in _listStore.responsables.Where(p=> p.IdTarea == _crudTarea.Id))
+            {
+                FuncionarioModel f = _funcionarios.First(p => p.Run == r.Responsable.Run);
+                _crudTarea.Responsables.Add(f);
+                _funcionarios.Remove(f);
+            }
+            _dependencias = new ObservableCollection<TareaModel>();
+            foreach (DependenciaModel d in _listStore.dependencias.Where(p=> p.IdTarea == _crudTarea.Id))
+            {
+                TareaModel t = _tareas.First(p => p.Id == d.Tarea.Id);
+                _crudTarea.Dependencias.Add(t);
+                _tareas.Remove(t);
+            }
+            _responsables = _crudTarea.Responsables;
+            _dependencias = _crudTarea.Dependencias;
             #endregion
 
 
-            _selectedDependencia = new DependenciaModel();
-            _selectedTarea = new DependenciaModel();
+            _selectedDependencia = new TareaModel();
+            _selectedTarea = new TareaModel();
 
-            _selectedResponsable = new ResponsableModel();
-            _selectedFuncionario = new ResponsableModel();
+            _selectedResponsable = new FuncionarioModel();
+            _selectedFuncionario = new FuncionarioModel();
 
 
+            #region CargaValidaciones
+            _validations = new List<Func<bool>>();
+            _validations.AddRange(new List<Func<bool>>()
+            {
+                ValidateNombre,
+                ValidateDescripcion,
+                ValidateDuracion,
+                ValidateResponsable
+            });
+            #endregion
         }
 
 
@@ -92,11 +132,11 @@ namespace ApoloniaApp.ViewModels
         #region Funcionalidad Listas
 
         // Lista sin filtrar
-        private ObservableCollection<ResponsableModel> _funcionarios;
-        public IEnumerable<ResponsableModel> Funcionarios => _funcionarios;
-        private ResponsableModel _selectedFuncionario;
+        private ObservableCollection<FuncionarioModel> _funcionarios;
+        public IEnumerable<FuncionarioModel> Funcionarios => _funcionarios;
+        private FuncionarioModel _selectedFuncionario;
 
-        public ResponsableModel SelectedFuncionario
+        public FuncionarioModel SelectedFuncionario
         {
 
             get { return _selectedFuncionario; }
@@ -107,11 +147,11 @@ namespace ApoloniaApp.ViewModels
             }
         }
 
-        private ObservableCollection<ResponsableModel> _responsables;
-        public IEnumerable<ResponsableModel> Responsables => _responsables;
-        private ResponsableModel _selectedResponsable;
-
-        public ResponsableModel SelectedResponsable
+        private ObservableCollection<FuncionarioModel> _responsables;
+        public IEnumerable<FuncionarioModel> Responsables => _responsables;
+        private FuncionarioModel _selectedResponsable;
+        private bool _validResponsable;
+        public FuncionarioModel SelectedResponsable
         {
 
             get { return _selectedResponsable; }
@@ -122,11 +162,21 @@ namespace ApoloniaApp.ViewModels
             }
         }
 
-        private ObservableCollection<DependenciaModel> _tareas;
-        public IEnumerable<DependenciaModel> Tareas => _tareas;
-        private DependenciaModel _selectedTarea;
+        public bool ValidResponsable
+        {
+            get => _validResponsable;
+            set
+            {
+                _validResponsable = value;
+                OnPropertyChanged("ValidResponsable");
+            }
+        }
 
-        public DependenciaModel SelectedTarea
+        private ObservableCollection<TareaModel> _tareas;
+        public IEnumerable<TareaModel> Tareas => _tareas;
+        private TareaModel _selectedTarea;
+
+        public TareaModel SelectedTarea
         {
 
             get { return _selectedTarea; }
@@ -137,11 +187,11 @@ namespace ApoloniaApp.ViewModels
             }
         }
 
-        private ObservableCollection<DependenciaModel> _dependencias;
-        public IEnumerable<DependenciaModel> Dependencias => _dependencias;
-        private DependenciaModel _selectedDependencia;
+        private ObservableCollection<TareaModel> _dependencias;
+        public IEnumerable<TareaModel> Dependencias => _dependencias;
+        private TareaModel _selectedDependencia;
 
-        public DependenciaModel SelectedDependencia
+        public TareaModel SelectedDependencia
         {
 
             get { return _selectedDependencia; }
@@ -154,6 +204,117 @@ namespace ApoloniaApp.ViewModels
 
         #endregion
 
+        #region Propiedades
+
+        private bool _canCrud = false;
+
+        public bool CanCrud
+        {
+            get => _canCrud;
+            set
+            {
+                _canCrud = value;
+                OnPropertyChanged("CanCrud");
+            }
+        }
+
+        private bool _validNombre;
+        public string Nombre
+        {
+            get => _crudTarea.Nombre;
+            set
+            {
+                _crudTarea.Nombre = value;
+                _validNombre = ValidateNombre();
+                // ImagenNobre = (_validNombre ? diccionarioImagenes[0]: diccionarioImagenes[1]);
+                if (_validNombre)
+                    ValidateAll();
+                OnPropertyChanged("Nombre");
+            }
+        }
+
+        private bool _validDescripcion;
+        public string Descripcion
+        {
+            get => _crudTarea.Descripcion;
+            set
+            {
+                _crudTarea.Descripcion = value;
+                _validDescripcion = ValidateDescripcion();
+                if (_validDescripcion)
+                    ValidateAll();
+                OnPropertyChanged("Descripcion");
+            }
+        }
+
+        private bool _validDuracion;
+        public int Duracion
+        {
+            get => _crudTarea.Duracion;
+            set
+            {
+                _crudTarea.Duracion = value;
+                _validDuracion = ValidateDuracion();
+                if (_validDuracion)
+                    ValidateAll();
+                OnPropertyChanged("Duracion");
+            }
+        }
+        #endregion
+        #region Validaciones
+
+        private bool ValidateNombre()
+        {
+            if (Nombre == "")
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidateDescripcion()
+        {
+            if (Descripcion == "")
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidateDuracion()
+        {
+            if (Duracion < 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidateResponsable()
+        {
+            if (!Responsables.Any())
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public void ValidateAll()
+        {
+
+            foreach (Func<bool> f in _validations)
+            {
+                if (!f())
+                {
+                    CanCrud = false;
+                    return;
+                }
+            }
+            CanCrud = true;
+        }
+        #endregion
+
+        #region Commands
 
         private void ExchangeList<TModel>(ObservableCollection<TModel> source, ObservableCollection<TModel> target, TModel model)
             where TModel : ModelBase
@@ -163,6 +324,7 @@ namespace ApoloniaApp.ViewModels
                 source.Remove(model);
                 target.Add(model);
                 model = null;
+                ValidateAll();
             }
         }
         private ICommand _addResponsable;
@@ -170,7 +332,7 @@ namespace ApoloniaApp.ViewModels
         {
             get
             {
-                return _addResponsable ?? (_addResponsable = new CommandHandler(() => ExchangeList<ResponsableModel>(_funcionarios,_responsables,SelectedFuncionario), true));
+                return _addResponsable ?? (_addResponsable = new CommandHandler(() => ExchangeList<FuncionarioModel>(_funcionarios, _responsables, SelectedFuncionario), true));
             }
         }
         private ICommand _extractResponsable;
@@ -178,7 +340,7 @@ namespace ApoloniaApp.ViewModels
         {
             get
             {
-                return _extractResponsable ?? (_extractResponsable = new CommandHandler(() => ExchangeList<ResponsableModel>(_responsables,_funcionarios,SelectedResponsable), true));
+                return _extractResponsable ?? (_extractResponsable = new CommandHandler(() => ExchangeList<FuncionarioModel>(_responsables, _funcionarios, SelectedResponsable), true));
             }
         }
         private ICommand _addDependencia;
@@ -186,7 +348,7 @@ namespace ApoloniaApp.ViewModels
         {
             get
             {
-                return _addDependencia ?? (_addDependencia = new CommandHandler(() => ExchangeList<DependenciaModel>(_tareas,_dependencias,SelectedTarea), true));
+                return _addDependencia ?? (_addDependencia = new CommandHandler(() => ExchangeList<TareaModel>(_tareas, _dependencias, SelectedTarea), true));
             }
         }
         private ICommand _extractDependencia;
@@ -194,7 +356,7 @@ namespace ApoloniaApp.ViewModels
         {
             get
             {
-                return _extractDependencia ?? (_extractDependencia = new CommandHandler(() => ExchangeList<DependenciaModel>(_dependencias,_tareas,SelectedDependencia), true));
+                return _extractDependencia ?? (_extractDependencia = new CommandHandler(() => ExchangeList<TareaModel>(_dependencias, _tareas, SelectedDependencia), true));
             }
         }
 
@@ -221,5 +383,7 @@ namespace ApoloniaApp.ViewModels
         {
             _action();
         }
+
     }
+    #endregion
 }

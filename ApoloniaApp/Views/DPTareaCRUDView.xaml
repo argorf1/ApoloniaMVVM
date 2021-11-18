@@ -92,17 +92,17 @@
                                     Header="Nombre" 
                                     Width="70"
                                     MinWidth="70"
-                                    Binding="{Binding Responsable.Nombre}"/>
+                                    Binding="{Binding Nombre}"/>
                             <DataGridTextColumn 
                                     Header="Apellido" 
                                     Width="70"
                                     MinWidth="70"
-                                    Binding="{Binding Responsable.ApellidoP}"/>
+                                    Binding="{Binding ApellidoP}"/>
                             <DataGridTextColumn 
                                     Header="Rol" 
                                     Width="70"
                                     MinWidth="70"
-                                    Binding="{Binding Responsable.Rol.Nombre}"/>
+                                    Binding="{Binding Rol.Nombre}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button Content=">>" Grid.Column="1" Grid.Row="10" DockPanel.Dock="Top" 
@@ -125,17 +125,17 @@
                                     Header="Nombre" 
                                     Width="70"
                                     MinWidth="70"
-                                    Binding="{Binding Responsable.Nombre}"/>
+                                    Binding="{Binding Nombre}"/>
                             <DataGridTextColumn 
                                     Header="Apellido" 
                                     Width="70"
                                     MinWidth="70"
-                                    Binding="{Binding Responsable.ApellidoP}"/>
+                                    Binding="{Binding ApellidoP}"/>
                             <DataGridTextColumn 
                                     Header="Rol" 
                                     Width="70"
                                     MinWidth="70"
-                                    Binding="{Binding Responsable.Rol.Nombre}"/>
+                                    Binding="{Binding Rol.Nombre}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Grid.Column="0" Grid.Row="11" Content="Responsables de Tarea*"/>
@@ -155,12 +155,11 @@
                                     Header="Nombre" 
                                     Width="70"
                                     MinWidth="70"
-                                    Binding="{Binding Tarea.Nombre}"/>
+                                    Binding="{Binding Nombre}"/>
                             <DataGridTextColumn 
                                     Header="Descripción" 
-                                    Width="70"
-                                    MinWidth="70"
-                                    Binding="{Binding Tarea.Descripcion}"/>
+                                    MinWidth="100"
+                                    Binding="{Binding Descripcion}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button Content=">>" Grid.Column="1" Grid.Row="12" DockPanel.Dock="Top" 
@@ -185,14 +184,14 @@
                                     MinWidth="70"
                                     Binding="{Binding Nombre}"/>
                             <DataGridTextColumn 
-                                    Header="Apellido" 
+                                    Header="Descripcion" 
                                     Width="70"
                                     MinWidth="70"
                                     Binding="{Binding Descripcion}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <DockPanel Grid.Column="0" Grid.Row="16">
-                        <Button Content="{Binding EstadoView}" Command="{Binding CrudCommand}" Width="100" Height="30"/>
+                        <Button Content="{Binding EstadoView}" Command="{Binding Crud}" IsEnabled="{Binding CanCrud}" Width="100" Height="30"/>
                         <Button Content="Cancelar" Width="100" Command="{Binding Return}" Height="30"/>
                     </DockPanel>
                 </Grid>

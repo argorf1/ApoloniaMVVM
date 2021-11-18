@@ -1,5 +1,6 @@
 ﻿using ApoloniaApp.Commands;
 using ApoloniaApp.Models;
+using ApoloniaApp.Services;
 using ApoloniaApp.Stores;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace ApoloniaApp.ViewModels
     class AdminClientCRUDViewModel : ViewModelBase
     {
         private readonly FrameStore _frameStore;
+        private ListStore _listStore;
         public UsuarioInternoModel CurrentAccount;
         private FuncionarioModel _crudFuncionario;
 
@@ -141,9 +143,10 @@ namespace ApoloniaApp.ViewModels
         }
 
         #endregion
-        public AdminClientCRUDViewModel(int estado, FrameStore frameStore, UsuarioInternoModel currentAccount, FuncionarioModel crudFuncionario)
+        public AdminClientCRUDViewModel(int estado, FrameStore frameStore, UsuarioInternoModel currentAccount, FuncionarioModel crudFuncionario, ListStore listStore)
         {
             _frameStore = frameStore;
+            _listStore = listStore;
             CurrentAccount = currentAccount;
             _crudFuncionario = crudFuncionario;
 
@@ -160,10 +163,10 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    CrudUser = new CRUDCommand<AdminClientViewModel, FuncionarioModel>(() => _crudFuncionario.Create(), () => new AdminClientViewModel(_frameStore, CurrentAccount), _frameStore, () => _crudFuncionario.ReadByRun(), _crudFuncionario);
+                    CrudUser = new CRUDCommand<AdminClientViewModel, FuncionarioModel>(() => _crudFuncionario.Create(), () => new AdminClientViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudFuncionario.ReadByRun(), _crudFuncionario);
                     break;
                 case 2:
-                    CrudUser = new CRUDCommand<AdminClientViewModel, FuncionarioModel>(() => _crudFuncionario.Update(), () => new AdminClientViewModel(_frameStore, CurrentAccount), _frameStore, _crudFuncionario);
+                    CrudUser = new CRUDCommand<AdminClientViewModel, FuncionarioModel>(() => _crudFuncionario.Update(), () => new AdminClientViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudFuncionario);
                     break;
                 default:
                     break;
@@ -172,15 +175,15 @@ namespace ApoloniaApp.ViewModels
 
             #region Carga Listas
 
-            _unidades = new ObservableCollection<UnidadModel>();
-            _subunidades = new ObservableCollection<SubUnidadModel>();
-            _roles = new ObservableCollection<RolModel>();
-            _estados = new ObservableCollection<EstadoModel>();
+            //_unidades = _listStore.unidades;
+            //_subunidades = _listStore.subunidades;
+            //_roles = new ObservableCollection<RolModel>();
+            //_estados = new ObservableCollection<EstadoModel>();
 
-            _unidades = new ReadAllCommand<UnidadModel>().ReadAll(() => new UnidadModel().ReadAll(), new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
-            _subunidades = new ReadAllCommand<SubUnidadModel>().ReadAll(() => new SubUnidadModel().ReadAll(), new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad" });
-            _roles = new ReadAllCommand<RolModel>().ReadAll(() => new RolModel().ReadAll(), new RolModel() { Id = 0, Nombre = "-- Rol --" });
-            _estados = new ReadAllCommand<EstadoModel>().ReadAll(() => new EstadoModel().ReadAll(), new EstadoModel() { Id = 0, Detalle = "-- Estado --" });
+            _unidades = new ChargeComboBoxService<UnidadModel>().ChargeComboBox(_listStore.unidades,_unidades,new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --"});
+            _subunidades = new ChargeComboBoxService<SubUnidadModel>().ChargeComboBox(_listStore.subunidades,_subunidades, new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad" });
+            _roles = new ChargeComboBoxService<RolModel>().ChargeComboBox(_listStore.roles,_roles, new RolModel() { Id = 0, Nombre = "-- Rol --" });
+            _estados = _listStore.estados;
 
             SelectedUnidad = _unidades.LastOrDefault(u => u.Rut == _crudFuncionario.Unidad.Rut || u.Rut == "0");
             SelectedSubunidad = _subunidades.LastOrDefault(s => s.Id == _crudFuncionario.Subunidad.Id || s.Id == 0);
@@ -188,7 +191,7 @@ namespace ApoloniaApp.ViewModels
             SelectedEstado = _estados.LastOrDefault(e => e.Id == _crudFuncionario.Estado.Id);
             #endregion
 
-            NavigationUsers = new NavigatePanelCommand<AdminClientViewModel>(_frameStore, () => new AdminClientViewModel(_frameStore, CurrentAccount));
+            NavigationUsers = new NavigatePanelCommand<AdminClientViewModel>(_frameStore, () => new AdminClientViewModel(_frameStore, CurrentAccount, _listStore));
 
         }
 

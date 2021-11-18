@@ -602,7 +602,7 @@
                             Width="120" 
                             Height="30"
                             Margin="20,0,0,0" 
-                            IsEnabled="True" 
+                            IsEnabled="{Binding CanEdit}" 
                             Style="{DynamicResource ButtonBarCustomStyled}"
                             Command="{Binding NavigationEditUsers}"/>
 

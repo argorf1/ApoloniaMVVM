@@ -7,6 +7,6 @@ namespace ApoloniaApp.Models
 {
     public class ModelBase
     {
-        OracleConnection conn;
+        public int Id { get; set; }
     }
 }

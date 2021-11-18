@@ -69,17 +69,20 @@
                     <Button Content="Eliminar Proceso"
                             DockPanel.Dock="Right"
                             Margin="0,0,10,0"
+                            IsEnabled="{Binding CanEditProc}"
                             VerticalContentAlignment="Center" 
                             Command="{Binding NavigationCreateProceso}"/>
                     <Button Content="Modificar Proceso"
                             Margin="10,0,10,0"
                             VerticalContentAlignment="Center" 
                             DockPanel.Dock="Right"
+                            IsEnabled="{Binding CanEditProc}"
                             Command="{Binding NavigationUpdateProceso}"/>
                     <Button Content="Crear Proceso"
                             Margin="30,0,0,0"
                             VerticalContentAlignment="Center"
                             DockPanel.Dock="Right"
+                            IsEnabled="{Binding CanCreateProc}"
                             Command="{Binding NavigationCreateProceso}" Width="100"/>
                 </DockPanel>
                 <DataGrid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="6" x:Name="dtgProcesos"
@@ -118,15 +121,17 @@
                             DockPanel.Dock="Right"
                             Margin="0,0,10,0"
                             VerticalContentAlignment="Center"
-                            Command="{Binding NavigationCreateRol}"/>
+                            IsEnabled="{Binding CanEditTarea}"/>
                     <Button Content="Modificar Tarea"
                             Margin="10,0,10,0"
                             VerticalContentAlignment="Center" 
                             DockPanel.Dock="Right"
+                            IsEnabled="{Binding CanEditTarea}"
                             Command="{Binding NavigationUpdateTarea}"/>
                     <Button Content="Crear Tarea"
                             VerticalContentAlignment="Center"
                             DockPanel.Dock="Right"
+                            IsEnabled="{Binding CanCreateTarea}"
                             Command="{Binding NavigationCreateTarea}" Width="100"/>
                 </DockPanel>
                 <DataGrid Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="6" x:Name="dtgTareas"
@@ -182,18 +187,18 @@
                           Margin="10" Height="160"
                           HorizontalScrollBarVisibility="Visible"
                           ItemsSource="{Binding Responsables}">
-                    
+
                     <DataGrid.Columns>
                         <DataGridTextColumn 
                         Header="Run" 
                         Width="70"
                         MinWidth="70"
-                        Binding="{Binding Run}"/>
+                        Binding="{Binding Responsable.Run}"/>
                         <DataGridTextColumn 
                         Header="Nombre" 
                         Width="auto"
                         MinWidth="300"
-                        Binding="{Binding Nombre}"/>
+                        Binding="{Binding Responsable.Nombre}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

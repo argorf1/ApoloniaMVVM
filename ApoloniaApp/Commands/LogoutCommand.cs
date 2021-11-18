@@ -11,17 +11,19 @@ namespace ApoloniaApp.Commands
     {
         private NavigationStore _navigationStore;
         private AccountStore _accountStore;
+        private ListStore _listStore;
 
-        public LogoutCommand(NavigationStore navigationStore, AccountStore accountStore)
+        public LogoutCommand(NavigationStore navigationStore, AccountStore accountStore, ListStore listStore)
         {
             _navigationStore = navigationStore;
             _accountStore = accountStore;
+            _listStore = listStore;
         }
 
         public override void Execute(object parameter)
         {
             _accountStore.CurrentAccount = null;
-            _navigationStore.CurrentViewModel = new LoginViewModel(_accountStore, _navigationStore);
+            _navigationStore.CurrentViewModel = new LoginViewModel(_accountStore, _navigationStore, _listStore);
         }
     }
 }

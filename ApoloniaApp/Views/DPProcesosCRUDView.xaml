@@ -87,7 +87,10 @@
                     <TextBox Text="{Binding Rol}"/>
                 </DockPanel>
                 <DockPanel Grid.Column="0" Grid.Row="9">
-                    <Button Content="{Binding EstadoView}" Command="{Binding CrudCommand}" Width="100" Height="30"/>
+                    <Button Content="{Binding EstadoView}" 
+                            Command="{Binding CrudCommand}" 
+                            IsEnabled="{Binding CanCrud}"
+                            Width="100" Height="30"/>
                     <Button Content="Cancelar" Width="100" Command="{Binding Return}" Height="30"/>
                 </DockPanel>
             </Grid>

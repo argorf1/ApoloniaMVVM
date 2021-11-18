@@ -14,6 +14,7 @@ namespace ApoloniaApp.ViewModels
     class AdminUserCreateViewModel : ViewModelBase
     {
         private readonly FrameStore _frameStore;
+        private ListStore _listStore;
         public UsuarioInternoModel CurrentAccount;
 
         private int _selectedIndex;
@@ -136,21 +137,17 @@ namespace ApoloniaApp.ViewModels
         }
 
         #endregion
-        public AdminUserCreateViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount)
+        public AdminUserCreateViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore)
         {
             _frameStore = frameStore;
+            _listStore = listStore;
             CurrentAccount = currentAccount;
 
-            _perfiles = new ObservableCollection<PerfilModel>();
-            _perfiles.Add(new PerfilModel() { Id = 0, Detalle = "--Seleccionar--" });
-            foreach (PerfilModel p in new PerfilModel().ReadAll())
-            {
-                _perfiles.Add(p);
-            }
-            SelectedPerfil = Perfiles.ElementAt<PerfilModel>(SelectedIndex);
+            _perfiles = _listStore.perfiles;
+            SelectedPerfil = Perfiles.ElementAt(SelectedIndex);
 
-            NavigationUsers = new NavigatePanelCommand<AdminUserViewModel>(_frameStore, () => new AdminUserViewModel(_frameStore, CurrentAccount));
-            CreateUser = new CRUDCommand<AdminUserViewModel,UsuarioInternoModel>(() => _newUser.Create(), () => new AdminUserViewModel(_frameStore, CurrentAccount), _frameStore,()=>_newUser.ReadByRun(),_newUser);
+            NavigationUsers = new NavigatePanelCommand<AdminUserViewModel>(_frameStore, () => new AdminUserViewModel(_frameStore, CurrentAccount, _listStore));
+            CreateUser = new CRUDCommand<AdminUserViewModel, UsuarioInternoModel>(() => _newUser.Create(), () => new AdminUserViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _newUser.ReadByRun(), _newUser);
         }
 
         public ICommand NavigationUsers { get; }

@@ -3,6 +3,7 @@ using ApoloniaApp.Stores;
 using ApoloniaApp.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 
@@ -16,9 +17,10 @@ namespace ApoloniaApp.Commands
         private readonly Func<bool> _checkModel;
         private readonly Func<TViewModel> _viewModel;
         private readonly TModel _model;
+        private ObservableCollection<TModel> _models;
         private FrameStore _frameStore;
 
-        public CRUDCommand(Func<bool> crudModel, Func<TViewModel> viewModel, FrameStore frameStore, Func<bool> checkModel, TModel model)
+        public CRUDCommand(Func<bool> crudModel, Func<TViewModel> viewModel, FrameStore frameStore, Func<bool> checkModel, TModel model/*, ObservableCollection<TModel> listStore*/)
         {
             _crudModel = crudModel;
             _viewModel = viewModel;
@@ -46,6 +48,7 @@ namespace ApoloniaApp.Commands
                     {
                         MessageBox.Show("Actualización de " + _model.GetType().Name + " realizada con exito");
                         _frameStore.CurrentViewModel = _viewModel();
+
                     }
                     else
                     {

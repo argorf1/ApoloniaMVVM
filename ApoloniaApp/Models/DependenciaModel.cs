@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    class DependenciaModel : EntityModelBase
+    public class DependenciaModel : EntityModelBase
     {
         public int Id { get; set; }
         public int IdTarea { get; set; }
@@ -33,7 +33,7 @@ namespace ApoloniaApp.Models
             {
                 conn = new Conexion().AbrirConexion();
 
-                OracleCommand cmd = new OracleCommand("c_subunidad", conn);
+                OracleCommand cmd = new OracleCommand("c_dependen_tarea_tipo", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("i_id_tarea_tipo", OracleDbType.Int32).Value = this.IdTarea;
                 cmd.Parameters.Add("i_id_tarea_previa", OracleDbType.Int32).Value = this.Tarea.Id;
@@ -108,6 +108,30 @@ namespace ApoloniaApp.Models
             {
                 conn.Close();
                 return new List<DependenciaModel>();
+            }
+        }
+
+        public bool Delete(int id)
+        {
+            conn = new OracleConnection();
+            try
+            {
+                conn = new Conexion().AbrirConexion();
+
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "d_dependen_tarea_tipo_by_id";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_id_tarea_tipo", OracleDbType.Int32).Value = id;
+
+                cmd.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return true;
             }
         }
 

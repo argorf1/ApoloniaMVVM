@@ -2,12 +2,13 @@
 using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    class ResponsableModel : EntityModelBase
+    public class ResponsableModel : EntityModelBase
     {
 
         public int Id { get; set; }
@@ -35,7 +36,7 @@ namespace ApoloniaApp.Models
             {
                 conn = new Conexion().AbrirConexion();
 
-                OracleCommand cmd = new OracleCommand("c_subunidad", conn);
+                OracleCommand cmd = new OracleCommand("c_resp_tarea_tipo", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("i_id_tarea_tipo", OracleDbType.Int32).Value = this.IdTarea;
                 cmd.Parameters.Add("i_run_funcionario", OracleDbType.NVarchar2).Value = this.Responsable.Run;
@@ -76,11 +77,10 @@ namespace ApoloniaApp.Models
                 {
                     ResponsableModel t = new ResponsableModel()
                     {
-                        Id = r.GetInt32(5),
-                        IdTarea = r.GetInt32(4)
+                        Id = r.GetInt32(0),
+                        IdTarea = r.GetInt32(3)
                     };
-                    t.Responsable = new FuncionarioModel() { Run = r.GetString(0), Nombre = r.GetString(1) };
-                    t.Responsable.Rol = new RolModel() { Id = r.GetInt32(3), Nombre = r.GetString(2)};
+                    t.Responsable = new FuncionarioModel() { Run = r.GetString(1), Nombre = r.GetString(2) };
 
                     listaNegocio.Add(t);
                 }
@@ -94,7 +94,6 @@ namespace ApoloniaApp.Models
                 return new List<ResponsableModel>();
             }
         }
-
 
         public List<ResponsableModel> ReadResponsableAll()
         {
@@ -117,5 +116,30 @@ namespace ApoloniaApp.Models
                 return new List<ResponsableModel>();
             }
         }
+
+        public bool Delete(int id)
+        {
+            conn = new OracleConnection();
+            try
+            {
+                conn = new Conexion().AbrirConexion();
+
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "d_responsable_tarea_tipo_by_id";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_id_tarea_tipo", OracleDbType.Int32).Value = id;
+
+                cmd.ExecuteNonQuery();
+                
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return true;
+            }
+        }
+
     }
 }

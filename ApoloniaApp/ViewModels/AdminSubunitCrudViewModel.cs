@@ -15,6 +15,7 @@ namespace ApoloniaApp.ViewModels
         Dictionary<int, string> _estadoDetalle = new Dictionary<int, string>();
         private int _estado = 0;
         private readonly FrameStore _frameStore;
+        private ListStore _listStore;
         public UsuarioInternoModel CurrentAccount;
         private SubUnidadModel _crudSubunidad;
 
@@ -24,9 +25,10 @@ namespace ApoloniaApp.ViewModels
         private SubUnidadModel _selectedSubunidad;
 
 
-        public AdminSubunitCrudViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, SubUnidadModel createSubunidad, IEnumerable<SubUnidadModel> subunidades,int estado)
+        public AdminSubunitCrudViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, SubUnidadModel createSubunidad, IEnumerable<SubUnidadModel> subunidades,int estado, ListStore listStore)
         {
             _estado = estado;
+            _listStore = listStore;
             _frameStore = frameStore;
             CurrentAccount = currentAccount;
             _crudSubunidad = createSubunidad;
@@ -44,23 +46,20 @@ namespace ApoloniaApp.ViewModels
             _estadoDetalle.Add(1, "Crear Subnidad");
             _estadoDetalle.Add(2, "Modificar Subnidad");
             #endregion
-
-
-
             SelectedSubunidad = _subunidades.FirstOrDefault(p => p.Id == _crudSubunidad.SubUnidadPadreId);
 
             switch (_estado)
             {
                 case 1:
-                    CrudSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _crudSubunidad.Create(), () => new AdminUnitViewModel(_frameStore, CurrentAccount), _frameStore,() =>_crudSubunidad.ReadByName() ,_crudSubunidad);
+                    CrudSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _crudSubunidad.Create(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore,() =>_crudSubunidad.ReadByName() ,_crudSubunidad);
                     break;
                 case 2:
-                    CrudSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _crudSubunidad.Update(), () => new AdminUnitViewModel(_frameStore, CurrentAccount), _frameStore, _crudSubunidad);
+                    CrudSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _crudSubunidad.Update(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudSubunidad);
                     break;
                 default:
                     break;
             }
-            NavigationUnit = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore, CurrentAccount));
+            NavigationUnit = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore));
 
         }
 

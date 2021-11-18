@@ -9,17 +9,16 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    class TareaModel : EntityModelBase
+    public class TareaModel : EntityModelBase
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public int Duracion { get; set; }
         public ProcesoModel Proceso { get; set; }
-        public bool Depencia { get; set; }
         public UsuarioInternoModel Creador { get; set; }
-        public ObservableCollection<ResponsableModel> Responsables { get; set; }
-        public ObservableCollection<DependenciaModel> Dependencias { get; set; }
+        public ObservableCollection<FuncionarioModel> Responsables { get; set; }
+        public ObservableCollection<TareaModel> Dependencias { get; set; }
 
         OracleConnection conn = null;
         OracleDataReader r = null;
@@ -27,42 +26,62 @@ namespace ApoloniaApp.Models
 
         public TareaModel()
         {
+            Nombre = string.Empty;
+            Descripcion = string.Empty;
+            Duracion = 0;
             Proceso = new ProcesoModel();
             Creador = new UsuarioInternoModel();
-            Responsables = new ObservableCollection<ResponsableModel>();
-            Dependencias = new ObservableCollection<DependenciaModel>();
+            Responsables = new ObservableCollection<FuncionarioModel>();
+            Dependencias = new ObservableCollection<TareaModel>();
         }
         #region CRUD
 
         public bool Create()
         {
+            bool create = true;
             try
             {
                 conn = new Conexion().AbrirConexion();
 
-                OracleCommand cmd = new OracleCommand("c_subunidad", conn);
+                OracleCommand cmd = new OracleCommand("c_tarea_tipo", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("i_nombre", OracleDbType.NVarchar2).Value = this.Nombre;
                 cmd.Parameters.Add("i_descripcion", OracleDbType.NVarchar2).Value = this.Descripcion;
                 cmd.Parameters.Add("i_duracion", OracleDbType.Int32).Value = this.Duracion;
                 cmd.Parameters.Add("i_id_proceso_tipo", OracleDbType.Int32).Value = this.Proceso.Id;
-                cmd.Parameters.Add("i_tiene_dependencias", OracleDbType.Int32).Value = this.Depencia;
                 cmd.Parameters.Add("i_run_disenador", OracleDbType.Int32).Value = this.Creador.Run;
-                OracleParameter id = cmd.Parameters.Add("cl", OracleDbType.Int32);
+                OracleParameter id = cmd.Parameters.Add("i_id_tarea_tipo", OracleDbType.Int32);
                 id.Direction = ParameterDirection.Output;
 
                 cmd.ExecuteNonQuery();
 
-                this.Id = (int)id.Value;
-
+                this.Id = int.Parse(id.Value.ToString());
                 conn.Close();
-                foreach (DependenciaModel t in Dependencias)
+                if (Dependencias.Any())
                 {
-                    t.Create();
+                    foreach (TareaModel t in Dependencias)
+                    {
+                        DependenciaModel d = new DependenciaModel() { Tarea = t, IdTarea = this.Id };
+                        create = d.Create();
+                        if (!create)
+                            break;
+                    }
                 }
-                foreach (ResponsableModel f in Responsables)
+                if (Responsables.Any())
                 {
-                    f.Create();
+                    foreach (FuncionarioModel f in Responsables)
+                    {
+                        ResponsableModel res = new ResponsableModel() { Responsable = f, IdTarea = this.Id };
+                        create = res.Create();
+                        if (!create)
+                            break;
+                    }
+                }
+                if (!create)
+                {
+                    new DependenciaModel().Delete(this.Id);
+                    new ResponsableModel().Delete(this.Id);
+                    this.Delete();
                 }
                 return true;
             }
@@ -102,19 +121,10 @@ namespace ApoloniaApp.Models
                         Nombre = r.GetString(1),
                         Descripcion = r.GetString(2),
                         Duracion = r.GetInt32(3),
-                        Depencia = r.GetBoolean(4)
                     };
-                    t.Creador = new UsuarioInternoModel() { Nombre = r.GetString(5), Run = r.GetString(6)};
-                    t.Proceso = new ProcesoModel() { Nombre = r.GetString(7), Id = r.GetInt32(8) };
+                    t.Creador = new UsuarioInternoModel() { Nombre = r.GetString(4), Run = r.GetString(5) };
+                    t.Proceso = new ProcesoModel() { Nombre = r.GetString(6), Id = r.GetInt32(7) };
 
-                    foreach (ResponsableModel f in new ResponsableModel().ReadAll())
-                    {
-                        t.Responsables.Add(f);
-                    }
-                    foreach (DependenciaModel d in new DependenciaModel().ReadAll())
-                    {
-                        t.Dependencias.Add(d);
-                    }
                     listaNegocio.Add(t);
                 }
                 conn.Close();
@@ -181,7 +191,6 @@ namespace ApoloniaApp.Models
                 cmd.Parameters.Add("i_descripcion", OracleDbType.NVarchar2).Value = this.Descripcion;
                 cmd.Parameters.Add("i_duracion", OracleDbType.Int32).Value = this.Duracion;
                 cmd.Parameters.Add("i_id_proceso_tipo", OracleDbType.Int32).Value = this.Proceso.Id;
-                cmd.Parameters.Add("i_tiene_dependencias", OracleDbType.Int32).Value = this.Depencia;
                 cmd.Parameters.Add("i_run_disenador", OracleDbType.Int32).Value = this.Creador.Run;
                 OracleParameter id = cmd.Parameters.Add("cl", OracleDbType.Int32);
                 id.Direction = ParameterDirection.Output;
@@ -191,13 +200,23 @@ namespace ApoloniaApp.Models
                 this.Id = (int)id.Value;
 
                 conn.Close();
-                foreach (DependenciaModel t in Dependencias)
+                if (this.Dependencias.Any())
                 {
-                    t.Create();
+                    new DependenciaModel().Delete(this.Id);
+                    foreach (TareaModel t in this.Dependencias)
+                    {
+                        DependenciaModel dep = new DependenciaModel() { Tarea = t };
+                        dep.Create();
+                    }
                 }
-                foreach (ResponsableModel f in Responsables)
+                if (this.Dependencias.Any())
                 {
-                    f.Create();
+                    new ResponsableModel().Delete(this.Id);
+                    foreach (FuncionarioModel f in this.Responsables)
+                    {
+                        ResponsableModel res = new ResponsableModel() { Responsable = f };
+                        res.Create();
+                    }
                 }
                 return true;
             }
@@ -220,26 +239,11 @@ namespace ApoloniaApp.Models
                 cmd.Connection = conn;
                 cmd.CommandText = "d_tarea_tipo";
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("i_id_proceso_tipo", OracleDbType.Int32).Value = this.Proceso.Id;
-                cmd.Parameters.Add("i_nombre_tarea", OracleDbType.NVarchar2).Value = this.Nombre;
-                OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
-                o.Direction = ParameterDirection.Output;
-
-
+                cmd.Parameters.Add("i_id_tarea_tipo", OracleDbType.Int32).Value = this.Id;
 
                 cmd.ExecuteNonQuery();
 
-                r = ((OracleRefCursor)o.Value).GetDataReader();
-                if (r.Read())
-                {
-                    conn.Close();
-                    return true;
-                }
-                else
-                {
-                    conn.Close();
-                    return false;
-                }
+                return true;
             }
             catch (Exception e)
             {
