@@ -17,10 +17,9 @@ namespace ApoloniaApp.Commands
         private readonly Func<bool> _checkModel;
         private readonly Func<TViewModel> _viewModel;
         private readonly TModel _model;
-        private ObservableCollection<TModel> _models;
         private FrameStore _frameStore;
 
-        public CRUDCommand(Func<bool> crudModel, Func<TViewModel> viewModel, FrameStore frameStore, Func<bool> checkModel, TModel model/*, ObservableCollection<TModel> listStore*/)
+        public CRUDCommand(Func<bool> crudModel, Func<TViewModel> viewModel, FrameStore frameStore, Func<bool> checkModel, TModel model)
         {
             _crudModel = crudModel;
             _viewModel = viewModel;
