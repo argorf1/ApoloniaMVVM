@@ -39,9 +39,9 @@ namespace ApoloniaApp.Test
         }
 
         [Test]
-        public void ReadAllTest()
+        public void ReadDesignerTest()
         {
-            List<UnidadModel> datosBD = new UnidadModel().ReadAll();
+            List<UnidadModel> datosBD = new UnidadModel().ReadDesigner();
 
             Assert.AreEqual(datosBD.Any(), true);
         }

@@ -388,6 +388,7 @@ namespace ApoloniaApp.ViewModels
             _subunidades = new ObservableCollection<SubUnidadModel>();
             _funcionarios = new ObservableCollection<FuncionarioModel>();
 
+
             _unidades = _listStore.unidades;
             _subunidades = _listStore.subunidades;
             _funcionarios = _listStore.funcionarios;

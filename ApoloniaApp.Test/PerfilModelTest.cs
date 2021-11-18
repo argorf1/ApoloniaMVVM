@@ -21,16 +21,14 @@ namespace ApoloniaApp.Test
             Assert.AreEqual(datosBD.Any(), true);
         }
 
-        //[Test]
-        //public void ReadByIdTest()
-        //{
-        //    PerfilModel u = new PerfilModel
-        //    {
-        //        Id = 1
-        //    };
-        //    bool result = u.ReadById();
-        //    Assert.AreEqual(false, result);
-        //}
+        [Test]
+        public void ReadByIdTest()
+        {
+            PerfilModel p = new PerfilModel(1);
+                      
+
+            Assert.AreEqual(string.IsNullOrEmpty(p.Detalle), false);
+        }
 
     }
 }

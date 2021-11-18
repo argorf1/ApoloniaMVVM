@@ -24,9 +24,11 @@ namespace ApoloniaApp.ViewModels
             CurrentAccount = currentAccount;
             _crudRol = new RolModel();
 
+
             #region Carga Listas
             _unidades = new ChargeComboBoxService<UnidadModel>().ChargeComboBox(_listStore.unidades,_unidades, new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
             _roles = _listStore.roles;
+
 
             SelectedUnidad = _unidades.ElementAt(0);
             SelectedRol = new RolModel(); 

@@ -211,6 +211,9 @@ namespace ApoloniaApp.ViewModels
             _unidades = _listStore.unidades;
             _unidades.Insert(0, new UnidadModel() { RazonSocial = "-- Unidad --" });
             foreach (UnidadModel u in new UnidadModel().ReadAll())
+
+
+
             {
                 _unidades.Add(u);
             }

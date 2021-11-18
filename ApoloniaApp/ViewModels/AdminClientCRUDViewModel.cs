@@ -180,10 +180,12 @@ namespace ApoloniaApp.ViewModels
             //_roles = new ObservableCollection<RolModel>();
             //_estados = new ObservableCollection<EstadoModel>();
 
+
             _unidades = new ChargeComboBoxService<UnidadModel>().ChargeComboBox(_listStore.unidades,_unidades,new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --"});
             _subunidades = new ChargeComboBoxService<SubUnidadModel>().ChargeComboBox(_listStore.subunidades,_subunidades, new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad" });
             _roles = new ChargeComboBoxService<RolModel>().ChargeComboBox(_listStore.roles,_roles, new RolModel() { Id = 0, Nombre = "-- Rol --" });
             _estados = _listStore.estados;
+
 
             SelectedUnidad = _unidades.LastOrDefault(u => u.Rut == _crudFuncionario.Unidad.Rut || u.Rut == "0");
             SelectedSubunidad = _subunidades.LastOrDefault(s => s.Id == _crudFuncionario.Subunidad.Id || s.Id == 0);

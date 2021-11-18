@@ -81,7 +81,7 @@ namespace ApoloniaApp.Models
         }
 
         #region Read
-        public List<UnidadModel> ReadAll()
+        public List<UnidadModel> ReadDesigner()
         {
 
             List<UnidadModel> listaNegocio = new List<UnidadModel>();
