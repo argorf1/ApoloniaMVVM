@@ -68,7 +68,7 @@
                     <TextBlock Grid.Row="1" 
                                Grid.Column="1" 
                                Grid.ColumnSpan="3"
-                               Text="INFORMACIÓN GENERAL"
+                               Text="INFORMACIÓN GENERAL!"
                                Margin="0,10,0,5"
                                Style="{StaticResource SectionTitle}"/>
 
