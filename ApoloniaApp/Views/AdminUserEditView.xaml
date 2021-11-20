@@ -144,7 +144,8 @@
                     <TextBox x:Name="txtNewMail"
                              Width="390" 
                              VerticalAlignment="Bottom"
-                             Text="{Binding Email}"/>
+                             Text="{Binding Email}"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
                 </StackPanel>
 
                 <!-- // SECTION 3:  INFORMACIÓN GENERAL  // -->

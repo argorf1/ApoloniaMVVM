@@ -7,8 +7,149 @@
     xmlns:local="clr-namespace:ApoloniaApp.Views"
     mc:Ignorable="d" 
     d:DesignHeight="450" d:DesignWidth="800">
-    
-    
+    <UserControl.Resources>
+
+        <!-- // AdminViewEstilo Toggle Button Side Menu -  // -->
+
+        <ImageBrush x:Key="tb_mouse_over"
+                    ImageSource="/Assets/Icons/ico_menu_over.png"/>
+
+        <!-- // Stilo Fuente Texto // -->
+
+        <Style x:Key="font_style" TargetType="TextBlock">
+
+            <Setter Property="FontFamily"
+                    Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Light"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="FontSize"
+                    Value="16"/>
+
+        </Style>
+
+        <!-- // Tooltip Style Template // -->
+
+        <Style TargetType="ToolTip" x:Key="tooltip_style">
+
+            <Setter Property="Placement" Value="Right"/>
+            <Setter Property="Height"  Value="40"/>
+            <Setter Property="Width"  Value="auto"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+            <Setter Property="Background" Value="#4A5668"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Light"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
+            <Setter Property="HorizontalOffset" Value="15"/>
+            <Setter Property="VerticalOffset" Value="6"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="HorizontalContentAlignment"  Value="Center"/>
+
+        </Style>
+
+        <!-- // Logout Button Style Template // -->
+
+        <!--ImageBrush x:Key="CloseBtn_MouseOver" ImageSource="/Assets/logout.png"/>
+
+        <Style x:Key="Close_btn" TargetType="{x:Type Button}">
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="{x:Type Button}">
+
+                        <Border x:Name="button"
+                                BorderThickness="0"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter Property="Background"
+                                        TargetName="button"
+                                        Value="{StaticResource CloseBtn_MouseOver}"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style-->
+
+        <!-- // Toggle Button Style Template // -->
+        <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+
+                        <Border x:Name="border"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                                <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="True">
+
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                                <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+    </UserControl.Resources>
+
     <Grid >
 
         <!-- // Backgound Color // -->
@@ -57,7 +198,12 @@
                     <Label x:Name="tbLoggedUser" 
                            Content="{Binding LogUser}"/>
 
-                    
+                    <Image Source="/Assets/Icons/ico_avatar.png"
+                           Width="20"
+                           Height="20"
+                           VerticalAlignment="Center"
+                           Visibility="Visible"
+                           Margin="0,0,15,0"/>
 
                 </StackPanel>
             </Grid>
@@ -103,16 +249,19 @@
                         <!-- // Toggle Button // -->
 
                         <ToggleButton x:Name="Tg_btn"
-                                  Grid.Column="0"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Left"
-                                  Margin="10,-20,0,0"
-                                  Height="50"
-                                  Width="50"
-                                  BorderThickness="0">
+                                      Grid.Column="0"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      Margin="10,-20,0,0"
+                                      Height="50" Width="50"
+                                      BorderThickness="0"
+                                      Style="{StaticResource tb_style}">
 
                             <!-- // Toggle Button imagen de fondo por defecto // -->
-
+                            <ToggleButton.Background>
+                                <ImageBrush Stretch="Fill" 
+                                            ImageSource="/Assets/Icons/ico_menu.png" />
+                            </ToggleButton.Background>
                             
 
                             <!-- // Toggle Button - Checked, Unchecked Events // -->
@@ -177,153 +326,157 @@
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
                         <!-- // Menu Item 1: Gestión de Usuarios // -->
-
                         <ListViewItem HorizontalAlignment="Left"
-                                  Margin="0,0,0,15">
-
+                                      Margin="0,0,0,15"
+                                       MouseEnter="ListViewItem_MouseEnter">
                             <StackPanel Orientation="Horizontal"
-                                    Width="250">
-
-                                <Button Name="btnUsers"
-                                        Width="55"
-                                        Content="Usuarios"
-                                        Command="{Binding NavigationUser}"/>
-
-                                <TextBlock Text="Gestión de Unidades"
-                                       Margin="15,0,0,0"/>
-
+                                        Width="250">
+                                <TextBlock>
+                                    <Hyperlink Command="{Binding NavigationUser}"                                               
+                                               Cursor="None"
+                                               TextDecorations="{x:Null}"
+                                               BaselineAlignment="Center">
+                                        <Image Source="/Assets/Icons/ico_usrsint.png"
+                                               Stretch="Fill" Margin="5,0,0,0" />
+                                        <TextBlock Text="Gestión de Usuarios"                                                   
+                                                   Margin="15,0,0,0"
+                                                   Style="{StaticResource font_style}"/>
+                                    </Hyperlink>
+                                </TextBlock>    
                             </StackPanel>
 
                             <!-- // Tooltip // -->
-
                             <ListViewItem.ToolTip>
-
-                                <ToolTip x:Name="tt_customer"
-                                     Content="Gestión de Unidades"/>
-
+                                <ToolTip x:Name="tt_internalusr"
+                                         Content="Gestión de Usuarios Internos"
+                                         Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
-
                         </ListViewItem>
 
-                        <!-- // Menu Item 2:  Gestión de Usuarios// -->
-
-                        <ListViewItem
-                            HorizontalAlignment="Left"
-                            Margin="0,0,0,15">
-
-                            <StackPanel 
-                                Orientation="Horizontal"
-                                Width="250">
-                                <Button Name="btnUnits"
-                                        Content="Unidades"
-                                        Width="56"
-                                        Command="{Binding NavigationUnit}"/>
-                                
-
-                                <TextBlock 
-                                    Text="Gestión de Usuarios"
-                                    Margin="15,0,0,0"/>
-
+                        <!-- // Menu Item 2:  Gestión de Unidades// -->
+                        <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15"
+                                      MouseEnter="ListViewItem_MouseEnter">
+                            
+                            <StackPanel Orientation="Horizontal" Width="250">
+                                <TextBlock>
+                                    <Hyperlink Command="{Binding NavigationUnit}"                                               
+                                               Cursor="None"
+                                               TextDecorations="{x:Null}"
+                                               BaselineAlignment="Center">
+                                        
+                                        <Image Source="/Assets/Icons/ico_units.png"
+                                               Stretch="Fill" Margin="5,0,0,0" />
+                                        
+                                        <TextBlock Text="Gestión de Unidades"                                                   
+                                                   Margin="15,0,0,0"
+                                                   Style="{StaticResource font_style}"/>
+                                    </Hyperlink>
+                                </TextBlock>
                             </StackPanel>
 
                             <!-- // Tooltip // -->
-
                             <ListViewItem.ToolTip>
-
-                                <ToolTip x:Name="tt_users"
-                                     Content="Gestión de Usuarios"/>
-
+                                <ToolTip x:Name="tt_units"
+                                         Content="Gestión de Unidades"
+                                         Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
-
                         </ListViewItem>
+                        
 
                         <!-- // Menu Item 3: Gestión de Roles // -->
+
                         <ListViewItem HorizontalAlignment="Left"
-                                  Margin="0,0,0,15">
+                                      Margin="0,0,0,15"
+                                      MouseEnter="ListViewItem_MouseEnter">
 
-                            <StackPanel Orientation="Horizontal"
-                                    Width="250">
-
-                                <Button Name="btnRoles"
-                                        Width="55"
-                                        Content="Roles"
-                                        Command="{Binding NavigationRol}"/>
-                                
-                                <TextBlock Text="Flujos de Trabajo"
-                                       Margin="15,0,0,0"/>
-
+                            <StackPanel Orientation="Horizontal" Width="250">
+                                <TextBlock>
+                                    <Hyperlink Command="{Binding NavigationRol}"                                               
+                                               Cursor="None"
+                                               TextDecorations="{x:Null}"
+                                               BaselineAlignment="Center">
+                                        
+                                        <Image Source="/Assets/Icons/ico_roles.png"
+                                               Stretch="Fill" Margin="5,0,0,0" />
+                                        
+                                        <TextBlock Text="Gestión de Roles"                                                   
+                                                   Margin="15,0,0,0"
+                                                   Style="{StaticResource font_style}"/>
+                                    </Hyperlink>
+                                </TextBlock>
                             </StackPanel>
 
                             <!-- // Tooltip // -->
-
                             <ListViewItem.ToolTip>
-
-                                <ToolTip x:Name="tt_workflow"
-                                     Content="Flujos de Trabajo"/>
-
+                                <ToolTip x:Name="tt_roles"
+                                         Content="Gestión de Roles"
+                                         Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
-
                         </ListViewItem>
+                        
 
-                        <!-- // Menu Item 4: Gestión de Reportería // -->
-
+                        <!-- // Menu Item 4: Gestión de Funcionarios // -->
                         <ListViewItem HorizontalAlignment="Left"
-                                  Margin="0,0,0,15">
+                                      Margin="0,0,0,15"
+                                      MouseEnter="ListViewItem_MouseEnter">
 
-                            <StackPanel Orientation="Horizontal"
-                                    Width="250">
-
-                                <Button Name="btnFuncionarios"
-                                        Width="55"
-                                        Content="Funcionarios"
-                                        Command="{Binding NavigationClient}"/>
-
-                                
-
-                                <TextBlock Text="Gestión de Reportería"
-                                       Margin="15,0,0,0"/>
-
+                            <StackPanel Orientation="Horizontal" Width="250">
+                                <TextBlock>
+                                    <Hyperlink Command="{Binding NavigationClient}"                                               
+                                               Cursor="None"
+                                               TextDecorations="{x:Null}"
+                                               BaselineAlignment="Center">
+                                        
+                                        <Image Source="/Assets/Icons/ico_usrexter.png"
+                                               Stretch="Fill" Margin="5,0,0,0" />
+                                        
+                                        <TextBlock Text="Gestión de Funcionarios"                                                   
+                                                   Margin="15,0,0,0"
+                                                   Style="{StaticResource font_style}"/>
+                                    </Hyperlink>
+                                </TextBlock>
                             </StackPanel>
 
                             <!-- // Tooltip // -->
-
                             <ListViewItem.ToolTip>
-
-                                <ToolTip x:Name="tt_report"
-                                     Content="Gestión de Reportería"/>
-
+                                <ToolTip x:Name="tt_externalusr"
+                                         Content="Gestión de Funcionarios"
+                                         Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
-
-                        </ListViewItem>
+                        </ListViewItem>                        
+                        
 
                         <!-- // Menu Item 5: Cierre de Sesión // -->
-
                         <ListViewItem HorizontalAlignment="Left"
-                                  Margin="0,0,0,15">
+                                      Margin="0,0,0,15"
+                                      MouseEnter="ListViewItem_MouseEnter">
 
-                            <StackPanel Orientation="Horizontal"
-                                    Width="250">
-
-                                <Button Name="btnLogOut"
-                                        Width="55"
-                                        Content="Logout"
-                                        Command="{Binding LogoutCommand}"/>
-
-                                <TextBlock Text="Cerrar Sesión"
-                                       Margin="15,0,0,0"/>
-
+                            <StackPanel Orientation="Horizontal" Width="250">
+                                <TextBlock>
+                                    <Hyperlink Command="{Binding LogoutCommand}"                                               
+                                               Cursor="None"
+                                               TextDecorations="{x:Null}"
+                                               BaselineAlignment="Center">
+                                        
+                                        <Image Source="/Assets/Icons/ico_logout.png"
+                                               Stretch="Fill" Margin="5,0,0,0" />
+                                        
+                                        <TextBlock Text="Cerrar Sesión"                                                   
+                                                   Margin="15,0,0,0"
+                                                   Style="{StaticResource font_style}"/>
+                                    </Hyperlink>
+                                </TextBlock>
                             </StackPanel>
 
                             <!-- // Tooltip // -->
-
                             <ListViewItem.ToolTip>
-
                                 <ToolTip x:Name="tt_logout"
-                                     Content="Cerrar Sesión"/>
-
+                                         Content="Cerrar Sesión"
+                                         Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
-
-                        </ListViewItem>
+                        </ListViewItem>                        
+                        
 
                         <!-- // Listview items style template // -->
 
