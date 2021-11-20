@@ -9,9 +9,13 @@ namespace ApoloniaApp.Models
 {
     public class ProvinciaModel : ModelBase
     {
-        public int Id { get; set; }
-        public string Detalle { get; set; }
+        
         public int IdRegion { get; set; }
+
+        public ProvinciaModel()
+        {
+            Id = 0;
+        }
 
         public List<ProvinciaModel> ReadAll()
         {
@@ -21,7 +25,7 @@ namespace ApoloniaApp.Models
             OracleConnection conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -38,7 +42,7 @@ namespace ApoloniaApp.Models
                 {
                     ProvinciaModel p = new ProvinciaModel()
                     {
-                        Detalle = r.GetString(0),
+                        Nombre = r.GetString(0),
                         Id = r.GetInt32(1),
                         IdRegion = r.GetInt32(2)
                     };

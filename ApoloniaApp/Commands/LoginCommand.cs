@@ -33,7 +33,7 @@ namespace ApoloniaApp.Commands
             if(acc.Read_Login())
             {
                 _accountStore.CurrentAccount = acc;
-                switch (acc.IdPerfil)
+                switch (acc.Perfil.Id)
                 {
                     case 1:
                         _navigationStore.CurrentViewModel=new AdminViewModel(_navigationStore,_accountStore,_listStore);

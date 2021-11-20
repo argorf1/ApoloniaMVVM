@@ -34,7 +34,7 @@ namespace ApoloniaApp.ViewModels
             CurrentAccount = currentAccount;
 
             #region Carga Listas
-            _unidades = new ChargeComboBoxService<UnidadModel>().ChargeComboBox(_listStore.unidades.Where(p => p.ResponsableRun == currentAccount.Run), _unidades, new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
+            _unidades = ChargeComboBoxService<UnidadModel>.ChargeComboBox(_listStore.unidades.Where(p => p.Responsable.Run == currentAccount.Run), _unidades, new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
             _procesos = _listStore.procesos;
             _tareas = _listStore.tareas;
             _responsables = _listStore.responsables;

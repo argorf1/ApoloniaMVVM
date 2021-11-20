@@ -9,8 +9,7 @@ namespace ApoloniaApp.Models
 {
     public class RubroModel : ModelBase
     {
-        public int Id { get; set; }
-        public string Detalle { get; set; }
+
 
         public List<RubroModel> ReadAll()
         {
@@ -20,7 +19,7 @@ namespace ApoloniaApp.Models
             OracleConnection conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -37,7 +36,7 @@ namespace ApoloniaApp.Models
                 {
                     RubroModel rubro = new RubroModel()
                     {
-                        Detalle = r.GetString(0),
+                        Nombre = r.GetString(0),
                         Id = r.GetInt32(1)
                     };
                     listaNegocio.Add(rubro);

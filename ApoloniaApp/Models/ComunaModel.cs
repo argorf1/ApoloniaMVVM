@@ -9,9 +9,12 @@ namespace ApoloniaApp.Models
 {
     public class ComunaModel : ModelBase
     {
-        public int Id { get; set; }
-        public string Detalle { get; set; }
         public int IdProvincia { get; set; }
+
+        public ComunaModel()
+        {
+            Id = 0;
+        }
 
         public List<ComunaModel> ReadAll()
         {
@@ -21,7 +24,7 @@ namespace ApoloniaApp.Models
             OracleConnection conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -38,7 +41,7 @@ namespace ApoloniaApp.Models
                 {
                     ComunaModel c = new ComunaModel()
                     {
-                        Detalle = r.GetString(0),
+                        Nombre = r.GetString(0),
                         Id = r.GetInt32(1),
                         IdProvincia = r.GetInt32(2)
                     };

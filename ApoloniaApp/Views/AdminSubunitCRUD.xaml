@@ -162,6 +162,7 @@
                             HorizontalAlignment="Right"
                             VerticalContentAlignment="Center" 
                             VerticalAlignment="Top"
+                            IsEnabled="{Binding CanCrud}"
                             Command="{Binding CrudSubunit}"
                             Style="{DynamicResource SubmitButton}"/>
 

@@ -9,11 +9,9 @@ namespace ApoloniaApp.Models
 {
     public class SubUnidadModel : EntityModelBase
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
+        
         public string Descripcion { get; set; }
-        public int SubUnidadPadreId { get; set; }
-        public string SubUnidadPadre { get; set; }
+        public SubUnidadModel SubunidadPadre { get; set; }
         public string RutUnidad { get; set; }
         public int NumFuncionarios { get; set; }
         public int NumProcesos { get; set; }
@@ -24,25 +22,29 @@ namespace ApoloniaApp.Models
 
         public SubUnidadModel()
         {
-            conn = null;
-            r = null;
+            SubunidadPadre = new SubUnidadModel("");
         }
 
-
+        public SubUnidadModel(string vacio)
+        {
+            Id = 0;
+            Nombre = "";
+            Descripcion = "";
+        }
 
         #region CRUD
         public bool Create()
         {
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("c_subunidad", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("i_rut_unidad", OracleDbType.NVarchar2).Value = this.RutUnidad;
                 cmd.Parameters.Add("i_nombre", OracleDbType.NVarchar2).Value = this.Nombre;
                 cmd.Parameters.Add("i_descripcion", OracleDbType.NVarchar2).Value = this.Descripcion;
-                cmd.Parameters.Add("i_id_subunidad_padre", OracleDbType.Int32).Value = this.SubUnidadPadreId;
+                cmd.Parameters.Add("i_id_subunidad_padre", OracleDbType.Int32).Value = this.SubunidadPadre.Id;
                 
 
                 cmd.ExecuteNonQuery();
@@ -67,7 +69,7 @@ namespace ApoloniaApp.Models
             conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "r_subunidades_all";
@@ -85,9 +87,9 @@ namespace ApoloniaApp.Models
                         Id = r.GetInt32(0),
                         Nombre = r.GetString(1),
                         Descripcion = r.GetString(2),
-                        SubUnidadPadreId = r.GetInt32(4),
                         RutUnidad = r.GetString(8)
                     };
+                    s.SubunidadPadre = new SubUnidadModel() { Id = r.GetInt32(4) };
                     listaNegocio.Add(s);
                 }
                     conn.Close();
@@ -106,7 +108,7 @@ namespace ApoloniaApp.Models
         {
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -145,14 +147,14 @@ namespace ApoloniaApp.Models
         {
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("u_subunidad", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("i_id_subunidad", OracleDbType.Int32).Value = this.Id;
                 cmd.Parameters.Add("i_nombre", OracleDbType.NVarchar2).Value = this.Nombre;
                 cmd.Parameters.Add("i_descripcion", OracleDbType.NVarchar2).Value = this.Descripcion;
-                cmd.Parameters.Add("i_id_subunidad_padre", OracleDbType.Int32).Value = this.SubUnidadPadreId;
+                cmd.Parameters.Add("i_id_subunidad_padre", OracleDbType.Int32).Value = this.SubunidadPadre.Id;
                 cmd.Parameters.Add("i_rut_unidad", OracleDbType.NVarchar2).Value = this.RutUnidad;
 
 

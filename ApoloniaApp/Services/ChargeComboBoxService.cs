@@ -10,7 +10,7 @@ namespace ApoloniaApp.Services
         where TModel : ModelBase
     {
 
-        public ObservableCollection<TModel> ChargeComboBox(ObservableCollection<TModel> listStore, ObservableCollection<TModel> comboList, TModel firstModel)
+        public static ObservableCollection<TModel> ChargeComboBox(ObservableCollection<TModel> listStore, ObservableCollection<TModel> comboList, TModel firstModel)
         {
             comboList = new ObservableCollection<TModel>();
             comboList.Add(firstModel);
@@ -22,7 +22,7 @@ namespace ApoloniaApp.Services
             return comboList;
         }
 
-        public ObservableCollection<TModel> ChargeComboBox(IEnumerable<TModel> listStore, ObservableCollection<TModel> comboList, TModel firstModel)
+        public static ObservableCollection<TModel> ChargeComboBox(IEnumerable<TModel> listStore, ObservableCollection<TModel> comboList, TModel firstModel)
         {
             comboList = new ObservableCollection<TModel>();
             comboList.Add(firstModel);

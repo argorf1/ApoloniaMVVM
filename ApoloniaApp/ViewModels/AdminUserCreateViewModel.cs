@@ -24,7 +24,6 @@ namespace ApoloniaApp.ViewModels
 
         private UsuarioInternoModel _newUser = new UsuarioInternoModel()
         {
-            IdEstado = 1,
             Password = "1234"
         };
 
@@ -38,7 +37,7 @@ namespace ApoloniaApp.ViewModels
                 _selectedIndex = value;
                 if (value > 0)
                 {
-                    _newUser.IdPerfil = _selectedIndex;
+                    _newUser.Perfil.Id = _selectedIndex;
                 }
                 OnPropertyChanged("SelectedIndex");
             }
@@ -117,10 +116,10 @@ namespace ApoloniaApp.ViewModels
 
         public int RolId
         {
-            get { return _newUser.IdPerfil; }
+            get { return _newUser.Perfil.Id; }
             set
             {
-                _newUser.IdPerfil = value;
+                _newUser.Perfil.Id = value;
                 OnPropertyChanged("RolId");
             }
         }
@@ -128,10 +127,10 @@ namespace ApoloniaApp.ViewModels
 
         public int Estado
         {
-            get { return _newUser.IdEstado; }
+            get { return _newUser.Estado.Id; }
             set
             {
-                _newUser.IdEstado = value;
+                _newUser.Estado.Id = value;
                 OnPropertyChanged("Estado");
             }
         }
@@ -147,7 +146,7 @@ namespace ApoloniaApp.ViewModels
             SelectedPerfil = Perfiles.ElementAt(SelectedIndex);
 
             NavigationUsers = new NavigatePanelCommand<AdminUserViewModel>(_frameStore, () => new AdminUserViewModel(_frameStore, CurrentAccount, _listStore));
-            CreateUser = new CRUDCommand<AdminUserViewModel, UsuarioInternoModel>(() => _newUser.Create(), () => new AdminUserViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _newUser.ReadByRun(), _newUser);
+            //CreateUser = new CRUDCommand<AdminUserViewModel, UsuarioInternoModel>(() => _newUser.Create(), () => new AdminUserViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _newUser.ReadByRun(), _newUser);
         }
 
         public ICommand NavigationUsers { get; }

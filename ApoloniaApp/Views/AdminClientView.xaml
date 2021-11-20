@@ -117,7 +117,7 @@
                         Header="ESTADO" 
                         Width="100" 
                         MinWidth="100"
-                        Binding="{Binding Estado.Detalle}"/>
+                        Binding="{Binding Estado.Nombre}"/>
 
                     </DataGrid.Columns>
                     </DataGrid>
@@ -141,7 +141,7 @@
                             Width="120" 
                             Height="30"
                             Margin="20,0,0,0" 
-                            IsEnabled="True" 
+                            IsEnabled="{Binding CanEdit}" 
                             Style="{DynamicResource ToolBarButton}"
                             Command="{Binding NavigationEditUsers}"/>
 

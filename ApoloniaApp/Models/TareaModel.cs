@@ -11,8 +11,8 @@ namespace ApoloniaApp.Models
 {
     public class TareaModel : EntityModelBase
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
+
+        
         public string Descripcion { get; set; }
         public int Duracion { get; set; }
         public ProcesoModel Proceso { get; set; }
@@ -33,6 +33,9 @@ namespace ApoloniaApp.Models
             Creador = new UsuarioInternoModel();
             Responsables = new ObservableCollection<FuncionarioModel>();
             Dependencias = new ObservableCollection<TareaModel>();
+
+            NombreEntidad = "Tarea";
+            Mensaje = "";
         }
         #region CRUD
 
@@ -41,7 +44,7 @@ namespace ApoloniaApp.Models
             bool create = true;
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("c_tarea_tipo", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -102,7 +105,7 @@ namespace ApoloniaApp.Models
             conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "r_tareas_tipo_all";
@@ -144,7 +147,7 @@ namespace ApoloniaApp.Models
             conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -182,7 +185,7 @@ namespace ApoloniaApp.Models
         {
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("c_subunidad", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -233,7 +236,7 @@ namespace ApoloniaApp.Models
             conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
