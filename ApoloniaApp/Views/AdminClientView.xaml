@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ApoloniaApp.Views"
              mc:Ignorable="d">
 
-    <Grid>
+    <Grid Background="White">
         <StackPanel x:Name="spCurrentContent" Orientation="Vertical">
             <StackPanel x:Name="spHeader" Orientation="Vertical" Width="auto">
 

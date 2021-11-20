@@ -22,5 +22,29 @@ namespace ApoloniaApp.Views
         {
             InitializeComponent();
         }
+
+        private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+            // Set Tooltip visibility
+
+            if (Tg_btn.IsChecked == true)
+            {
+                tt_internalusr.Visibility = Visibility.Collapsed;
+                tt_units.Visibility = Visibility.Collapsed;
+                tt_roles.Visibility = Visibility.Collapsed;
+                tt_externalusr.Visibility = Visibility.Collapsed;
+                tt_logout.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                tt_internalusr.Visibility = Visibility.Visible;
+                tt_units.Visibility = Visibility.Visible;
+                tt_roles.Visibility = Visibility.Visible;
+                tt_externalusr.Visibility = Visibility.Visible;
+                tt_logout.Visibility = Visibility.Visible;
+
+            }
+        }
+
     }
 }

@@ -49,6 +49,9 @@
     <None Remove="Assets\Icons\ico_units.png" />
     <None Remove="Assets\Icons\ico_users.png" />
     <None Remove="Assets\Icons\ico_userunit.png" />
+    <None Remove="Assets\Icons\ico_usrexter.png" />
+    <None Remove="Assets\Icons\ico_usrint.png" />
+    <None Remove="Assets\Icons\ico_usrsint.png" />
     <None Remove="Assets\Icons\ico_valid.png" />
     <None Remove="Assets\Icons\ico_workflow.png" />
   </ItemGroup>
@@ -178,6 +181,15 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Icons\ico_userunit.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_usrexter.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_usrint.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_usrsint.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Icons\ico_valid.png">

@@ -16,17 +16,6 @@
 
                 </StackPanel>
 
-                <!--<StackPanel x:Name="spToolBar" Orientation="Horizontal">
-                    <Button x:Name="btnNewUnit1" 
-                            Content="Crear Unidad"
-                            Width="120" 
-                            Height="30" 
-                            Margin="20,0,0,10"
-                            Command="{Binding NavigationCreateUnit}"
-                            Style="{DynamicResource ToolBarButton}"/>
-
-                </StackPanel>-->
-
                 <!-- // VIEW UNITS - Stack Panel  // -->
                 <StackPanel x:Name="spViewUnits" Orientation="Vertical" HorizontalAlignment="Left" Margin="5,0,0,5" Visibility="Visible">
 
@@ -172,7 +161,7 @@
                                                Grid.Row="2"
                                                Text="{Binding RazonSocial}"
                                                FontSize="20"
-                                               Margin="5,10,0,10"                                               
+                                               Margin="5,10,10,10"                                               
                                                Style="{StaticResource Title}"/>
 
                                     <!--//  CREATE UNIT BUTTON //-->
@@ -875,7 +864,11 @@
                             </DataGrid>
 
                             <!-- // DataGrid Employees // -->
-
+                            <TextBlock Text="SUBUNIDADES" 
+                                       Grid.Column="1"
+                                       Grid.Row="0"
+                                       Margin="10,10,10,5"
+                                       Style="{StaticResource SectionTitle}"/>
                             <DataGrid x:Name="dtgSubUnits"
                                       Grid.Column="0" 
                                       Grid.Row="1"
