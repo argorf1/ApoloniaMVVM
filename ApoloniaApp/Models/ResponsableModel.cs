@@ -11,7 +11,6 @@ namespace ApoloniaApp.Models
     public class ResponsableModel : EntityModelBase
     {
 
-        public int Id { get; set; }
         public int IdTarea { get; set; }
         public FuncionarioModel Responsable { get; set; }
 
@@ -34,7 +33,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("c_resp_tarea_tipo", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -62,7 +61,7 @@ namespace ApoloniaApp.Models
             conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "r_respon_tt_all";
@@ -122,7 +121,7 @@ namespace ApoloniaApp.Models
             conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;

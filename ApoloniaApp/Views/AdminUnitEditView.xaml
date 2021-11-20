@@ -9,14 +9,18 @@
         <StackPanel x:Name="spNewUnits" Orientation="Vertical" HorizontalAlignment="Left" Margin="5,0,0,5" Visibility="Visible">
 
             <StackPanel Orientation="Horizontal" Margin="0">
-                <Image Width="30"
+                <Image Source="/Assets/Icons/ico_editunit.png"
+                       Width="30"
                        Height="30"
                        VerticalAlignment="Center"
                        Visibility="Visible"
                        Margin="0,0,10,0"/>
 
                 <TextBlock x:Name="txtbNuevaUnidad"
-                           Margin="0,10,0,10"><Run Language="es-mx" Text="Modificar"/><Run Text=" Unidad"/></TextBlock>
+                           Margin="0,10,0,10"
+                           Style="{StaticResource OrangeSubtitle}">
+                    <Run Language="es-mx" Text="Modificar"/><Run Text=" Unidad"/>
+                </TextBlock>
 
             </StackPanel>
 
@@ -63,13 +67,15 @@
                            Grid.Column="1" 
                            Grid.ColumnSpan="3"
                            Text="INFORMACIÓN GENERAL"
-                           Margin="0,10,0,5"/>
+                           Margin="0,10,0,5"
+                           Style="{StaticResource SectionTitle}"/>
 
                 <!-- // NEW UNIT: UNIT ID (RUT) - Label // -->
                 <StackPanel  Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
 
                     <Label x:Name="lblNewRut" 
-                           Content="RUT"/>
+                           Content="RUT"
+                           Style="{StaticResource FormLabel}"/>
 
                     <Image Width="12"
                            Height="12"
@@ -85,7 +91,8 @@
                     <TextBox x:Name="txtNewRut"
                              Width="150" 
                              MaxLength="9"
-                             Text="{Binding Rut}"/>
+                             Text="{Binding Rut}"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
 
                     <Image x:Name="imgNewRut"
                            Height="17"
@@ -101,7 +108,8 @@
                 <StackPanel Grid.Row="2" Grid.Column="3" Orientation="Horizontal">
 
                     <Label x:Name="lblNewCompanyName" 
-                           Content="Razón Social"/>
+                           Content="Razón Social"
+                           Style="{StaticResource FormLabel}"/>
 
                     <Image Width="12"
                            Height="12"
@@ -116,7 +124,8 @@
 
                     <TextBox x:Name="txtNewCompanyName" 
                              Width="385"
-                             Text="{Binding RazonSocial}"/>
+                             Text="{Binding RazonSocial}"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
 
                     <Image x:Name="imgNewCompanyName"
                            Height="17"
@@ -132,7 +141,8 @@
                 <StackPanel Grid.Row="2" Grid.Column="7" Orientation="Horizontal">
 
                     <Label x:Name="lblNewMarketArea" 
-                           Content="Rubro"/>
+                           Content="Rubro"
+                           Style="{StaticResource FormLabel}"/>
 
                     <Image Width="12" Height="12"
                            VerticalAlignment="Center"
@@ -156,7 +166,8 @@
                               SelectedValuePath="Detalle"
                               SelectedIndex="{Binding SelectedRubroIndex, Mode=TwoWay}"
                               SelectedValue="{Binding SelectedRubro.Detalle}"
-                              SelectedItem="{Binding SelectedRubro, Mode=TwoWay}"/>
+                              SelectedItem="{Binding SelectedRubro, Mode=TwoWay}"
+                              Style="{StaticResource CboRoundedCornersStyle}"/>
 
                     <Image x:Name="imgNewMarketArea"
                            Height="17"
@@ -174,13 +185,15 @@
                            Grid.Column="1" 
                            Grid.ColumnSpan="3"
                            Text="INFORMACIÓN DOMICILIARIA"
-                           Margin="0,15,0,5"/>
+                           Margin="0,15,0,5"
+                           Style="{StaticResource SectionTitle}"/>
 
                 <!-- // NEW UNIT: Address Street - Label // -->
                 <StackPanel  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
 
                     <Label x:Name="lblNewAdrStreet" 
-                           Content="Calle (Dirección)"/>
+                           Content="Calle (Dirección)"
+                           Style="{StaticResource FormLabel}"/>
 
                     <Image Width="12" Height="12"
                            VerticalAlignment="Center"
@@ -194,7 +207,8 @@
 
                     <TextBox x:Name="txtNewAdrStreet"
                              Width="380"
-                             Text="{Binding Calle}"/>
+                             Text="{Binding Calle}"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
 
                     <Image x:Name="imgNewAdrStreet" 
                            Height="17"  Width="17"
@@ -208,7 +222,8 @@
                 <StackPanel Grid.Row="5" Grid.Column="5" Orientation="Horizontal" >
 
                     <Label x:Name="lblNewAdrNumber" 
-                           Content="Número"/>
+                           Content="Número"
+                           Style="{StaticResource FormLabel}"/>
 
                     <Image Width="12" Height="12"
                            VerticalAlignment="Center"
@@ -222,7 +237,8 @@
 
                     <TextBox x:Name="txtNewAdrNumber"
                              Width="175"
-                             Text="{Binding Numero}"/>
+                             Text="{Binding Numero}"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
 
                     <Image x:Name="imgNewAdrNumber"
                            Height="17" Width="17"
@@ -236,7 +252,8 @@
                 <StackPanel Grid.Row="5" Grid.Column="7" Orientation="Horizontal">
 
                     <Label x:Name="lblNewAdrComplement"
-                           Content="Coplemento"/>
+                           Content="Complemento"
+                           Style="{StaticResource FormLabel}"/>
 
                     <Image Width="12" Height="12"
                            VerticalAlignment="Center"
@@ -250,7 +267,8 @@
 
                     <TextBox x:Name="txtNewAdrComplement"
                              Width="280"
-                             Text="{Binding Complemento}"/>
+                             Text="{Binding Complemento}"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
 
                     <Image x:Name="imgNewAdrComplement"
                            Height="17" Width="17"
@@ -265,7 +283,8 @@
                 <StackPanel Grid.Column="7" Grid.Row="7" Orientation="Horizontal" >
 
                     <Label x:Name="lblNewTown"
-                           Content="Comuna"/>
+                           Content="Comuna"
+                           Style="{StaticResource FormLabel}"/>
 
                     <Image Width="12" Height="12"
                            VerticalAlignment="Center"
@@ -284,7 +303,8 @@
                               SelectedValuePath="Detalle"
                               SelectedIndex="{Binding SelectedComunaIndex, Mode=TwoWay}"
                               SelectedValue="{Binding SelectedComuna.Detalle}"
-                              SelectedItem="{Binding SelectedComuna, Mode=TwoWay}"/>
+                              SelectedItem="{Binding SelectedComuna, Mode=TwoWay}"
+                              Style="{StaticResource CboRoundedCornersStyle}"/>
 
                     <Image x:Name="imgNewTown" 
                            Height="17" Width="17"
@@ -298,7 +318,8 @@
                 <StackPanel Grid.Column="4" Grid.Row="7" Orientation="Horizontal">
 
                     <Label x:Name="lblNewProvince"
-                           Content="Provincia"/>
+                           Content="Provincia"
+                           Style="{StaticResource FormLabel}"/>
 
                     <Image Width="12" Height="12"
                            VerticalAlignment="Center"
@@ -317,7 +338,8 @@
                               SelectedValuePath="Detalle"
                               SelectedIndex="{Binding SelectedProvinciaIndex, Mode=TwoWay}"
                               SelectedValue="{Binding SelectedProvincia.Detalle}"
-                              SelectedItem="{Binding SelectedProvincia, Mode=TwoWay}"/>
+                              SelectedItem="{Binding SelectedProvincia, Mode=TwoWay}"
+                              Style="{StaticResource CboRoundedCornersStyle}"/>
 
                     <Image x:Name="imgNewProvince" 
                            Height="17" Width="17"
@@ -331,7 +353,8 @@
                 <StackPanel Grid.Column="1" Grid.Row="7" Orientation="Horizontal">
 
                     <Label x:Name="lblNewRegion"
-                           Content="Región"/>
+                           Content="Región"
+                           Style="{StaticResource FormLabel}"/>
 
                     <Image Width="12" Height="12"
                            VerticalAlignment="Center"
@@ -350,7 +373,8 @@
                               SelectedValuePath="Detalle"
                               SelectedIndex="{Binding SelectedRegionIndex, Mode=TwoWay}"
                               SelectedValue="{Binding SelectedRegion.Detalle}"
-                              SelectedItem="{Binding SelectedRegion, Mode=TwoWay}"/>
+                              SelectedItem="{Binding SelectedRegion, Mode=TwoWay}"
+                              Style="{StaticResource CboRoundedCornersStyle}"/>
 
 
                     <Image Height="17" Width="17"
@@ -370,11 +394,13 @@
                            Grid.Column="1" 
                            Grid.ColumnSpan="3"
                            Text="INFORMACIÓN DE CONTACTO"
-                           Margin="0,15,0,5"/>
+                           Margin="0,15,0,5"
+                           Style="{StaticResource SectionTitle}"/>
                 <!--Contact Person-->
                 <StackPanel  Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
                     <Label Name="lblContactName"
-                           Content="Persona de Contacto"/>
+                           Content="Persona de Contacto"
+                           Style="{StaticResource FormLabel}"/>
                     <Image Width="12" Height="12"
                            VerticalAlignment="Center"
                            ToolTip="Este campo es obligatorio."
@@ -383,18 +409,21 @@
                 <StackPanel Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="4" Orientation="Horizontal">
                     <TextBox x:Name="txtContactName"
                              Width="380"
-                             Text="{Binding PersonaContacto}"/>
+                             Text="{Binding PersonaContacto}"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
                 </StackPanel>
                 <!--Phone Number-->
                 <StackPanel Grid.Row="10" Grid.Column="5">
                     <Label Name="lblPhoneNumber"
-                           Content="Telefono"/>
+                           Content="Teléfono"
+                           Style="{StaticResource FormLabel}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="11"  Grid.Column="5" Grid.ColumnSpan="2" Orientation="Horizontal" >
 
                     <TextBox x:Name="txtPhoneNumber"
                              Width="175"
-                             Text="{Binding TelefonoContacto}"/>
+                             Text="{Binding TelefonoContacto}"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
 
                     <Image Height="17" Width="17"
                            Margin="5,0,0,0"
@@ -406,22 +435,26 @@
                 <!--Contact Email-->
                 <StackPanel Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2">
                     <Label Name="lblContactEmail"
-                           Content="Correo Electronico"/>
+                           Content="Correo Electrónico"
+                           Style="{StaticResource FormLabel}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="4" Orientation="Horizontal">
                     <TextBox x:Name="txtContactEmail"
                              Width="380"
-                             Text="{Binding EmailContacto}"/>
+                             Text="{Binding EmailContacto}"
+                             Style="{DynamicResource TextBoxRoundedCorners}"/>
                 </StackPanel>
                 <!-- // NEW UNIT: SECTION 4 - RESPONSABLE DE CUENTA// -->
                 <TextBlock Grid.Row="14" 
                            Grid.Column="1" 
                            Grid.ColumnSpan="3"
                            Text="RESPONSABLE DE CUENTA"
-                           Margin="0,15,0,5"/>
+                           Margin="0,15,0,5"
+                           Style="{StaticResource SectionTitle}"/>
                 <StackPanel Grid.Row="15" Grid.Column="1" Grid.ColumnSpan="2">
                     <Label Name="lblDesigner"
-                           Content="Diseñador de Procesos"/>
+                           Content="Diseñador de Procesos"
+                           Style="{StaticResource FormLabel}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="16" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,10,0,0" HorizontalAlignment="Left">
                     <ComboBox x:Name="ddlDesigner"
@@ -431,11 +464,13 @@
                               SelectedValuePath="NombreCompleto"
                               SelectedIndex="{Binding SelectedResponsableIndex, Mode=TwoWay}"
                               SelectedValue="{Binding SelectedResponsable.NombreCompleto}"
-                              SelectedItem="{Binding SelectedResponsable, Mode=TwoWay}"/>
+                              SelectedItem="{Binding SelectedResponsable, Mode=TwoWay}"
+                              Style="{StaticResource CboRoundedCornersStyle}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="15" Grid.Column="6" Grid.ColumnSpan="2">
                     <Label Name="lblEstado"
-                           Content="Estado Unidad"/>
+                           Content="Estado Unidad"
+                           Style="{StaticResource FormLabel}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="16" Grid.Column="6" Grid.ColumnSpan="3" Margin="0,10,0,0" HorizontalAlignment="Left">
                     <ComboBox x:Name="ddlEstado"
@@ -444,7 +479,8 @@
                               DisplayMemberPath="Detalle"
                               SelectedValuePath="Detalle"
                               SelectedValue="{Binding SelectedEstado.Detalle}"
-                              SelectedItem="{Binding SelectedEstado, Mode=TwoWay}"/>
+                              SelectedItem="{Binding SelectedEstado, Mode=TwoWay}"
+                              Style="{StaticResource CboRoundedCornersStyle}"/>
                 </StackPanel>
                 <!--<TextBlock Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="3"
                            Text="SUBUNIDADES"
@@ -475,7 +511,8 @@
                             HorizontalAlignment="Right"
                             VerticalContentAlignment="Center" 
                             VerticalAlignment="Top"
-                            Command="{Binding EditUnit}"/>
+                            Command="{Binding EditUnit}"
+                            Style="{DynamicResource SubmitButton}"/>
 
                     <Button x:Name="btnCancel" 
                             Content="Cancelar"
@@ -487,7 +524,8 @@
                             VerticalContentAlignment="Center" 
                             FontSize="14" 
                             FontWeight="Bold"
-                            Command="{Binding NavigationUnit}"/>
+                            Command="{Binding NavigationUnit}"
+                            Style="{DynamicResource CancelButton}"/>
 
                 </StackPanel>
             </Grid>

@@ -54,10 +54,10 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    CrudCommand = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudProceso.ReadByNombre(), _crudProceso);
+                    CrudCommand = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudProceso.ReadByNombre(), _crudProceso, _listStore.procesos, 1);
                     break;
                 case 2:
-                    CrudCommand = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Update(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudProceso);
+                    CrudCommand = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Update(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudProceso, _listStore.procesos, 2);
                     break;
                 default:
                     break;
@@ -67,9 +67,9 @@ namespace ApoloniaApp.ViewModels
 
            
             #region Carga Listas
-            _subunidades = new ChargeComboBoxService<SubUnidadModel>().ChargeComboBox(_listStore.subunidades.Where(p => p.RutUnidad == _crudProceso.Unidad.Rut), _subunidades, new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad --" });
+            _subunidades = ChargeComboBoxService<SubUnidadModel>.ChargeComboBox(_listStore.subunidades.Where(p => p.RutUnidad == _crudProceso.Unidad.Rut), _subunidades, new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad --" });
 
-            _roles = new ChargeComboBoxService<RolModel>().ChargeComboBox(_listStore.roles.Where(p => p.Unidad.Rut == _crudProceso.Unidad.Rut), _roles, new RolModel() { Id = 0, Nombre = "-- Subunidad --" });
+            _roles = ChargeComboBoxService<RolModel>.ChargeComboBox(_listStore.roles.Where(p => p.Unidad.Rut == _crudProceso.Unidad.Rut), _roles, new RolModel() { Id = 0, Nombre = "-- Subunidad --" });
             SelectedSubunidad = _subunidades.Last(s => s.Id == _crudProceso.Subunidad.Id);
             #endregion
 

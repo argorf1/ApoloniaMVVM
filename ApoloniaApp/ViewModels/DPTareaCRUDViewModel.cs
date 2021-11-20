@@ -42,10 +42,10 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudTarea.ReadByName(), _crudTarea);
+                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudTarea.ReadByName(), _crudTarea, _listStore.tareas, 1);
                     break;
                 case 2:
-                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Update(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudTarea);
+                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Update(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudTarea, _listStore.tareas, 2);
                     break;
                 default:
                     break;

@@ -26,16 +26,16 @@ namespace ApoloniaApp.ViewModels
 
 
             #region Carga Listas
-            _unidades = new ChargeComboBoxService<UnidadModel>().ChargeComboBox(_listStore.unidades,_unidades, new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
+            _unidades = ChargeComboBoxService<UnidadModel>.ChargeComboBox(_listStore.unidades, _unidades, new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
             _roles = _listStore.roles;
 
 
             SelectedUnidad = _unidades.ElementAt(0);
-            SelectedRol = new RolModel(); 
+            SelectedRol = new RolModel();
             #endregion
 
-            NavigationCreateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount, new RolModel(_selectedUnidad),1,_listStore));
-            NavigationUpdateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount,_crudRol,2,_listStore));
+            NavigationCreateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount, new RolModel(_selectedUnidad), 1, _listStore));
+            NavigationUpdateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount, _crudRol, 2, _listStore));
 
         }
 
@@ -53,12 +53,20 @@ namespace ApoloniaApp.ViewModels
             set
             {
                 _selectedUnidad = value;
-                if (_selectedUnidad.Rut != "0")
-                {
-                    _crudRol.Unidad = _selectedUnidad;
-                }
-                    Roles = _roles.Where(s => s.Unidad.Rut == _selectedUnidad.Rut || s.Id == 0);
+                _crudRol.Unidad = _selectedUnidad.Rut != "0" ? _selectedUnidad : new UnidadModel();
+                CanCreate = _selectedUnidad.Rut != "0";
+                Roles = _roles.Where(s => s.Unidad.Rut == _selectedUnidad.Rut || s.Id == 0);
                 OnPropertyChanged("SelectedUnidad");
+            }
+        }
+        private bool _canCreate = false;
+        public bool CanCreate
+        {
+            get => _canCreate;
+            set
+            {
+                _canCreate = value;
+                OnPropertyChanged("CanCreate");
             }
         }
 
@@ -81,13 +89,24 @@ namespace ApoloniaApp.ViewModels
             set
             {
                 _crudRol = value;
-
+                CanEdit = _crudRol.Id != 0;
                 OnPropertyChanged("SelectedRol");
 
                 OnPropertyChanged("Nombre");
                 OnPropertyChanged("Descripcion");
                 OnPropertyChanged("Superior");
                 OnPropertyChanged("Subunidad");
+            }
+        }
+
+        private bool _canEdit = false;
+        public bool CanEdit
+        {
+            get => _canEdit;
+            set
+            {
+                _canEdit = value;
+                OnPropertyChanged("CanEdit");
             }
         }
         #endregion
@@ -112,7 +131,7 @@ namespace ApoloniaApp.ViewModels
 
         public string Superior
         {
-            get 
+            get
             {
                 if (_crudRol.Id != 0)
                     return roles.FirstOrDefault(r => r.RolSuperior == _crudRol.RolSuperior).Nombre;

@@ -9,10 +9,6 @@ namespace ApoloniaApp.Models
 {
     public class EstadoModel: ModelBase
     {
-        public int Id { get; set; }
-        public string Detalle { get; set; }
-
-
         public EstadoModel()
         {
             Id = 1;
@@ -26,7 +22,7 @@ namespace ApoloniaApp.Models
             OracleConnection conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -43,7 +39,7 @@ namespace ApoloniaApp.Models
                 {
                     EstadoModel e = new EstadoModel()
                     {
-                        Detalle = r.GetString(0),
+                        Nombre = r.GetString(0),
                         Id = r.GetInt32(1)
                     };
                     listaNegocio.Add(e);

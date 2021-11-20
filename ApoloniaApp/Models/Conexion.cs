@@ -8,8 +8,8 @@ namespace ApoloniaApp.Models
 {
     public class Conexion
     {
-        OracleConnection conn;
-        public OracleConnection AbrirConexion()
+        static OracleConnection conn;
+        public static OracleConnection AbrirConexion()
         {
             string connectionString = "USER ID=APOLONIADB; PASSWORD=chachesoflo;DATA SOURCE=oraclegcp.bellann.cl;PERSIST SECURITY INFO=True";
             conn = new OracleConnection(connectionString);

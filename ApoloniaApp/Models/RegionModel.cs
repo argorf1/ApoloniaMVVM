@@ -9,9 +9,12 @@ namespace ApoloniaApp.Models
 {
     public class RegionModel : ModelBase
     {
-        public int Id { get; set; }
-        public string Detalle { get; set; }
 
+
+        public RegionModel()
+        {
+            Id = 0;
+        }
         public List<RegionModel> ReadAll()
         {
 
@@ -20,7 +23,7 @@ namespace ApoloniaApp.Models
             OracleConnection conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -37,7 +40,7 @@ namespace ApoloniaApp.Models
                 {
                     RegionModel region = new RegionModel()
                     {
-                        Detalle = r.GetString(0),
+                        Nombre = r.GetString(0),
                         Id = r.GetInt32(1)
                     };
                     listaNegocio.Add(region);

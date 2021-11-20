@@ -10,6 +10,7 @@ namespace ApoloniaApp.Services
 		public static bool ValidaRut(string rut)
 		{
 			rut = rut.Replace(".", "").ToUpper();
+			rut = rut.Insert(rut.Length - 1, "-");
 			Regex expresion = new Regex("^([0-9]+-[0-9K])$");
 			string dv = rut.Substring(rut.Length - 1, 1);
 			if (!expresion.IsMatch(rut))

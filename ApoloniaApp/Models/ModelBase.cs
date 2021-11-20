@@ -7,6 +7,9 @@ namespace ApoloniaApp.Models
 {
     public class ModelBase
     {
+
         public int Id { get; set; }
+        public string Nombre { get; set; }
+
     }
 }

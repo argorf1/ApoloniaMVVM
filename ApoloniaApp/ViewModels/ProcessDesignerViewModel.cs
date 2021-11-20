@@ -46,8 +46,8 @@ namespace ApoloniaApp.ViewModels
             _listStore.funcionarios = new ReadAllCommand<FuncionarioModel>().ReadAll(()=> new FuncionarioModel().ReadAll());
             _listStore.roles = new ReadAllCommand<RolModel>().ReadAll(()=> new RolModel().ReadAll());
 
-            PerfilModel rol = new PerfilModel(CurrentAccount.IdPerfil);
-            LogUser += CurrentAccount.Nombre + " " + CurrentAccount.ApellidoP + "(" + rol.Detalle + ")";
+            PerfilModel rol = new PerfilModel(CurrentAccount.Perfil.Id);
+            LogUser += CurrentAccount.Nombre + " " + CurrentAccount.ApellidoP + "(" + rol.Nombre + ")";
             _frameStore.CurrentViewModelChanged += OnCurrentPanelChanged;
 
             NavigationProcesos = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore,CurrentAccount,_listStore));
