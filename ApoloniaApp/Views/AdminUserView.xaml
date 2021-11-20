@@ -540,15 +540,16 @@
                 </StackPanel>
 
                 <DataGrid Grid.Column="0" Grid.Row="1" x:Name="dtgUsers"
-                      CanUserReorderColumns="False"
-                      SelectionMode="Single"
-                      IsReadOnly="True"
-                      AutoGenerateColumns="False"
-                      ColumnWidth="auto"
-                      Margin="10" Height="160"
-                      HorizontalScrollBarVisibility="Visible"
-                      ItemsSource="{Binding Usuarios}"
-                      SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
+                          CanUserReorderColumns="False"
+                          SelectionMode="Single"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False"
+                          ColumnWidth="auto"
+                          Margin="10" Height="160"
+                          HorizontalScrollBarVisibility="Visible"
+                          ItemsSource="{Binding Usuarios}"
+                          SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
+                          SelectedItem="{Binding SelectedUsuario}">
 
                     <DataGrid.Columns>
                         <DataGridTextColumn 
@@ -573,12 +574,12 @@
                         Header="PERFIL" 
                         Width="150" 
                         MinWidth="150"
-                        Binding="{Binding PerfilDet}"/>
+                        Binding="{Binding Perfil.Nombre}"/>
                         <DataGridTextColumn 
                         Header="ESTADO" 
                         Width="100" 
                         MinWidth="100"
-                        Binding="{Binding EstadoDet}"/>
+                        Binding="{Binding Estado.Nombre}"/>
 
                     </DataGrid.Columns>
                 </DataGrid>
@@ -796,7 +797,7 @@
 
                             <TextBox Name="txtUserName"
                                      Width="180"
-                                     Text="{Binding Username}"
+                                     Text="{Binding Run}"
                                      Style="{DynamicResource TextBoxRoundedCorners}"/>
 
                         </StackPanel>

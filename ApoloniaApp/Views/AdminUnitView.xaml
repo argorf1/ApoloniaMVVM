@@ -69,7 +69,6 @@
                           Height="160" 
                           HorizontalScrollBarVisibility="Visible" 
                           ItemsSource="{Binding Unidades}"
-                          SelectedIndex="{Binding SelectedUnitIndex, Mode=TwoWay}"
                           SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}">
 
                     <DataGrid.Columns>
@@ -85,37 +84,37 @@
                             Binding="{Binding RazonSocial}"/>
                         <DataGridTextColumn 
                             Header="RUBRO" 
-                            Binding="{Binding Rubro}"/>
+                            Binding="{Binding Rubro.Nombre}"/>
                         <DataGridTextColumn 
                             Header="DIRECCIÓN (CALLE)" 
                             Width="100" 
                             MinWidth="100"
-                            Binding="{Binding Calle}"/>
+                            Binding="{Binding Direccion.Calle}"/>
                         <DataGridTextColumn 
                             Header="NÚMERO CALLE" 
                             Width="150" 
                             MinWidth="150"
-                            Binding="{Binding Numero}"/>
+                            Binding="{Binding Direccion.Numero}"/>
                         <DataGridTextColumn 
                             Header="COMPLEMENTO" 
                             Width="150" 
                             MinWidth="150"
-                            Binding="{Binding Complemento}"/>
+                            Binding="{Binding Direccion.Complemento}"/>
                         <DataGridTextColumn 
                             Header="REGIÓN" 
                             Width="150" 
                             MinWidth="150"
-                            Binding="{Binding Region}"/>
+                            Binding="{Binding Direccion.Region.Nombre}"/>
                         <DataGridTextColumn 
                             Header="PROVINCIA" 
                             Width="150" 
                             MinWidth="150"
-                            Binding="{Binding Provincia}"/>
+                            Binding="{Binding Direccion.Provincia.Nombre}"/>
                         <DataGridTextColumn 
                             Header="COMUNA" 
                             Width="100" 
                             MinWidth="100"
-                            Binding="{Binding Comuna}"/>
+                            Binding="{Binding Direccion.Comuna.Nombre}"/>
 
                     </DataGrid.Columns>
 

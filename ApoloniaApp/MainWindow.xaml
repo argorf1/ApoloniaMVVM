@@ -13,20 +13,14 @@
         <DataTemplate x:Name="AdminUserViewTemplate" DataType="{x:Type viewmodels:AdminUserViewModel}">
             <views:AdminUserView DataContext="{Binding}"/>
         </DataTemplate>
-        <DataTemplate x:Name="AdminUserCreateViewTemplate" DataType="{x:Type viewmodels:AdminUserCreateViewModel}">
-            <views:AdminUserCreateView DataContext="{Binding}"/>
-        </DataTemplate>
-        <DataTemplate x:Name="AdminUserEditViewTemplate" DataType="{x:Type viewmodels:AdminUserEditViewModel}">
-            <views:AdminUserEditView DataContext="{Binding}"/>
+        <DataTemplate x:Name="AdminUserCRUDViewTemplate" DataType="{x:Type viewmodels:AdminUserCRUDViewModel}">
+            <views:AdminUserCRUDView DataContext="{Binding}"/>
         </DataTemplate>
         <DataTemplate x:Name="AdminUnitViewTemplate" DataType="{x:Type viewmodels:AdminUnitViewModel}">
             <views:AdminUnitView DataContext="{Binding}"/>
         </DataTemplate>
-        <DataTemplate x:Name="AdminUnitCreateViewTemplate" DataType="{x:Type viewmodels:AdminUnitCreateViewModel}">
-            <views:AdminUnitCreateView DataContext="{Binding}"/>
-        </DataTemplate>
-        <DataTemplate x:Name="AdminUnittEditViewTemplate" DataType="{x:Type viewmodels:AdminUnitEditViewModel}">
-            <views:AdminUnitEditView DataContext="{Binding}"/>
+        <DataTemplate x:Name="AdminUnitCRUDViewTemplate" DataType="{x:Type viewmodels:AdminUnitCRUDViewModel}">
+            <views:AdminUnitCRUDView DataContext="{Binding}"/>
         </DataTemplate>
         <DataTemplate x:Name="AdminClientViewTemplate" DataType="{x:Type viewmodels:AdminClientViewModel}">
             <views:AdminClientView DataContext="{Binding}"/>

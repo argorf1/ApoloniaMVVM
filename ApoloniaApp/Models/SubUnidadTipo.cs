@@ -7,10 +7,9 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    public class SubUnidadTipo
+    public class SubUnidadTipo : ModelBase
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
+       
         public string Descripcion { get; set; }
         public bool Add { get; set; }
         public bool Editable { get; set; }
@@ -22,7 +21,7 @@ namespace ApoloniaApp.Models
             OracleConnection conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;

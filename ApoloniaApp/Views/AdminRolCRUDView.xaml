@@ -147,6 +147,7 @@
                             VerticalContentAlignment="Center" 
                             VerticalAlignment="Top" Width="180"
                             Command="{Binding CrudRol}"
+                            IsEnabled="{Binding CanCrud}"
                             Style="{DynamicResource SubmitButton}" />
 
                     <Button x:Name="btnCancel"
@@ -154,7 +155,7 @@
                             HorizontalAlignment="Center" Margin="0,20,0,0" 
                             VerticalContentAlignment="Center" 
                             VerticalAlignment="Top" Width="180"
-                            Command="{Binding NavigationRol}"
+                            Command="{Binding ReturnCommand}"
                             Style="{DynamicResource CancelButton}" />
 
                 </StackPanel>

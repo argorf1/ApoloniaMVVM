@@ -9,8 +9,8 @@ namespace ApoloniaApp.Models
 {
     public class RolModel : EntityModelBase
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
+
+        
         public string Descripcion { get; set; }
         public SubUnidadModel Subunidad { get; set; }
         public UnidadModel Unidad { get; set; }
@@ -37,7 +37,7 @@ namespace ApoloniaApp.Models
         {
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("c_rol", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -66,7 +66,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -113,7 +113,7 @@ namespace ApoloniaApp.Models
             bool read = true;
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -146,7 +146,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("u_rol", conn);
                 cmd.CommandType = CommandType.StoredProcedure;

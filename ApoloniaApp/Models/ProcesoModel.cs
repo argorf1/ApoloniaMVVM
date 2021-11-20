@@ -9,8 +9,6 @@ namespace ApoloniaApp.Models
 {
     public class ProcesoModel : EntityModelBase
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public SubUnidadModel Subunidad { get; set; }
         public RolModel Rol { get; set; }
@@ -40,7 +38,7 @@ namespace ApoloniaApp.Models
         {
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("c_proceso_tipo", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -71,7 +69,7 @@ namespace ApoloniaApp.Models
             conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "r_procesos_tipo_all";
@@ -92,7 +90,7 @@ namespace ApoloniaApp.Models
                     };
                     p.Rol = new RolModel() { Nombre=r.GetString(3), Id = r.GetInt32(4)};
                     p.Unidad = new UnidadModel() { Rut = r.GetString(10) };
-                    p.Creador = new UsuarioInternoModel() { NombreCompleto = r.GetString(5), Run = r.GetString(6) };
+                    p.Creador = new UsuarioInternoModel() { Nombre = r.GetString(5), Run = r.GetString(6) };
                     p.Subunidad = new SubUnidadModel() {Nombre=r.GetString(7), Id = r.GetInt32(8)};
                     listaNegocio.Add(p);
                 }
@@ -112,7 +110,7 @@ namespace ApoloniaApp.Models
             bool read = true;
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -145,7 +143,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("u_proceso_tipo", conn);
                 cmd.CommandType = CommandType.StoredProcedure;

@@ -71,6 +71,7 @@
                             Content="Nuevo Rol"  Height="20" 
                             VerticalContentAlignment="Center" 
                             Width="100"
+                            IsEnabled="{Binding CanCreate}"
                             Command="{Binding NavigationCreateRol}"
                             Style="{DynamicResource ToolBtn}"/>
                 </StackPanel>
@@ -131,6 +132,7 @@
                         VerticalContentAlignment="Center" 
                         Width="100"
                         Margin="80,3,30,3"
+                        IsEnabled="{Binding CanEdit}"
                         Command="{Binding NavigationUpdateRol}" 
                         Style="{DynamicResource ToolBtn}"/>
 

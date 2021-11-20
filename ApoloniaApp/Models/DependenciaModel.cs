@@ -9,7 +9,6 @@ namespace ApoloniaApp.Models
 {
     public class DependenciaModel : EntityModelBase
     {
-        public int Id { get; set; }
         public int IdTarea { get; set; }
         public TareaModel Tarea{ get; set; }
 
@@ -31,7 +30,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("c_dependen_tarea_tipo", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -59,7 +58,7 @@ namespace ApoloniaApp.Models
             conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "r_dependencias_tt_all";
@@ -116,7 +115,7 @@ namespace ApoloniaApp.Models
             conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;

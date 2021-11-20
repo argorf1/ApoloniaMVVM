@@ -49,6 +49,7 @@ namespace ApoloniaApp.ViewModels
         {
             LoginCommand = new LoginCommand(this, navigationStore, accountStore, listStore);
             _listStore = listStore;
+            _accountStore = accountStore;
         }
     }
 }

@@ -24,31 +24,6 @@ namespace ApoloniaApp.ViewModels
         private bool _canEditUnit;
 
 
-        public int SelectedUnitIndex
-        {
-            get { return _selectedUnitIndex; }
-            set
-            {
-                _selectedUnitIndex = value;
-                OnPropertyChanged("SelectedUnitIndex");
-
-                OnPropertyChanged("Rut");
-                OnPropertyChanged("RazonSocial");
-                OnPropertyChanged("PersonaContacto");
-                OnPropertyChanged("TelefonoContacto");
-                OnPropertyChanged("EmailContacto");
-                OnPropertyChanged("ResponsableRun");
-                OnPropertyChanged("Calle");
-                OnPropertyChanged("Numero");
-                OnPropertyChanged("Complemento");
-                OnPropertyChanged("Region");
-                OnPropertyChanged("Provincia");
-                OnPropertyChanged("Comuna");
-                OnPropertyChanged("Rubro");
-                OnPropertyChanged("ResponsableNombre");
-                OnPropertyChanged("Estado");
-            }
-        }
         public UnidadModel SelectedUnidad
         {
             get { return _editUnit; }
@@ -59,6 +34,7 @@ namespace ApoloniaApp.ViewModels
                 if (_editUnit != null)
                 {
                     CanEditUnit = true;
+                    CanCreateSubunit = true;
                 }
                 else
                 {
@@ -122,7 +98,7 @@ namespace ApoloniaApp.ViewModels
             get
             {
 
-                return _editUnit.Rubro;
+                return _editUnit.Rubro.Nombre;
 
             }
             set
@@ -136,7 +112,7 @@ namespace ApoloniaApp.ViewModels
             get
             {
 
-                return _editUnit.DireccionId;
+                return _editUnit.Direccion.Id;
 
             }
             set
@@ -192,7 +168,7 @@ namespace ApoloniaApp.ViewModels
             get
             {
 
-                return _editUnit.ResponsableNombre;
+                return _editUnit.Responsable.Nombre + " " + _editUnit.Responsable.ApellidoP;
 
             }
             set
@@ -206,7 +182,7 @@ namespace ApoloniaApp.ViewModels
             get
             {
 
-                return _editUnit.Estado;
+                return _editUnit.Estado.Nombre;
 
             }
             set
@@ -220,7 +196,7 @@ namespace ApoloniaApp.ViewModels
             get
             {
 
-                return _editUnit.Calle;
+                return _editUnit.Direccion.Calle;
 
             }
             set
@@ -233,7 +209,7 @@ namespace ApoloniaApp.ViewModels
         {
             get
             {
-                return _editUnit.Numero;
+                return _editUnit.Direccion.Numero;
             }
             set
             {
@@ -246,7 +222,7 @@ namespace ApoloniaApp.ViewModels
             get
             {
 
-                return _editUnit.Complemento;
+                return _editUnit.Direccion.Complemento;
 
             }
             set
@@ -261,7 +237,7 @@ namespace ApoloniaApp.ViewModels
             get
             {
 
-                return _editUnit.Region;
+                return _editUnit.Direccion.Region.Nombre;
             }
             set
             {
@@ -274,7 +250,7 @@ namespace ApoloniaApp.ViewModels
             get
             {
 
-                return _editUnit.Provincia;
+                return _editUnit.Direccion.Provincia.Nombre;
 
             }
             set
@@ -288,7 +264,7 @@ namespace ApoloniaApp.ViewModels
             get
             {
 
-                return _editUnit.Comuna;
+                return _editUnit.Direccion.Comuna.Nombre;
 
             }
             set
@@ -394,10 +370,10 @@ namespace ApoloniaApp.ViewModels
             _funcionarios = _listStore.funcionarios;
 
 
-            NavigationCreateUnit = new NavigatePanelCommand<AdminUnitCreateViewModel>(_frameStore, () => new AdminUnitCreateViewModel(_frameStore, CurrentAccount, _listStore));
-            NavigationEditUnit = new NavigatePanelCommand<AdminUnitEditViewModel>(_frameStore, () => new AdminUnitEditViewModel(_frameStore, CurrentAccount, _editUnit, _listStore));
-            NavigationCreateSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(frameStore, currentAccount, new SubUnidadModel() { RutUnidad = _editUnit.Rut }, subunidades, 1, _listStore));
-            NavigationEditSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(frameStore, currentAccount, _editSubunit, subunidades, 2, _listStore));
+            NavigationCreateUnit = new NavigatePanelCommand<AdminUnitCRUDViewModel>(_frameStore, () => new AdminUnitCRUDViewModel(_frameStore, CurrentAccount,new UnidadModel(), 1,_listStore));
+            NavigationEditUnit = new NavigatePanelCommand<AdminUnitCRUDViewModel>(_frameStore, () => new AdminUnitCRUDViewModel(_frameStore, CurrentAccount, _editUnit, 2,_listStore));
+            NavigationCreateSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(_frameStore, CurrentAccount, new SubUnidadModel() { RutUnidad = _editUnit.Rut }, 1, _listStore));
+            NavigationEditSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(_frameStore, CurrentAccount, _editSubunit, 2, _listStore));
         }
 
         public ICommand NavigationCreateUnit { get; }

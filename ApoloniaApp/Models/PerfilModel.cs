@@ -10,8 +10,8 @@ namespace ApoloniaApp.Models
     public class PerfilModel : ModelBase
     {
 
-        public int Id { get; set; }
-        public string Detalle { get; set; }
+
+        
 
         public PerfilModel()
         {
@@ -31,7 +31,7 @@ namespace ApoloniaApp.Models
             OracleConnection conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -48,7 +48,7 @@ namespace ApoloniaApp.Models
                 {
                     PerfilModel rol = new PerfilModel()
                     {
-                        Detalle = r.GetString(0),
+                        Nombre = r.GetString(0),
                         Id = r.GetInt32(1)
                     };
                     listaNegocio.Add(rol);
@@ -70,14 +70,14 @@ namespace ApoloniaApp.Models
             OracleConnection conn = new OracleConnection();
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
                 OracleCommand cmd = new OracleCommand("select nombre from perfil_usuarios where ID = :id", conn);
                 cmd.Parameters.Add(":id", OracleDbType.NVarchar2).Value = this.Id;
                 OracleDataReader r = cmd.ExecuteReader();
 
                 if (r.Read())
                 {
-                    this.Detalle = r.GetString(0);
+                    this.Nombre = r.GetString(0);
                     conn.Close();
                     return;
                 }

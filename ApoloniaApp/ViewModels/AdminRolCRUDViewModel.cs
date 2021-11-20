@@ -17,7 +17,21 @@ namespace ApoloniaApp.ViewModels
         private ListStore _listStore;
         public UsuarioInternoModel CurrentAccount;
         private RolModel _crudRol;
+
+        #region Validation Properties
+        private List<Func<bool>> _validations;
+
+        public bool CanCrud
+        {
+            get => ValidationService.All(_validations);
+            set
+            {
+                OnPropertyChanged("CanCrud");
+            }
+        }
+        #endregion
         public ICommand CrudRol { get; }
+        public ICommand ReturnCommand { get; }
         public AdminRolCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, RolModel crudRol, int estado, ListStore listStore)
         {
             _frameStore = frameStore;
@@ -37,24 +51,37 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Create(), () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudRol.ReadByNombre(), _crudRol);
+                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Create(), () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudRol.ReadByNombre(), _crudRol, _listStore.roles, 1);
                     break;
                 case 2:
-                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Update(), () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudRol);
+                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Update(), () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudRol, _listStore.roles, 2);
                     break;
                 default:
                     break;
             }
+            ReturnCommand = new NavigatePanelCommand<AdminRolViewModel>(_frameStore, () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore));
+
             #endregion
 
             #region Carga Listas
-            _subunidades = new ChargeComboBoxService<SubUnidadModel>().ChargeComboBox(_listStore.subunidades.Where(p=> p.RutUnidad == _crudRol.Unidad.Rut), _subunidades, new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad --" });
-            _roles = new ChargeComboBoxService<RolModel>().ChargeComboBox(_listStore.roles,_roles, new RolModel() { Id = 0, Nombre = "-- Rol --" });
+            _subunidades = ChargeComboBoxService<SubUnidadModel>.ChargeComboBox(_listStore.subunidades.Where(p=> p.RutUnidad == _crudRol.Unidad.Rut), _subunidades, new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad --" });
+            _roles = ChargeComboBoxService<RolModel>.ChargeComboBox(_listStore.roles,_roles, new RolModel() { Id = 0, Nombre = "-- Rol --" });
 
             _roles.Remove(_roles.FirstOrDefault(r => r.Id == _crudRol.Id && r.Id != 0));
 
             SelectedSubunidad = _subunidades.LastOrDefault(s => s.Id == _crudRol.Subunidad.Id || s.Id == 0);
             SelectedRol = _roles.LastOrDefault(r => r.Id == _crudRol.RolSuperior || r.Id == 0);
+            #endregion
+
+            #region CargaValidaciones
+            _validations = new List<Func<bool>>();
+            _validations.AddRange(new List<Func<bool>>()
+            {
+                 ()=> ValidationService.Text(Nombre)
+                ,()=> ValidationService.Text(Descripcion)
+                ,()=> ValidationService.ComboBoxId(SelectedSubunidad.Id)
+                ,()=> ValidationService.ComboBoxId(SelectedRol.Id)
+            });
             #endregion
         }
 
@@ -90,6 +117,20 @@ namespace ApoloniaApp.ViewModels
         private ObservableCollection<SubUnidadModel> _subunidades;
         public IEnumerable<SubUnidadModel> Subunidades => _subunidades;
 
+        private bool _validSubunidad = false;
+        public bool ValidSubunidad
+        {
+            get => _validSubunidad;
+            set
+            {
+                _validSubunidad = value;
+
+                OnPropertyChanged("CanCrud");
+
+                OnPropertyChanged("ValidSubunidad");
+            }
+        }
+
         public SubUnidadModel SelectedSubunidad
         {
 
@@ -97,10 +138,8 @@ namespace ApoloniaApp.ViewModels
             set
             {
                 _crudRol.Subunidad = value;
-                if (_crudRol.Unidad != null)
-                {
-                    Roles = _roles.Where(s => s.Subunidad.Id == _crudRol.Subunidad.Id || s.Id == 0);
-                }
+                Roles = _roles.Where(s => s.Subunidad.Id == _crudRol.Subunidad.Id || s.Id == 0 || (s.Nivel == 0 && s.Unidad.Rut == _crudRol.Unidad.Rut && SelectedSubunidad.Id != 0));
+                ValidSubunidad = ValidationService.ComboBoxId(SelectedSubunidad.Id);
                 OnPropertyChanged("SelectedUnidad");
             }
         }
@@ -110,6 +149,19 @@ namespace ApoloniaApp.ViewModels
         private IEnumerable<RolModel> roles;
         private RolModel _selectedRol;
 
+        private bool _validRol = false;
+        public bool ValidRol
+        {
+            get => _validRol;
+            set
+            {
+                _validRol = value;
+
+                OnPropertyChanged("CanCrud");
+
+                OnPropertyChanged("ValidRol");
+            }
+        }
 
         public IEnumerable<RolModel> Roles
         {
@@ -127,10 +179,8 @@ namespace ApoloniaApp.ViewModels
             {
                 _selectedRol = value;
                 _crudRol.RolSuperior = _selectedRol.Id;
-                if (_selectedRol.Id != 0)
-                    _crudRol.Nivel = _selectedRol.Nivel + 1;
-                else
-                    _crudRol.Nivel = 0;
+                _crudRol.Nivel = _selectedRol.Nivel + 1;
+                ValidRol = ValidationService.ComboBoxId(SelectedRol.Id);
 
                 OnPropertyChanged("SelectedRol");
 
@@ -139,46 +189,53 @@ namespace ApoloniaApp.ViewModels
         #endregion
 
         #region Propiedades
+        private bool _validNombre = false;
+        public bool ValidNombre
+        {
+            get => _validNombre;
+            set
+            {
+                _validNombre = value;
+
+                OnPropertyChanged("CanCrud");
+
+                OnPropertyChanged("ValidNombre");
+            }
+        }
+
         public string Nombre
         {
             get { return _crudRol.Nombre; }
             set
             {
                 _crudRol.Nombre = value;
+                ValidNombre = ValidationService.Text(Nombre);
                 OnPropertyChanged("Nombre");
             }
         }
+
+        private bool _validDescripcion = false;
+        public bool ValidDescripcion
+        {
+            get => _validDescripcion;
+            set
+            {
+                _validDescripcion = value;
+
+                OnPropertyChanged("CanCrud");
+
+                OnPropertyChanged("ValidDescripcion");
+            }
+        }
+
         public string Descripcion
         {
             get { return _crudRol.Descripcion; }
             set
             {
                 _crudRol.Descripcion = value;
+                ValidDescripcion = ValidationService.Text(Descripcion);
                 OnPropertyChanged("Descripcion");
-            }
-        }
-
-        public RolModel Superior
-        {
-            get
-            {
-                return _selectedRol;
-            }
-            set
-            {
-                _selectedRol = value;
-                _crudRol.RolSuperior = _selectedRol.Id;
-                OnPropertyChanged("Superior");
-            }
-        }
-
-        public SubUnidadModel Subunidad
-        {
-            get { return _crudRol.Subunidad; }
-            set 
-            {
-                _crudRol.Subunidad = value;
-                OnPropertyChanged("Subunidad"); 
             }
         }
         #endregion

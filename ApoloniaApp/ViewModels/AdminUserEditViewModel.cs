@@ -65,7 +65,7 @@ namespace ApoloniaApp.ViewModels
             {
                 _editUser.Run = value;
 
-                ValidRun = ValidationService.ValidateRun(value);
+                ValidRun = ValidationService.Run(value);
                 OnPropertyChanged("Run");
             }
         }
@@ -172,10 +172,10 @@ namespace ApoloniaApp.ViewModels
         }
         public int Estado
         {
-            get { return _editUser.IdEstado; }
+            get { return _editUser.Estado.Id; }
             set
             {
-                _editUser.IdEstado = value;
+                _editUser.Estado.Id = value;
                 OnPropertyChanged("Estado");
             }
         }
@@ -199,7 +199,7 @@ namespace ApoloniaApp.ViewModels
                 _selectedEstadoIndex = value;
                 if (value > 0)
                 {
-                    _editUser.IdEstado = _selectedEstadoIndex;
+                    _editUser.Estado.Id = _selectedEstadoIndex;
                 }
                 OnPropertyChanged("SelectedEstadoIndex");
             }
@@ -228,25 +228,25 @@ namespace ApoloniaApp.ViewModels
 
             #region Combobox Constructor
 
-            SelectedPerfil = Perfiles.First(p => p.Id == _editUser.IdPerfil);
-            SelectedEstado = Estados.First(p => p.Id == _editUser.IdEstado);
+            SelectedPerfil = Perfiles.First(p => p.Id == _editUser.Perfil.Id);
+            SelectedEstado = Estados.First(p => p.Id == _editUser.Estado.Id);
             #endregion
 
             #region CargaValidaciones
             _validations = new List<Func<bool>>();
             _validations.AddRange(new List<Func<bool>>()
             {
-                ()=>ValidationService.ValidateRun(Run),
-                ()=>ValidationService.ValidateText(Nombres),
-                ()=>ValidationService.ValidateText(ApellidoP),
-                ()=>ValidationService.ValidateText(ApellidoM),
-                ()=>ValidationService.ValidateEmail(Email),
-                () =>ValidationService.ValidateComboBoxId(_selectedPerfil)
+                ()=>ValidationService.Run(Run),
+                ()=>ValidationService.Text(Nombres),
+                ()=>ValidationService.Text(ApellidoP),
+                ()=>ValidationService.Text(ApellidoM),
+                ()=>ValidationService.Email(Email),
+                () =>ValidationService.ComboBoxId(_selectedPerfil.Id)
             });
             #endregion
 
             NavigationUsers = new NavigatePanelCommand<AdminUserViewModel>(_frameStore, () => new AdminUserViewModel(_frameStore, _editUser, _listStore));
-            EditUser = new CRUDCommand<AdminUserViewModel, UsuarioInternoModel>(() => _editUser.Update(), () => new AdminUserViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _editUser);
+            //EditUser = new CRUDCommand<AdminUserViewModel, UsuarioInternoModel>(() => _editUser.Update(), () => new AdminUserViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _editUser);
         }
 
         public ICommand NavigationUsers { get; }

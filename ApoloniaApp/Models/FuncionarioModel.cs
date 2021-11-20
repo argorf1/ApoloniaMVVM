@@ -1,4 +1,5 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿using ApoloniaApp.Services;
+using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections.Generic;
@@ -8,16 +9,9 @@ using System.Text;
 
 namespace ApoloniaApp.Models
 {
-    public class FuncionarioModel : EntityModelBase
+    public class FuncionarioModel : UsuarioModelBase
     {
         #region Atributos
-        public string Run { get; set; }
-        public string Nombre { get; set; }
-        public string ApellidoP { get; set; }
-        public string ApellidoM { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public EstadoModel Estado { get; set; }
         public RolModel Rol { get; set; }
         public UnidadModel Unidad { get; set; }
         public SubUnidadModel Subunidad { get; set; }
@@ -29,17 +23,22 @@ namespace ApoloniaApp.Models
 
         public FuncionarioModel()
         {
+            Run = "";
+
             Estado = new EstadoModel();
             Rol = new RolModel();
             Unidad = new UnidadModel();
             Subunidad = new SubUnidadModel();
+
+            NombreEntidad = "Funcionario";
+            Mensaje = "";
         }
         #region CRUD
         public bool Create()
         {
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("c_funcionario", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -58,6 +57,8 @@ namespace ApoloniaApp.Models
 
                 conn.Close();
 
+                MailingService.NewUser(this.Email, this.NombreCompleto, this.Run, this.Password);
+
                 return true;
             }
             catch (Exception e)
@@ -74,7 +75,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -103,7 +104,7 @@ namespace ApoloniaApp.Models
                     f.Unidad = new UnidadModel() { RazonSocial = r.GetString(5), Rut = r.GetString(9) };
                     f.Subunidad = new SubUnidadModel() { Nombre = r.GetString(6), Id = r.GetInt32(10) };
                     f.Rol = new RolModel() { Nombre = r.GetString(7), Id = r.GetInt32(11) };
-                    f.Estado = new EstadoModel() { Detalle = r.GetString(8), Id = r.GetInt32(12) };
+                    f.Estado = new EstadoModel() { Nombre = r.GetString(8), Id = r.GetInt32(12) };
 
                     listaNegocio.Add(f);
                 }
@@ -125,7 +126,7 @@ namespace ApoloniaApp.Models
         {
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
                 OracleCommand cmd = new OracleCommand("select * from funcionarios where RUN = :username", conn);
                 cmd.Parameters.Add(":username", OracleDbType.NVarchar2).Value = this.Run;
                 r = cmd.ExecuteReader();
@@ -155,7 +156,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand();
                 cmd.Connection = conn;
@@ -201,7 +202,7 @@ namespace ApoloniaApp.Models
 
             try
             {
-                conn = new Conexion().AbrirConexion();
+                conn = Conexion.AbrirConexion();
 
                 OracleCommand cmd = new OracleCommand("u_funcionario", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
