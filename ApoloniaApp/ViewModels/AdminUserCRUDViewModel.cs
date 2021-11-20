@@ -37,7 +37,7 @@ namespace ApoloniaApp.ViewModels
             get
             {
                 if (_estado == 1)
-                    return "hidden";
+                    return "collapsed";
                 else
                     return "visible";
             }

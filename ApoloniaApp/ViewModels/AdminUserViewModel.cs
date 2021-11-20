@@ -88,6 +88,15 @@ namespace ApoloniaApp.ViewModels
             }
         }
 
+        public string NombreCompleto
+        {
+            get => _crudUsuario.NombreCompleto;
+            set
+            {
+                OnPropertyChanged("NombreCompleto");
+            }
+        }
+
         public string ApellidoP
         {
             get => _crudUsuario.ApellidoP;

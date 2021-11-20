@@ -15,19 +15,40 @@ namespace ApoloniaApp.ViewModels
         private readonly AccountStore _accountStore;
         private readonly FrameStore _frameStore;
         private readonly ListStore _listStore;
-        
         public  ViewModelBase CurrentViewModel => _frameStore.CurrentViewModel;
         public UsuarioInternoModel CurrentAccount;
 
-        private string _logUser;
+        private PerfilModel rol;
         public string LogUser
         {
-            get { return _logUser; }
+            get => (CurrentAccount.Nombre + " " + CurrentAccount.ApellidoP + " ( " + rol.Nombre + " )");
             set {
-                _logUser = value;
                 OnPropertyChanged("LogUser"); 
             }
 
+        }
+        private bool _isCheck;
+        public bool IsCheck
+        {
+            get => _isCheck;
+            set
+            {
+                _isCheck = value;
+
+                Collapse = _isCheck ? "Collapsed" : "Visible";
+                OnPropertyChanged("IsCheck");
+            }
+        }
+        private string _collapse;
+        public string Collapse
+        {
+            get => _collapse;
+            set
+            {
+                _collapse = value;
+
+                OnPropertyChanged("Collapse");
+            }
         }
         public AdminViewModel(NavigationStore navigationStore, AccountStore accountStore, ListStore listStore)
         {
@@ -55,8 +76,8 @@ namespace ApoloniaApp.ViewModels
             #endregion
 
 
-            PerfilModel rol = new PerfilModel(CurrentAccount.Perfil.Id);
-            LogUser += CurrentAccount.Nombre + " " + CurrentAccount.ApellidoP + "(" + rol.Nombre + ")";
+            rol = new PerfilModel(CurrentAccount.Perfil.Id);
+
             _frameStore.CurrentViewModelChanged += OnCurrentPanelChanged;
 
             NavigationUser = new NavigatePanelCommand<AdminUserViewModel>(_frameStore, () => new AdminUserViewModel(_frameStore,CurrentAccount,_listStore));
