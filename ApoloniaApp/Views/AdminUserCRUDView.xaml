@@ -60,6 +60,14 @@
 
                     <Label x:Name="lblNewRun" Content="RUN"
                             Style="{StaticResource FormLabel}"/>
+                    
+                    <Image Source="/Assets/Icons/ico_required.png"
+                           Width="12"
+                           Height="12"
+                           Margin="0,0,0,1"
+                           VerticalAlignment="Center"
+                           ToolTip="Este campo es obligatorio."
+                           Visibility="Visible"/>
                 </StackPanel>
 
                 <!-- // RUN: TextBox // -->
@@ -72,8 +80,7 @@
                              Style="{DynamicResource TextBoxRoundedCorners}"/>
 
                     <Image x:Name="imgNewRun"
-                               Height="17"
-                               Width="17"
+                           Height="17" Width="17" 
                                Margin="5,0,0,0"
                                ToolTip=""
                                VerticalAlignment="Center"
@@ -86,6 +93,13 @@
 
                     <Label x:Name="lblNewFirstName" Content="Nombres"
                             Style="{StaticResource FormLabel}"/>
+                    <Image Source="/Assets/Icons/ico_required.png"
+                           Width="12"
+                           Height="12"
+                           Margin="0,0,0,1"
+                           VerticalAlignment="Center"
+                           ToolTip="Este campo es obligatorio."
+                           Visibility="Visible"/>
 
                 </StackPanel>
 
@@ -103,6 +117,13 @@
 
                     <Label x:Name="lblNewDadSurname" Content="Apellido Parterno"
                             Style="{StaticResource FormLabel}"/>
+                    <Image Source="/Assets/Icons/ico_required.png"
+                           Width="12"
+                           Height="12"
+                           Margin="0,0,0,1"
+                           VerticalAlignment="Center"
+                           ToolTip="Este campo es obligatorio."
+                           Visibility="Visible"/>
                 </StackPanel>
 
                 <!-- // FaherSurname: TextBox // -->
@@ -120,6 +141,13 @@
 
                     <Label x:Name="lblNewMonSurname" Content="Apellido Materno"
                             Style="{StaticResource FormLabel}"/>
+                    <Image Source="/Assets/Icons/ico_required.png"
+                           Width="12"
+                           Height="12"
+                           Margin="0,0,0,1"
+                           VerticalAlignment="Center"
+                           ToolTip="Este campo es obligatorio."
+                           Visibility="Visible"/>
                 </StackPanel>
 
                 <!-- // MotherSurname: TextBox // -->
@@ -136,6 +164,13 @@
 
                     <Label x:Name="lblNewMail" Content="Correo Electrónico"
                             Style="{StaticResource FormLabel}"/>
+                    <Image Source="/Assets/Icons/ico_required.png"
+                           Width="12"
+                           Height="12"
+                           Margin="0,0,0,1"
+                           VerticalAlignment="Center"
+                           ToolTip="Este campo es obligatorio."
+                           Visibility="Visible"/>
                 </StackPanel>
 
                 <!-- // E-Mail: TextBox // -->
@@ -167,6 +202,7 @@
                     <Label x:Name="lblNewPassword" Content="Contraseña"
                            Visibility="{Binding EstadoVisibility}"
                             Style="{StaticResource FormLabel}"/>
+                    
                 </StackPanel>
 
                 <!-- // Password: TextBox // -->
@@ -200,6 +236,13 @@
 
                     <Label x:Name="lblNewUserProfile" Content="Perfil de Usuario"
                             Style="{StaticResource FormLabel}"/>
+                    <Image Source="/Assets/Icons/ico_required.png"
+                           Width="12"
+                           Height="12"
+                           Margin="0,0,0,1"
+                           VerticalAlignment="Center"
+                           ToolTip="Este campo es obligatorio."
+                           Visibility="Visible"/>
                 </StackPanel>
 
                 <!-- // User Profile: ComboBox // -->
@@ -222,6 +265,13 @@
                     <Label x:Name="lblNewUserStatus" Content="Estado Usuario"
                            Visibility="{Binding EstadoVisibility}"
                             Style="{StaticResource FormLabel}"/>
+                    <Image Source="/Assets/Icons/ico_required.png"
+                           Width="12"
+                           Height="12"
+                           Margin="0,0,0,1"
+                           VerticalAlignment="Center"
+                           ToolTip="Este campo es obligatorio."
+                           Visibility="Visible"/>
                 </StackPanel>
 
                 <!-- //  User Status: ComboBox // -->
