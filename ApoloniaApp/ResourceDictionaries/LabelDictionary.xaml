@@ -4,7 +4,7 @@
     <!-- // LABELS FONT STYLE TEMPLATE // -->
     <Style x:Key="FormLabel" TargetType="Label">
         <Setter Property="FontFamily"
-                    Value="/Assets/Fonts/Roboto-Bold.ttf #Roboto Bold"/>
+                    Value="/Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
         <Setter Property="HorizontalAlignment"
                     Value="Left"/>
         <Setter Property="VerticalAlignment"
@@ -18,7 +18,7 @@
     <!-- // LABELS FONT STYLE TEMPLATE // -->
     <Style x:Key="SubLabel" TargetType="Label">
         <Setter Property="FontFamily"
-                    Value="/Assets/Fonts/Roboto-Light.ttf #Roboto"/>
+                    Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Light"/>
         <Setter Property="HorizontalAlignment"
                     Value="Left"/>
         <Setter Property="VerticalAlignment"

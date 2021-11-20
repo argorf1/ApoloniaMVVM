@@ -55,7 +55,7 @@
                     <ComboBox x:Name="ddlUnit"
                               Grid.Column="6"  Grid.Row="0"
                               Width="180"
-                              HorizontalAlignment="Right"
+                              HorizontalAlignment="Left"
                               ItemsSource="{Binding Unidades}"
                               DisplayMemberPath="RazonSocial"
                               SelectedValuePath="RazonSocial"
