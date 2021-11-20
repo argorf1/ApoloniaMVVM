@@ -159,16 +159,11 @@
             <!-- // Backgound Image // -->
 
             <Grid x:Name="BG">
-
-
-
-
                 <Frame x:Name="CurrenContent" 
                        NavigationUIVisibility="Hidden" 
                        Content="{Binding CurrentViewModel}" Margin="72,40,0,0">
                 
                 </Frame>
-
             </Grid>
 
             <!-- // Logout Button // -->
@@ -255,6 +250,7 @@
                                       Margin="10,-20,0,0"
                                       Height="50" Width="50"
                                       BorderThickness="0"
+                                      IsChecked="{Binding IsCheck}"
                                       Style="{StaticResource tb_style}">
 
                             <!-- // Toggle Button imagen de fondo por defecto // -->
@@ -328,7 +324,7 @@
                         <!-- // Menu Item 1: Gestión de Usuarios // -->
                         <ListViewItem HorizontalAlignment="Left"
                                       Margin="0,0,0,15"
-                                       MouseEnter="ListViewItem_MouseEnter">
+                                       >
                             <StackPanel Orientation="Horizontal"
                                         Width="250">
                                 <TextBlock>
@@ -349,6 +345,7 @@
                             <ListViewItem.ToolTip>
                                 <ToolTip x:Name="tt_internalusr"
                                          Content="Gestión de Usuarios Internos"
+                                         Visibility="{Binding Collapse}"
                                          Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
                         </ListViewItem>
@@ -356,7 +353,7 @@
                         <!-- // Menu Item 2:  Gestión de Unidades// -->
                         <ListViewItem HorizontalAlignment="Left"
                                       Margin="0,0,0,15"
-                                      MouseEnter="ListViewItem_MouseEnter">
+                                      >
                             
                             <StackPanel Orientation="Horizontal" Width="250">
                                 <TextBlock>
@@ -379,6 +376,7 @@
                             <ListViewItem.ToolTip>
                                 <ToolTip x:Name="tt_units"
                                          Content="Gestión de Unidades"
+                                         Visibility="{Binding Collapse}"
                                          Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
                         </ListViewItem>
@@ -388,7 +386,7 @@
 
                         <ListViewItem HorizontalAlignment="Left"
                                       Margin="0,0,0,15"
-                                      MouseEnter="ListViewItem_MouseEnter">
+                                      >
 
                             <StackPanel Orientation="Horizontal" Width="250">
                                 <TextBlock>
@@ -411,6 +409,7 @@
                             <ListViewItem.ToolTip>
                                 <ToolTip x:Name="tt_roles"
                                          Content="Gestión de Roles"
+                                         Visibility="{Binding Collapse}"
                                          Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
                         </ListViewItem>
@@ -419,7 +418,7 @@
                         <!-- // Menu Item 4: Gestión de Funcionarios // -->
                         <ListViewItem HorizontalAlignment="Left"
                                       Margin="0,0,0,15"
-                                      MouseEnter="ListViewItem_MouseEnter">
+                                      >
 
                             <StackPanel Orientation="Horizontal" Width="250">
                                 <TextBlock>
@@ -442,6 +441,7 @@
                             <ListViewItem.ToolTip>
                                 <ToolTip x:Name="tt_externalusr"
                                          Content="Gestión de Funcionarios"
+                                         Visibility="{Binding Collapse}"
                                          Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
                         </ListViewItem>                        
@@ -450,7 +450,7 @@
                         <!-- // Menu Item 5: Cierre de Sesión // -->
                         <ListViewItem HorizontalAlignment="Left"
                                       Margin="0,0,0,15"
-                                      MouseEnter="ListViewItem_MouseEnter">
+                                      >
 
                             <StackPanel Orientation="Horizontal" Width="250">
                                 <TextBlock>
@@ -473,6 +473,7 @@
                             <ListViewItem.ToolTip>
                                 <ToolTip x:Name="tt_logout"
                                          Content="Cerrar Sesión"
+                                         Visibility="{Binding Collapse}"
                                          Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
                         </ListViewItem>                        
