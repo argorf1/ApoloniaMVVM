@@ -197,7 +197,7 @@
 
 
                 <!-- // Password: Label // -->
-                <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal" Width="210">
+                <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal" Width="210" Visibility="{Binding EstadoVisibility}">
 
                     <Label x:Name="lblNewPassword" Content="Contraseña"
                            Visibility="{Binding EstadoVisibility}"
@@ -206,15 +206,15 @@
                 </StackPanel>
 
                 <!-- // Password: TextBox // -->
-                <StackPanel Grid.Row="10" Grid.Column="0" Orientation="Horizontal">
+                <StackPanel Grid.Row="10" Grid.Column="0" Orientation="Horizontal" Visibility="{Binding EstadoVisibility}">
 
                     <components:BindablePasswordBox x:Name="txtNewPassword"
                                                     Width="180"
-                                                    Visibility="{Binding EstadoVisibility}"
+                                                    
                                                     Password="{Binding Password}"/>
                 </StackPanel>
                 <!-- // Password: Label // -->
-                <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal" Width="210">
+                <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal" Width="210" Visibility="{Binding EstadoVisibility}">
 
                     <Label x:Name="lblConfirmationPassword" Content="Confirmación Contraseña"
                            Visibility="{Binding EstadoVisibility}"
@@ -222,7 +222,7 @@
                 </StackPanel>
 
                 <!-- // Password: TextBox // -->
-                <StackPanel Grid.Row="10" Grid.Column="1" Orientation="Horizontal">
+                <StackPanel Grid.Row="10" Grid.Column="1" Orientation="Horizontal" Visibility="{Binding EstadoVisibility}">
 
                     <components:BindablePasswordBox x:Name="txtConfirmationPassword" 
                                                     Width="180"
@@ -260,7 +260,7 @@
                 </StackPanel>
 
                 <!-- // User Status: Label // -->
-                <StackPanel Grid.Row="9" Grid.Column="3" Orientation="Horizontal">
+                <StackPanel Grid.Row="9" Grid.Column="3" Orientation="Horizontal" Visibility="{Binding EstadoVisibility}">
 
                     <Label x:Name="lblNewUserStatus" Content="Estado Usuario"
                            Visibility="{Binding EstadoVisibility}"
@@ -275,7 +275,7 @@
                 </StackPanel>
 
                 <!-- //  User Status: ComboBox // -->
-                <StackPanel Grid.Row="10" Grid.Column="3" Orientation="Horizontal">
+                <StackPanel Grid.Row="10" Grid.Column="3" Orientation="Horizontal" Visibility="{Binding EstadoVisibility}">
 
                     <ComboBox x:Name="ddlNewUserStatus" 
                               Width="180" 
