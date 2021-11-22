@@ -18,7 +18,7 @@
         <!--<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>-->
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontFamily" Value="/Assets/Fonts/Roboto-Medium.ttf #Roboto Bold"/>
+        <Setter Property="FontFamily" Value="/Assets/Fonts/Roboto-Medium.ttf #Roboto Medium"/>
         <Setter Property="Background" Value="{StaticResource SubmitButton.Static.Background}"/>
         <Setter Property="BorderBrush" Value="{StaticResource SubmitButton.Static.Border}"/>
         <Setter Property="Foreground" Value="White"/>
@@ -85,7 +85,7 @@
         <!--<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>-->
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontFamily" Value="/Assets/Fonts/Roboto-Medium.ttf #Roboto Bold"/>
+        <Setter Property="FontFamily" Value="/Assets/Fonts/Roboto-Medium.ttf #Roboto Medium"/>
         <Setter Property="Background" Value="{StaticResource CancelButton.Static.Background}"/>
         <Setter Property="BorderBrush" Value="{StaticResource CancelButton.Static.Border}"/>
         <Setter Property="Foreground" Value="{StaticResource CancelButton.Static.Border}"/>
@@ -157,7 +157,7 @@
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
     <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
     <Style x:Key="ToolBarButton" TargetType="{x:Type Button}">
-        <Setter Property="FontFamily" Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Bold"/>
+        <Setter Property="FontFamily" Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Light"/>
         <!--<Setter Property="Foreground" Value="#FFE8B200"/>-->
 
         <Setter Property="FontSize" Value="13"/>
@@ -209,7 +209,7 @@
 
     <!-- // TOOLBAR BUTTON// -->
     <Style x:Key="ToolBarBtn" TargetType="{x:Type Button}">
-        <Setter Property="FontFamily" Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Bold"/>
+        <Setter Property="FontFamily" Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Light"/>
         <Setter Property="FontSize" Value="13"/>
         
         <Setter Property="Background"  Value="White"/>
@@ -261,7 +261,7 @@
     
 <!-- // TOOLBAR BUTTON// -->
     <Style x:Key="ToolBtn" TargetType="{x:Type Button}">
-        <Setter Property="FontFamily" Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Bold"/>
+        <Setter Property="FontFamily" Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Light"/>
         <Setter Property="FontSize" Value="13"/>
         
         <Setter Property="Background"  Value="White"/>

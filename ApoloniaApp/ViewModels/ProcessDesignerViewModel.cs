@@ -18,13 +18,12 @@ namespace ApoloniaApp.ViewModels
         public ViewModelBase CurrentViewModel => _frameStore.CurrentViewModel;
         public UsuarioInternoModel CurrentAccount;
 
-        private string _logUser;
+        private PerfilModel rol;
         public string LogUser
         {
-            get { return _logUser; }
+            get => (CurrentAccount.Nombre + " " + CurrentAccount.ApellidoP + " ( " + rol.Nombre + " )");
             set
             {
-                _logUser = value;
                 OnPropertyChanged("LogUser");
             }
 
@@ -46,7 +45,7 @@ namespace ApoloniaApp.ViewModels
             _listStore.funcionarios = new ReadAllCommand<FuncionarioModel>().ReadAll(()=> new FuncionarioModel().ReadAll());
             _listStore.roles = new ReadAllCommand<RolModel>().ReadAll(()=> new RolModel().ReadAll());
 
-            PerfilModel rol = new PerfilModel(CurrentAccount.Perfil.Id);
+            rol = new PerfilModel(CurrentAccount.Perfil.Id);
             LogUser += CurrentAccount.Nombre + " " + CurrentAccount.ApellidoP + "(" + rol.Nombre + ")";
             _frameStore.CurrentViewModelChanged += OnCurrentPanelChanged;
 

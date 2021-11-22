@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ApoloniaApp.Views"
              mc:Ignorable="d">
 
-    <Grid>
+    <Grid Background="White">
         <StackPanel x:Name="spCurrentContent" Orientation="Vertical">
             <StackPanel x:Name="spHeader" Orientation="Vertical" Width="auto">
 
@@ -55,7 +55,7 @@
                     <ComboBox x:Name="ddlUnit"
                               Grid.Column="6"  Grid.Row="0"
                               Width="180"
-                              HorizontalAlignment="Right"
+                              HorizontalAlignment="Left"
                               ItemsSource="{Binding Unidades}"
                               DisplayMemberPath="RazonSocial"
                               SelectedValuePath="RazonSocial"

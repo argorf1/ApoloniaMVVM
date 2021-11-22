@@ -22,5 +22,7 @@ namespace ApoloniaApp.Views
         {
             InitializeComponent();
         }
+
+
     }
 }

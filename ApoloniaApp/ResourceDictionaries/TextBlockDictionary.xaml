@@ -4,7 +4,7 @@
     <!-- // MAIN TITLE FONT STYLE TEMPLATE // -->
     <Style x:Key="MainTitle" TargetType="TextBlock">
         <Setter Property="FontFamily"
-                    Value="/Assets/Fonts/Roboto-Medium.ttf #Roboto Bold"/>
+                    Value="/Assets/Fonts/Roboto-Medium.ttf #Roboto Medium"/>
         <Setter Property="HorizontalAlignment"
                     Value="Left"/>
         <Setter Property="VerticalAlignment"
@@ -18,7 +18,7 @@
     <!-- // TITLE FONT STYLE TEMPLATE // -->
     <Style x:Key="Title" TargetType="TextBlock">
         <Setter Property="FontFamily"
-                    Value="/Assets/Fonts/Roboto-Medium.ttf #Roboto Bold"/>
+                    Value="/Assets/Fonts/Roboto-Medium.ttf #Roboto Medium"/>
         <Setter Property="HorizontalAlignment"
                     Value="Left"/>
         <Setter Property="VerticalAlignment"
@@ -32,7 +32,7 @@
     <!-- // Mid Title Font Style Template // -->
     <Style x:Key="OrangeSubtitle" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"
-                    Value="/Assets/Fonts/Roboto-Medium.ttf #Roboto Bold"/>
+                    Value="/Assets/Fonts/Roboto-Medium.ttf #Roboto Medium"/>
         <Setter Property="HorizontalAlignment"
                     Value="Left"/>
         <Setter Property="VerticalAlignment"
@@ -46,7 +46,7 @@
     <!-- // SECTION TITLE FONT STYLE TEMPLATE // -->
     <Style x:Key="SectionTitle" TargetType="TextBlock">
         <Setter Property="FontFamily"
-                    Value="/Assets/Fonts/Roboto-Bold.ttf #Roboto Bold"/>
+                    Value="/Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
         <Setter Property="VerticalAlignment"
                     Value="Center"/>
         <Setter Property="HorizontalAlignment"
