@@ -11,7 +11,7 @@ namespace ApoloniaApp.Services
         #region Validaciones
 
         public static bool Text(string text) => !string.IsNullOrEmpty(text);
-        public static bool PhoneNumber(string text) => text.Length == 8; 
+        public static bool PhoneNumber(string text) => text.Length >= 8; 
         public static bool Email(string email) => Text(email) && Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
         public static bool Run(string run) => Text(run) && (ValidateRunService.ValidaRut(run)|| run == "2");
         public static bool Password(string password)
@@ -37,7 +37,6 @@ namespace ApoloniaApp.Services
             {
                 if (!f())
                 {
-
                     return false;
                 }
             }
