@@ -6,415 +6,411 @@
              xmlns:local="clr-namespace:ApoloniaApp.Views"
              mc:Ignorable="d">
 
-    <Grid Background="White">
-        
-        <StackPanel x:Name="spCurrentContent" Orientation="Vertical">
-            <StackPanel x:Name="spHeader" Orientation="Vertical" Width="auto">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+        <Grid Background="White">
 
-                <TextBlock Text="Gestión de Usuarios Internos"
-                           Margin="5,10,0,10"
-                           Style="{StaticResource MainTitle}"/>
+            <StackPanel x:Name="spCurrentContent" Orientation="Vertical">
+                <StackPanel x:Name="spHeader" Orientation="Vertical" Width="auto">
 
-            </StackPanel>
-
-            <!-- // VIEW UNITS - Stack Panel  // -->
-            <StackPanel x:Name="spViewUsers" Orientation="Vertical" 
-                        HorizontalAlignment="Left" Margin="5,0,0,5"
-                        Visibility="Visible">
-
-                <StackPanel Orientation="Horizontal" Margin="10,0,0,5">
-                    <ToolBarTray Orientation="Horizontal"
-                                     Background="white" Width="500"
-                                     Margin="-20,0,0,0">
-
-
-                        <ToolBar x:Name="tbrUserInterMainCommand" AllowDrop="False" 
-                                         Width="Auto" Height="Auto"
-                                         Padding="0" Band="100"
-                                         Margin="-20,0,0,0"
-                                         Background="White">
-
-                            <Image Source="/Assets/Icons/ico_usrsint.png"
-                                           Visibility="Visible"  
-                                           Width="30" Height="30"
-                                           Margin="30,0,0,7"
-                                           VerticalAlignment="Center"/>
-
-                            <TextBlock Text="Usuarios Internos"
-                                               Margin="10,0,20,0"
-                                               Style="{StaticResource OrangeSubtitle}"/>
-
-                            <!--//  CREATE USER BUTTON //-->
-
-                            <Button x:Name="btnAddUser" Content="Crear Usuario"
-                                        IsEnabled="True"
-                                        Style="{DynamicResource ToolBtn}"
-                                        Padding="0,10,20,10"
-                                        Command="{Binding NavigationCreateUsers}">
-                                <Button.Tag>
-                                    <ImageSource>/Assets/Icons/ico_add.png</ImageSource>
-                                </Button.Tag>
-                            </Button>
-                        </ToolBar>
-                    </ToolBarTray>
+                    <TextBlock Text="Gestión de Usuarios Internos"
+                                   Margin="5,10,0,10"
+                                   Style="{StaticResource MainTitle}"/>
 
                 </StackPanel>
 
-                <!-- // SECTION 1: LISTADO DE USUARIOS  // -->
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="LISTADO DE USUARIOS"
-                               Grid.Column="0"  Grid.Row="0"
-                               Margin="10,0,0,5" 
-                               Style="{StaticResource SectionTitle}"/>
+                <!-- // VIEW UNITS - Stack Panel  // -->
+                <StackPanel x:Name="spViewUsers" Orientation="Vertical" 
+                                HorizontalAlignment="Left" Margin="5,0,0,5"
+                                Visibility="Visible">
 
-                    <Image x:Name="imgUserDtg" Source="/Assets/Icons/ico_collapseup.png"
-                                   Width="12"
-                                   Height="12"
-                                   Margin="5,0,0,5"
-                                   VerticalAlignment="Center"                           
-                                   Visibility="Visible"/>
-                </StackPanel>
-
-                <DataGrid Grid.Column="0" Grid.Row="1" x:Name="dtgUsers"
-                          CanUserReorderColumns="False"
-                          SelectionMode="Single"
-                          IsReadOnly="True"
-                          AutoGenerateColumns="False"
-                          ColumnWidth="auto"
-                          Margin="10" Height="160"
-                          HorizontalScrollBarVisibility="Visible"
-                          ItemsSource="{Binding Usuarios}"
-                          SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
-                          SelectedItem="{Binding SelectedUsuario}">
-
-                    <DataGrid.Columns>
-                        <DataGridTextColumn 
-                        Header="RUN" 
-                        Width="70"
-                        MinWidth="70"
-                        Binding="{Binding Run}"/>
-                        <DataGridTextColumn 
-                        Header="NOMBRES" 
-                        Width="100"
-                        MinWidth="100"
-                        Binding="{Binding Nombre}"/>
-                        <DataGridTextColumn 
-                        Header="APE. PATERNO" 
-                        Binding="{Binding ApellidoP}"/>
-                        <DataGridTextColumn 
-                        Header="APE. MATERNO" 
-                        Width="100" 
-                        MinWidth="100"
-                        Binding="{Binding ApellidoM}"/>
-                        <DataGridTextColumn 
-                        Header="PERFIL" 
-                        Width="150" 
-                        MinWidth="150"
-                        Binding="{Binding Perfil.Nombre}"/>
-                        <DataGridTextColumn 
-                        Header="ESTADO" 
-                        Width="100" 
-                        MinWidth="100"
-                        Binding="{Binding Estado.Nombre}"/>
-
-                    </DataGrid.Columns>
-                </DataGrid>
-                <StackPanel x:Name="spUserInfo" Orientation="Vertical">
-                   
-                    
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Margin="10,0,0,5">
                         <ToolBarTray Orientation="Horizontal"
-                                         Background="white" Width="500"
-                                         Margin="-20,0,0,0">
+                                             Background="white" Width="500"
+                                             Margin="-20,0,0,0">
 
-                            <ToolBar x:Name="tbrEditUnit" AllowDrop="False" 
-                                         Width="Auto" Height="Auto"
-                                         Padding="0" Band="100"
-                                         Margin="-20,0,0,0"
-                                         Background="White">
 
-                                <Image Source="/Assets/Icons/ico_usrint.png"
-                                           Visibility="Visible"  
-                                           Width="30" Height="30"
-                                           Margin="30,0,0,7"
-                                           VerticalAlignment="Center"/>
+                            <ToolBar x:Name="tbrUserInterMainCommand" AllowDrop="False" 
+                                                 Width="Auto" Height="Auto"
+                                                 Padding="0" Band="100"
+                                                 Margin="-20,0,0,0"
+                                                 Background="White">
 
-                                <TextBlock x:Name="tbkTitleUnit"
-                                               Grid.Column="0"
-                                               Grid.Row="2"                                               
-                                               FontSize="20"
-                                               Margin="5,10,10,10"                                               
-                                               Style="{StaticResource Title}">
-                                    <Run Text="{Binding Nombre}"/>
-                                    <Run Text="{Binding ApellidoP}"/>
-                                </TextBlock>
+                                <Image Source="/Assets/Icons/ico_usrsint.png"
+                                                   Visibility="Visible"  
+                                                   Width="30" Height="30"
+                                                   Margin="30,0,0,7"
+                                                   VerticalAlignment="Center"/>
 
-                                <!--//  CREATE INTERN USER BUTTON //-->
-                                <Button x:Name="btnNewUnit1" Content="Modificar Datos" 
-                                    Style="{DynamicResource ToolBtn}"
-                                    Padding="0,10,20,10"
-                                    IsEnabled="{Binding CanEdit}" 
-                                        Command="{Binding NavigationEditUsers}">
+                                <TextBlock Text="Usuarios Internos"
+                                                       Margin="10,0,20,0"
+                                                       Style="{StaticResource OrangeSubtitle}"/>
+
+                                <!--//  CREATE USER BUTTON //-->
+
+                                <Button x:Name="btnAddUser" Content="Crear Usuario"
+                                                IsEnabled="True"
+                                                Style="{DynamicResource ToolBtn}"
+                                                Padding="0,10,20,10"
+                                                Command="{Binding NavigationCreateUsers}">
                                     <Button.Tag>
-                                        <ImageSource>/Assets/Icons/ico_edit.png</ImageSource>
+                                        <ImageSource>/Assets/Icons/ico_add.png</ImageSource>
                                     </Button.Tag>
                                 </Button>
                             </ToolBar>
-                        </ToolBarTray>                        
-
+                        </ToolBarTray>
                     </StackPanel>
 
-                    <!-- // SECTION 1: INFORMACIÓN PERSONAL  // -->
+                    <!-- // SECTION 1: LISTADO DE USUARIOS  // -->
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="INFORMACIÓN PERSONAL"
-                            Grid.Column="0"  
-                            Grid.Row="0"                             
-                            Margin="0,10,0,0" 
-                            Style="{StaticResource SectionTitle}"/>
+                        <TextBlock Text="LISTADO DE USUARIOS"
+                                       Grid.Column="0"  Grid.Row="0"
+                                       Margin="10,0,0,5" 
+                                       Style="{StaticResource SectionTitle}"/>
+
+                        <Image x:Name="imgUserDtg" Source="/Assets/Icons/ico_collapseup.png"
+                                           Width="12"
+                                           Height="12"
+                                           Margin="5,0,0,5"
+                                           VerticalAlignment="Center"                           
+                                           Visibility="Visible"/>
                     </StackPanel>
 
-                    <Grid x:Name="grdUserPersonalInfo">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="210"/>
-                            <ColumnDefinition Width="210"/>
-                            <ColumnDefinition Width="210"/>
-                            <ColumnDefinition Width="210"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="10*"/>
-                            <RowDefinition Height="10*"/>
-                            <RowDefinition Height="10*"/>
-                            <RowDefinition Height="10*"/>
-                        </Grid.RowDefinitions>
+                    <DataGrid Grid.Column="0" Grid.Row="1" x:Name="dtgUsers"
+                                  CanUserReorderColumns="False"
+                                  SelectionMode="Single"
+                                  IsReadOnly="True"
+                                  AutoGenerateColumns="False"
+                                  ColumnWidth="auto"
+                                  Margin="10" Height="160"
+                                  HorizontalScrollBarVisibility="Visible"
+                                  ItemsSource="{Binding Usuarios}"
+                                  SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
+                                  SelectedItem="{Binding SelectedUsuario}"
+                                  Style="{StaticResource DataGridRoundedCorners}">
 
-                        <!-- // RUN: Label // -->
-                        <StackPanel Grid.Column="0"  Grid.Row="0" Orientation="Horizontal">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn 
+                                Header="RUN" 
+                                Width="70"
+                                MinWidth="70"
+                                Binding="{Binding Run}"/>
+                            <DataGridTextColumn 
+                                Header="NOMBRES" 
+                                Width="100"
+                                MinWidth="100"
+                                Binding="{Binding Nombre}"/>
+                            <DataGridTextColumn 
+                                Header="APE. PATERNO" 
+                                Binding="{Binding ApellidoP}"/>
+                            <DataGridTextColumn 
+                                Header="APE. MATERNO" 
+                                Width="100" 
+                                MinWidth="100"
+                                Binding="{Binding ApellidoM}"/>
+                            <DataGridTextColumn 
+                                Header="PERFIL" 
+                                Width="150" 
+                                MinWidth="150"
+                                Binding="{Binding Perfil.Nombre}"/>
+                            <DataGridTextColumn 
+                                Header="ESTADO" 
+                                Width="100" 
+                                MinWidth="100"
+                                Binding="{Binding Estado.Nombre}"/>
 
-                            <Label x:Name="lblRun" 
-                                   Content="RUN"
-                                   Style="{StaticResource FormLabel}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    
+                    <StackPanel x:Name="spUserInfo" Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <ToolBarTray Orientation="Horizontal"
+                                                 Background="white" Width="500"
+                                                 Margin="-20,0,0,0">
 
-                        </StackPanel>
+                                <ToolBar x:Name="tbrEditUnit" AllowDrop="False" 
+                                                 Width="Auto" Height="Auto"
+                                                 Padding="0" Band="100"
+                                                 Margin="-20,0,0,0"
+                                                 Background="White">
 
-                        <!-- // RUN: TextBox // -->
-                        <StackPanel Grid.Column="0"  Grid.Row="1" Orientation="Horizontal">
+                                    <Image Source="/Assets/Icons/ico_usrint.png"
+                                                   Visibility="Visible"  
+                                                   Width="30" Height="30"
+                                                   Margin="30,0,0,7"
+                                                   VerticalAlignment="Center"/>
 
-                            <TextBox x:Name="txtRun" 
-                                     Width="150"
-                                     IsReadOnly="True"
-                                     Text="{Binding Run}"
-                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+                                    <TextBlock x:Name="tbkTitleUnit"
+                                                       Grid.Column="0"
+                                                       Grid.Row="2"                                               
+                                                       FontSize="20"
+                                                       Margin="5,10,10,10"                                               
+                                                       Style="{StaticResource Title}">
+                                            <Run Text="{Binding Nombre}"/>
+                                            <Run Text="{Binding ApellidoP}"/>
+                                    </TextBlock>
 
-                        </StackPanel>
-
-                        <!-- // FirstName: Label // -->
-                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-
-                            <Label x:Name="lblFirstName"
-                                   Content="Nombres"
-                                   Style="{StaticResource FormLabel}"/>
-
-                        </StackPanel>
-
-                        <!-- // FirstName: TextBox // -->
-                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-
-                            <TextBox x:Name="txtFirstName" 
-                                     Width="180" 
-                                     IsReadOnly="True"
-                                     Text="{Binding Nombre}"
-                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
-
-                        </StackPanel>
-
-                        <!-- // FatherSurname: Label // -->
-                        <StackPanel Grid.Column="2"  Grid.Row="0"
-                                    Orientation="Horizontal">
-
-                            <Label x:Name="lblDadSurname" 
-                                   Content="Apellido Parterno"
-                                   Style="{StaticResource FormLabel}"/>
-
-                        </StackPanel>
-
-                        <!-- // FaherSurname: TextBox // -->
-                        <StackPanel Grid.Column="2"  Grid.Row="1" Orientation="Horizontal">
-
-                            <TextBox x:Name="txtDadSurname"
-                                     Width="180"
-                                     IsReadOnly="True"
-                                     Text="{Binding ApellidoP}"
-                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
-                        </StackPanel>
-
-                        <!-- // MotherSurname: Label // -->
-                        <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Horizontal">
-
-                            <Label x:Name="lblMomSurname" 
-                                   Content="Apellido Materno"
-                                   Style="{StaticResource FormLabel}"/>
-
-                        </StackPanel>
-
-                        <!-- // MotherSurname: TextBox // -->
-                        <StackPanel Grid.Row="1" Grid.Column="3" 
-                                    Orientation="Horizontal">
-
-                            <TextBox x:Name="txtMomSurname"
-                                     Width="180"
-                                     IsReadOnly="True"
-                                     Text="{Binding ApellidoM}"
-                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+                                    <!--//  CREATE INTERN USER BUTTON //-->
+                                    <Button x:Name="btnNewUnit1" Content="Modificar Datos" 
+                                            Style="{DynamicResource ToolBtn}"
+                                            Padding="0,10,20,10"
+                                            IsEnabled="{Binding CanEdit}" 
+                                                Command="{Binding NavigationEditUsers}">
+                                        <Button.Tag>
+                                            <ImageSource>/Assets/Icons/ico_edit.png</ImageSource>
+                                        </Button.Tag>
+                                    </Button>
+                                </ToolBar>
+                            </ToolBarTray>
 
                         </StackPanel>
 
-                        <!-- // E-Mail: Label // -->
-                        <StackPanel Grid.Column="0"  Grid.Row="2" Orientation="Horizontal">
-
-                            <Label x:Name="lblMail"
-                                   Content="Correo Electrónico"
-                                   Style="{StaticResource FormLabel}"/>
-
+                        <!-- // SECTION 1: INFORMACIÓN PERSONAL  // -->
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="INFORMACIÓN PERSONAL"
+                                    Grid.Column="0"  
+                                    Grid.Row="0"                             
+                                    Margin="0,10,0,0" 
+                                    Style="{StaticResource SectionTitle}"/>
                         </StackPanel>
 
-                        <!-- // E-Mail: TextBox // -->
-                        <StackPanel Grid.Column="0"  Grid.Row="3" Grid.ColumnSpan="2" 
-                                    Orientation="Horizontal">
+                        <Grid x:Name="grdUserPersonalInfo">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="210"/>
+                                <ColumnDefinition Width="210"/>
+                                <ColumnDefinition Width="210"/>
+                                <ColumnDefinition Width="210"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                            </Grid.RowDefinitions>
 
-                            <TextBox x:Name="txtMail"
-                                     Width="380"
-                                     Text="{Binding Email}"
-                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+                            <!-- // RUN: Label // -->
+                            <StackPanel Grid.Column="0"  Grid.Row="0" Orientation="Horizontal">
 
+                                <Label x:Name="lblRun" 
+                                           Content="RUN"
+                                           Style="{StaticResource FormLabel}"/>
+
+                            </StackPanel>
+
+                            <!-- // RUN: TextBox // -->
+                            <StackPanel Grid.Column="0"  Grid.Row="1" Orientation="Horizontal">
+
+                                <TextBox x:Name="txtRun" 
+                                             Width="150"
+                                             IsReadOnly="True"
+                                             Text="{Binding Run}"
+                                             Style="{DynamicResource TextBoxRoundedCorners}"/>
+
+                            </StackPanel>
+
+                            <!-- // FirstName: Label // -->
+                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+
+                                <Label x:Name="lblFirstName"
+                                           Content="Nombres"
+                                           Style="{StaticResource FormLabel}"/>
+
+                            </StackPanel>
+
+                            <!-- // FirstName: TextBox // -->
+                            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+
+                                <TextBox x:Name="txtFirstName" 
+                                             Width="180" 
+                                             IsReadOnly="True"
+                                             Text="{Binding Nombre}"
+                                             Style="{DynamicResource TextBoxRoundedCorners}"/>
+
+                            </StackPanel>
+
+                            <!-- // FatherSurname: Label // -->
+                            <StackPanel Grid.Column="2"  Grid.Row="0"
+                                            Orientation="Horizontal">
+
+                                <Label x:Name="lblDadSurname" 
+                                           Content="Apellido Parterno"
+                                           Style="{StaticResource FormLabel}"/>
+
+                            </StackPanel>
+
+                            <!-- // FaherSurname: TextBox // -->
+                            <StackPanel Grid.Column="2"  Grid.Row="1" Orientation="Horizontal">
+
+                                <TextBox x:Name="txtDadSurname"
+                                             Width="180"
+                                             IsReadOnly="True"
+                                             Text="{Binding ApellidoP}"
+                                             Style="{DynamicResource TextBoxRoundedCorners}"/>
+                            </StackPanel>
+
+                            <!-- // MotherSurname: Label // -->
+                            <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Horizontal">
+
+                                <Label x:Name="lblMomSurname" 
+                                           Content="Apellido Materno"
+                                           Style="{StaticResource FormLabel}"/>
+
+                            </StackPanel>
+
+                            <!-- // MotherSurname: TextBox // -->
+                            <StackPanel Grid.Row="1" Grid.Column="3" 
+                                            Orientation="Horizontal">
+
+                                <TextBox x:Name="txtMomSurname"
+                                             Width="180"
+                                             IsReadOnly="True"
+                                             Text="{Binding ApellidoM}"
+                                             Style="{DynamicResource TextBoxRoundedCorners}"/>
+
+                            </StackPanel>
+
+                            <!-- // E-Mail: Label // -->
+                            <StackPanel Grid.Column="0"  Grid.Row="2" Orientation="Horizontal">
+
+                                <Label x:Name="lblMail"
+                                           Content="Correo Electrónico"
+                                           Style="{StaticResource FormLabel}"/>
+
+                            </StackPanel>
+
+                            <!-- // E-Mail: TextBox // -->
+                            <StackPanel Grid.Column="0"  Grid.Row="3" Grid.ColumnSpan="2" 
+                                            Orientation="Horizontal">
+
+                                <TextBox x:Name="txtMail"
+                                             Width="380"
+                                             Text="{Binding Email}"
+                                             Style="{DynamicResource TextBoxRoundedCorners}"/>
+
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- // SECTION 2: INFORMACIÓN CORPORATIVA  // -->
+
+                        <Grid x:Name="grdUserUnitInfo">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="210"/>
+                                <ColumnDefinition Width="210"/>
+                                <ColumnDefinition Width="210"/>
+                                <ColumnDefinition Width="210"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- // Business Unit: Label // -->
+
+
+                            <!-- //  Bussiness Unit: TextBox // -->
+                            <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal"
+                                            Grid.ColumnSpan="2"/>
+
+                            <!-- // Sub Business Unit: Label // -->
+                            <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal"/>
+
+                            <!-- // Sub Business Unit: TextBox // -->
+                            <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal"
+                                            Grid.ColumnSpan="2"/>
+
+                        </Grid>
+
+                        <!-- // SECTION 3: INFORMACIÓN CORPORATIVA  // -->
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="INFORMACIÓN DE LA CUENTA"
+                                           Grid.Column="0"  Grid.Row="0" 
+                                           Margin="0,10,0,0" 
+                                           Style="{StaticResource SectionTitle}"/>
                         </StackPanel>
-                    </Grid>
 
-                    <!-- // SECTION 2: INFORMACIÓN CORPORATIVA  // -->
+                        <Grid x:Name="grdUserAccountInfo">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="139"/>
+                                <ColumnDefinition Width="72"/>
+                                <ColumnDefinition Width="210"/>
+                                <ColumnDefinition Width="210"/>
+                                <ColumnDefinition Width="210"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                            </Grid.RowDefinitions>
 
-                    <Grid x:Name="grdUserUnitInfo">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="210"/>
-                            <ColumnDefinition Width="210"/>
-                            <ColumnDefinition Width="210"/>
-                            <ColumnDefinition Width="210"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="10*"/>
-                            <RowDefinition Height="10*"/>
-                        </Grid.RowDefinitions>
-
-                        <!-- // Business Unit: Label // -->
-
-
-                        <!-- //  Bussiness Unit: TextBox // -->
-                        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal"
-                                    Grid.ColumnSpan="2"/>
-
-                        <!-- // Sub Business Unit: Label // -->
-                        <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal"/>
-
-                        <!-- // Sub Business Unit: TextBox // -->
-                        <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal"
-                                    Grid.ColumnSpan="2"/>
-
-                    </Grid>
-
-                    <!-- // SECTION 3: INFORMACIÓN CORPORATIVA  // -->
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="INFORMACIÓN DE LA CUENTA"
-                                   Grid.Column="0"  Grid.Row="0" 
-                                   Margin="0,10,0,0" 
-                                   Style="{StaticResource SectionTitle}"/>
-                    </StackPanel>
-
-                    <Grid x:Name="grdUserAccountInfo">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="139"/>
-                            <ColumnDefinition Width="72"/>
-                            <ColumnDefinition Width="210"/>
-                            <ColumnDefinition Width="210"/>
-                            <ColumnDefinition Width="210"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="10*"/>
-                            <RowDefinition Height="10*"/>
-                        </Grid.RowDefinitions>
-
-                        <!-- // User Account Name: Label // -->
-                        <StackPanel Grid.Column="0" Grid.Row="0" 
-                            Orientation="Horizontal" Grid.ColumnSpan="2">
-
-                            <Label x:Name="lblUserName"
-                                   Content="Nombre de Usuario"
-                                   Style="{StaticResource FormLabel}"/>
-
-                        </StackPanel>
-
-                        <!-- // User Account Name: TextBox // -->
-                        <StackPanel Grid.Column="0" Grid.Row="1" 
+                            <!-- // User Account Name: Label // -->
+                            <StackPanel Grid.Column="0" Grid.Row="0" 
                                     Orientation="Horizontal" Grid.ColumnSpan="2">
 
-                            <TextBox x:Name="txtUserName"
-                                     Width="180"
-                                     IsReadOnly="True"
-                                     Text="{Binding Run}"
-                                     Style="{DynamicResource TextBoxRoundedCorners}"/>
+                                <Label x:Name="lblUserName"
+                                           Content="Nombre de Usuario"
+                                           Style="{StaticResource FormLabel}"/>
 
-                        </StackPanel>
+                            </StackPanel>
 
-                        <!-- // User Profile: Label // -->
-                        <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal">
+                            <!-- // User Account Name: TextBox // -->
+                            <StackPanel Grid.Column="0" Grid.Row="1" 
+                                            Orientation="Horizontal" Grid.ColumnSpan="2">
 
-                            <Label x:Name="lblUserProfile" 
-                                   Content="Perfil de Usuario"
-                                   Style="{StaticResource FormLabel}"/>
+                                <TextBox x:Name="txtUserName"
+                                             Width="180"
+                                             IsReadOnly="True"
+                                             Text="{Binding Run}"
+                                             Style="{DynamicResource TextBoxRoundedCorners}"/>
 
-                        </StackPanel>
+                            </StackPanel>
 
-                        <!-- // User Profile: TextBox // -->
-                        <StackPanel Grid.Column="2"  Grid.Row="1" Orientation="Horizontal">
+                            <!-- // User Profile: Label // -->
+                            <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal">
 
-                            <TextBox x:Name="txtUserProfile" 
-                                     Width="180" 
-                                     IsReadOnly="True"
-                                     Style="{DynamicResource TextBoxRoundedCorners}"
-                                     Text="{Binding Perfil}"/>
+                                <Label x:Name="lblUserProfile" 
+                                           Content="Perfil de Usuario"
+                                           Style="{StaticResource FormLabel}"/>
 
-                        </StackPanel>
+                            </StackPanel>
 
-                        <!--// User Status: Label //-->
-                        <StackPanel Grid.Column="3" Grid.Row="0" 
-                            Orientation="Horizontal">
+                            <!-- // User Profile: TextBox // -->
+                            <StackPanel Grid.Column="2"  Grid.Row="1" Orientation="Horizontal">
 
-                            <Label x:Name="lblUserStatus" 
-                                   Content="Estado Cuenta"
-                                   Style="{StaticResource FormLabel}"/>
+                                <TextBox x:Name="txtUserProfile" 
+                                             Width="180" 
+                                             IsReadOnly="True"
+                                             Style="{DynamicResource TextBoxRoundedCorners}"
+                                             Text="{Binding Perfil}"/>
 
-                        </StackPanel>
+                            </StackPanel>
 
-                        <!-- // User Status: Textbox // -->
-                        <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Horizontal">
+                            <!--// User Status: Label //-->
+                            <StackPanel Grid.Column="3" Grid.Row="0" 
+                                    Orientation="Horizontal">
 
-                            <TextBox x:Name="txtUserStatus" 
-                                     Width="180" 
-                                     IsReadOnly="True"
-                                     Style="{DynamicResource TextBoxRoundedCorners}"
-                                     Text="{Binding Estado}"/>
-                        </StackPanel>
+                                <Label x:Name="lblUserStatus" 
+                                           Content="Estado Cuenta"
+                                           Style="{StaticResource FormLabel}"/>
 
-                    </Grid>
+                            </StackPanel>
 
+                            <!-- // User Status: Textbox // -->
+                            <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Horizontal">
+
+                                <TextBox x:Name="txtUserStatus" 
+                                             Width="180" 
+                                             IsReadOnly="True"
+                                             Style="{DynamicResource TextBoxRoundedCorners}"
+                                             Text="{Binding Estado}"/>
+                            </StackPanel>
+
+                        </Grid>
+
+                    </StackPanel>
 
                 </StackPanel>
 
-                <!--// USERS VIEW > USERS GRAL INFO //-->
-
-
             </StackPanel>
 
-        </StackPanel>
-
-
-
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

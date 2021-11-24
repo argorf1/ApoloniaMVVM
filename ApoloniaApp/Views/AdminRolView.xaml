@@ -4,190 +4,241 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ApoloniaApp.Views">
-    <Grid Background="White">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="57*"/>
-            <ColumnDefinition Width="8*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel x:Name="spRol" Orientation="Vertical" 
-                        HorizontalAlignment="Left"  Margin="5,0,0,5"
-                        Visibility="Visible" Grid.ColumnSpan="2">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                  VerticalScrollBarVisibility="Auto">
+        
+        <Grid Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="57*"/>
+                <ColumnDefinition Width="8*"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel x:Name="spRol" Orientation="Vertical" 
+                            HorizontalAlignment="Left"  Margin="5,0,0,5"
+                            Visibility="Visible" Grid.ColumnSpan="2">
 
 
-            <StackPanel Orientation="Horizontal"
-                    Margin="0">
-                <TextBlock x:Name="tbkTitleAddUser" Text="Gestion de Roles"
-                    Margin="0,10,0,10"/>
+                <StackPanel Orientation="Horizontal"
+                        Margin="0">
+                    <TextBlock x:Name="tbkTitleAddUser" Text="Gestion de Roles de Funcionarios"
+                               Margin="0,10,0,10"
+                               Style="{StaticResource MainTitle}"/>
 
-            </StackPanel>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="210"/>
-                    <ColumnDefinition Width="210"/>
-                    <ColumnDefinition Width="210"/>
-                    <ColumnDefinition Width="210"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                </Grid.RowDefinitions>
-
-                <!-- // SECTION 1: INFORMACIÓN PERSONAL  // -->
-                <TextBlock Grid.Column="0" Grid.Row="1"
-                            Text="Roles de Usuarios Cliente"/>
-                <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
-
-                    <Label x:Name="lblUnidad" Content="Unidad"
-                           Style="{StaticResource FormLabel}"/>
                 </StackPanel>
-                <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal">
-                    <ComboBox x:Name="dd"
-                              Grid.Column="6"  Grid.Row="0"
-                              Width="270"
-                              HorizontalAlignment="Right"
-                              ItemsSource="{Binding Unidades}"
-                              DisplayMemberPath="RazonSocial"
-                              SelectedValuePath="RazonSocial"
-                              SelectedValue="{Binding SelectedUnidad.RazonSocial}"
-                              SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}"
-                              Style="{DynamicResource CboRoundedCornersStyle}"/>
-                    <Button x:Name="btnCreateRol" Margin="20,0,0,0"
-                            Content="Nuevo Rol"  Height="20" 
-                            VerticalContentAlignment="Center" 
-                            Width="100"
-                            IsEnabled="{Binding CanCreate}"
-                            Command="{Binding NavigationCreateRol}"
-                            Style="{DynamicResource ToolBtn}"/>
-                </StackPanel>
-                <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal">
-                    <TextBlock Grid.Row="1" Grid.Column="1"
-                                   Text="LISTADO DE ROLES DE USUARIO CLIENTE"
-                                   Margin="10,10,0,0" 
-                                   Style="{StaticResource SectionTitle}"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="210"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Margin="10,0,0,5"
+                                Grid.ColumnSpan="3">
+
+                        <!-- // USERS TOOLBAR TRAY // -->
+                        <ToolBarTray Orientation="Horizontal"
+                                     Background="white" Width="1500">
+
+                            <ToolBar x:Name="tbrUnitMainCommand" AllowDrop="False" 
+                                         Width="Auto" Height="Auto"
+                                         Padding="0" Band="100"
+                                         Margin="-10,0,0,0"
+                                         Background="White">
+
+                                <Image Source="/Assets/Icons/ico_roles.png"
+                                       Visibility="Visible"  
+                                       Width="30" Height="30"
+                                       Margin="0,0,0,0"
+                                       VerticalAlignment="Center"/>
+
+                                <TextBlock Text="Roles"
+                                           Margin="5,0,20,0"
+                                           Style="{StaticResource OrangeSubtitle}"/>
+
+                                <!--//  USER TEMPLATE BUTTON //-->
+                                <Button x:Name="btnCreateRol" Content="Nuevo Rol"
+                                        Style="{DynamicResource ToolBtn}"
+                                        Padding="0,10,20,10"
+                                        IsEnabled="{Binding CanCreate}"
+                                        Command="{Binding NavigationCreateRol}">
+                                
+                                    <Button.Tag>
+                                        <ImageSource>/Assets/Icons/ico_add.png</ImageSource>
+                                    </Button.Tag>
+                                </Button>
+                            </ToolBar>
+                        </ToolBarTray>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Vertical"
+                                Grid.ColumnSpan="2">
+                        <Label x:Name="lblUnidad" Content="Unidad"
+                               Style="{StaticResource FormLabel}"
+                               Margin="0,0,0,0"/>
                     
-                    <!--<Label x:Name="lblRoles" Content="LISTADO DE ROLES DE USUARIO CLIENTE"/>-->
-                </StackPanel>
-                <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" x:Name="dtg"
-                          CanUserReorderColumns="False"
-                          SelectionMode="Single"
-                          IsReadOnly="True"
-                          AutoGenerateColumns="False"
-                          ColumnWidth="auto" Height="160"
-                          HorizontalScrollBarVisibility="Visible"
-                          ItemsSource="{Binding Roles}"
-                          SelectedItem="{Binding SelectedRol, Mode=TwoWay}" Margin="0,0,30,26" Grid.RowSpan="2">
-
-                    <DataGrid.Columns>
-                        <DataGridTextColumn 
-                            Header="ID" 
-                            Width="70"
-                            MinWidth="70"
-                            Binding="{Binding Id}"/>
-                        <DataGridTextColumn 
-                            Header="Nombre" 
-                            Width="70"
-                            MinWidth="70"
-                            Binding="{Binding Nombre}"/>
-                        <DataGridTextColumn 
-                            Header="Subunidad" 
-                            Width="70"
-                            MinWidth="70"
-                            Binding="{Binding Subunidad.Nombre}"/>
-                        <DataGridTextColumn 
-                            Header="Nivel" 
-                            Width="70"
-                            MinWidth="70"
-                            Binding="{Binding Nivel}"/>
-
-                    </DataGrid.Columns>
-
-                </DataGrid>
-                <!-- // RUN: Label // -->
-                <StackPanel Grid.Column="0" Grid.Row="7" Orientation="Horizontal">
-
-                    <Label x:Name="lblRolNombre" Content="ROL:"/>
-                    <Label x:Name="lblRolNombreSelec" Content="{Binding Nombre}"/>
+                        <ComboBox x:Name="dd" Grid.Column="6"  Grid.Row="0"                              
+                                  Width="270" HorizontalAlignment="Left"
+                                  Margin="0,0,0,0"
+                                  ItemsSource="{Binding Unidades}"
+                                  DisplayMemberPath="RazonSocial"
+                                  SelectedValuePath="RazonSocial"
+                                  SelectedValue="{Binding SelectedUnidad.RazonSocial}"
+                                  SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}"
+                                  Style="{DynamicResource CboRoundedCornersStyle}"/>
 
 
-                </StackPanel>
-                <Button x:Name="btnCancel"
-                        Grid.Column="1" Grid.Row="7"
-                        Content="Modifiar Rol"  Height="20" 
-                        VerticalContentAlignment="Center" 
-                        Width="100"
-                        Margin="80,3,30,3"
-                        IsEnabled="{Binding CanEdit}"
-                        Command="{Binding NavigationUpdateRol}" 
-                        Style="{DynamicResource ToolBtn}"/>
+                        <DataGrid x:Name="dtg" Grid.Column="0" Grid.ColumnSpan="2"
+                                  Grid.Row="5" CanUserReorderColumns="False"
+                                  Margin="0,10,30,26" Grid.RowSpan="2"
+                                  SelectionMode="Single" IsReadOnly="True"
+                                  AutoGenerateColumns="False"
+                                  ColumnWidth="auto" Height="160"
+                                  HorizontalScrollBarVisibility="Visible"
+                                  Style="{StaticResource DataGridRoundedCorners}"
+                                  ItemsSource="{Binding Roles}"
+                                  SelectedItem="{Binding SelectedRol, Mode=TwoWay}">
 
-                <!-- // E-Mail: Label // -->
-                <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn 
+                                Header="ID" 
+                                Width="70"
+                                MinWidth="70"
+                                Binding="{Binding Id}"/>
+                                <DataGridTextColumn 
+                                Header="Nombre" 
+                                Width="70"
+                                MinWidth="70"
+                                Binding="{Binding Nombre}"/>
+                                <DataGridTextColumn 
+                                Header="Subunidad" 
+                                Width="70"
+                                MinWidth="70"
+                                Binding="{Binding Subunidad.Nombre}"/>
+                                <DataGridTextColumn 
+                                Header="Nivel" 
+                                Width="70"
+                                MinWidth="70"
+                                Binding="{Binding Nivel}"/>
 
-                    <Label x:Name="lblNewMail" Content="Descripción*"
-                           Style="{StaticResource FormLabel}"/>
-                </StackPanel>
+                            </DataGrid.Columns>
 
-                <!-- // E-Mail: TextBox // -->
-                <StackPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-                    <TextBox x:Name="txtDescripcion"
-                             Text="{Binding Descripcion}"
-                             Width="387" Height="120"
-                             IsEnabled="False"
-                             Style="{DynamicResource TextBoxRoundedCorners}"/>
-                </StackPanel>
+                        </DataGrid>
 
-                <!-- // Business Unit: Label // -->
-                <StackPanel Grid.Row="11" Grid.Column="0" Orientation="Horizontal">
+                        <!-- // RUN: Label // -->
+                        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3">
+                            <ToolBarTray Orientation="Horizontal"
+                                         Background="white" Width="700"
+                                         Margin="-20,0,0,0">
 
-                    <Label x:Name="lblSubunidad" Content="Subunidad"
-                           Style="{StaticResource FormLabel}"/>
-                </StackPanel>
+                                <ToolBar x:Name="tbrEditUnit" AllowDrop="False" 
+                                         Width="Auto" Height="Auto"
+                                         Padding="0" Band="100"
+                                         Margin="-20,0,0,0"
+                                         Background="White">
 
-                <StackPanel Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" 
+                                    <Image Source="/Assets/Icons/ico_roles.png"
+                                           Visibility="Visible"  
+                                           Width="30" Height="30"
+                                           Margin="30,0,0,7"
+                                           VerticalAlignment="Center"/>
+
+                                    <TextBlock  Grid.Column="0" Grid.Row="2" 
+                                                FontSize="20" Margin="5,10,10,10"  
+                                                Style="{StaticResource Title}">
+                                            <Run Text="{Binding Nombre}"/>
+                                    </TextBlock>
+
+                                    <!--//  EDIT ROL: BUTTON //-->
+                                    <Button x:Name="btnEditROl" Content="Modificar Datos" 
+                                            Style="{DynamicResource ToolBtn}"
+                                            Padding="0,10,20,10"
+                                            IsEnabled="{Binding CanEdit}"
+                                            Command="{Binding NavigationUpdateRol}">
+                                        <Button.Tag>
+                                            <ImageSource>/Assets/Icons/ico_edit.png</ImageSource>
+                                        </Button.Tag>
+                                    </Button>
+                                </ToolBar>
+                            </ToolBarTray>
+
+                        </StackPanel>
+                    
+                    </StackPanel>                  
+                
+                    <!-- // Role Description: Label // -->
+                    <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal">
+                        <Label x:Name="lblNewMail" Content="Descripción"
+                               Style="{StaticResource FormLabel}"/>
+                        
+                    </StackPanel>
+
+                    <!-- // Role Description: TextBox // -->
+                    <StackPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                        <TextBox x:Name="txtDescripcion" Text="{Binding Descripcion}"
+                                 VerticalScrollBarVisibility="Auto"
+                                 AcceptsReturn="True" IsEnabled="False"
+                                 TextWrapping="Wrap" VerticalContentAlignment="Top"
+                                 MaxLength="4000" Width="387" Height="120"                             
+                                 Style="{DynamicResource TextBoxRoundedCorners}"/>
+                    
+                    </StackPanel>
+
+                    <!-- // Subunit: Label // -->
+                    <StackPanel Grid.Row="11" Grid.Column="0" Orientation="Horizontal">
+                        <Label x:Name="lblSubunidad" Content="Subunidad"
+                               Style="{StaticResource FormLabel}"/>
+                    
+                    </StackPanel>
+
+                    <!-- // Subunit: Text Box // -->
+                    <StackPanel Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" 
                                 Orientation="Horizontal">
+                        <TextBox Text="{Binding Subunidad}" Width="387"
+                                 IsEnabled="False"
+                                 Style="{DynamicResource TextBoxRoundedCorners}"/>
 
-                    <TextBox Text="{Binding Subunidad}" Width="387"
-                             Style="{DynamicResource TextBoxRoundedCorners}"/>
+                    </StackPanel>
 
-                </StackPanel>
-
-                <StackPanel Grid.Row="13" Grid.Column="0" Orientation="Horizontal">
-
-                    <Label x:Name="lblRol" Content="Superior (a quién reporta)*"
-                           Style="{StaticResource FormLabel}"/>
-                </StackPanel>
-
-                <StackPanel Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" 
+                    <!-- // Reporting Role: Label // -->
+                    <StackPanel Grid.Row="13" Grid.Column="0" Orientation="Horizontal">
+                        <Label x:Name="lblRol" Content="Superior a quién reporta"
+                               Style="{StaticResource FormLabel}"/>
+                    
+                    </StackPanel>
+                
+                    <!-- // Reporting Role: TextBox // -->
+                    <StackPanel Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" 
                                 Orientation="Horizontal">
-
-                    <TextBox Text="{Binding Superior}" Width="386"
-                             Style="{DynamicResource TextBoxRoundedCorners}"/>
-                </StackPanel>
-
-                <!-- // ROLE: Command Buttons // -->
-                <StackPanel Grid.Column="0" Grid.Row="16" 
-                            Grid.ColumnSpan="3"
-                            Width="390" 
-                            Orientation="Horizontal"
-                            HorizontalAlignment="Left"/>
-            </Grid>
-
-        </StackPanel>
-    </Grid>
+                        <TextBox Text="{Binding Superior}" Width="386"
+                                 IsEnabled="False"
+                                 Style="{DynamicResource TextBoxRoundedCorners}"/>
+                    
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

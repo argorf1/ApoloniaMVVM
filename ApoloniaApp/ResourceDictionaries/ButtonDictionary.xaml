@@ -258,7 +258,6 @@
     </Style>
     
     
-    
 <!-- // TOOLBAR BUTTON// -->
     <Style x:Key="ToolBtn" TargetType="{x:Type Button}">
         <Setter Property="FontFamily" Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Light"/>
@@ -280,7 +279,7 @@
                             Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{TemplateBinding Tag}"
-                                   Width="20" Height="20"
+                                   Width="22" Height="22"
                                    Margin="5" VerticalAlignment="Center"/>
                         
                         <ContentPresenter x:Name="contentPresenter" Focusable="False" 
@@ -306,7 +305,7 @@
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                            <!--<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>-->
                             <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>

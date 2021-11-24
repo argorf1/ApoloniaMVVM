@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>apolonia_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -51,6 +52,7 @@
     <None Remove="Assets\Icons\ico_userunit.png" />
     <None Remove="Assets\Icons\ico_usrexter.png" />
     <None Remove="Assets\Icons\ico_usrint.png" />
+    <None Remove="Assets\Icons\ico_usrinter.png" />
     <None Remove="Assets\Icons\ico_usrsint.png" />
     <None Remove="Assets\Icons\ico_valid.png" />
     <None Remove="Assets\Icons\ico_workflow.png" />
@@ -187,6 +189,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Icons\ico_usrint.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_usrinter.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Icons\ico_usrsint.png">
