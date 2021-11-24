@@ -414,16 +414,11 @@ namespace ApoloniaApp.ViewModels
         }
         public string TelefonoContacto
         {
-            get
-            {
-                if (_crud.TelefonoContacto == 0)
-                    return "";
-                else
-                    return _crud.TelefonoContacto.ToString();
-            }
+            get=> _crud.TelefonoContacto;
+
             set
             {
-                _crud.TelefonoContacto = int.Parse(value);
+                _crud.TelefonoContacto = value;
 
                 ValidTContacto = ValidationService.PhoneNumber(TelefonoContacto);
                 OnPropertyChanged("TelefonoContacto");

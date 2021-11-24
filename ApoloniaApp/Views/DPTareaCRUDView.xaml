@@ -62,7 +62,7 @@
                     <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3">
                         <Label Content="Nombre de la Tarea"
                                Style="{StaticResource FormLabel}"/>
-                        <Image Source="/Assets/Icons/ico_required.png"
+                        <Image Source="{Binding ImageNombre}"
                                Width="12" Height="12"
                                VerticalAlignment="Center"
                                ToolTip="Este campo es obligatorio."
