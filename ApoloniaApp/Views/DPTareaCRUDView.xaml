@@ -4,238 +4,241 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ApoloniaApp.Views">
-    <Grid Background="White">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"    
+                    VerticalScrollBarVisibility="Auto">
         <Grid Background="White">
-            <StackPanel x:Name="spRol" Orientation="Vertical" 
-                        HorizontalAlignment="Left"  Margin="5,0,0,5"
-                        Visibility="Visible">
-                <StackPanel Orientation="Horizontal"
-                    Margin="0">
-                    <TextBlock x:Name="tbkTitleProcesos" Text="Gestion de Procesos"
-                               Margin="0,10,0,10"
-                               Style="{StaticResource MainTitle}"/>
+            <Grid Background="White">
+                <StackPanel x:Name="spRol" Orientation="Vertical" 
+                            HorizontalAlignment="Left"  Margin="5,0,0,5"
+                            Visibility="Visible">
+                    <StackPanel Orientation="Horizontal"
+                        Margin="0">
+                        <TextBlock x:Name="tbkTitleProcesos" Text="Gestion de Procesos"
+                                   Margin="0,10,0,10"
+                                   Style="{StaticResource MainTitle}"/>
+                    </StackPanel>
+                    <Grid Width="600">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="18*"/>
+                            <RowDefinition Height="13*"/>
+                            <RowDefinition Height="0*"/>
+                            <RowDefinition Height="13*"/>
+                            <RowDefinition Height="9*"/>
+                            <RowDefinition Height="13*"/>
+                            <RowDefinition Height="75*"/>
+                            <RowDefinition Height="13*"/>
+                            <RowDefinition Height="14*"/>
+                            <RowDefinition Height="13*"/>
+                            <RowDefinition Height="160*"/>
+                            <RowDefinition Height="0*"/>
+                            <RowDefinition Height="0*"/>
+                            <RowDefinition Height="0*"/>
+                            <RowDefinition Height="0*"/>
+                            <RowDefinition Height="0*"/>
+                            <RowDefinition Height="15*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
+                            <TextBlock x:Name="tbkProcesos" Text="{Binding EstadoView}"
+                        Margin="0,10,0,10"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
+                            <TextBlock Text="INFORMACIÓN DE LA NUEVA TAREA"
+                                       Margin="10,0,0,5" 
+                                       Style="{StaticResource SectionTitle}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3">
+                            <Label Content="Nombre de la Tarea"
+                                   Style="{StaticResource FormLabel}"/>
+                            <Image Source="/Assets/Icons/ico_required.png"
+                                   Width="12" Height="12"
+                                   VerticalAlignment="Center"
+                                   ToolTip="Este campo es obligatorio."
+                                   Visibility="Visible"/>
+
+                        </StackPanel>
+                        <DockPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Margin="10,0,0,0">
+                            <TextBox Text="{Binding Nombre}"
+                                     Width="300"
+                                     Style="{DynamicResource TextBoxRoundedCorners}" />
+                        </DockPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="5">
+                            <Label Content="Descripción de la Tarea"
+                                   Style="{StaticResource FormLabel}"/>
+                            <Image Source="/Assets/Icons/ico_required.png"
+                                   Width="12" Height="12"
+                                   VerticalAlignment="Center"
+                                   ToolTip="Este campo es obligatorio."
+                                   Visibility="Visible"/>
+
+                        </StackPanel>
+                        <DockPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Margin="10,0,0,0">
+                            <TextBox Height="150" Width="300"                
+                                     Text="{Binding Descripcion}"
+                                     Style="{DynamicResource TextBoxRoundedCorners}" />
+                        </DockPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="7">
+                            <Label Content="Duración en días"
+                                   Style="{StaticResource FormLabel}"/>
+                            <Image Source="/Assets/Icons/ico_required.png"
+                                   Width="12" Height="12"
+                                   VerticalAlignment="Center"
+                                   ToolTip="Este campo es obligatorio."
+                                   Visibility="Visible"/>
+
+                        </StackPanel>
+                        <DockPanel Grid.Column="0" Grid.Row="8" Margin="10,0,0,10">
+                            <TextBox Text="{Binding Duracion}"
+                                     Width="300"
+                                     Style="{DynamicResource TextBoxRoundedCorners}" />
+                        </DockPanel>
+                        <Label Grid.Column="0" Grid.Row="9" Content="Responsables de Tarea"
+                               Style="{StaticResource FormLabel}"/>
+
+                        <DataGrid Grid.Column="0" Grid.Row="10"
+                              CanUserReorderColumns="False"
+                              SelectionMode="Single"
+                              IsReadOnly="True"
+                              AutoGenerateColumns="False"
+                              ColumnWidth="auto"
+                              Margin="10" Height="160"
+                              HorizontalScrollBarVisibility="Visible"
+                              ItemsSource="{Binding Funcionarios}"
+                              SelectedItem="{Binding SelectedFuncionario, Mode=TwoWay}">
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn 
+                                        Header="Nombre" 
+                                        Width="70"
+                                        MinWidth="70"
+                                        Binding="{Binding Nombre}"/>
+                                <DataGridTextColumn 
+                                        Header="Apellido" 
+                                        Width="70"
+                                        MinWidth="70"
+                                        Binding="{Binding ApellidoP}"/>
+                                <DataGridTextColumn 
+                                        Header="Rol" 
+                                        Width="70"
+                                        MinWidth="70"
+                                        Binding="{Binding Rol.Nombre}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button Content=">>" Grid.Column="1" Grid.Row="10" DockPanel.Dock="Top" 
+                                Height="20" Margin="0,50,0,0" Command="{Binding AddResponsable}"/>
+                        <Button Content="&lt;&lt;" Grid.Column="1" Grid.Row="10" DockPanel.Dock="Top" 
+                                Height="20" Margin="0,0,0,50" Command="{Binding ExtractResponsable}"/>
+                        <DataGrid Grid.Column="2" Grid.Row="10"
+                              CanUserReorderColumns="False"
+                              SelectionMode="Single"
+                              IsReadOnly="True"
+                              AutoGenerateColumns="False"
+                              ColumnWidth="auto"
+                              Margin="10" Height="160"
+                              HorizontalScrollBarVisibility="Visible"
+                              DockPanel.Dock="Right"
+                              ItemsSource="{Binding Responsables}"
+                              SelectedItem="{Binding SelectedResponsable, Mode=TwoWay}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn 
+                                        Header="Nombre" 
+                                        Width="70"
+                                        MinWidth="70"
+                                        Binding="{Binding Nombre}"/>
+                                <DataGridTextColumn 
+                                        Header="Apellido" 
+                                        Width="70"
+                                        MinWidth="70"
+                                        Binding="{Binding ApellidoP}"/>
+                                <DataGridTextColumn 
+                                        Header="Rol" 
+                                        Width="70"
+                                        MinWidth="70"
+                                        Binding="{Binding Rol.Nombre}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Label Grid.Column="0" Grid.Row="11" Content="Responsables de Tarea*"
+                               Style="{StaticResource FormLabel}"/>
+                        <DataGrid Grid.Column="0" Grid.Row="12"
+                              CanUserReorderColumns="False"
+                              SelectionMode="Single"
+                              IsReadOnly="True"
+                              AutoGenerateColumns="False"
+                              ColumnWidth="auto"
+                              Margin="10" Height="160"
+                              HorizontalScrollBarVisibility="Visible"
+                              ItemsSource="{Binding Tareas}"
+                              SelectedItem="{Binding SelectedTarea, Mode=TwoWay}">
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn 
+                                        Header="Nombre" 
+                                        Width="70"
+                                        MinWidth="70"
+                                        Binding="{Binding Nombre}"/>
+                                <DataGridTextColumn 
+                                        Header="Descripción" 
+                                        MinWidth="100"
+                                        Binding="{Binding Descripcion}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button Content=">>" Grid.Column="1" Grid.Row="12" DockPanel.Dock="Top" 
+                                Height="20" Margin="0,50,0,0" Command="{Binding AddDependencia}"/>
+                        <Button Content="&lt;&lt;" Grid.Column="1" Grid.Row="12" DockPanel.Dock="Top" 
+                                Height="20" Margin="0,0,0,50" Command="{Binding ExtractDependencia}"/>
+                        <DataGrid Grid.Column="2" Grid.Row="12"
+                              CanUserReorderColumns="False"
+                              SelectionMode="Single"
+                              IsReadOnly="True"
+                              AutoGenerateColumns="False"
+                              ColumnWidth="auto"
+                              Margin="10" Height="160"
+                              HorizontalScrollBarVisibility="Visible"
+                                      DockPanel.Dock="Right"
+                              ItemsSource="{Binding Dependencias}"
+                              SelectedItem="{Binding SelectedDependencia, Mode=TwoWay}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn 
+                                        Header="Nombre" 
+                                        Width="70"
+                                        MinWidth="70"
+                                        Binding="{Binding Nombre}"/>
+                                <DataGridTextColumn 
+                                        Header="Descripcion" 
+                                        Width="70"
+                                        MinWidth="70"
+                                        Binding="{Binding Descripcion}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <DockPanel Grid.Column="0" Grid.Row="16">
+                            <Button Content="{Binding EstadoView}" 
+                                    Command="{Binding Crud}" 
+                                    IsEnabled="{Binding CanCrud}" 
+                                    Width="100" Height="30"
+                                    Style="{DynamicResource SubmitButton}"/>
+                            <Button Content="Cancelar"
+                                    Width="100" 
+                                    Command="{Binding Return}" 
+                                    Height="30"
+                                    Style="{DynamicResource CancelButton}"/>
+                        </DockPanel>
+                    </Grid>
                 </StackPanel>
-                <Grid Width="600">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="18*"/>
-                        <RowDefinition Height="13*"/>
-                        <RowDefinition Height="0*"/>
-                        <RowDefinition Height="13*"/>
-                        <RowDefinition Height="9*"/>
-                        <RowDefinition Height="13*"/>
-                        <RowDefinition Height="75*"/>
-                        <RowDefinition Height="13*"/>
-                        <RowDefinition Height="14*"/>
-                        <RowDefinition Height="13*"/>
-                        <RowDefinition Height="160*"/>
-                        <RowDefinition Height="0*"/>
-                        <RowDefinition Height="0*"/>
-                        <RowDefinition Height="0*"/>
-                        <RowDefinition Height="0*"/>
-                        <RowDefinition Height="0*"/>
-                        <RowDefinition Height="15*"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
-                        <TextBlock x:Name="tbkProcesos" Text="{Binding EstadoView}"
-                    Margin="0,10,0,10"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
-                        <TextBlock Text="INFORMACIÓN DE LA NUEVA TAREA"
-                                   Margin="10,0,0,5" 
-                                   Style="{StaticResource SectionTitle}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3">
-                        <Label Content="Nombre de la Tarea"
-                               Style="{StaticResource FormLabel}"/>
-                        <Image Source="/Assets/Icons/ico_required.png"
-                               Width="12" Height="12"
-                               VerticalAlignment="Center"
-                               ToolTip="Este campo es obligatorio."
-                               Visibility="Visible"/>
-
-                    </StackPanel>
-                    <DockPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Margin="10,0,0,0">
-                        <TextBox Text="{Binding Nombre}"
-                                 Width="300"
-                                 Style="{DynamicResource TextBoxRoundedCorners}" />
-                    </DockPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="5">
-                        <Label Content="Descripción de la Tarea"
-                               Style="{StaticResource FormLabel}"/>
-                        <Image Source="/Assets/Icons/ico_required.png"
-                               Width="12" Height="12"
-                               VerticalAlignment="Center"
-                               ToolTip="Este campo es obligatorio."
-                               Visibility="Visible"/>
-
-                    </StackPanel>
-                    <DockPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Margin="10,0,0,0">
-                        <TextBox Height="150" Width="300"                
-                                 Text="{Binding Descripcion}"
-                                 Style="{DynamicResource TextBoxRoundedCorners}" />
-                    </DockPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="7">
-                        <Label Content="Duración en días"
-                               Style="{StaticResource FormLabel}"/>
-                        <Image Source="/Assets/Icons/ico_required.png"
-                               Width="12" Height="12"
-                               VerticalAlignment="Center"
-                               ToolTip="Este campo es obligatorio."
-                               Visibility="Visible"/>
-
-                    </StackPanel>
-                    <DockPanel Grid.Column="0" Grid.Row="8" Margin="10,0,0,10">
-                        <TextBox Text="{Binding Duracion}"
-                                 Width="300"
-                                 Style="{DynamicResource TextBoxRoundedCorners}" />
-                    </DockPanel>
-                    <Label Grid.Column="0" Grid.Row="9" Content="Responsables de Tarea"
-                           Style="{StaticResource FormLabel}"/>
-                    
-                    <DataGrid Grid.Column="0" Grid.Row="10"
-                          CanUserReorderColumns="False"
-                          SelectionMode="Single"
-                          IsReadOnly="True"
-                          AutoGenerateColumns="False"
-                          ColumnWidth="auto"
-                          Margin="10" Height="160"
-                          HorizontalScrollBarVisibility="Visible"
-                          ItemsSource="{Binding Funcionarios}"
-                          SelectedItem="{Binding SelectedFuncionario, Mode=TwoWay}">
-
-                        <DataGrid.Columns>
-                            <DataGridTextColumn 
-                                    Header="Nombre" 
-                                    Width="70"
-                                    MinWidth="70"
-                                    Binding="{Binding Nombre}"/>
-                            <DataGridTextColumn 
-                                    Header="Apellido" 
-                                    Width="70"
-                                    MinWidth="70"
-                                    Binding="{Binding ApellidoP}"/>
-                            <DataGridTextColumn 
-                                    Header="Rol" 
-                                    Width="70"
-                                    MinWidth="70"
-                                    Binding="{Binding Rol.Nombre}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Button Content=">>" Grid.Column="1" Grid.Row="10" DockPanel.Dock="Top" 
-                            Height="20" Margin="0,50,0,0" Command="{Binding AddResponsable}"/>
-                    <Button Content="&lt;&lt;" Grid.Column="1" Grid.Row="10" DockPanel.Dock="Top" 
-                            Height="20" Margin="0,0,0,50" Command="{Binding ExtractResponsable}"/>
-                    <DataGrid Grid.Column="2" Grid.Row="10"
-                          CanUserReorderColumns="False"
-                          SelectionMode="Single"
-                          IsReadOnly="True"
-                          AutoGenerateColumns="False"
-                          ColumnWidth="auto"
-                          Margin="10" Height="160"
-                          HorizontalScrollBarVisibility="Visible"
-                          DockPanel.Dock="Right"
-                          ItemsSource="{Binding Responsables}"
-                          SelectedItem="{Binding SelectedResponsable, Mode=TwoWay}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn 
-                                    Header="Nombre" 
-                                    Width="70"
-                                    MinWidth="70"
-                                    Binding="{Binding Nombre}"/>
-                            <DataGridTextColumn 
-                                    Header="Apellido" 
-                                    Width="70"
-                                    MinWidth="70"
-                                    Binding="{Binding ApellidoP}"/>
-                            <DataGridTextColumn 
-                                    Header="Rol" 
-                                    Width="70"
-                                    MinWidth="70"
-                                    Binding="{Binding Rol.Nombre}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Label Grid.Column="0" Grid.Row="11" Content="Responsables de Tarea*"
-                           Style="{StaticResource FormLabel}"/>
-                    <DataGrid Grid.Column="0" Grid.Row="12"
-                          CanUserReorderColumns="False"
-                          SelectionMode="Single"
-                          IsReadOnly="True"
-                          AutoGenerateColumns="False"
-                          ColumnWidth="auto"
-                          Margin="10" Height="160"
-                          HorizontalScrollBarVisibility="Visible"
-                          ItemsSource="{Binding Tareas}"
-                          SelectedItem="{Binding SelectedTarea, Mode=TwoWay}">
-
-                        <DataGrid.Columns>
-                            <DataGridTextColumn 
-                                    Header="Nombre" 
-                                    Width="70"
-                                    MinWidth="70"
-                                    Binding="{Binding Nombre}"/>
-                            <DataGridTextColumn 
-                                    Header="Descripción" 
-                                    MinWidth="100"
-                                    Binding="{Binding Descripcion}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Button Content=">>" Grid.Column="1" Grid.Row="12" DockPanel.Dock="Top" 
-                            Height="20" Margin="0,50,0,0" Command="{Binding AddDependencia}"/>
-                    <Button Content="&lt;&lt;" Grid.Column="1" Grid.Row="12" DockPanel.Dock="Top" 
-                            Height="20" Margin="0,0,0,50" Command="{Binding ExtractDependencia}"/>
-                    <DataGrid Grid.Column="2" Grid.Row="12"
-                          CanUserReorderColumns="False"
-                          SelectionMode="Single"
-                          IsReadOnly="True"
-                          AutoGenerateColumns="False"
-                          ColumnWidth="auto"
-                          Margin="10" Height="160"
-                          HorizontalScrollBarVisibility="Visible"
-                                  DockPanel.Dock="Right"
-                          ItemsSource="{Binding Dependencias}"
-                          SelectedItem="{Binding SelectedDependencia, Mode=TwoWay}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn 
-                                    Header="Nombre" 
-                                    Width="70"
-                                    MinWidth="70"
-                                    Binding="{Binding Nombre}"/>
-                            <DataGridTextColumn 
-                                    Header="Descripcion" 
-                                    Width="70"
-                                    MinWidth="70"
-                                    Binding="{Binding Descripcion}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <DockPanel Grid.Column="0" Grid.Row="16">
-                        <Button Content="{Binding EstadoView}" 
-                                Command="{Binding Crud}" 
-                                IsEnabled="{Binding CanCrud}" 
-                                Width="100" Height="30"
-                                Style="{DynamicResource SubmitButton}"/>
-                        <Button Content="Cancelar"
-                                Width="100" 
-                                Command="{Binding Return}" 
-                                Height="30"
-                                Style="{DynamicResource CancelButton}"/>
-                    </DockPanel>
-                </Grid>
-            </StackPanel>
+            </Grid>
         </Grid>
-    </Grid>
+    </ScrollViewer>
 </UserControl>

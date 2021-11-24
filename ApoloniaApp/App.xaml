@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/ResourceDictionaries/ButtonDictionary.xaml"/>
                 <ResourceDictionary Source="/ResourceDictionaries/ComboBoxDictionary.xaml"/>
+                <ResourceDictionary Source="/ResourceDictionaries/DataGridDictionary.xaml"/>
                 <ResourceDictionary Source="/ResourceDictionaries/LabelDictionary.xaml"/>
                 <ResourceDictionary Source="/ResourceDictionaries/TextBoxDictionary.xaml"/>
                 <ResourceDictionary Source="/ResourceDictionaries/TextBlockDictionary.xaml"/>
