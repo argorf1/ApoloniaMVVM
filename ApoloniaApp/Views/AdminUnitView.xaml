@@ -74,18 +74,15 @@
                                Visibility="Visible"/>
                     </StackPanel>
 
-                    <DataGrid Grid.Column="0" Grid.Row="1" 
-                              x:Name="dtgUnits" 
+                    <DataGrid x:Name="dtgUnits" Grid.Column="0" Grid.Row="1" 
                               CanUserReorderColumns="False" 
-                              SelectionMode="Single" 
-                              IsReadOnly="True" 
-                              AutoGenerateColumns="False" 
-                              ColumnWidth="auto" 
-                              Margin="10,0,0,5" 
-                              Height="160" 
+                              SelectionMode="Single" IsReadOnly="True" 
+                              AutoGenerateColumns="False" ColumnWidth="auto" 
+                              Margin="10,0,0,5" Height="160" 
                               HorizontalScrollBarVisibility="Visible" 
                               ItemsSource="{Binding Unidades}"
-                              SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}">
+                              SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}"
+                              Style="{DynamicResource DataGridRoundedCorners}">
 
                         <DataGrid.Columns>
                             <DataGridTextColumn 
@@ -833,7 +830,8 @@
                                       IsReadOnly="True" AutoGenerateColumns="False" 
                                       ColumnWidth="auto" Margin="10,0,10,10" Height="160"
                                       HorizontalScrollBarVisibility="Visible" 
-                                      ItemsSource="{Binding Funcionarios}">
+                                      ItemsSource="{Binding Funcionarios}"
+                                      Style="{DynamicResource DataGridRoundedCorners}">
 
                                 <DataGrid.Columns>
                                     <DataGridTextColumn 
@@ -870,31 +868,27 @@
                                        Grid.Row="0"
                                        Margin="10,10,10,5"
                                        Style="{StaticResource SectionTitle}"/>
-                            <DataGrid x:Name="dtgSubUnits"
-                                      Grid.Column="0" 
-                                      Grid.Row="1"
+                            <DataGrid x:Name="dtgSubUnits" Grid.Column="0" Grid.Row="1"
                                       CanUserReorderColumns="False" 
-                                      SelectionMode="Single" 
-                                      IsReadOnly="True"
-                                      AutoGenerateColumns="False" 
-                                      ColumnWidth="auto" 
-                                      Margin="10,0,10,10" 
-                                      Height="160" 
+                                      SelectionMode="Single" IsReadOnly="True"
+                                      AutoGenerateColumns="False" ColumnWidth="auto" 
+                                      Margin="10,0,10,10" Height="160" 
                                       HorizontalScrollBarVisibility="Visible" 
                                       ItemsSource="{Binding Subunidades}"
-                                      SelectedItem="{Binding SelectedSubunidad, Mode=TwoWay}">
+                                      SelectedItem="{Binding SelectedSubunidad, Mode=TwoWay}"
+                                      Style="{DynamicResource DataGridRoundedCorners}">
 
                                 <DataGrid.Columns>
                                     <DataGridTextColumn 
-                                                Header="ID" 
-                                                Width="70"
-                                                MinWidth="50"
-                                                Binding="{Binding Id}"/>
+                                        Header="ID" 
+                                        Width="70"
+                                        MinWidth="50"
+                                        Binding="{Binding Id}"/>
                                     <DataGridTextColumn 
-                                                Header="NOMBRE" 
-                                                Width="250"
-                                                MinWidth="250"
-                                                Binding="{Binding Nombre}"/>
+                                        Header="NOMBRE" 
+                                        Width="250"
+                                        MinWidth="250"
+                                        Binding="{Binding Nombre}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
