@@ -80,7 +80,7 @@ namespace ApoloniaApp.ViewModels
             {
                 case 1:
                     _crudUsuario.Password = PasswordGeneratorService.CreateRandomPassword(15);
-                    CrudUser = new CRUDCommand<AdminUserViewModel, UsuarioInternoModel>(() => _crudUsuario.Create(), () => new AdminUserViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudUsuario.ReadByRun(), _crudUsuario, _listStore.usuarios, 1);
+                    CrudUser = new CRUDCommand<AdminUserViewModel, UsuarioInternoModel>(() => _crudUsuario.Create(), () => new AdminUserViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudUsuario.ReadByRun(), _crudUsuario, () => _listStore.Usuarios(), 1);
                     #region Carga Validaciones
                     _validations.AddRange(new List<Func<bool>>()
                     {
@@ -94,7 +94,7 @@ namespace ApoloniaApp.ViewModels
                     #endregion
                     break;
                 case 2:
-                    CrudUser = new CRUDCommand<AdminUserViewModel, UsuarioInternoModel>(() => _crudUsuario.Update(), () => new AdminUserViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudUsuario, _listStore.usuarios, 2);
+                    CrudUser = new CRUDCommand<AdminUserViewModel, UsuarioInternoModel>(() => _crudUsuario.Update(), () => new AdminUserViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudUsuario, () => _listStore.Usuarios(), 2);
                     #region Carga Validaciones
                     _validations.AddRange(new List<Func<bool>>()
                     {

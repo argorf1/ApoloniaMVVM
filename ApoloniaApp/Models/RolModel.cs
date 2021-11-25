@@ -24,6 +24,9 @@ namespace ApoloniaApp.Models
         {
             Subunidad = new SubUnidadModel();
             Unidad = new UnidadModel();
+
+            NombreEntidad = "Rol";
+            Mensaje = "";
         }
 
         public RolModel(UnidadModel unidad)
