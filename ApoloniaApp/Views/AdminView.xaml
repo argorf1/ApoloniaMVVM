@@ -162,7 +162,7 @@
                 <Frame x:Name="CurrenContent" 
                        NavigationUIVisibility="Hidden" 
                        Content="{Binding CurrentViewModel}" Margin="72,40,0,0">
-                
+
                 </Frame>
             </Grid>
 
@@ -245,10 +245,9 @@
 
                         <ToggleButton x:Name="Tg_btn"
                                       Grid.Column="0"
-                                      VerticalAlignment="Center"
-                                      HorizontalAlignment="Left"
-                                      Margin="10,-20,0,0"
-                                      Height="50" Width="50"
+                                      VerticalAlignment="Top"
+                                      Margin="10,10,10,0"
+                                      Height="50"
                                       BorderThickness="0"
                                       IsChecked="{Binding IsCheck}"
                                       Style="{StaticResource tb_style}">
@@ -258,7 +257,7 @@
                                 <ImageBrush Stretch="Fill" 
                                             ImageSource="/Assets/Icons/ico_menu.png" />
                             </ToggleButton.Background>
-                            
+
 
                             <!-- // Toggle Button - Checked, Unchecked Events // -->
 
@@ -275,7 +274,7 @@
                                                 Storyboard.TargetName="side_menu"
                                                 Storyboard.TargetProperty="Width"
                                                 BeginTime="0:0:0"
-                                                From="250" To="70"
+                                                From="260" To="70"
                                                 Duration="0:0:0.2">
 
                                             </DoubleAnimation>
@@ -297,7 +296,7 @@
                                                 Storyboard.TargetName="side_menu"
                                                 Storyboard.TargetProperty="Width"
                                                 BeginTime="0:0:0"
-                                                From="70" To="250"
+                                                From="70" To="260"
                                                 Duration="0:0:0.3">
 
                                             </DoubleAnimation>
@@ -323,8 +322,7 @@
 
                         <!-- // Menu Item 1: Gestión de Usuarios // -->
                         <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15"
-                                       >
+                                      Margin="0,0,0,15">
                             <StackPanel Orientation="Horizontal"
                                         Width="250">
                                 <TextBlock>
@@ -338,7 +336,7 @@
                                                    Margin="15,0,0,0"
                                                    Style="{StaticResource font_style}"/>
                                     </Hyperlink>
-                                </TextBlock>    
+                                </TextBlock>
                             </StackPanel>
 
                             <!-- // Tooltip // -->
@@ -352,9 +350,8 @@
 
                         <!-- // Menu Item 2:  Gestión de Unidades// -->
                         <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15"
-                                      >
-                            
+                                      Margin="0,0,0,15">
+
                             <StackPanel Orientation="Horizontal" Width="250">
                                 <TextBlock>
                                     <Hyperlink Command="{Binding NavigationUnit}"                                               
@@ -380,13 +377,12 @@
                                          Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
                         </ListViewItem>
-                        
+
 
                         <!-- // Menu Item 3: Gestión de Roles // -->
 
                         <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15"
-                                      >
+                                      Margin="0,0,0,15">
 
                             <StackPanel Orientation="Horizontal" Width="250">
                                 <TextBlock>
@@ -413,12 +409,11 @@
                                          Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
                         </ListViewItem>
-                        
+
 
                         <!-- // Menu Item 4: Gestión de Funcionarios // -->
                         <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15"
-                                      >
+                                      Margin="0,0,0,15">
 
                             <StackPanel Orientation="Horizontal" Width="250">
                                 <TextBlock>
@@ -444,13 +439,12 @@
                                          Visibility="{Binding Collapse}"
                                          Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
-                        </ListViewItem>                        
-                        
+                        </ListViewItem>
+
 
                         <!-- // Menu Item 5: Cierre de Sesión // -->
                         <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15"
-                                      >
+                                      Margin="0,0,0,15">
 
                             <StackPanel Orientation="Horizontal" Width="250">
                                 <TextBlock>
@@ -476,8 +470,8 @@
                                          Visibility="{Binding Collapse}"
                                          Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
-                        </ListViewItem>                        
-                        
+                        </ListViewItem>
+
 
                         <!-- // Listview items style template // -->
 

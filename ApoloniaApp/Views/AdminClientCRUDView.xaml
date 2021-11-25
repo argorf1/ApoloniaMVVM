@@ -6,379 +6,395 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ApoloniaApp.Views"
              mc:Ignorable="d">
-    <Grid Background="White">
-        <StackPanel x:Name="spNewUser" Orientation="Vertical" 
-                        HorizontalAlignment="Left"  Margin="5,0,0,5"
-                        Visibility="Visible">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto">
+        <Grid Background="White">
+            <StackPanel x:Name="spNewUser" Orientation="Vertical" 
+                            HorizontalAlignment="Left"  Margin="5,0,0,5"
+                            Visibility="Visible">
+
+                <StackPanel Orientation="Horizontal"
+                        Margin="0">
+
+                    <Image Width="30"
+                           Height="30"
+                           VerticalAlignment="Center"
+                           Visibility="Visible"
+                           Margin="0,0,10,0"
+                           Source="/Assets/Icons/ico_userunit.png"/>
+
+                    <TextBlock x:Name="tbkTitleAddUser" Text="{Binding EstadoView}"
+                               Margin="0,10,0,10"
+                               Style="{StaticResource OrangeSubtitle}"/>
+
+                </StackPanel>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="210"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- // SECTION 1: INFORMACIÓN PERSONAL  // -->
+                    <TextBlock Grid.Column="0" Grid.Row="0"
+                               Text="INFORMACIÓN PERSONAL"
+                               Style="{StaticResource SectionTitle}"/>
+
+                    <!-- // RUN: Label // -->
+                    <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+
+                        <Label x:Name="lblNewRun" Content="RUN"
+                               Style="{StaticResource FormLabel}"/>
+                        <Image Source="/Assets/Icons/ico_required.png"
+                               Width="12"
+                               Height="12"
+                               Margin="0,0,0,1"
+                               VerticalAlignment="Center"
+                               ToolTip="Este campo es obligatorio."
+                               Visibility="Visible"/>
+                    </StackPanel>
+
+                    <!-- // RUN: TextBox // -->
+                    <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
+
+                        <TextBox x:Name="txtNewRun"
+                                 Text="{Binding Run}"
+                                 Width="120"
+                                 MaxLength="9"
+                                 Style="{DynamicResource TextBoxRoundedCorners}"/>
+
+                        <Image x:Name="imgNewRun"
+                               Height="17"
+                               Width="17"
+                               Margin="5,0,0,0"
+                               ToolTip=""
+                               VerticalAlignment="Center"
+                               Visibility="Hidden"/>
+
+                    </StackPanel>
+
+                    <!-- // FirstName: Label // -->
+                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+
+                        <Label x:Name="lblNewFirstName" Content="Nombres"
+                               Style="{StaticResource FormLabel}"/>
+                        <Image Source="/Assets/Icons/ico_required.png"
+                               Width="12"
+                               Height="12"
+                               Margin="0,0,0,1"
+                               VerticalAlignment="Center"
+                               ToolTip="Este campo es obligatorio."
+                               Visibility="Visible"/>
+                    </StackPanel>
+
+                    <!-- // FirstName: TextBox // -->
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+
+                        <TextBox x:Name="txtNewFirstName"
+                                 Text="{Binding Nombre}"
+                                 Width="180"
+                                 Style="{DynamicResource TextBoxRoundedCorners}"/>
+                    </StackPanel>
+
+                    <!-- // FaherSurname: Label // -->
+                    <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
+
+                        <Label x:Name="lblNewDadSurname" Content="Apellido Parterno"
+                               Style="{StaticResource FormLabel}"/>
+                        <Image Source="/Assets/Icons/ico_required.png"
+                               Width="12"
+                               Height="12"
+                               Margin="0,0,0,1"
+                               VerticalAlignment="Center"
+                               ToolTip="Este campo es obligatorio."
+                               Visibility="Visible"/>
+                    </StackPanel>
+
+                    <!-- // FaherSurname: TextBox // -->
+                    <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
+
+                        <TextBox x:Name="txtNewDadSurname"
+                                 Text="{Binding ApellidoP}"
+                                 Width="180"
+                                 Style="{DynamicResource TextBoxRoundedCorners}"/>
+
+                    </StackPanel>
+
+                    <!-- // MotherSurname: Label // -->
+                    <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal">
+
+                        <Label x:Name="lblNewMonSurname" Content="Apellido Materno"
+                               Style="{StaticResource FormLabel}"/>
+                        <Image Source="/Assets/Icons/ico_required.png"
+                               Width="12"
+                               Height="12"
+                               Margin="0,0,0,1"
+                               VerticalAlignment="Center"
+                               ToolTip="Este campo es obligatorio."
+                               Visibility="Visible"/>
+                    </StackPanel>
+
+                    <!-- // MotherSurname: TextBox // -->
+                    <StackPanel Grid.Row="2" Grid.Column="3" Orientation="Horizontal">
+
+                        <TextBox x:Name="txtNewMomSurname"
+                                 Text="{Binding ApellidoM}"
+                                 Width="180"
+                                 Style="{DynamicResource TextBoxRoundedCorners}"/>
+                    </StackPanel>
+
+                    <!-- // E-Mail: Label // -->
+                    <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
+
+                        <Label x:Name="lblNewMail" Content="Correo Electrónico"
+                               Style="{StaticResource FormLabel}"/>
+                        <Image Source="/Assets/Icons/ico_required.png"
+                               Width="12"
+                               Height="12"
+                               Margin="0,0,0,1"
+                               VerticalAlignment="Center"
+                               ToolTip="Este campo es obligatorio."
+                               Visibility="Visible"/>
+                    </StackPanel>
+
+                    <!-- // E-Mail: TextBox // -->
+                    <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+
+                        <TextBox x:Name="txtNewMail"
+                                 Text="{Binding Email}"
+                                 Width="390" VerticalAlignment="Bottom"
+                                 Style="{DynamicResource TextBoxRoundedCorners}"/>
+                    </StackPanel>
+
+                    <!-- // SECTION 2:  INFORMACIÓN GENERAL  // -->
+                    <TextBlock Grid.Row="5" Grid.Column="0" 
+                               Margin="0,10,0,0"
+                               Text="INFORMACIÓN CORPORATIVA"
+                               Style="{StaticResource SectionTitle}"/>
 
 
-            <StackPanel Orientation="Horizontal"
-                    Margin="0">
+                    <!-- // Business Unit: Label // -->
+                    <StackPanel Grid.Row="6" Grid.Column="0" Orientation="Horizontal">
 
-                <Image Width="30"
-                       Height="30"
-                       VerticalAlignment="Center"
-                       Visibility="Visible"
-                       Margin="0,0,10,0"
-                       Source="/Assets/Icons/ico_userunit.png"/>
-                
-                <TextBlock x:Name="tbkTitleAddUser" Text="{Binding EstadoView}"
-                           Margin="0,10,0,10"
-                           Style="{StaticResource OrangeSubtitle}"/>
+                        <Label x:Name="lblNewBizUnit" Content="Unidad"
+                               Style="{StaticResource FormLabel}"/>
+                        <Image Source="/Assets/Icons/ico_required.png"
+                               Width="12"
+                               Height="12"
+                               Margin="0,0,0,1"
+                               VerticalAlignment="Center"
+                               ToolTip="Este campo es obligatorio."
+                               Visibility="Visible"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
+                                    Orientation="Horizontal">
+
+                        <ComboBox x:Name="ddlNewBizUnit" Width="360"
+                                  HorizontalAlignment="Right"
+                                  ItemsSource="{Binding Unidades}"
+                                  DisplayMemberPath="RazonSocial"
+                                  SelectedValuePath="RazonSocial"
+                                  SelectedValue="{Binding SelectedUnidad.RazonSocial}"
+                                  SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}"
+                                  Style="{DynamicResource CboRoundedCornersStyle}"/>
+
+                    </StackPanel>
+
+                    <!-- // Sub Business Unit: Label // -->
+                    <StackPanel Grid.Row="6" Grid.Column="2" Orientation="Horizontal">
+
+                        <Label x:Name="lblNewSubBizUnit" Content="Subunidad"
+                               Style="{StaticResource FormLabel}"/>
+                        <Image Source="/Assets/Icons/ico_required.png"
+                               Width="12"
+                               Height="12"
+                               Margin="0,0,0,1"
+                               VerticalAlignment="Center"
+                               ToolTip="Este campo es obligatorio."
+                               Visibility="Visible"/>
+                    </StackPanel>
+
+                    <!-- // Sub Business Unit: TextBox // -->
+                    <StackPanel Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" 
+                                    Orientation="Horizontal">
+
+                        <ComboBox x:Name="ddlNewSubBizUnit" Width="360"
+                                  HorizontalAlignment="Right"
+                                  ItemsSource="{Binding Subunidades}"
+                                  DisplayMemberPath="Nombre"
+                                  SelectedValuePath="Nombre"
+                                  SelectedValue="{Binding SelectedSubunidad.Nombre}"
+                                  SelectedItem="{Binding SelectedSubunidad, Mode=TwoWay}"
+                                  Style="{DynamicResource CboRoundedCornersStyle}"/>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="8" Grid.Column="0" Orientation="Horizontal">
+
+                        <Label x:Name="lblRol" Content="Rol"
+                               Style="{StaticResource FormLabel}"/>
+                        <Image Source="/Assets/Icons/ico_required.png"
+                               Width="12"
+                               Height="12"
+                               Margin="0,0,0,1"
+                               VerticalAlignment="Center"
+                               ToolTip="Este campo es obligatorio."
+                               Visibility="Visible"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" 
+                                    Orientation="Horizontal">
+
+                        <ComboBox x:Name="ddlRol"
+                                  Grid.Column="6"  Grid.Row="0"
+                                  Width="180"
+                                  HorizontalAlignment="Right"
+                                  ItemsSource="{Binding Roles}"
+                                  DisplayMemberPath="Nombre"
+                                  SelectedValuePath="Nombre"
+                                  SelectedValue="{Binding SelectedRol.Nombre}"
+                                  SelectedItem="{Binding SelectedRol, Mode=TwoWay}"
+                                  Style="{DynamicResource CboRoundedCornersStyle}"/>
+                    </StackPanel>
+
+                    <!-- // SECTION 3:  INFORMACIÓN GENERAL  // -->
+                    <TextBlock Grid.Row="10" Grid.Column="0"
+                               Margin="0,10,0,0"
+                               Text="INFORMACIÓN CUENTA DE USUARIO"
+                               Style="{StaticResource SectionTitle}"/>
+
+                    <!-- // Account Name: Label // -->
+                    <StackPanel Grid.Row="11" Grid.Column="0" Orientation="Horizontal">
+                        <Label x:Name="lblNewUserName" Content="Nombre de Usuario"
+                               Style="{StaticResource FormLabel}"/>
+
+                    </StackPanel>
+
+                    <!-- // Account Name: TextBox // -->
+                    <StackPanel Grid.Row="12" Grid.Column="0"  Orientation="Horizontal">
+                        <TextBox x:Name="txtNewUserName"
+                                 Text="{Binding Username}"
+                                 Width="180" IsReadOnly="True"
+                                 Style="{DynamicResource TextBoxRoundedCorners}"/>
+                        
+                    </StackPanel>
+
+                    <!-- // Account Status: Label // -->
+                    <StackPanel Grid.Row="11" Grid.Column="1" Orientation="Horizontal">
+
+                        <Label x:Name="lblNewUserStatus" 
+                               Content="Estado Usuario" 
+                               Visibility="{Binding EstadoVisibility}"
+                               Style="{StaticResource FormLabel}"/>
+
+                        <Image Source="/Assets/Icons/ico_required.png"
+                               Width="12"
+                               Height="12"
+                               Margin="0,0,0,1"
+                               VerticalAlignment="Center"
+                               ToolTip="Este campo es obligatorio."
+                               Visibility="{Binding EstadoVisibility}"/>
+
+                    </StackPanel>
+
+                    <!-- // Account Status: ComboBox // -->
+                    <StackPanel Grid.Row="12" Grid.Column="1" Orientation="Horizontal">
+                        <ComboBox x:Name="ddlNewUserStatus" 
+                                  Width="180" Height="24"
+                                  SelectedIndex="0"
+                                  ItemsSource="{Binding Estados}"
+                                  DisplayMemberPath="Nombre"
+                                  SelectedValuePath="Nombre"
+                                  Visibility="{Binding EstadoVisibility}"
+                                  SelectedValue="{Binding SelectedEstado.Nombre}"
+                                  SelectedItem="{Binding SelectedEstado, Mode=TwoWay}"
+                                  Style="{DynamicResource CboRoundedCornersStyle}"/>
+                    </StackPanel>
+                    
+                    <!-- // Account Password: Label // -->
+                    <StackPanel Grid.Row="11" Grid.Column="2" Orientation="Horizontal">
+                        <Label  Content="Password"
+                                Visibility="{Binding EstadoVisibility}"
+                                Style="{StaticResource FormLabel}"/>
+                        
+                    </StackPanel>
+                    
+                    <!-- // Account Password: Password Box // -->
+                    <StackPanel Grid.Row="12" Grid.Column="2"  Orientation="Horizontal" Grid.RowSpan="3">
+                        <components:BindablePasswordBox Password="{Binding Password}"
+                                 Visibility="{Binding EstadoVisibility}"
+                                 Width="180"/>
+                        
+                    </StackPanel>
+                    
+                    <!-- // Account Password Confirmation: Label // -->
+                    <StackPanel Grid.Row="11" Grid.Column="3" Orientation="Horizontal">
+                        <Label  Content="Password Confirmation"
+                                Visibility="{Binding EstadoVisibility}"
+                                Style="{StaticResource FormLabel}"/>
+                        
+                    </StackPanel>
+                    <!-- // Account Password Confirmation: Password Box // -->
+                    <StackPanel Grid.Row="12" Grid.Column="3"  Orientation="Horizontal">
+                        <components:BindablePasswordBox Password="{Binding PasswordConfirm}"
+                                 Visibility="{Binding EstadoVisibility}"
+                                 Width="180"/>
+                        
+                    </StackPanel>                    
+
+                    <!-- // NEW UNIT: Command Buttons // -->
+                    <StackPanel Grid.Column="2" Grid.Row="20" 
+                                Grid.ColumnSpan="3"
+                                Width="390" 
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Left">
+
+                        <Button Name="btnCreateUser"
+                                Content="{Binding EstadoView}"  Height="35" 
+                                HorizontalAlignment="Right" Margin="0,20,30,0" 
+                                VerticalContentAlignment="Center" 
+                                VerticalAlignment="Top" Width="180"
+                                IsEnabled="{Binding CanCrud}"
+                                Command="{Binding CrudUser}"
+                                Style="{DynamicResource SubmitButton}" />
+
+                        <Button x:Name="btnCancel"
+                                Content="Cancelar"  Height="35" 
+                                HorizontalAlignment="Center" Margin="0,20,0,0" 
+                                VerticalContentAlignment="Center" 
+                                VerticalAlignment="Top" Width="180"
+                                Command="{Binding NavigationUsers}"
+                                Style="{DynamicResource CancelButton}"/>
+
+                    </StackPanel>
+                </Grid>
 
             </StackPanel>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="210"/>
-                    <ColumnDefinition Width="210"/>
-                    <ColumnDefinition Width="210"/>
-                    <ColumnDefinition Width="210"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                </Grid.RowDefinitions>
-
-                <!-- // SECTION 1: INFORMACIÓN PERSONAL  // -->
-                <TextBlock Grid.Column="0" Grid.Row="0"
-                           Text="INFORMACIÓN PERSONAL"
-                           Style="{StaticResource SectionTitle}"/>
-
-                <!-- // RUN: Label // -->
-                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
-
-                    <Label x:Name="lblNewRun" Content="RUN"
-                           Style="{StaticResource FormLabel}"/>
-                    <Image Source="/Assets/Icons/ico_required.png"
-                           Width="12"
-                           Height="12"
-                           Margin="0,0,0,1"
-                           VerticalAlignment="Center"
-                           ToolTip="Este campo es obligatorio."
-                           Visibility="Visible"/>
-                </StackPanel>
-
-                <!-- // RUN: TextBox // -->
-                <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
-
-                    <TextBox x:Name="txtNewRun"
-                             Text="{Binding Run}"
-                             Width="120"
-                             MaxLength="9"
-                             Style="{DynamicResource TextBoxRoundedCorners}"/>
-
-                    <Image x:Name="imgNewRun"
-                           Height="17"
-                           Width="17"
-                           Margin="5,0,0,0"
-                           ToolTip=""
-                           VerticalAlignment="Center"
-                           Visibility="Hidden"/>
-
-                </StackPanel>
-
-                <!-- // FirstName: Label // -->
-                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-
-                    <Label x:Name="lblNewFirstName" Content="Nombres"
-                           Style="{StaticResource FormLabel}"/>
-                    <Image Source="/Assets/Icons/ico_required.png"
-                           Width="12"
-                           Height="12"
-                           Margin="0,0,0,1"
-                           VerticalAlignment="Center"
-                           ToolTip="Este campo es obligatorio."
-                           Visibility="Visible"/>                    
-                </StackPanel>
-
-                <!-- // FirstName: TextBox // -->
-                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-
-                    <TextBox x:Name="txtNewFirstName"
-                             Text="{Binding Nombre}"
-                             Width="180"
-                             Style="{DynamicResource TextBoxRoundedCorners}"/>
-                </StackPanel>
-
-                <!-- // FaherSurname: Label // -->
-                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
-
-                    <Label x:Name="lblNewDadSurname" Content="Apellido Parterno"
-                           Style="{StaticResource FormLabel}"/>
-                    <Image Source="/Assets/Icons/ico_required.png"
-                           Width="12"
-                           Height="12"
-                           Margin="0,0,0,1"
-                           VerticalAlignment="Center"
-                           ToolTip="Este campo es obligatorio."
-                           Visibility="Visible"/>                    
-                </StackPanel>
-
-                <!-- // FaherSurname: TextBox // -->
-                <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
-
-                    <TextBox x:Name="txtNewDadSurname"
-                             Text="{Binding ApellidoP}"
-                             Width="180"
-                             Style="{DynamicResource TextBoxRoundedCorners}"/>
-
-                </StackPanel>
-
-                <!-- // MotherSurname: Label // -->
-                <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal">
-
-                    <Label x:Name="lblNewMonSurname" Content="Apellido Materno"
-                           Style="{StaticResource FormLabel}"/>
-                    <Image Source="/Assets/Icons/ico_required.png"
-                           Width="12"
-                           Height="12"
-                           Margin="0,0,0,1"
-                           VerticalAlignment="Center"
-                           ToolTip="Este campo es obligatorio."
-                           Visibility="Visible"/>
-                </StackPanel>
-
-                <!-- // MotherSurname: TextBox // -->
-                <StackPanel Grid.Row="2" Grid.Column="3" Orientation="Horizontal">
-
-                    <TextBox x:Name="txtNewMomSurname"
-                             Text="{Binding ApellidoM}"
-                             Width="180"
-                             Style="{DynamicResource TextBoxRoundedCorners}"/>
-                </StackPanel>
-
-                <!-- // E-Mail: Label // -->
-                <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
-
-                    <Label x:Name="lblNewMail" Content="Correo Electrónico"
-                           Style="{StaticResource FormLabel}"/>
-                    <Image Source="/Assets/Icons/ico_required.png"
-                           Width="12"
-                           Height="12"
-                           Margin="0,0,0,1"
-                           VerticalAlignment="Center"
-                           ToolTip="Este campo es obligatorio."
-                           Visibility="Visible"/>
-                </StackPanel>
-
-                <!-- // E-Mail: TextBox // -->
-                <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-
-                    <TextBox x:Name="txtNewMail"
-                             Text="{Binding Email}"
-                             Width="390" VerticalAlignment="Bottom"
-                             Style="{DynamicResource TextBoxRoundedCorners}"/>
-                </StackPanel>
-
-                <!-- // SECTION 2:  INFORMACIÓN GENERAL  // -->
-                <TextBlock Grid.Row="5" Grid.Column="0" 
-                           Margin="0,10,0,0"
-                           Text="INFORMACIÓN CORPORATIVA"
-                           Style="{StaticResource SectionTitle}"/>
-
-
-                <!-- // Business Unit: Label // -->
-                <StackPanel Grid.Row="6" Grid.Column="0" Orientation="Horizontal">
-
-                    <Label x:Name="lblNewBizUnit" Content="Unidad"
-                           Style="{StaticResource FormLabel}"/>
-                    <Image Source="/Assets/Icons/ico_required.png"
-                           Width="12"
-                           Height="12"
-                           Margin="0,0,0,1"
-                           VerticalAlignment="Center"
-                           ToolTip="Este campo es obligatorio."
-                           Visibility="Visible"/>
-                </StackPanel>
-
-                <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
-                                Orientation="Horizontal">
-
-                    <ComboBox x:Name="ddlNewBizUnit" Width="360"
-                              HorizontalAlignment="Right"
-                              ItemsSource="{Binding Unidades}"
-                              DisplayMemberPath="RazonSocial"
-                              SelectedValuePath="RazonSocial"
-                              SelectedValue="{Binding SelectedUnidad.RazonSocial}"
-                              SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}"
-                              Style="{DynamicResource CboRoundedCornersStyle}"/>
-
-                </StackPanel>
-
-                <!-- // Sub Business Unit: Label // -->
-                <StackPanel Grid.Row="6" Grid.Column="2" Orientation="Horizontal">
-
-                    <Label x:Name="lblNewSubBizUnit" Content="Subunidad"
-                           Style="{StaticResource FormLabel}"/>
-                    <Image Source="/Assets/Icons/ico_required.png"
-                           Width="12"
-                           Height="12"
-                           Margin="0,0,0,1"
-                           VerticalAlignment="Center"
-                           ToolTip="Este campo es obligatorio."
-                           Visibility="Visible"/>
-                </StackPanel>
-
-                <!-- // Sub Business Unit: TextBox // -->
-                <StackPanel Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" 
-                                Orientation="Horizontal">
-
-                    <ComboBox x:Name="ddlNewSubBizUnit" Width="360"
-                              HorizontalAlignment="Right"
-                              ItemsSource="{Binding Subunidades}"
-                              DisplayMemberPath="Nombre"
-                              SelectedValuePath="Nombre"
-                              SelectedValue="{Binding SelectedSubunidad.Nombre}"
-                              SelectedItem="{Binding SelectedSubunidad, Mode=TwoWay}"
-                              Style="{DynamicResource CboRoundedCornersStyle}"/>
-
-                </StackPanel>
-
-                <StackPanel Grid.Row="8" Grid.Column="0" Orientation="Horizontal">
-
-                    <Label x:Name="lblRol" Content="Rol"
-                           Style="{StaticResource FormLabel}"/>
-                </StackPanel>
-
-                <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" 
-                                Orientation="Horizontal">
-
-                    <ComboBox x:Name="ddlRol"
-                              Grid.Column="6"  Grid.Row="0"
-                              Width="180"
-                              HorizontalAlignment="Right"
-                              ItemsSource="{Binding Roles}"
-                              DisplayMemberPath="Nombre"
-                              SelectedValuePath="Nombre"
-                              SelectedValue="{Binding SelectedRol.Nombre}"
-                              SelectedItem="{Binding SelectedRol, Mode=TwoWay}"
-                              Style="{DynamicResource CboRoundedCornersStyle}"/>
-                </StackPanel>
-
-                <!-- // SECTION 3:  INFORMACIÓN GENERAL  // -->
-                <TextBlock Grid.Row="10" Grid.Column="0"
-                           Margin="0,10,0,0"
-                           Text="INFORMACIÓN CUENTA DE USUARIO"
-                           Style="{StaticResource SectionTitle}"/>
-
-
-                <!-- // Account Name: Label // -->
-                <StackPanel Grid.Row="11" Grid.Column="0" Orientation="Horizontal">
-
-                    <Label x:Name="lblNewUserName" Content="Nombre de Usuario"
-                           Style="{StaticResource FormLabel}"/>
-                    
-                </StackPanel>
-
-                <!-- // Account Name: TextBox // -->
-                <StackPanel Grid.Row="12" Grid.Column="0"  Orientation="Horizontal">
-
-                    <TextBox x:Name="txtNewUserName"
-                             Text="{Binding Username}"
-                             Width="180" IsReadOnly="True"
-                             Style="{DynamicResource TextBoxRoundedCorners}"/>
-                </StackPanel>
-                <StackPanel Grid.Row="13" Grid.Column="0" Orientation="Horizontal">
-
-                    <Label  Content="Password"
-                            Visibility="{Binding EstadoVisibility}"
-                            Style="{StaticResource FormLabel}"/>
-                </StackPanel>
-                <StackPanel Grid.Row="14" Grid.Column="0"  Orientation="Horizontal" Grid.RowSpan="3">
-
-                    <components:BindablePasswordBox Password="{Binding Password}"
-                             Visibility="{Binding EstadoVisibility}"
-                             Width="180"/>
-                </StackPanel>
-                <StackPanel Grid.Row="13" Grid.Column="1" Orientation="Horizontal">
-
-                    <Label  Content="Password Confirmation"
-                            Visibility="{Binding EstadoVisibility}"
-                            Style="{StaticResource FormLabel}"/>
-                </StackPanel>
-                <StackPanel Grid.Row="14" Grid.Column="1"  Orientation="Horizontal" Grid.RowSpan="3">
-
-                    <components:BindablePasswordBox Password="{Binding PasswordConfirm}"
-                             Visibility="{Binding EstadoVisibility}"
-                             Width="180"/>
-                </StackPanel>
-
-                <!-- // User Status: Label // -->
-                <StackPanel Grid.Row="11" Grid.Column="3" Orientation="Horizontal">
-
-                    <Label x:Name="lblNewUserStatus" 
-                           Content="Estado Usuario" 
-                           Visibility="{Binding EstadoVisibility}"
-                           Style="{StaticResource FormLabel}"/>
-                    <Image Source="/Assets/Icons/ico_required.png"
-                           Width="12"
-                           Height="12"
-                           Margin="0,0,0,1"
-                           VerticalAlignment="Center"
-                           ToolTip="Este campo es obligatorio."
-                           Visibility="Visible"/>
-                </StackPanel>
-
-                <!-- //  User Status: ComboBox // -->
-                <StackPanel Grid.Row="12" Grid.Column="3" Orientation="Horizontal">
-                    <ComboBox x:Name="ddlNewUserStatus" 
-                              Width="180" Height="24"
-                              SelectedIndex="0"
-                              ItemsSource="{Binding Estados}"
-                              DisplayMemberPath="Nombre"
-                              SelectedValuePath="Nombre"
-                              Visibility="{Binding EstadoVisibility}"
-                              SelectedValue="{Binding SelectedEstado.Nombre}"
-                              SelectedItem="{Binding SelectedEstado, Mode=TwoWay}"
-                              Style="{DynamicResource CboRoundedCornersStyle}"/>
-                </StackPanel>
-
-                <!-- // NEW UNIT: Command Buttons // -->
-                <StackPanel Grid.Column="2" Grid.Row="20" 
-                            Grid.ColumnSpan="3"
-                            Width="390" 
-                            Orientation="Horizontal"
-                            HorizontalAlignment="Left">
-
-                    <Button Name="btnCreateUser"
-                            Content="{Binding EstadoView}"  Height="35" 
-                            HorizontalAlignment="Right" Margin="0,20,30,0" 
-                            VerticalContentAlignment="Center" 
-                            VerticalAlignment="Top" Width="180"
-                            IsEnabled="{Binding CanCrud}"
-                            Command="{Binding CrudUser}"
-                            Style="{DynamicResource SubmitButton}" />
-
-                    <Button x:Name="btnCancel"
-                            Content="Cancelar"  Height="35" 
-                            HorizontalAlignment="Center" Margin="0,20,0,0" 
-                            VerticalContentAlignment="Center" 
-                            VerticalAlignment="Top" Width="180"
-                            Command="{Binding NavigationUsers}"
-                            Style="{DynamicResource CancelButton}"/>
-
-                </StackPanel>
-            </Grid>
-
-        </StackPanel>
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

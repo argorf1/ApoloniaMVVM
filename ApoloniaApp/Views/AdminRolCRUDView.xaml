@@ -6,161 +6,209 @@
              xmlns:local="clr-namespace:ApoloniaApp.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
-        <StackPanel x:Name="spNewUser" Orientation="Vertical" 
-                        HorizontalAlignment="Left"  Margin="5,0,0,5"
-                        Visibility="Visible">
 
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"  
+                  VerticalScrollBarVisibility="Auto">
 
-            <StackPanel Orientation="Horizontal"
-                    Margin="0">
-                <TextBlock x:Name="tbkTitleAddUser" Text="{Binding EstadoView}"
-                    Margin="0,10,0,10"/>
+        <Grid Background="White">
+            <StackPanel x:Name="spNewUser" Orientation="Vertical" 
+                            HorizontalAlignment="Left"  Margin="5,0,0,5"
+                            Visibility="Visible">
+
+                <StackPanel Orientation="Horizontal"
+                            Margin="0">
+                    <Image Width="30"
+                           Height="30"
+                           VerticalAlignment="Center"
+                           Visibility="Visible"
+                           Margin="0,0,10,0"
+                           Source="/Assets/Icons/ico_roles.png"/>
+                    
+                    <TextBlock x:Name="tbkTitleAddUser" Text="{Binding EstadoView}"
+                               Margin="0,10,0,10" Style="{StaticResource OrangeSubtitle}"/>
+
+                </StackPanel>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="210"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- // SECTION 1: INFORMACIÓN PERSONAL  // -->
+                    <TextBlock Grid.Column="0" Grid.Row="0"
+                               Text="INFORMACIÓN PERSONAL"
+                               Style="{StaticResource SectionTitle}"/>
+
+                    <!-- // RUN: Label // -->
+                    <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+
+                        <Label x:Name="lblNewRun" Content="Nombre de Rol"
+                               Style="{StaticResource FormLabel}"/>
+                        
+                        <Image Source="/Assets/Icons/ico_required.png"
+                               Width="12"
+                               Height="12"
+                               Margin="0,0,0,1"
+                               VerticalAlignment="Center"
+                               ToolTip="Este campo es obligatorio."
+                               Visibility="Visible"/>
+                    </StackPanel>
+
+                    <!-- // RUN: TextBox // -->
+                    <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal">
+
+                        <TextBox x:Name="txtRol"
+                                 Text="{Binding Nombre}"
+                                 Width="387"
+                                 MaxLength="30"
+                                 Style="{DynamicResource TextBoxRoundedCorners}"/>
+
+                        <Image x:Name="imgNewRun"
+                               Height="17"
+                               Width="17"
+                               Margin="5,0,0,0"
+                               ToolTip=""
+                               VerticalAlignment="Center"
+                               Visibility="Hidden"/>
+
+                    </StackPanel>
+
+                    <!-- // E-Mail: Label // -->
+                    <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
+
+                        <Label x:Name="lblNewMail" Content="Descripción"
+                               Style="{StaticResource FormLabel}"/>
+
+                        <Image Source="/Assets/Icons/ico_required.png"
+                               Width="12"
+                               Height="12"
+                               Margin="0,0,0,1"
+                               VerticalAlignment="Center"
+                               ToolTip="Este campo es obligatorio."
+                               Visibility="Visible"/>
+                        
+                    </StackPanel>
+
+                    <!-- // E-Mail: TextBox // -->
+                    <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+
+                        <TextBox x:Name="txtDescripcion"
+                                 Text="{Binding Descripcion}"
+                                 Width="387" Height="120"
+                                 MaxLength="4000" AcceptsReturn="True"
+                                 TextWrapping="Wrap" VerticalContentAlignment="Top"
+                                 VerticalAlignment="Bottom"
+                                 Style="{DynamicResource TextBoxRoundedCorners}"/>
+                    </StackPanel>
+
+                    <!-- // Business Unit: Label // -->
+                    <StackPanel Grid.Row="6" Grid.Column="0" Orientation="Horizontal">
+
+                        <Label x:Name="lblSubunidad" Content="Subunidad"
+                               Style="{StaticResource FormLabel}"/>
+
+                        <Image Source="/Assets/Icons/ico_required.png"
+                               Width="12"
+                               Height="12"
+                               Margin="0,0,0,1"
+                               VerticalAlignment="Center"
+                               ToolTip="Este campo es obligatorio."
+                               Visibility="Visible"/>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
+                                    Orientation="Horizontal">
+
+                        <ComboBox x:Name="ddlSubunit" Width="389"
+                                  ItemsSource="{Binding Subunidades}"
+                                  DisplayMemberPath="Nombre"
+                                  SelectedValuePath="Nombre"
+                                  SelectedValue="{Binding SelectedSubunidad.Nombre}"
+                                  SelectedItem="{Binding SelectedSubunidad, Mode=TwoWay}"
+                                  Style="{DynamicResource CboRoundedCornersStyle}" />
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="8" Grid.Column="0" Orientation="Horizontal">
+
+                        <Label x:Name="lblRol" Content="Superior a quién reporta"
+                               Style="{StaticResource FormLabel}"/>
+
+                        <Image Source="/Assets/Icons/ico_required.png"
+                               Width="12"
+                               Height="12"
+                               Margin="0,0,0,1"
+                               VerticalAlignment="Center"
+                               ToolTip="Este campo es obligatorio."
+                               Visibility="Visible"/>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" 
+                                    Orientation="Horizontal">
+
+                        <ComboBox x:Name="ddlRol"
+                                  Grid.Column="6"  Grid.Row="0"
+                                  Width="390"
+                                  ItemsSource="{Binding Roles}"
+                                  DisplayMemberPath="Nombre"
+                                  SelectedValuePath="Nombre"
+                                  SelectedValue="{Binding SelectedRol.Nombre}"
+                                  SelectedItem="{Binding SelectedRol, Mode=TwoWay}"
+                                  Style="{DynamicResource CboRoundedCornersStyle}" />
+                    </StackPanel>
+
+                    <!-- // ROLE: Command Buttons // -->
+                    <StackPanel Grid.Column="0" Grid.Row="14" 
+                                Grid.ColumnSpan="3"
+                                Width="390" 
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Left">
+
+                        <Button Name="btnCreateUser"
+                                Content="{Binding EstadoView}"  Height="35" 
+                                HorizontalAlignment="Right" Margin="0,20,30,0" 
+                                VerticalContentAlignment="Center" 
+                                VerticalAlignment="Top" Width="180"
+                                Command="{Binding CrudRol}"
+                                IsEnabled="{Binding CanCrud}"
+                                Style="{DynamicResource SubmitButton}" />
+
+                        <Button x:Name="btnCancel"
+                                Content="Cancelar"  Height="35" 
+                                HorizontalAlignment="Center" Margin="0,20,0,0" 
+                                VerticalContentAlignment="Center" 
+                                VerticalAlignment="Top" Width="180"
+                                Command="{Binding ReturnCommand}"
+                                Style="{DynamicResource CancelButton}" />
+
+                    </StackPanel>
+                </Grid>
 
             </StackPanel>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="210"/>
-                    <ColumnDefinition Width="210"/>
-                    <ColumnDefinition Width="210"/>
-                    <ColumnDefinition Width="210"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="10*"/>
-                </Grid.RowDefinitions>
-
-                <!-- // SECTION 1: INFORMACIÓN PERSONAL  // -->
-                <TextBlock Grid.Column="0" Grid.Row="0"
-                           Text="INFORMACIÓN PERSONAL"
-                           Style="{StaticResource SectionTitle}"/>
-
-                <!-- // RUN: Label // -->
-                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
-
-                    <Label x:Name="lblNewRun" Content="Nombre de Rol*"
-                           Style="{StaticResource FormLabel}"/>
-                </StackPanel>
-
-                <!-- // RUN: TextBox // -->
-                <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal">
-
-                    <TextBox x:Name="txtRol"
-                             Text="{Binding Nombre}"
-                             Width="387"
-                             MaxLength="30"
-                             Style="{DynamicResource TextBoxRoundedCorners}"/>
-
-                    <Image x:Name="imgNewRun"
-                           Height="17"
-                           Width="17"
-                           Margin="5,0,0,0"
-                           ToolTip=""
-                           VerticalAlignment="Center"
-                           Visibility="Hidden"/>
-
-                </StackPanel>
-
-                <!-- // E-Mail: Label // -->
-                <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
-
-                    <Label x:Name="lblNewMail" Content="Descripción*"
-                           Style="{StaticResource FormLabel}"/>
-                </StackPanel>
-
-                <!-- // E-Mail: TextBox // -->
-                <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-
-                    <TextBox x:Name="txtDescripcion"
-                             Text="{Binding Descripcion}"
-                             Width="387" Height="120"
-                             VerticalAlignment="Bottom"
-                             Style="{DynamicResource TextBoxRoundedCorners}"/>
-                </StackPanel>
-
-                <!-- // Business Unit: Label // -->
-                <StackPanel Grid.Row="6" Grid.Column="0" Orientation="Horizontal">
-
-                    <Label x:Name="lblSubunidad" Content="Subunidad"
-                           Style="{StaticResource FormLabel}"/>
-                </StackPanel>
-
-                <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
-                                Orientation="Horizontal">
-
-                    <ComboBox x:Name="ddlSubunit" Width="389"
-                              ItemsSource="{Binding Subunidades}"
-                              DisplayMemberPath="Nombre"
-                              SelectedValuePath="Nombre"
-                              SelectedValue="{Binding SelectedSubunidad.Nombre}"
-                              SelectedItem="{Binding SelectedSubunidad, Mode=TwoWay}"
-                              Style="{DynamicResource CboRoundedCornersStyle}" />
-
-                </StackPanel>
-
-                <StackPanel Grid.Row="8" Grid.Column="0" Orientation="Horizontal">
-
-                    <Label x:Name="lblRol" Content="Superior (a quién reporta)*"
-                           Style="{StaticResource FormLabel}"/>
-                </StackPanel>
-
-                <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" 
-                                Orientation="Horizontal">
-
-                    <ComboBox x:Name="ddlRol"
-                              Grid.Column="6"  Grid.Row="0"
-                              Width="390"
-                              ItemsSource="{Binding Roles}"
-                              DisplayMemberPath="Nombre"
-                              SelectedValuePath="Nombre"
-                              SelectedValue="{Binding SelectedRol.Nombre}"
-                              SelectedItem="{Binding SelectedRol, Mode=TwoWay}"
-                              Style="{DynamicResource CboRoundedCornersStyle}" />
-                </StackPanel>
-
-                <!-- // ROLE: Command Buttons // -->
-                <StackPanel Grid.Column="0" Grid.Row="14" 
-                            Grid.ColumnSpan="3"
-                            Width="390" 
-                            Orientation="Horizontal"
-                            HorizontalAlignment="Left">
-
-                    <Button Name="btnCreateUser"
-                            Content="{Binding EstadoView}"  Height="35" 
-                            HorizontalAlignment="Right" Margin="0,20,30,0" 
-                            VerticalContentAlignment="Center" 
-                            VerticalAlignment="Top" Width="180"
-                            Command="{Binding CrudRol}"
-                            IsEnabled="{Binding CanCrud}"
-                            Style="{DynamicResource SubmitButton}" />
-
-                    <Button x:Name="btnCancel"
-                            Content="Cancelar"  Height="35" 
-                            HorizontalAlignment="Center" Margin="0,20,0,0" 
-                            VerticalContentAlignment="Center" 
-                            VerticalAlignment="Top" Width="180"
-                            Command="{Binding ReturnCommand}"
-                            Style="{DynamicResource CancelButton}" />
-
-                </StackPanel>
-            </Grid>
-
-        </StackPanel>
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </UserControl>
