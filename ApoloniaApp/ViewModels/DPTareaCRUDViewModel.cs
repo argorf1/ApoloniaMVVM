@@ -1,5 +1,6 @@
 ﻿using ApoloniaApp.Commands;
 using ApoloniaApp.Models;
+using ApoloniaApp.Services;
 using ApoloniaApp.Stores;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace ApoloniaApp.ViewModels
         public UsuarioInternoModel CurrentAccount;
         private TareaModel _crudTarea;
         private List<Func<bool>> _validations;
+        private bool _initialized = false;
 
         #region Commands
         public ICommand Crud { get; }
@@ -30,12 +32,16 @@ namespace ApoloniaApp.ViewModels
             _crudTarea = crudTarea;
             _crudTarea.Creador = currentAccount;
             _estado = estado;
-
+            
             #region Configuracion Estado
 
             #region CargaDiccionario
             _estadoDetalle.Add(1, "Crear Tarea");
             _estadoDetalle.Add(2, "Modificar Tarea");
+
+            _validField.Add(0, "/Assets/Icons/ico_required.png");
+            _validField.Add(1, "/Assets/Icons/ico_valid.png");
+            _validField.Add(2, "/Assets/Icons/icon_invalid.png");
             #endregion
 
 
@@ -94,12 +100,14 @@ namespace ApoloniaApp.ViewModels
             _validations = new List<Func<bool>>();
             _validations.AddRange(new List<Func<bool>>()
             {
-                ValidateNombre,
-                ValidateDescripcion,
-                ValidateDuracion,
-                ValidateResponsable
+                 () => ValidationService.Text(Nombre)
+                ,() => ValidationService.Text(Descripcion)
+                ,() => ValidationService.Number(Duracion)
+                ,() => ValidationService.ListContent(Responsables)
             });
             #endregion
+
+            _initialized = true;
         }
 
 
@@ -107,7 +115,6 @@ namespace ApoloniaApp.ViewModels
 
         Dictionary<int, string> _estadoDetalle = new Dictionary<int, string>();
         private int _estado = 0;
-
         public string EstadoView
         {
             get { return _estadoDetalle[_estado]; }
@@ -164,7 +171,7 @@ namespace ApoloniaApp.ViewModels
 
         public bool ValidResponsable
         {
-            get => _validResponsable;
+            get => ValidationService.ListContent(Responsables);
             set
             {
                 _validResponsable = value;
@@ -207,56 +214,89 @@ namespace ApoloniaApp.ViewModels
         #region Propiedades
 
         private bool _canCrud = false;
+        Dictionary<int, string> _validField = new Dictionary<int, string>();
 
         public bool CanCrud
         {
-            get => _canCrud;
+            get => ValidationService.All(_validations);
             set
             {
                 _canCrud = value;
                 OnPropertyChanged("CanCrud");
             }
         }
-
+        private bool _initializedNombre = false;
         private bool _validNombre;
+        public bool ValidNombre
+        {
+            get => ValidationService.Text(Nombre);
+            set
+            {
+                _validNombre = value;
+                OnPropertyChanged("ValidNombre");
+                OnPropertyChanged("CanCrud");
+            }
+        }
+        public string ImageNombre
+        {
+            get => _initializedNombre ? (ValidNombre ? _validField[1] : _validField[2]):_validField[0];
+        }
         public string Nombre
         {
             get => _crudTarea.Nombre;
             set
             {
                 _crudTarea.Nombre = value;
-                _validNombre = ValidateNombre();
-                // ImagenNobre = (_validNombre ? diccionarioImagenes[0]: diccionarioImagenes[1]);
-                if (_validNombre)
-                    ValidateAll();
+                ValidNombre = ValidationService.Text(Nombre);
+                _initializedNombre = true;
                 OnPropertyChanged("Nombre");
+                OnPropertyChanged("ValidNombre");
+                OnPropertyChanged("ImageNombre");
             }
         }
 
         private bool _validDescripcion;
+        public bool ValidDescripcion
+        {
+            get => _validDescripcion;
+            set
+            {
+                _validDescripcion = value;
+                OnPropertyChanged("ValidDescripcion");
+                OnPropertyChanged("CanCrud");
+            }
+        }
+
         public string Descripcion
         {
             get => _crudTarea.Descripcion;
             set
             {
                 _crudTarea.Descripcion = value;
-                _validDescripcion = ValidateDescripcion();
-                if (_validDescripcion)
-                    ValidateAll();
+                ValidDescripcion = ValidationService.Text(Descripcion);
+
                 OnPropertyChanged("Descripcion");
             }
         }
 
         private bool _validDuracion;
+        public bool ValidDuracion
+        {
+            get => _validDuracion;
+            set
+            {
+                _validDuracion = value;
+                OnPropertyChanged("ValidDuracion");
+                OnPropertyChanged("CanCrud");
+            }
+        }
         public int Duracion
         {
             get => _crudTarea.Duracion;
             set
             {
                 _crudTarea.Duracion = value;
-                _validDuracion = ValidateDuracion();
-                if (_validDuracion)
-                    ValidateAll();
+                _validDuracion = ValidationService.Number(Duracion);
                 OnPropertyChanged("Duracion");
             }
         }
@@ -316,6 +356,17 @@ namespace ApoloniaApp.ViewModels
 
         #region Commands
 
+        private void ExchangeList<TModel>(ObservableCollection<TModel> source, ObservableCollection<TModel> target, TModel model, string property)
+            where TModel : ModelBase
+        {
+            if (model != null)
+            {
+                source.Remove(model);
+                target.Add(model);
+                model = null;
+                OnPropertyChanged(property);
+            }
+        }
         private void ExchangeList<TModel>(ObservableCollection<TModel> source, ObservableCollection<TModel> target, TModel model)
             where TModel : ModelBase
         {
@@ -324,7 +375,6 @@ namespace ApoloniaApp.ViewModels
                 source.Remove(model);
                 target.Add(model);
                 model = null;
-                ValidateAll();
             }
         }
         private ICommand _addResponsable;
@@ -332,7 +382,7 @@ namespace ApoloniaApp.ViewModels
         {
             get
             {
-                return _addResponsable ?? (_addResponsable = new CommandHandler(() => ExchangeList<FuncionarioModel>(_funcionarios, _responsables, SelectedFuncionario), true));
+                return _addResponsable ?? (_addResponsable = new CommandHandler(() => ExchangeList<FuncionarioModel>(_funcionarios, _responsables, SelectedFuncionario, "ValidResponsable"), true));
             }
         }
         private ICommand _extractResponsable;
@@ -340,7 +390,7 @@ namespace ApoloniaApp.ViewModels
         {
             get
             {
-                return _extractResponsable ?? (_extractResponsable = new CommandHandler(() => ExchangeList<FuncionarioModel>(_responsables, _funcionarios, SelectedResponsable), true));
+                return _extractResponsable ?? (_extractResponsable = new CommandHandler(() => ExchangeList<FuncionarioModel>(_responsables, _funcionarios, SelectedResponsable, "ValidResponsable"), true));
             }
         }
         private ICommand _addDependencia;

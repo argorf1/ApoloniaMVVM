@@ -183,7 +183,7 @@ namespace ApoloniaApp.Models
                         Rut = r.GetString(0),
                         RazonSocial = r.GetString(1),
                         PersonaContacto = r.GetString(9),
-                        TelefonoContacto = r.GetInt64(10),
+                        TelefonoContacto = r.GetString(10),
                         EmailContacto = r.GetString(11),
                     };
                     u.Direccion = new DireccionModel() { Id = r.GetInt32(16), Calle = r.GetString(3), Numero = r.GetString(4), Complemento = r.GetString(5) };

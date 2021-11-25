@@ -13,7 +13,7 @@ namespace ApoloniaApp.Models
         public string Rut { get; set; }
         public string RazonSocial { get; set; }
         public string PersonaContacto { get; set; }
-        public long TelefonoContacto { get; set; }
+        public string TelefonoContacto { get; set; }
         public string EmailContacto { get; set; }
         public UsuarioInternoModel Responsable { get; set; }
         public RubroModel Rubro { get; set; }
@@ -55,7 +55,7 @@ namespace ApoloniaApp.Models
                 cmd.Parameters.Add("i_complemento", OracleDbType.NVarchar2).Value = this.Direccion.Complemento;
                 cmd.Parameters.Add("i_id_comuna", OracleDbType.Int32).Value = this.Direccion.Comuna.Id;
                 cmd.Parameters.Add("i_persona_contacto", OracleDbType.NVarchar2).Value = this.PersonaContacto;
-                cmd.Parameters.Add("i_telefono_contacto", OracleDbType.Int32).Value = this.TelefonoContacto;
+                cmd.Parameters.Add("i_telefono_contacto", OracleDbType.NVarchar2).Value = this.TelefonoContacto;
                 cmd.Parameters.Add("i_email_contacto", OracleDbType.NVarchar2).Value = this.EmailContacto;
                 cmd.Parameters.Add("i_responsable_cuenta", OracleDbType.NVarchar2).Value = this.Responsable.Run;
 
@@ -104,7 +104,7 @@ namespace ApoloniaApp.Models
                         Rut = r.GetString(0),
                         RazonSocial = r.GetString(1),
                         PersonaContacto = r.GetString(9),
-                        TelefonoContacto = r.GetInt64(10),
+                        TelefonoContacto = r.GetString(10),
                         EmailContacto = r.GetString(11),
                     };
                     u.Direccion = new DireccionModel() { Id = r.GetInt32(18), Calle = r.GetString(3), Numero = r.GetString(4), Complemento = r.GetString(5) };
@@ -152,7 +152,7 @@ namespace ApoloniaApp.Models
                         Rut = r.GetString(0),
                         RazonSocial = r.GetString(1),
                         PersonaContacto = r.GetString(9),
-                        TelefonoContacto = r.GetInt64(10),
+                        TelefonoContacto = r.GetString(10),
                         EmailContacto = r.GetString(11),
                     };
                     u.Direccion = new DireccionModel() { Id = r.GetInt32(16), Calle = r.GetString(3), Numero = r.GetString(4), Complemento = r.GetString(5) };
