@@ -20,9 +20,9 @@ namespace ApoloniaApp.Commands
         private readonly TModel _model;
         private readonly int _estado;
         private FrameStore _frameStore;
-        private ObservableCollection<TModel> _lista;
+        private Action _lista;
 
-        public CRUDCommand(Func<bool> crudModel, Func<TViewModel> viewModel, FrameStore frameStore, Func<bool> checkModel, TModel model, ObservableCollection<TModel> lista, int estado)
+        public CRUDCommand(Func<bool> crudModel, Func<TViewModel> viewModel, FrameStore frameStore, Func<bool> checkModel, TModel model, Action lista, int estado)
         {
             _crudModel = crudModel;
             _viewModel = viewModel;
@@ -33,7 +33,7 @@ namespace ApoloniaApp.Commands
             _estado = estado;
         }
 
-        public CRUDCommand(Func<bool> crudModel, Func<TViewModel> viewModel, FrameStore frameStore, TModel model, ObservableCollection<TModel> lista, int estado)
+        public CRUDCommand(Func<bool> crudModel, Func<TViewModel> viewModel, FrameStore frameStore, TModel model, Action lista, int estado)
         {
             _crudModel = crudModel;
             _viewModel = viewModel;
@@ -56,8 +56,8 @@ namespace ApoloniaApp.Commands
                             if (_crudModel())
                             {
                                 MessageBox.Show("Creación de " + _model.NombreEntidad + " realizada con exito");
+                                _lista();
                                 _frameStore.CurrentViewModel = _viewModel();
-                                _lista.Add(_model);
                             }
                             else
                             {
@@ -74,8 +74,8 @@ namespace ApoloniaApp.Commands
                         if (_crudModel())
                         {
                             MessageBox.Show("Actualización de " + _model.NombreEntidad + " realizada con exito");
+                            _lista();
                             _frameStore.CurrentViewModel = _viewModel();
-
                         }
                         else
                         {
@@ -83,6 +83,35 @@ namespace ApoloniaApp.Commands
                         }
                         break;
                     case 3:
+                        if (!_checkModel())
+                        {
+                            if (_crudModel())
+                            {
+                                MessageBox.Show("Eliminación de " + _model.NombreEntidad + " realizada con exito");
+                                _lista();
+                                _frameStore.CurrentViewModel = _viewModel();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Fallo de Conexión con la Base de Datos");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show(_model.NombreEntidad + " tiene dependencias que evitan su eliminación");
+                        }
+                        break;
+                    case 4:
+                        if (_crudModel())
+                        {
+                            MessageBox.Show("Eliminación de " + _model.NombreEntidad + " realizada con exito");
+                            _lista();
+                            _frameStore.CurrentViewModel = _viewModel();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Fallo de Conexión con la Base de Datos");
+                        }
                         break;
                     default:
                         break;

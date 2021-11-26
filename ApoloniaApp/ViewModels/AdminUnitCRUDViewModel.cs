@@ -42,7 +42,7 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    CrudCommand = new CRUDCommand<AdminUnitViewModel, UnidadModel>(() => _crud.Create(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crud.ReadByRut(), _crud, _listStore.unidades, 1);
+                    CrudCommand = new CRUDCommand<AdminUnitViewModel, UnidadModel>(() => _crud.Create(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crud.ReadByRut(), _crud, () => _listStore.Unidades(), 1);
                     #region CargaValidaciones
                     _validations.AddRange(new List<Func<bool>>()
                     {
@@ -61,7 +61,7 @@ namespace ApoloniaApp.ViewModels
                     #endregion
                     break;
                 case 2:
-                    CrudCommand = new CRUDCommand<AdminUnitViewModel, UnidadModel>(() => _crud.Update(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crud, _listStore.unidades, 2);
+                    CrudCommand = new CRUDCommand<AdminUnitViewModel, UnidadModel>(() => _crud.Update(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crud, () => _listStore.Unidades(), 2);
                     #region CargaValidaciones
                     _validations.AddRange(new List<Func<bool>>()
                     {

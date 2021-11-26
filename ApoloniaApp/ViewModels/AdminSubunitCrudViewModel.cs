@@ -59,10 +59,10 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    CrudSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _crudSubunidad.Create(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudSubunidad.ReadByName(), _crudSubunidad, _listStore.subunidades, 1);
+                    CrudSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _crudSubunidad.Create(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudSubunidad.ReadByName(), _crudSubunidad, () => _listStore.Subunidades(), 1);
                     break;
                 case 2:
-                    CrudSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _crudSubunidad.Update(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudSubunidad, _listStore.subunidades, 2);
+                    CrudSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _crudSubunidad.Update(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudSubunidad, () => _listStore.Subunidades(), 2);
                     _subunidades.Remove(_subunidades.First(p => p.Id == _crudSubunidad.Id));
                     break;
                 default:
@@ -179,5 +179,6 @@ namespace ApoloniaApp.ViewModels
         }
         public ICommand CrudSubunit { get; }
         public ICommand NavigationUnit { get; }
+
     }
 }

@@ -140,7 +140,7 @@ namespace ApoloniaApp.ViewModels
             get
             {
 
-                return _editUnit.TelefonoContacto.ToString();
+                return _editUnit.TelefonoContacto;
 
             }
             set
@@ -374,11 +374,13 @@ namespace ApoloniaApp.ViewModels
             NavigationEditUnit = new NavigatePanelCommand<AdminUnitCRUDViewModel>(_frameStore, () => new AdminUnitCRUDViewModel(_frameStore, CurrentAccount, _editUnit, 2,_listStore));
             NavigationCreateSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(_frameStore, CurrentAccount, new SubUnidadModel() { RutUnidad = _editUnit.Rut }, 1, _listStore));
             NavigationEditSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(_frameStore, CurrentAccount, _editSubunit, 2, _listStore));
+            DeleteSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _editSubunit.Create(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _editSubunit.ReadContent(), _editSubunit, () => _listStore.Subunidades(), 3);
         }
 
         public ICommand NavigationCreateUnit { get; }
         public ICommand NavigationEditUnit { get; }
         public ICommand NavigationCreateSubunit { get; }
         public ICommand NavigationEditSubunit { get; }
+        public ICommand DeleteSubunit { get; }
     }
 }

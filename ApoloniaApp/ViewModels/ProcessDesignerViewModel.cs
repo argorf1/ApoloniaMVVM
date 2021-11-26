@@ -36,14 +36,7 @@ namespace ApoloniaApp.ViewModels
             _frameStore = new FrameStore();
             CurrentAccount = accountStore.CurrentAccount;
 
-            _listStore.procesos = new ReadAllCommand<ProcesoModel>().ReadAll(() => new ProcesoModel().ReadAll());
-            _listStore.tareas = new ReadAllCommand<TareaModel>().ReadAll(() => new TareaModel().ReadAll());
-            _listStore.dependencias = new ReadAllCommand<DependenciaModel>().ReadAll(() => new DependenciaModel().ReadAll());
-            _listStore.responsables = new ReadAllCommand<ResponsableModel>().ReadAll(() => new ResponsableModel().ReadAll());
-            _listStore.unidades = new ReadAllCommand<UnidadModel>().ReadAll(() => new UnidadModel().ReadAll());
-            _listStore.subunidades = new ReadAllCommand<SubUnidadModel>().ReadAll(() => new SubUnidadModel().ReadAll());
-            _listStore.funcionarios = new ReadAllCommand<FuncionarioModel>().ReadAll(()=> new FuncionarioModel().ReadAll());
-            _listStore.roles = new ReadAllCommand<RolModel>().ReadAll(()=> new RolModel().ReadAll());
+            _listStore.PDView();
 
             rol = new PerfilModel(CurrentAccount.Perfil.Id);
             LogUser += CurrentAccount.Nombre + " " + CurrentAccount.ApellidoP + "(" + rol.Nombre + ")";

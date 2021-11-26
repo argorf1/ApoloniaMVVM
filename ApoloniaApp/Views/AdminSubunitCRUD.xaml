@@ -90,8 +90,8 @@
                         <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
 
                             <TextBox x:Name="txtNombre"
-                                         Width="150" 
-                                         MaxLength="9"
+                                         Width="209" 
+                                         MaxLength="30"
                                          Text="{Binding Nombre}"
                                          Style="{DynamicResource TextBoxRoundedCorners}"/>
 

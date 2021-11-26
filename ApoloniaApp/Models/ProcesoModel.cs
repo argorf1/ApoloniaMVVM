@@ -24,13 +24,18 @@ namespace ApoloniaApp.Models
         {
             Subunidad = new SubUnidadModel();
             Rol = new RolModel();
+            Unidad = new UnidadModel();
             Creador = new UsuarioInternoModel();
+
+            NombreEntidad = "Proceso";
+            Mensaje = "";
         }
 
         public ProcesoModel(UnidadModel unidad)
         {
             Subunidad = new SubUnidadModel();
-            Rol = new RolModel() { Unidad = unidad};
+            Unidad = Unidad = unidad;
+            Rol = new RolModel();
             Creador = new UsuarioInternoModel();
         }
 

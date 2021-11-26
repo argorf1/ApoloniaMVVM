@@ -51,10 +51,10 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Create(), () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudRol.ReadByNombre(), _crudRol, _listStore.roles, 1);
+                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Create(), () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudRol.ReadByNombre(), _crudRol, () => _listStore.Roles(), 1);
                     break;
                 case 2:
-                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Update(), () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudRol, _listStore.roles, 2);
+                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Update(), () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudRol, () => _listStore.Roles(), 2);
                     break;
                 default:
                     break;
@@ -65,7 +65,7 @@ namespace ApoloniaApp.ViewModels
 
             #region Carga Listas
             _subunidades = ChargeComboBoxService<SubUnidadModel>.ChargeComboBox(_listStore.subunidades.Where(p=> p.RutUnidad == _crudRol.Unidad.Rut), _subunidades, new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad --" });
-            _roles = ChargeComboBoxService<RolModel>.ChargeComboBox(_listStore.roles,_roles, new RolModel() { Id = 0, Nombre = "-- Rol --" });
+            _roles = ChargeComboBoxService<RolModel>.ChargeComboBox(_listStore.roles.Where(p=> p.Unidad.Rut == _crudRol.Unidad.Rut),_roles, new RolModel() { Id = 0, Nombre = "-- Rol --" });
 
             _roles.Remove(_roles.FirstOrDefault(r => r.Id == _crudRol.Id && r.Id != 0));
 
@@ -80,8 +80,9 @@ namespace ApoloniaApp.ViewModels
                  ()=> ValidationService.Text(Nombre)
                 ,()=> ValidationService.Text(Descripcion)
                 ,()=> ValidationService.ComboBoxId(SelectedSubunidad.Id)
-                ,()=> ValidationService.ComboBoxId(SelectedRol.Id)
             });
+            if (_roles.Count() > 1) 
+                _validations.Add(() => ValidationService.ComboBoxId(SelectedRol.Id));
             #endregion
         }
 
@@ -152,7 +153,7 @@ namespace ApoloniaApp.ViewModels
         private bool _validRol = false;
         public bool ValidRol
         {
-            get => _validRol;
+            get => roles.Count() > 1?_validRol:true;
             set
             {
                 _validRol = value;
@@ -180,7 +181,7 @@ namespace ApoloniaApp.ViewModels
                 _selectedRol = value;
                 _crudRol.RolSuperior = _selectedRol.Id;
                 _crudRol.Nivel = _selectedRol.Nivel + 1;
-                ValidRol = ValidationService.ComboBoxId(SelectedRol.Id);
+                ValidRol = roles.Count() > 1 ? ValidationService.ComboBoxId(SelectedRol.Id):true;
 
                 OnPropertyChanged("SelectedRol");
 

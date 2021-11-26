@@ -813,8 +813,8 @@
                                         <Button x:Name="btnDeleteSubUnit" Content="Eliminar"
                                                 Padding="0,10,10,10"
                                                 Style="{DynamicResource ToolBtn}"
-                                                IsEnabled="{Binding CanCreateSubunit}"
-                                                Command="{Binding NavigationCreateSubunit}">
+                                                IsEnabled="{Binding CanEditSubunit}"
+                                                Command="{Binding DeleteSubunit}">
                                             <Button.Tag>
                                                 <ImageSource>/Assets/Icons/ico_del.png</ImageSource>
                                             </Button.Tag>

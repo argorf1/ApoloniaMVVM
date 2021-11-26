@@ -58,22 +58,7 @@ namespace ApoloniaApp.ViewModels
             _frameStore = new FrameStore();
             CurrentAccount = accountStore.CurrentAccount;
 
-            #region Carga listas
-
-            _listStore.usuarios = new ReadAllCommand<UsuarioInternoModel>().ReadAll(() => new UsuarioInternoModel().ReadAll());
-            _listStore.designers = new ReadAllCommand<UsuarioInternoModel>().ReadAll(() => new UsuarioInternoModel().ReadByDesignerPerfil(), new UsuarioInternoModel() { Run="0", Nombre = "-- Seleccionar --"});
-            _listStore.unidades = new ReadAllCommand<UnidadModel>().ReadAll(() => new UnidadModel().ReadAll());
-            _listStore.subunidades = new ReadAllCommand<SubUnidadModel>().ReadAll(() => new SubUnidadModel().ReadAll());
-            _listStore.roles = new ReadAllCommand<RolModel>().ReadAll(() => new RolModel().ReadAll());
-            _listStore.funcionarios= new ReadAllCommand<FuncionarioModel>().ReadAll(() => new FuncionarioModel().ReadAll());
-            _listStore.regiones = new ReadAllCommand<RegionModel>().ReadAll(() => new RegionModel().ReadAll(), new RegionModel() { Id = 0, Nombre = "--Seleccionar--" });
-            _listStore.provincias = new ReadAllCommand<ProvinciaModel>().ReadAll(() => new ProvinciaModel().ReadAll(), new ProvinciaModel() { Id = 0, Nombre = "--Seleccionar--", IdRegion = 0 });
-            _listStore.comunas = new ReadAllCommand<ComunaModel>().ReadAll(() => new ComunaModel().ReadAll(), new ComunaModel() { Id = 0, Nombre = "--Seleccionar--", IdProvincia = 0 });
-            _listStore.rubros = new ReadAllCommand<RubroModel>().ReadAll(() => new RubroModel().ReadAll(), new RubroModel() { Id = 0, Nombre = "--Seleccionar--"});
-            _listStore.perfiles = new ReadAllCommand<PerfilModel>().ReadAll(() => new PerfilModel().ReadAll(), new PerfilModel() { Id = 0, Nombre = "--Seleccionar--"});
-            _listStore.estados = new ReadAllCommand<EstadoModel>().ReadAll(() => new EstadoModel().ReadAll(), new EstadoModel() { Id = 0, Nombre = "--Seleccionar--"});
-
-            #endregion
+            _listStore.Adminview();
 
 
             rol = new PerfilModel(CurrentAccount.Perfil.Id);

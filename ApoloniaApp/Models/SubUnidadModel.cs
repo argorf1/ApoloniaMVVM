@@ -23,6 +23,9 @@ namespace ApoloniaApp.Models
         public SubUnidadModel()
         {
             SubunidadPadre = new SubUnidadModel("");
+
+            NombreEntidad = "Subunidad";
+            Mensaje = "";
         }
 
         public SubUnidadModel(string vacio)
@@ -141,6 +144,43 @@ namespace ApoloniaApp.Models
                 return true;
             }
         }
+
+        public bool ReadContent()
+        {
+            try
+            {
+                conn = Conexion.AbrirConexion();
+
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "r_subunidades_depen";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_id", OracleDbType.NVarchar2).Value = this.Id;
+                OracleParameter o = cmd.Parameters.Add("cl", OracleDbType.RefCursor);
+                o.Direction = ParameterDirection.Output;
+
+
+
+                cmd.ExecuteNonQuery();
+
+                r = ((OracleRefCursor)o.Value).GetDataReader();
+                if (r.Read())
+                {
+                    conn.Close();
+                    return true;
+                }
+                else
+                {
+                    conn.Close();
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return true;
+            }
+        }
         #endregion
 
         public bool Update()
@@ -168,6 +208,30 @@ namespace ApoloniaApp.Models
             {
                 conn.Close();
                 return false;
+            }
+        }
+
+        public bool Delete()
+        {
+            conn = new OracleConnection();
+            try
+            {
+                conn = Conexion.AbrirConexion();
+
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "d_subunidad";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_id_subunidad", OracleDbType.Int32).Value = this.Id;
+
+                cmd.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return true;
             }
         }
         #endregion
