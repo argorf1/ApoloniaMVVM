@@ -301,58 +301,7 @@ namespace ApoloniaApp.ViewModels
             }
         }
         #endregion
-        #region Validaciones
-
-        private bool ValidateNombre()
-        {
-            if (Nombre == "")
-            {
-                return false;
-            }
-            return true;
-        }
-
-        private bool ValidateDescripcion()
-        {
-            if (Descripcion == "")
-            {
-                return false;
-            }
-            return true;
-        }
-
-        private bool ValidateDuracion()
-        {
-            if (Duracion < 0)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        private bool ValidateResponsable()
-        {
-            if (!Responsables.Any())
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public void ValidateAll()
-        {
-
-            foreach (Func<bool> f in _validations)
-            {
-                if (!f())
-                {
-                    CanCrud = false;
-                    return;
-                }
-            }
-            CanCrud = true;
-        }
-        #endregion
+        
 
         #region Commands
 
@@ -363,7 +312,6 @@ namespace ApoloniaApp.ViewModels
             {
                 source.Remove(model);
                 target.Add(model);
-                model = null;
                 OnPropertyChanged(property);
             }
         }
@@ -382,7 +330,7 @@ namespace ApoloniaApp.ViewModels
         {
             get
             {
-                return _addResponsable ?? (_addResponsable = new CommandHandler(() => ExchangeList<FuncionarioModel>(_funcionarios, _responsables, SelectedFuncionario, "ValidResponsable"), true));
+                return _addResponsable ?? (_addResponsable = new CommandHandler(() => ExchangeList<FuncionarioModel>(_funcionarios, _responsables, SelectedFuncionario, "CanCrud"), true));
             }
         }
         private ICommand _extractResponsable;
@@ -390,7 +338,7 @@ namespace ApoloniaApp.ViewModels
         {
             get
             {
-                return _extractResponsable ?? (_extractResponsable = new CommandHandler(() => ExchangeList<FuncionarioModel>(_responsables, _funcionarios, SelectedResponsable, "ValidResponsable"), true));
+                return _extractResponsable ?? (_extractResponsable = new CommandHandler(() => ExchangeList<FuncionarioModel>(_responsables, _funcionarios, SelectedResponsable, "CanCrud"), true));
             }
         }
         private ICommand _addDependencia;

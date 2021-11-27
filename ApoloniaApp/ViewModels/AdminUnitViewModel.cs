@@ -293,7 +293,7 @@ namespace ApoloniaApp.ViewModels
 
         public SubUnidadModel SelectedSubunidad
         {
-            get { return _editSubunit; }
+            get => _editSubunit;
             set
             {
                 if (value != null)
@@ -369,6 +369,7 @@ namespace ApoloniaApp.ViewModels
             _subunidades = _listStore.subunidades;
             _funcionarios = _listStore.funcionarios;
 
+            _editSubunit = new SubUnidadModel();
 
             NavigationCreateUnit = new NavigatePanelCommand<AdminUnitCRUDViewModel>(_frameStore, () => new AdminUnitCRUDViewModel(_frameStore, CurrentAccount,new UnidadModel(), 1,_listStore));
             NavigationEditUnit = new NavigatePanelCommand<AdminUnitCRUDViewModel>(_frameStore, () => new AdminUnitCRUDViewModel(_frameStore, CurrentAccount, _editUnit, 2,_listStore));
