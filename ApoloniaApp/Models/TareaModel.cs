@@ -52,7 +52,7 @@ namespace ApoloniaApp.Models
                 cmd.Parameters.Add("i_descripcion", OracleDbType.NVarchar2).Value = this.Descripcion;
                 cmd.Parameters.Add("i_duracion", OracleDbType.Int32).Value = this.Duracion;
                 cmd.Parameters.Add("i_id_proceso_tipo", OracleDbType.Int32).Value = this.Proceso.Id;
-                cmd.Parameters.Add("i_run_disenador", OracleDbType.Int32).Value = this.Creador.Run;
+                cmd.Parameters.Add("i_run_disenador", OracleDbType.NVarchar2).Value = this.Creador.Run;
                 OracleParameter id = cmd.Parameters.Add("i_id_tarea_tipo", OracleDbType.Int32);
                 id.Direction = ParameterDirection.Output;
 
