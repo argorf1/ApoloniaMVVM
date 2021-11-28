@@ -21,7 +21,7 @@ namespace ApoloniaApp.ViewModels
         private readonly FrameStore _frameStore;
         private readonly ListStore _listStore;
 
-        mainView.IsCheck = false;
+        
 
         private bool _canEdit = false;
         public bool CanEdit
@@ -167,6 +167,8 @@ namespace ApoloniaApp.ViewModels
             _frameStore = frameStore;
             _listStore = listStore;
             CurrentAccount = currentAccount;
+
+            mainView.IsCheck = false;
             _crudUsuario = new UsuarioInternoModel();
             _usuarios = _listStore.usuarios;
             _selectedIndex = -1;
