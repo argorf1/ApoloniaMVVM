@@ -178,12 +178,12 @@ namespace ApoloniaApp.ViewModels
             {
                 _selectedTarea = value;
 
-                _crudTarea.Id = _crudTarea.Id;
-                _crudTarea.Nombre = _crudTarea.Nombre;
-                _crudTarea.Descripcion = _crudTarea.Descripcion;
-                _crudTarea.Duracion = _crudTarea.Duracion;
-                _crudTarea.Responsables = _crudTarea.Responsables;
-                _crudTarea.Dependencias = _crudTarea.Dependencias;
+                _crudTarea.Id = _selectedTarea.Id;
+                _crudTarea.Nombre = _selectedTarea.Nombre;
+                _crudTarea.Descripcion = _selectedTarea.Descripcion;
+                _crudTarea.Duracion = _selectedTarea.Duracion;
+                _crudTarea.Responsables = _selectedTarea.Responsables;
+                _crudTarea.Dependencias = _selectedTarea.Dependencias;
 
                 CanEditTarea = (_crudTarea != null ? true: false);
                 Responsables = (_crudTarea != null ? _responsables.Where(p => p.IdTarea == _crudTarea.Id) : null);
