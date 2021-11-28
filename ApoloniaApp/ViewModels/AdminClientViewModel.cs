@@ -30,13 +30,14 @@ namespace ApoloniaApp.ViewModels
         private readonly ObservableCollection<FuncionarioModel> _funcionarios;
         private IEnumerable<FuncionarioModel> funcionarios;
         private FuncionarioModel _selectedFuncionario;
-        public AdminClientViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore)
+        public AdminClientViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore, AdminViewModel mainView)
         {
             _frameStore = frameStore;
             _listStore = listStore;
             CurrentAccount = currentAccount;
             _crudFuncionario = new FuncionarioModel();
 
+            mainView.IsCheck = false;
 
 
             _unidades = ChargeComboBoxService<UnidadModel>.ChargeComboBox(_listStore.unidades, _unidades, new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
@@ -44,8 +45,8 @@ namespace ApoloniaApp.ViewModels
 
             Funcionarios = _funcionarios;
             SelectedUnidad = _unidades.Last(p => p.Rut == _crudFuncionario.Unidad.Rut || p.Rut == "0");
-            NavigationCreateUsers = new NavigatePanelCommand<AdminClientCRUDViewModel>(_frameStore, () => new AdminClientCRUDViewModel(1, _frameStore, CurrentAccount, new FuncionarioModel() { Password = "12345678" }, _listStore));
-            NavigationEditUsers = new NavigatePanelCommand<AdminClientCRUDViewModel>(_frameStore, () => new AdminClientCRUDViewModel(2, _frameStore, CurrentAccount, _crudFuncionario, _listStore));
+            NavigationCreateUsers = new NavigatePanelCommand<AdminClientCRUDViewModel>(_frameStore, () => new AdminClientCRUDViewModel(1, _frameStore, CurrentAccount, new FuncionarioModel() { Password = "12345678" }, _listStore, mainView));
+            NavigationEditUsers = new NavigatePanelCommand<AdminClientCRUDViewModel>(_frameStore, () => new AdminClientCRUDViewModel(2, _frameStore, CurrentAccount, _crudFuncionario, _listStore, mainView));
 
         }
 

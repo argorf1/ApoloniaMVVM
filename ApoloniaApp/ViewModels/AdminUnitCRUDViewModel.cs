@@ -23,13 +23,15 @@ namespace ApoloniaApp.ViewModels
 
         public ICommand CrudCommand { get; }
         public ICommand ReturnCommand { get; }
-        public AdminUnitCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, UnidadModel crudUnidad, int estado, ListStore listStore)
+        public AdminUnitCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, UnidadModel crudUnidad, int estado, ListStore listStore, AdminViewModel mainView)
         {
             _frameStore = frameStore;
             CurrentAccount = currentAccount;
             _crud = crudUnidad;
             _estado = estado;
             _listStore = listStore;
+
+            mainView.IsCheck = false;
 
             #region Configuracion Estado
 
@@ -59,7 +61,7 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    CrudCommand = new CRUDCommand<AdminUnitViewModel, UnidadModel>(() => _crud.Create(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crud.ReadByRut(), _crud, () => _listStore.Unidades(), 1);
+                    CrudCommand = new CRUDCommand<AdminUnitViewModel, UnidadModel>(() => _crud.Create(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, () => _crud.ReadByRut(), _crud, () => _listStore.Unidades(), 1);
                     SelectedRegion = _regiones.Last(p => p.Id == 0);
                     SelectedProvincia = provincias.Last(p => p.Id == 0);
                     SelectedComuna = comunas.Last(p => p.Id == 0);
@@ -82,7 +84,7 @@ namespace ApoloniaApp.ViewModels
                     break;
                 case 2:
                     _editing = true;
-                    CrudCommand = new CRUDCommand<AdminUnitViewModel, UnidadModel>(() => _crud.Update(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crud, () => _listStore.Unidades(), 2);
+                    CrudCommand = new CRUDCommand<AdminUnitViewModel, UnidadModel>(() => _crud.Update(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, _crud, () => _listStore.Unidades(), 2);
                     SelectedRegion = _regiones.Last(p => p.Nombre == region);
                     SelectedProvincia = provincias.Last(p => p.Nombre == provincia);
                     SelectedComuna = comunas.Last(p => p.Nombre == comuna);
@@ -109,7 +111,7 @@ namespace ApoloniaApp.ViewModels
                     break;
             }
 
-            ReturnCommand = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore));
+            ReturnCommand = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore, mainView));
             #endregion
 
         }
