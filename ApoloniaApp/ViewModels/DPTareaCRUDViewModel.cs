@@ -24,7 +24,7 @@ namespace ApoloniaApp.ViewModels
         public ICommand Crud { get; }
         public ICommand Return { get; }
         #endregion
-        public DPTareaCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, TareaModel crudTarea, int estado, UnidadModel unidad, ListStore listStore)
+        public DPTareaCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, TareaModel crudTarea, int estado, UnidadModel unidad, ListStore listStore, ProcessDesignerViewModel mainView)
         {
             _frameStore = frameStore;
             _listStore = listStore;
@@ -48,16 +48,16 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudTarea.ReadByName(), _crudTarea, () => _listStore.TareasView(), 1);
+                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, () => _crudTarea.ReadByName(), _crudTarea, () => _listStore.TareasView(), 1);
                     break;
                 case 2:
-                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Update(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudTarea, () => _listStore.TareasView(), 2);
+                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Update(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, _crudTarea, () => _listStore.TareasView(), 2);
                     break;
                 default:
                     break;
             }
             #endregion
-            Return = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore));
+            Return = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView));
 
             #region Carga Listas
             _funcionarios = new ObservableCollection<FuncionarioModel>();

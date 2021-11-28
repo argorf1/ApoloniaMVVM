@@ -68,8 +68,7 @@ namespace ApoloniaApp.ViewModels
             LogUser += CurrentAccount.Nombre + " " + CurrentAccount.ApellidoP + "(" + rol.Nombre + ")";
             _frameStore.CurrentViewModelChanged += OnCurrentPanelChanged;
 
-            NavigationProcesos = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore,CurrentAccount,_listStore));
-            NavigationMonitoreo = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore, CurrentAccount,_listStore));
+            NavigationProcesos = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore,CurrentAccount,_listStore,this));
             LogoutCommand = new LogoutCommand(_navigationStore, _accountStore, _listStore);
         }
 

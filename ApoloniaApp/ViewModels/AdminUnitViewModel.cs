@@ -317,7 +317,7 @@ namespace ApoloniaApp.ViewModels
                 {
                     _selectedSubunidad = new SubUnidadModel();
                 }
-                if (_editSubunit.Id != 0)
+                if (_selectedSubunidad.Id != 0)
                 {
                     CanEditSubunit = true;
                 }
