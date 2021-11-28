@@ -42,6 +42,8 @@ namespace ApoloniaApp.ViewModels
             _crudProceso.Creador.Run = CurrentAccount.Run;
             _estado = estado;
 
+            mainView.IsCheck = false;
+
             #region Configuracion Estado
 
             #region CargaDiccionario

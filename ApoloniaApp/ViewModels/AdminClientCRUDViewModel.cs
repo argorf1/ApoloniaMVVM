@@ -63,13 +63,14 @@ namespace ApoloniaApp.ViewModels
         }
         #endregion
 
-        public AdminClientCRUDViewModel(int estado, FrameStore frameStore, UsuarioInternoModel currentAccount, FuncionarioModel crudFuncionario, ListStore listStore)
+        public AdminClientCRUDViewModel(int estado, FrameStore frameStore, UsuarioInternoModel currentAccount, FuncionarioModel crudFuncionario, ListStore listStore, AdminViewModel mainView)
         {
             _frameStore = frameStore;
             _listStore = listStore;
             CurrentAccount = currentAccount;
             _crudUsuario = crudFuncionario;
 
+            mainView.IsCheck = false;
 
             #region Configuracion Estado
 
@@ -84,7 +85,7 @@ namespace ApoloniaApp.ViewModels
             {
                 case 1:
                     _crudUsuario.Password = PasswordGeneratorService.CreateRandomPassword(15);
-                    CrudUser = new CRUDCommand<AdminClientViewModel, FuncionarioModel>(() => _crudUsuario.Create(), () => new AdminClientViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudUsuario.ReadByRun(), _crudUsuario, () => _listStore.Funcionarios(), 1);
+                    CrudUser = new CRUDCommand<AdminClientViewModel, FuncionarioModel>(() => _crudUsuario.Create(), () => new AdminClientViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, () => _crudUsuario.ReadByRun(), _crudUsuario, () => _listStore.Funcionarios(), 1);
                     #region Carga Validaciones
                     _validations.AddRange(new List<Func<bool>>()
                     {
@@ -101,7 +102,7 @@ namespace ApoloniaApp.ViewModels
                     _editing = false;
                     break;
                 case 2:
-                    CrudUser = new CRUDCommand<AdminClientViewModel, FuncionarioModel>(() => _crudUsuario.Update(), () => new AdminClientViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudUsuario, () =>_listStore.Funcionarios(), 2);
+                    CrudUser = new CRUDCommand<AdminClientViewModel, FuncionarioModel>(() => _crudUsuario.Update(), () => new AdminClientViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, _crudUsuario, () =>_listStore.Funcionarios(), 2);
                     #region Carga Validaciones
                     _validations.AddRange(new List<Func<bool>>()
                     {
@@ -139,7 +140,7 @@ namespace ApoloniaApp.ViewModels
             SelectedEstado = _estados.First(e => e.Id == _crudUsuario.Estado.Id);
             #endregion
 
-            NavigationUsers = new NavigatePanelCommand<AdminClientViewModel>(_frameStore, () => new AdminClientViewModel(_frameStore, CurrentAccount, _listStore));
+            NavigationUsers = new NavigatePanelCommand<AdminClientViewModel>(_frameStore, () => new AdminClientViewModel(_frameStore, CurrentAccount, _listStore, mainView));
 
         }
 

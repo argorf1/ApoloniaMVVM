@@ -32,7 +32,9 @@ namespace ApoloniaApp.ViewModels
             _crudTarea = crudTarea;
             _crudTarea.Creador = currentAccount;
             _estado = estado;
-            
+
+            mainView.IsCheck = false;
+
             #region Configuracion Estado
 
             #region CargaDiccionario

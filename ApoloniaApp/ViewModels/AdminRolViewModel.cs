@@ -17,13 +17,14 @@ namespace ApoloniaApp.ViewModels
         private ListStore _listStore;
         public UsuarioInternoModel CurrentAccount;
         private RolModel _crudRol;
-        public AdminRolViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore)
+        public AdminRolViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore, AdminViewModel mainView)
         {
             _frameStore = frameStore;
             _listStore = listStore;
             CurrentAccount = currentAccount;
             _crudRol = new RolModel();
 
+            mainView.IsCheck = false;
 
             #region Carga Listas
             _unidades = ChargeComboBoxService<UnidadModel>.ChargeComboBox(_listStore.unidades, _unidades, new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
@@ -34,8 +35,8 @@ namespace ApoloniaApp.ViewModels
             SelectedRol = new RolModel();
             #endregion
 
-            NavigationCreateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount, new RolModel(_selectedUnidad), 1, _listStore));
-            NavigationUpdateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount, _crudRol, 2, _listStore));
+            NavigationCreateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount, new RolModel(_selectedUnidad), 1, _listStore, mainView));
+            NavigationUpdateRol = new NavigatePanelCommand<AdminRolCRUDViewModel>(_frameStore, () => new AdminRolCRUDViewModel(_frameStore, CurrentAccount, _crudRol, 2, _listStore, mainView));
 
         }
 
