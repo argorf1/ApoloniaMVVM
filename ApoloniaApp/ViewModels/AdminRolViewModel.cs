@@ -72,7 +72,7 @@ namespace ApoloniaApp.ViewModels
 
         private ObservableCollection<RolModel> _roles;
         private IEnumerable<RolModel> roles;
-
+        private RolModel _selectedRol;
 
         public IEnumerable<RolModel> Roles
         {
@@ -85,10 +85,17 @@ namespace ApoloniaApp.ViewModels
         }
         public RolModel SelectedRol
         {
-            get { return _crudRol; }
+            get { return _selectedRol; }
             set
             {
-                _crudRol = value;
+                _selectedRol = value;
+
+                _crudRol.Id = value.Id;
+                _crudRol.Nombre = value.Nombre;
+                _crudRol.Descripcion = value.Descripcion;
+                _crudRol.RolSuperior = value.RolSuperior;
+                _crudRol.Subunidad = value.Subunidad;
+                
                 CanEdit = _crudRol.Id != 0;
                 OnPropertyChanged("SelectedRol");
 

@@ -73,7 +73,7 @@
                                 Margin="0,0,10,0"
                                 IsEnabled="{Binding CanEditProc}"
                                 VerticalContentAlignment="Center" 
-                                Command="{Binding NavigationCreateProceso}"/>
+                                Command="{Binding DeleteProceso}"/>
                         <Button Content="Modificar Proceso"
                                 Margin="10,0,10,0"
                                 VerticalContentAlignment="Center" 
@@ -123,6 +123,7 @@
                                 DockPanel.Dock="Right"
                                 Margin="0,0,10,0"
                                 VerticalContentAlignment="Center"
+                                Command="{Binding DeleteTarea}"
                                 IsEnabled="{Binding CanEditTarea}"/>
                         <Button Content="Modificar Tarea"
                                 Margin="10,0,10,0"

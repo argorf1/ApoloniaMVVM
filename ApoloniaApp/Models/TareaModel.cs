@@ -187,20 +187,16 @@ namespace ApoloniaApp.Models
             {
                 conn = Conexion.AbrirConexion();
 
-                OracleCommand cmd = new OracleCommand("c_subunidad", conn);
+                OracleCommand cmd = new OracleCommand("u_tarea_tipo", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("i_id_tarea_tipo", OracleDbType.Int32).Value = this.Id;
                 cmd.Parameters.Add("i_nombre", OracleDbType.NVarchar2).Value = this.Nombre;
                 cmd.Parameters.Add("i_descripcion", OracleDbType.NVarchar2).Value = this.Descripcion;
                 cmd.Parameters.Add("i_duracion", OracleDbType.Int32).Value = this.Duracion;
-                cmd.Parameters.Add("i_id_proceso_tipo", OracleDbType.Int32).Value = this.Proceso.Id;
-                cmd.Parameters.Add("i_run_disenador", OracleDbType.Int32).Value = this.Creador.Run;
-                OracleParameter id = cmd.Parameters.Add("cl", OracleDbType.Int32);
-                id.Direction = ParameterDirection.Output;
+
 
                 cmd.ExecuteNonQuery();
 
-                this.Id = (int)id.Value;
 
                 conn.Close();
                 if (this.Dependencias.Any())
@@ -212,7 +208,7 @@ namespace ApoloniaApp.Models
                         dep.Create();
                     }
                 }
-                if (this.Dependencias.Any())
+                if (this.Responsables.Any())
                 {
                     new ResponsableModel().Delete(this.Id);
                     foreach (FuncionarioModel f in this.Responsables)

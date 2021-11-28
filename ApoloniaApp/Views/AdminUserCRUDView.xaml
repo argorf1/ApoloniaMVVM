@@ -78,6 +78,7 @@
                         <TextBox x:Name="txtNewRun"
                                  Width="120"
                                  MaxLength="9"
+                                 IsReadOnly="{Binding EstadoEdit}"
                                  Text="{Binding Run}"
                                  Style="{DynamicResource TextBoxRoundedCorners}"/>
 
