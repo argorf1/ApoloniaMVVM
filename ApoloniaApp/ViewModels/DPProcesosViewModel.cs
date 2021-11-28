@@ -25,6 +25,8 @@ namespace ApoloniaApp.ViewModels
         public ICommand NavigationUpdateProceso { get; }
         public ICommand NavigationCreateTarea { get; }
         public ICommand NavigationUpdateTarea { get; }
+        public ICommand DeleteProceso { get; }
+        public ICommand DeleteTarea { get; }
         #endregion
 
         public DPProcesosViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore)
@@ -32,6 +34,9 @@ namespace ApoloniaApp.ViewModels
             _frameStore = frameStore;
             _listStore = listStore;
             CurrentAccount = currentAccount;
+
+            _crudProceso = new ProcesoModel();
+            _crudTarea = new TareaModel();
 
             #region Carga Listas
             _unidades = ChargeComboBoxService<UnidadModel>.ChargeComboBox(_listStore.unidades.Where(p => p.Responsable.Run == currentAccount.Run), _unidades, new UnidadModel() { Rut = "0", RazonSocial = "-- Unidad --" });
@@ -47,6 +52,10 @@ namespace ApoloniaApp.ViewModels
             NavigationUpdateProceso = new NavigatePanelCommand<DPProcesosCRUDViewModel>(frameStore, () => new DPProcesosCRUDViewModel(frameStore, currentAccount, _crudProceso, 2, _listStore));
             NavigationCreateTarea = new NavigatePanelCommand<DPTareaCRUDViewModel>(frameStore, () => new DPTareaCRUDViewModel(frameStore, currentAccount, new TareaModel() { Proceso = _crudProceso }, 1, _selectedUnidad, _listStore));
             NavigationUpdateTarea = new NavigatePanelCommand<DPTareaCRUDViewModel>(frameStore, () => new DPTareaCRUDViewModel(frameStore, currentAccount, _crudTarea, 2, _selectedUnidad, _listStore));
+
+            DeleteProceso = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Delete(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudProceso, () => _listStore.ProcesosView(), 4);
+            DeleteTarea = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Delete(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore,  _crudTarea, () => _listStore.TareasView(), 4);
+
             #endregion
         }
 
@@ -74,6 +83,7 @@ namespace ApoloniaApp.ViewModels
         //Lista que necesita filtrarse
         private readonly ObservableCollection<ProcesoModel> _procesos;
         private IEnumerable<ProcesoModel> procesos;
+        private ProcesoModel _selectedProceso;
         private bool _canCreateProc = false;
         private bool _canEditProc = false;
 
@@ -106,20 +116,28 @@ namespace ApoloniaApp.ViewModels
         }
         public ProcesoModel SelectedProceso
         {
-            get { return _crudProceso; }
+            get { return _selectedProceso; }
             set
             {
-                _crudProceso = value;
+                _selectedProceso = value;
 
-                CanEditProc = (_crudProceso != null ? true : false);
-                CanCreateTarea = (_crudProceso != null ? true : false);
-                Tareas = (_crudProceso != null ? _tareas.Where(t => t.Proceso.Id == _crudProceso.Id) : null);
+                _crudProceso.Id             = _selectedProceso.Id;
+                _crudProceso.Nombre         = _selectedProceso.Nombre;
+                _crudProceso.Descripcion    = _selectedProceso.Descripcion;
+                _crudProceso.Rol            = _selectedProceso.Rol;
+                _crudProceso.Unidad         = _selectedProceso.Unidad;
+                _crudProceso.Creador        = _selectedProceso.Creador;
+
+                CanEditProc = _selectedProceso != null;
+                CanCreateTarea = _selectedProceso != null;
+                Tareas = _crudProceso != null ? _tareas.Where(t => t.Proceso.Id == _crudProceso.Id) : null;
                 OnPropertyChanged("SelectedProceso");
             }
         }
 
         private readonly ObservableCollection<TareaModel> _tareas;
         private IEnumerable<TareaModel> tareas;
+        private TareaModel _selectedTarea;
         private bool _canCreateTarea = false;
         private bool _canEditTarea = false;
 
@@ -153,10 +171,17 @@ namespace ApoloniaApp.ViewModels
 
         public TareaModel SelectedTarea
         {
-            get => _crudTarea;
+            get => _selectedTarea;
             set
             {
-                _crudTarea = value;
+                _selectedTarea = value;
+
+                _crudTarea.Id = _crudTarea.Id;
+                _crudTarea.Nombre = _crudTarea.Nombre;
+                _crudTarea.Descripcion = _crudTarea.Descripcion;
+                _crudTarea.Duracion = _crudTarea.Duracion;
+                _crudTarea.Responsables = _crudTarea.Responsables;
+                _crudTarea.Dependencias = _crudTarea.Dependencias;
 
                 CanEditTarea = (_crudTarea != null ? true: false);
                 Responsables = (_crudTarea != null ? _responsables.Where(p => p.IdTarea == _crudTarea.Id) : null);

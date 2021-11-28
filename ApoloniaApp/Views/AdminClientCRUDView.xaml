@@ -85,6 +85,7 @@
                                  Text="{Binding Run}"
                                  Width="120"
                                  MaxLength="9"
+                                 IsReadOnly="{Binding EstadoEdit}"
                                  Style="{DynamicResource TextBoxRoundedCorners}"/>
 
                         <Image x:Name="imgNewRun"

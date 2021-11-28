@@ -29,7 +29,7 @@ namespace ApoloniaApp.ViewModels
 
         private readonly ObservableCollection<FuncionarioModel> _funcionarios;
         private IEnumerable<FuncionarioModel> funcionarios;
-
+        private FuncionarioModel _selectedFuncionario;
         public AdminClientViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore)
         {
             _frameStore = frameStore;
@@ -77,10 +77,20 @@ namespace ApoloniaApp.ViewModels
 
         public FuncionarioModel SelectedFuncionario
         {
-            get { return _crudFuncionario; }
+            get { return _selectedFuncionario; }
             set
             {
-                _crudFuncionario = value != null ? value: new FuncionarioModel();
+                _selectedFuncionario = value != null ? value: new FuncionarioModel();
+
+                _crudFuncionario.Run         = value.Run;
+                _crudFuncionario.Nombre      = value.Nombre;
+                _crudFuncionario.ApellidoP   = value.ApellidoP;
+                _crudFuncionario.ApellidoM   = value.ApellidoM;
+                _crudFuncionario.Email       = value.ApellidoP;
+                _crudFuncionario.Rol         = value.Rol;
+                _crudFuncionario.Estado      = value.Estado;
+                _crudFuncionario.Unidad      = value.Unidad;
+                _crudFuncionario.Subunidad   = value.Subunidad;
                 OnPropertyChanged("SelectedFuncionario");
 
                 CanEdit = SelectedFuncionario.Run != ""? true : false;

@@ -90,9 +90,9 @@ namespace ApoloniaApp.Models
                         Id = r.GetInt32(0),
                         Nombre = r.GetString(1),
                         Descripcion = r.GetString(2),
-                        RutUnidad = r.GetString(8)
+                        RutUnidad = r.GetString(5)
                     };
-                    s.SubunidadPadre = new SubUnidadModel() { Id = r.GetInt32(4) };
+                    s.SubunidadPadre = new SubUnidadModel() { Id = r.GetInt32(3) };
                     listaNegocio.Add(s);
                 }
                     conn.Close();
