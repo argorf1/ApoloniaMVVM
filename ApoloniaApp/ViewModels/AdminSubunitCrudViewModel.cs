@@ -38,7 +38,7 @@ namespace ApoloniaApp.ViewModels
         private SubUnidadModel _selectedSubunidad;
 
 
-        public AdminSubunitCrudViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, SubUnidadModel createSubunidad, int estado, ListStore listStore)
+        public AdminSubunitCrudViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, SubUnidadModel createSubunidad, int estado, ListStore listStore, AdminViewModel mainView)
         {
             _estado = estado;
             _listStore = listStore;
@@ -49,6 +49,7 @@ namespace ApoloniaApp.ViewModels
             _subunidades = ChargeComboBoxService<SubUnidadModel>.ChargeComboBox(_listStore.subunidades.Where(p=> p.RutUnidad == _crudSubunidad.RutUnidad),_subunidades,new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad Padre --"});
 
             SelectedSubunidad = _subunidades.FirstOrDefault(p => p.Id == _crudSubunidad.SubunidadPadre.Id);
+            mainView.IsCheck = false;
 
             #region CargaDiccionario
             _estadoDetalle.Add(1, "Crear Subnidad");
@@ -59,16 +60,16 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    CrudSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _crudSubunidad.Create(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudSubunidad.ReadByName(), _crudSubunidad, () => _listStore.Subunidades(), 1);
+                    CrudSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _crudSubunidad.Create(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, () => _crudSubunidad.ReadByName(), _crudSubunidad, () => _listStore.Subunidades(), 1);
                     break;
                 case 2:
-                    CrudSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _crudSubunidad.Update(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudSubunidad, () => _listStore.Subunidades(), 2);
+                    CrudSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _crudSubunidad.Update(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, _crudSubunidad, () => _listStore.Subunidades(), 2);
                     _subunidades.Remove(_subunidades.First(p => p.Id == _crudSubunidad.Id));
                     break;
                 default:
                     break;
             }
-            NavigationUnit = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore));
+            NavigationUnit = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore, mainView));
 
             #region CargaValidaciones
             _validations = new List<Func<bool>>();

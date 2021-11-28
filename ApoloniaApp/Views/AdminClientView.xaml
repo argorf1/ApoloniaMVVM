@@ -85,8 +85,7 @@
                                   Style="{DynamicResource CboRoundedCornersStyle}"/>
                         
                     </StackPanel>
-                    <DataGrid Style="{DynamicResource DataGridRoundedCorners}" x:Name="dtgUsers"
-                              Grid.Column="0" Grid.Row="1"
+                    <DataGrid x:Name="dtgUsers" Grid.Column="0" Grid.Row="1"
                               CanUserReorderColumns="False"
                               SelectionMode="Single"
                               IsReadOnly="True"
@@ -95,7 +94,8 @@
                               Margin="10" Height="160"
                               HorizontalScrollBarVisibility="Visible"
                               ItemsSource="{Binding Funcionarios}"
-                              SelectedItem="{Binding SelectedFuncionario, Mode=TwoWay}">
+                              SelectedItem="{Binding SelectedFuncionario, Mode=TwoWay}"
+                              Style="{DynamicResource DataGridRoundedCorners}">
 
                         <DataGrid.Columns>
                             <DataGridTextColumn 

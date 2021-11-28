@@ -20,7 +20,9 @@ namespace ApoloniaApp.ViewModels
         private UsuarioInternoModel _crudUsuario;
         private readonly FrameStore _frameStore;
         private readonly ListStore _listStore;
+
         
+
         private bool _canEdit = false;
         public bool CanEdit
         {
@@ -160,16 +162,18 @@ namespace ApoloniaApp.ViewModels
 
         #endregion
 
-        public AdminUserViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore)
+        public AdminUserViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore, AdminViewModel mainView)
         {
             _frameStore = frameStore;
             _listStore = listStore;
             CurrentAccount = currentAccount;
+
+            mainView.IsCheck = false;
             _crudUsuario = new UsuarioInternoModel();
             _usuarios = _listStore.usuarios;
             _selectedIndex = -1;
-            NavigationCreateUsers = new NavigatePanelCommand<AdminUserCRUDViewModel>(_frameStore, () => new AdminUserCRUDViewModel(_frameStore, CurrentAccount, _listStore,new UsuarioInternoModel(),1));
-            NavigationEditUsers = new NavigatePanelCommand<AdminUserCRUDViewModel>(_frameStore, () => new AdminUserCRUDViewModel(_frameStore, CurrentAccount, _listStore, _crudUsuario, 2));
+            NavigationCreateUsers = new NavigatePanelCommand<AdminUserCRUDViewModel>(_frameStore, () => new AdminUserCRUDViewModel(_frameStore, CurrentAccount, _listStore,new UsuarioInternoModel(),1, mainView));
+            NavigationEditUsers = new NavigatePanelCommand<AdminUserCRUDViewModel>(_frameStore, () => new AdminUserCRUDViewModel(_frameStore, CurrentAccount, _listStore, _crudUsuario, 2, mainView));
 
         }
 

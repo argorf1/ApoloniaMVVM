@@ -32,13 +32,15 @@ namespace ApoloniaApp.ViewModels
         #endregion
         public ICommand CrudRol { get; }
         public ICommand ReturnCommand { get; }
-        public AdminRolCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, RolModel crudRol, int estado, ListStore listStore)
+        public AdminRolCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, RolModel crudRol, int estado, ListStore listStore, AdminViewModel mainView)
         {
             _frameStore = frameStore;
             _listStore = listStore;
             CurrentAccount = currentAccount;
             _estado = estado;
             _crudRol = crudRol;
+
+            mainView.IsCheck = false;
 
             #region Configuracion Estado
 
@@ -51,15 +53,15 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Create(), () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudRol.ReadByNombre(), _crudRol, () => _listStore.Roles(), 1);
+                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Create(), () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, () => _crudRol.ReadByNombre(), _crudRol, () => _listStore.Roles(), 1);
                     break;
                 case 2:
-                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Update(), () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudRol, () => _listStore.Roles(), 2);
+                    CrudRol = new CRUDCommand<AdminRolViewModel, RolModel>(() => _crudRol.Update(), () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, _crudRol, () => _listStore.Roles(), 2);
                     break;
                 default:
                     break;
             }
-            ReturnCommand = new NavigatePanelCommand<AdminRolViewModel>(_frameStore, () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore));
+            ReturnCommand = new NavigatePanelCommand<AdminRolViewModel>(_frameStore, () => new AdminRolViewModel(_frameStore, CurrentAccount, _listStore, mainView));
 
             #endregion
 

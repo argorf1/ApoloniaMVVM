@@ -11,6 +11,7 @@ namespace ApoloniaApp.Commands
     {
         private readonly FrameStore _frameStore;
         private readonly Func<TViewModel> _createViewModel;
+        private bool _isCheck;
 
         public NavigatePanelCommand(FrameStore frameStore, Func<TViewModel> createViewModel)
         {
@@ -18,9 +19,17 @@ namespace ApoloniaApp.Commands
             _createViewModel = createViewModel;
         }
 
+        public NavigatePanelCommand(FrameStore frameStore, Func<TViewModel> createViewModel, bool isCheck)
+        {
+            _frameStore = frameStore;
+            _createViewModel = createViewModel;
+            _isCheck = isCheck;
+        }
+
         public override void Execute(object parameter)
         {
             _frameStore.CurrentViewModel = _createViewModel();
+            _isCheck = false;
         }
     }
 }

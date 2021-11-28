@@ -29,11 +29,13 @@ namespace ApoloniaApp.ViewModels
         public ICommand DeleteTarea { get; }
         #endregion
 
-        public DPProcesosViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore)
+        public DPProcesosViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore, ProcessDesignerViewModel mainView)
         {
             _frameStore = frameStore;
             _listStore = listStore;
             CurrentAccount = currentAccount;
+
+            mainView.IsCheck = false;
 
             _crudProceso = new ProcesoModel();
             _crudTarea = new TareaModel();
@@ -48,13 +50,13 @@ namespace ApoloniaApp.ViewModels
             #endregion
 
             #region Configuracion Botones
-            NavigationCreateProceso = new NavigatePanelCommand<DPProcesosCRUDViewModel>(frameStore, () => new DPProcesosCRUDViewModel(frameStore, currentAccount, new ProcesoModel() { Unidad = _selectedUnidad }, 1, _listStore));
-            NavigationUpdateProceso = new NavigatePanelCommand<DPProcesosCRUDViewModel>(frameStore, () => new DPProcesosCRUDViewModel(frameStore, currentAccount, _crudProceso, 2, _listStore));
-            NavigationCreateTarea = new NavigatePanelCommand<DPTareaCRUDViewModel>(frameStore, () => new DPTareaCRUDViewModel(frameStore, currentAccount, new TareaModel() { Proceso = _crudProceso }, 1, _selectedUnidad, _listStore));
-            NavigationUpdateTarea = new NavigatePanelCommand<DPTareaCRUDViewModel>(frameStore, () => new DPTareaCRUDViewModel(frameStore, currentAccount, _crudTarea, 2, _selectedUnidad, _listStore));
+            NavigationCreateProceso = new NavigatePanelCommand<DPProcesosCRUDViewModel>(frameStore, () => new DPProcesosCRUDViewModel(frameStore, currentAccount, new ProcesoModel() { Unidad = _selectedUnidad }, 1, _listStore, mainView));
+            NavigationUpdateProceso = new NavigatePanelCommand<DPProcesosCRUDViewModel>(frameStore, () => new DPProcesosCRUDViewModel(frameStore, currentAccount, _crudProceso, 2, _listStore, mainView));
+            NavigationCreateTarea = new NavigatePanelCommand<DPTareaCRUDViewModel>(frameStore, () => new DPTareaCRUDViewModel(frameStore, currentAccount, new TareaModel() { Proceso = _crudProceso }, 1, _selectedUnidad, _listStore, mainView));
+            NavigationUpdateTarea = new NavigatePanelCommand<DPTareaCRUDViewModel>(frameStore, () => new DPTareaCRUDViewModel(frameStore, currentAccount, _crudTarea, 2, _selectedUnidad, _listStore, mainView));
 
-            DeleteProceso = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Delete(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudProceso, () => _listStore.ProcesosView(), 4);
-            DeleteTarea = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Delete(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore,  _crudTarea, () => _listStore.TareasView(), 4);
+            DeleteProceso = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Delete(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, _crudProceso, () => _listStore.ProcesosView(), 4);
+            DeleteTarea = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Delete(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore,  _crudTarea, () => _listStore.TareasView(), 4);
 
             #endregion
         }

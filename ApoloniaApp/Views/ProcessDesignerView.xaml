@@ -6,23 +6,119 @@
              xmlns:local="clr-namespace:ApoloniaApp.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+
+        <!-- // AdminViewEstilo Toggle Button Side Menu -  // -->
+
+        <ImageBrush x:Key="tb_mouse_over"
+                    ImageSource="/Assets/Icons/ico_menu_over.png"/>
+
+        <!-- // Stilo Fuente Texto // -->
+
+        <Style x:Key="sideMenu" TargetType="TextBlock">
+
+            <Setter Property="FontFamily"
+                    Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Light"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="FontSize"
+                    Value="16"/>
+
+        </Style>
+
+        <!-- // Tooltip Style Template // -->
+
+        <Style TargetType="ToolTip" x:Key="tooltip_style">
+
+            <Setter Property="Placement" Value="Right"/>
+            <Setter Property="Height"  Value="40"/>
+            <Setter Property="Width"  Value="auto"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+            <Setter Property="Background" Value="#4A5668"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="/Assets/Fonts/Roboto-Light.ttf #Roboto Light"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
+            <Setter Property="HorizontalOffset" Value="15"/>
+            <Setter Property="VerticalOffset" Value="6"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="HorizontalContentAlignment"  Value="Center"/>
+
+        </Style>
+
+        <!-- // Toggle Button Style Template // -->
+        <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+
+                        <Border x:Name="border"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                                <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="True">
+
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                                <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+    </UserControl.Resources>
+
     <Grid >
 
         <!-- // Backgound Color // -->
-
         <Grid>
-
             <!-- // Backgound Image // -->
-
             <Grid x:Name="BG">
-
-
-
-
                 <Frame x:Name="CurrenContent" 
                        NavigationUIVisibility="Hidden" 
-                       Content="{Binding CurrentViewModel}" Margin="72,40,0,0"/>
-
+                       Content="{Binding CurrentViewModel}" 
+                       Margin="72,40,0,0"/>
             </Grid>
 
             <!-- // Logout Button // -->
@@ -52,17 +148,15 @@
                     <Label x:Name="tbLoggedUser" 
                            Content="{Binding LogUser}"/>
 
-
-
                 </StackPanel>
             </Grid>
 
             <!-- // Menu Lateral // -->
 
             <Grid x:Name="side_menu"
-              HorizontalAlignment="Left"
-              Width="70"
-              Background="black">
+                  HorizontalAlignment="Left"
+                  Width="70"
+                  Background="black">
 
                 <StackPanel x:Name="st_pnl">
 
@@ -73,42 +167,44 @@
                         <!-- // Texto Título Menú // -->
 
                         <TextBlock Grid.Row="1"
-                               Text="M E N U"
-                               Grid.Column="0"
-                               Margin="73,-20,0,0"
-                               Foreground="White"
-                               FontSize="22"
-                               Background="Transparent"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center">
+                                   Text="M E N U"
+                                   Grid.Column="0"
+                                   Margin="73,-20,0,0"
+                                   Foreground="White"
+                                   FontSize="22"
+                                   Background="Transparent"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center">
                                                               
                         <!-- // Shadow Effect // -->
 
                             <TextBlock.Effect>
-
                                 <DropShadowEffect BlurRadius="10"
-                                              ShadowDepth="1"
-                                              Direction="90"
-                                              Color="White"/>
+                                                  ShadowDepth="1"
+                                                  Direction="90"
+                                                  Color="White"/>
 
                             </TextBlock.Effect>
 
                         </TextBlock>
 
-                        <!-- // Toggle Button // -->
-
                         <ToggleButton x:Name="Tg_btn"
-                                  Grid.Column="0"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Left"
-                                  Margin="10,-20,0,0"
-                                  Height="50"
-                                  Width="50"
-                                  BorderThickness="0">
+                                      Grid.Column="0"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      Margin="10,-20,0,0"
+                                      Height="50"
+                                      Width="50"
+                                      BorderThickness="0"
+                                      IsChecked="{Binding IsCheck}"
+                                      Style="{StaticResource tb_style}">                          
 
                             <!-- // Toggle Button imagen de fondo por defecto // -->
+                            <ToggleButton.Background>
+                                <ImageBrush Stretch="None" 
+                                            ImageSource="/Assets/Icons/ico_menu.png"/>
 
-
+                            </ToggleButton.Background>
 
                             <!-- // Toggle Button - Checked, Unchecked Events // -->
 
@@ -120,8 +216,7 @@
 
                                         <Storyboard x:Name="HideStackPanel">
 
-                                            <DoubleAnimation
-                                        
+                                            <DoubleAnimation  
                                                 Storyboard.TargetName="side_menu"
                                                 Storyboard.TargetProperty="Width"
                                                 BeginTime="0:0:0"
@@ -167,145 +262,67 @@
                     <!-- // ListView Items del Menú Lateral // -->
 
                     <ListView x:Name="LV"
-                          Background="Transparent"
-                          BorderBrush="Transparent"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                              Background="Transparent"
+                              BorderBrush="Transparent"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
-                        <!-- // Menu Item 1: Gestión de Usuarios // -->
-
+                        
+                        <!-- // Menu Item 1: Gestión de Procesos // -->
                         <ListViewItem HorizontalAlignment="Left"
-                                  Margin="0,0,0,15">
-
+                                      Margin="0,0,0,15">
                             <StackPanel Orientation="Horizontal"
-                                    Width="250">
-
-                                <Button Width="100"
-                                        Content="Procesos"
-                                        Command="{Binding NavigationProcesos}"/>
-
-                                <TextBlock Text="Gestión de Unidades"
-                                       Margin="15,0,0,0"/>
-
+                                        Width="250">
+                                <TextBlock>
+                                    <Hyperlink Command="{Binding NavigationProcesos}"                                               
+                                               Cursor="None"
+                                               TextDecorations="{x:Null}"
+                                               BaselineAlignment="Center">
+                                        <Image Source="/Assets/Icons/ico_process.png"
+                                               Stretch="Fill" Margin="5,0,0,0" />
+                                        <TextBlock Text="Gestión de Usuarios"                                                   
+                                                   Margin="15,0,0,0"
+                                                   Style="{StaticResource sideMenu}"/>
+                                    </Hyperlink>
+                                </TextBlock>
                             </StackPanel>
 
                             <!-- // Tooltip // -->
-
                             <ListViewItem.ToolTip>
-
-                                <ToolTip x:Name="tt_customer"
-                                     Content="Gestión de Unidades"/>
-
+                                <ToolTip x:Name="tt_internalusr"
+                                         Content="Gestión de Usuarios Internos"
+                                         Visibility="{Binding Collapse}"
+                                         Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
-
-                        </ListViewItem>
-
-                        <!-- // Menu Item 2:  Gestión de Usuarios// -->
-
-                        <ListViewItem HorizontalAlignment="Left"
-                                  Margin="0,0,0,15">
-
-                            <StackPanel Orientation="Horizontal"
-                                    Width="250">
-
-                                <Button Width="100"
-                                        Content="Monitoreo"
-                                        Command="{Binding NavigationMonitoreo}"/>
-
-
-                                <TextBlock Text="Gestión de Usuarios"
-                                       Margin="15,0,0,0"/>
-
-                            </StackPanel>
-
-                            <!-- // Tooltip // -->
-
-                            <ListViewItem.ToolTip>
-
-                                <ToolTip x:Name="tt_users"
-                                     Content="Gestión de Usuarios"/>
-
-                            </ListViewItem.ToolTip>
-
-                        </ListViewItem>
-
-                        <!-- // Menu Item 3: Gestión de Roles // -->
-                        <ListViewItem HorizontalAlignment="Left"
-                                  Margin="0,0,0,15">
-
-                            <StackPanel Orientation="Horizontal"
-                                    Width="250">
-
-
-
-                                <TextBlock Text="Flujos de Trabajo"
-                                       Margin="15,0,0,0"/>
-
-                            </StackPanel>
-
-                            <!-- // Tooltip // -->
-
-                            <ListViewItem.ToolTip>
-
-                                <ToolTip x:Name="tt_workflow"
-                                     Content="Flujos de Trabajo"/>
-
-                            </ListViewItem.ToolTip>
-
-                        </ListViewItem>
-
-                        <!-- // Menu Item 4: Gestión de Reportería // -->
-
-                        <ListViewItem HorizontalAlignment="Left"
-                                  Margin="0,0,0,15">
-
-                            <StackPanel Orientation="Horizontal"
-                                    Width="250">
-
-
-
-                                <TextBlock Text="Gestión de Reportería"
-                                       Margin="15,0,0,0"/>
-
-                            </StackPanel>
-
-                            <!-- // Tooltip // -->
-
-                            <ListViewItem.ToolTip>
-
-                                <ToolTip x:Name="tt_report"
-                                     Content="Gestión de Reportería"/>
-
-                            </ListViewItem.ToolTip>
-
                         </ListViewItem>
 
                         <!-- // Menu Item 5: Cierre de Sesión // -->
-
                         <ListViewItem HorizontalAlignment="Left"
-                                  Margin="0,0,0,15">
+                                      Margin="0,0,0,15">
 
-                            <StackPanel Orientation="Horizontal"
-                                    Width="250">
-
-                                <Button Width="100"
-                                        Content="Logout"
-                                        Command="{Binding LogoutCommand}"/>
-
-
-                                <TextBlock Text="Cerrar Sesión"
-                                       Margin="15,0,0,0"/>
-
+                            <StackPanel Orientation="Horizontal" Width="250">
+                                <TextBlock>
+                                    <Hyperlink Command="{Binding LogoutCommand}"                                               
+                                               Cursor="None"
+                                               TextDecorations="{x:Null}"
+                                               BaselineAlignment="Center">
+                                        
+                                        <Image Source="/Assets/Icons/ico_logout.png"
+                                               Stretch="Fill" Margin="5,0,0,0" />
+                                        
+                                        <TextBlock Text="Cerrar Sesión"                                                   
+                                                   Margin="15,0,0,0"
+                                                   Style="{StaticResource sideMenu}"/>
+                                    </Hyperlink>
+                                </TextBlock>
                             </StackPanel>
 
                             <!-- // Tooltip // -->
-
                             <ListViewItem.ToolTip>
-
                                 <ToolTip x:Name="tt_logout"
-                                     Content="Cerrar Sesión"/>
-
+                                         Content="Cerrar Sesión"
+                                         Visibility="{Binding Collapse}"
+                                         Style="{StaticResource tooltip_style}"/>
                             </ListViewItem.ToolTip>
-
                         </ListViewItem>
 
                         <!-- // Listview items style template // -->

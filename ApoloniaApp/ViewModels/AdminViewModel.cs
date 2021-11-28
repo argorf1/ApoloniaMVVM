@@ -65,10 +65,10 @@ namespace ApoloniaApp.ViewModels
 
             _frameStore.CurrentViewModelChanged += OnCurrentPanelChanged;
 
-            NavigationUser = new NavigatePanelCommand<AdminUserViewModel>(_frameStore, () => new AdminUserViewModel(_frameStore,CurrentAccount,_listStore));
-            NavigationUnit = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore,CurrentAccount, _listStore));
-            NavigationClient = new NavigatePanelCommand<AdminClientViewModel>(_frameStore, () => new AdminClientViewModel(_frameStore,CurrentAccount,_listStore));
-            NavigationRol = new NavigatePanelCommand<AdminRolViewModel>(_frameStore, () => new AdminRolViewModel(_frameStore,CurrentAccount,_listStore));
+            NavigationUser = new NavigatePanelCommand<AdminUserViewModel>(_frameStore, () => new AdminUserViewModel(_frameStore,CurrentAccount,_listStore, this));
+            NavigationUnit = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore,CurrentAccount, _listStore, this));
+            NavigationClient = new NavigatePanelCommand<AdminClientViewModel>(_frameStore, () => new AdminClientViewModel(_frameStore,CurrentAccount,_listStore, this));
+            NavigationRol = new NavigatePanelCommand<AdminRolViewModel>(_frameStore, () => new AdminRolViewModel(_frameStore,CurrentAccount,_listStore, this));
             LogoutCommand = new LogoutCommand(_navigationStore, _accountStore, new ListStore());
         }
 

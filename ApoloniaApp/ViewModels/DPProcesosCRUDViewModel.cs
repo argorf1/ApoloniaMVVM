@@ -33,7 +33,7 @@ namespace ApoloniaApp.ViewModels
         #endregion
         public ICommand CrudCommand { get; }
         public ICommand Return { get; }
-        public DPProcesosCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ProcesoModel crudProceso, int estado, ListStore listStore)
+        public DPProcesosCRUDViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ProcesoModel crudProceso, int estado, ListStore listStore, ProcessDesignerViewModel mainView)
         {
             _frameStore = frameStore;
             _listStore = listStore;
@@ -41,6 +41,8 @@ namespace ApoloniaApp.ViewModels
             _crudProceso = crudProceso;
             _crudProceso.Creador.Run = CurrentAccount.Run;
             _estado = estado;
+
+            mainView.IsCheck = false;
 
             #region Configuracion Estado
 
@@ -53,15 +55,15 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    CrudCommand = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _crudProceso.ReadByNombre(), _crudProceso, () => _listStore.ProcesosView(), 1);
+                    CrudCommand = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, () => _crudProceso.ReadByNombre(), _crudProceso, () => _listStore.ProcesosView(), 1);
                     break;
                 case 2:
-                    CrudCommand = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Update(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, _crudProceso, () => _listStore.ProcesosView(), 2);
+                    CrudCommand = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Update(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, _crudProceso, () => _listStore.ProcesosView(), 2);
                     break;
                 default:
                     break;
             }
-            Return = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore));
+            Return = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView));
             #endregion
 
 

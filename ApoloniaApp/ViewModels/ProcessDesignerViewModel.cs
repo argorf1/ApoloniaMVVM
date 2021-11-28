@@ -28,6 +28,32 @@ namespace ApoloniaApp.ViewModels
             }
 
         }
+
+        private bool _isCheck;
+        public bool IsCheck
+        {
+            get => _isCheck;
+            set
+            {
+                _isCheck = value;
+
+                Collapse = _isCheck ? "Collapsed" : "Visible";
+                OnPropertyChanged("IsCheck");
+            }
+        }
+        private string _collapse;
+        public string Collapse
+        {
+            get => _collapse;
+            set
+            {
+                _collapse = value;
+
+                OnPropertyChanged("Collapse");
+            }
+        }
+
+
         public ProcessDesignerViewModel(NavigationStore navigationStore, AccountStore accountStore, ListStore listStore)
         {
             _navigationStore = navigationStore;
@@ -42,8 +68,7 @@ namespace ApoloniaApp.ViewModels
             LogUser += CurrentAccount.Nombre + " " + CurrentAccount.ApellidoP + "(" + rol.Nombre + ")";
             _frameStore.CurrentViewModelChanged += OnCurrentPanelChanged;
 
-            NavigationProcesos = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore,CurrentAccount,_listStore));
-            NavigationMonitoreo = new NavigatePanelCommand<AdminUnitViewModel>(_frameStore, () => new AdminUnitViewModel(_frameStore, CurrentAccount,_listStore));
+            NavigationProcesos = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore,CurrentAccount,_listStore,this));
             LogoutCommand = new LogoutCommand(_navigationStore, _accountStore, _listStore);
         }
 

@@ -317,7 +317,7 @@ namespace ApoloniaApp.ViewModels
                 {
                     _selectedSubunidad = new SubUnidadModel();
                 }
-                if (_editSubunit.Id != 0)
+                if (_selectedSubunidad.Id != 0)
                 {
                     CanEditSubunit = true;
                 }
@@ -371,7 +371,7 @@ namespace ApoloniaApp.ViewModels
         #endregion
 
 
-        public AdminUnitViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore)
+        public AdminUnitViewModel(FrameStore frameStore, UsuarioInternoModel currentAccount, ListStore listStore, AdminViewModel mainView)
         {
             _frameStore = frameStore;
             _listStore = listStore;
@@ -382,6 +382,7 @@ namespace ApoloniaApp.ViewModels
             _subunidades = new ObservableCollection<SubUnidadModel>();
             _funcionarios = new ObservableCollection<FuncionarioModel>();
 
+            mainView.IsCheck = false;
 
             _unidades = _listStore.unidades;
             _subunidades = _listStore.subunidades;
@@ -389,11 +390,11 @@ namespace ApoloniaApp.ViewModels
 
             _editSubunit = new SubUnidadModel();
 
-            NavigationCreateUnit = new NavigatePanelCommand<AdminUnitCRUDViewModel>(_frameStore, () => new AdminUnitCRUDViewModel(_frameStore, CurrentAccount,new UnidadModel(), 1,_listStore));
-            NavigationEditUnit = new NavigatePanelCommand<AdminUnitCRUDViewModel>(_frameStore, () => new AdminUnitCRUDViewModel(_frameStore, CurrentAccount, _editUnit, 2,_listStore));
-            NavigationCreateSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(_frameStore, CurrentAccount, new SubUnidadModel() { RutUnidad = _editUnit.Rut }, 1, _listStore));
-            NavigationEditSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(_frameStore, CurrentAccount, _editSubunit, 2, _listStore));
-            DeleteSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _editSubunit.Delete(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _editSubunit.ReadContent(), _editSubunit, () => _listStore.Subunidades(), 3);
+            NavigationCreateUnit = new NavigatePanelCommand<AdminUnitCRUDViewModel>(_frameStore, () => new AdminUnitCRUDViewModel(_frameStore, CurrentAccount,new UnidadModel(), 1,_listStore, mainView));
+            NavigationEditUnit = new NavigatePanelCommand<AdminUnitCRUDViewModel>(_frameStore, () => new AdminUnitCRUDViewModel(_frameStore, CurrentAccount, _editUnit, 2,_listStore, mainView));
+            NavigationCreateSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(_frameStore, CurrentAccount, new SubUnidadModel() { RutUnidad = _editUnit.Rut }, 1, _listStore, mainView));
+            NavigationEditSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(_frameStore, CurrentAccount, _editSubunit, 2, _listStore, mainView));
+            DeleteSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _editSubunit.Delete(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, () => _editSubunit.ReadContent(), _editSubunit, () => _listStore.Subunidades(), 3);
         }
 
         public ICommand NavigationCreateUnit { get; }
