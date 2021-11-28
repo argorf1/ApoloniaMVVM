@@ -92,6 +92,7 @@
                         <TextBox x:Name="txtNewRut"
                                  Width="150" 
                                  MaxLength="9"
+                                 IsReadOnly="{Binding EstadoEdit}"
                                  Text="{Binding Rut}"
                                  Style="{DynamicResource TextBoxRoundedCorners}"/>
 

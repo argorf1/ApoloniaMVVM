@@ -207,6 +207,7 @@
                                     <Button x:Name="btnDeleteTask" Content="Eliminar Tarea"
                                             Style="{DynamicResource ToolBtn}"
                                             Padding="0,10,20,10"
+                                            Command="{Binding DeleteTarea}"
                                             IsEnabled="{Binding CanEditTarea}">
                                         <Button.Tag>
                                             <ImageSource>/Assets/Icons/ico_del.png</ImageSource>
@@ -296,8 +297,7 @@
                                     Binding="{Binding Responsable.Nombre}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                    </StackPanel>                      
-                    
+                    </StackPanel>                             
                 </Grid>
             </StackPanel>
         </Grid>

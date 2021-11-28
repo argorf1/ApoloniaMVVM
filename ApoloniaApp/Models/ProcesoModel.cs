@@ -169,6 +169,30 @@ namespace ApoloniaApp.Models
                 return false;
             }
         }
+
+        public bool Delete()
+        {
+            conn = new OracleConnection();
+            try
+            {
+                conn = Conexion.AbrirConexion();
+
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "d_proceso_tipo_full";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_id_proceso_tipo", OracleDbType.Int32).Value = this.Id;
+
+                cmd.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return true;
+            }
+        }
         #endregion
     }
 }

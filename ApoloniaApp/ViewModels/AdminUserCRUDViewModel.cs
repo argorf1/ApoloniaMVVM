@@ -43,6 +43,11 @@ namespace ApoloniaApp.ViewModels
             }
             set { OnPropertyChanged("EstadoVisibility"); }
         }
+
+        public bool EstadoEdit
+        {
+            get => _estado == 2;
+        }
         #endregion
         #region Validation Properties
         private List<Func<bool>> _validations;

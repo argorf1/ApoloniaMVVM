@@ -34,7 +34,7 @@ namespace ApoloniaApp.ViewModels
         private readonly ObservableCollection<UsuarioInternoModel> _usuarios;
         public IEnumerable<UsuarioInternoModel> Usuarios => _usuarios;
         public UsuarioInternoModel CurrentAccount;
-
+        private UsuarioInternoModel _selectedUsuario;
         #region Property
 
         public int SelectedIndex
@@ -53,11 +53,19 @@ namespace ApoloniaApp.ViewModels
 
         public UsuarioInternoModel SelectedUsuario
         {
-            get => _crudUsuario;
+            get => _selectedUsuario;
             set
             {
-                _crudUsuario = value;
+                _selectedUsuario = value;
                 OnPropertyChanged("SelectedUsuario");
+
+                _crudUsuario.Run = _selectedUsuario.Run;
+                _crudUsuario.Nombre = _selectedUsuario.Nombre;
+                _crudUsuario.ApellidoP = _selectedUsuario.ApellidoP;
+                _crudUsuario.ApellidoM = _selectedUsuario.ApellidoM;
+                _crudUsuario.Email = _selectedUsuario.Email;
+                _crudUsuario.Perfil = _selectedUsuario.Perfil;
+                _crudUsuario.Estado = _selectedUsuario.Estado;
 
                 OnPropertyChanged("Run");
                 OnPropertyChanged("Nombre");

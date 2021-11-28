@@ -20,16 +20,27 @@ namespace ApoloniaApp.ViewModels
         private readonly ObservableCollection<UnidadModel> _unidades;
         public IEnumerable<UnidadModel> Unidades => _unidades;
         private UnidadModel _editUnit;
-        private int _selectedUnitIndex;
+        private UnidadModel _selectedUnidad;
         private bool _canEditUnit;
 
 
         public UnidadModel SelectedUnidad
         {
-            get { return _editUnit; }
+            get { return _selectedUnidad; }
             set
             {
-                _editUnit = value;
+                _selectedUnidad = value;
+
+                _editUnit.Rut = value.Rut;
+                _editUnit.RazonSocial = value.RazonSocial;
+                _editUnit.Rubro = value.Rubro;
+                _editUnit.PersonaContacto = value.PersonaContacto;
+                _editUnit.TelefonoContacto = value.TelefonoContacto;
+                _editUnit.EmailContacto = value.EmailContacto;
+                _editUnit.Direccion = value.Direccion;
+                _editUnit.Responsable = value.Responsable;
+                _editUnit.Estado = value.Estado;
+
                 Subunidades = _subunidades.Where(p => p.RutUnidad == _editUnit.Rut).ToList();
                 if (_editUnit != null)
                 {
@@ -44,17 +55,17 @@ namespace ApoloniaApp.ViewModels
 
                 OnPropertyChanged("Rut");
                 OnPropertyChanged("RazonSocial");
+                OnPropertyChanged("Rubro");
                 OnPropertyChanged("PersonaContacto");
                 OnPropertyChanged("TelefonoContacto");
                 OnPropertyChanged("EmailContacto");
-                OnPropertyChanged("ResponsableRun");
                 OnPropertyChanged("Calle");
                 OnPropertyChanged("Numero");
                 OnPropertyChanged("Complemento");
                 OnPropertyChanged("Region");
                 OnPropertyChanged("Provincia");
                 OnPropertyChanged("Comuna");
-                OnPropertyChanged("Rubro");
+                OnPropertyChanged("ResponsableRun");
                 OnPropertyChanged("ResponsableNombre");
                 OnPropertyChanged("Estado");
             }
@@ -279,6 +290,7 @@ namespace ApoloniaApp.ViewModels
         private readonly ObservableCollection<SubUnidadModel> _subunidades;
         private IEnumerable<SubUnidadModel> subunidades;
         private SubUnidadModel _editSubunit;
+        private SubUnidadModel _selectedSubunidad;
         private bool _canCreateSubunit;
         private bool _canEditSubunit;
         public IEnumerable<SubUnidadModel> Subunidades
@@ -293,17 +305,17 @@ namespace ApoloniaApp.ViewModels
 
         public SubUnidadModel SelectedSubunidad
         {
-            get => _editSubunit;
+            get => _selectedSubunidad;
             set
             {
                 if (value != null)
                 {
 
-                    _editSubunit = value;
+                    _selectedSubunidad = value;
                 }
                 else
                 {
-                    _editSubunit = new SubUnidadModel();
+                    _selectedSubunidad = new SubUnidadModel();
                 }
                 if (_editSubunit.Id != 0)
                 {
@@ -313,6 +325,13 @@ namespace ApoloniaApp.ViewModels
                 {
                     CanEditSubunit = false;
                 }
+
+                _editSubunit.Id = _selectedSubunidad.Id;
+                _editSubunit.Nombre = _selectedSubunidad.Nombre;
+                _editSubunit.Descripcion = _selectedSubunidad.Descripcion;
+                _editSubunit.RutUnidad = _selectedSubunidad.RutUnidad;
+                _editSubunit.SubunidadPadre = _selectedSubunidad.SubunidadPadre;
+
                 Funcionarios = _funcionarios.Where(f => f.Subunidad.Id == _editSubunit.Id);
                 OnPropertyChanged("SelectedSubunidad");
             }
@@ -358,7 +377,6 @@ namespace ApoloniaApp.ViewModels
             _listStore = listStore;
             CurrentAccount = currentAccount;
             _editUnit = new UnidadModel();
-            _selectedUnitIndex = -1;
 
             _unidades = new ObservableCollection<UnidadModel>();
             _subunidades = new ObservableCollection<SubUnidadModel>();
@@ -375,7 +393,7 @@ namespace ApoloniaApp.ViewModels
             NavigationEditUnit = new NavigatePanelCommand<AdminUnitCRUDViewModel>(_frameStore, () => new AdminUnitCRUDViewModel(_frameStore, CurrentAccount, _editUnit, 2,_listStore));
             NavigationCreateSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(_frameStore, CurrentAccount, new SubUnidadModel() { RutUnidad = _editUnit.Rut }, 1, _listStore));
             NavigationEditSubunit = new NavigatePanelCommand<AdminSubunitCrudViewModel>(_frameStore, () => new AdminSubunitCrudViewModel(_frameStore, CurrentAccount, _editSubunit, 2, _listStore));
-            DeleteSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _editSubunit.Create(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _editSubunit.ReadContent(), _editSubunit, () => _listStore.Subunidades(), 3);
+            DeleteSubunit = new CRUDCommand<AdminUnitViewModel, SubUnidadModel>(() => _editSubunit.Delete(), () => new AdminUnitViewModel(_frameStore, CurrentAccount, _listStore), _frameStore, () => _editSubunit.ReadContent(), _editSubunit, () => _listStore.Subunidades(), 3);
         }
 
         public ICommand NavigationCreateUnit { get; }

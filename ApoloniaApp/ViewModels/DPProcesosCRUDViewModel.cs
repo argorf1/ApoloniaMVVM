@@ -20,14 +20,13 @@ namespace ApoloniaApp.ViewModels
 
         #region Validation Properties
         private List<Func<bool>> _validations;
-        private bool _canCrud = false;
+
 
         public bool CanCrud
         {
-            get => _canCrud;
+            get => ValidationService.All(_validations);
             set
             {
-                _canCrud = value;
                 OnPropertyChanged("CanCrud");
             }
         }
@@ -65,7 +64,7 @@ namespace ApoloniaApp.ViewModels
             Return = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore));
             #endregion
 
-           
+
             #region Carga Listas
             _subunidades = ChargeComboBoxService<SubUnidadModel>.ChargeComboBox(_listStore.subunidades.Where(p => p.RutUnidad == _crudProceso.Unidad.Rut), _subunidades, new SubUnidadModel() { Id = 0, Nombre = "-- Subunidad --" });
 
@@ -77,9 +76,9 @@ namespace ApoloniaApp.ViewModels
             _validations = new List<Func<bool>>();
             _validations.AddRange(new List<Func<bool>>()
             {
-                () => ValidateText(Nombre),
-                () => ValidateText(Descripcion),
-                ValidateSubunidad
+                () => ValidationService.Text(Nombre),
+                () => ValidationService.Text(Descripcion),
+                () => ValidationService.ComboBoxId(SelectedSubunidad.Id)
             });
             #endregion
 
@@ -117,7 +116,7 @@ namespace ApoloniaApp.ViewModels
         // Lista sin filtrar
         private ObservableCollection<SubUnidadModel> _subunidades;
         public IEnumerable<SubUnidadModel> Subunidades => _subunidades;
-
+        private bool _validSubunidad = false;
         public SubUnidadModel SelectedSubunidad
         {
 
@@ -125,14 +124,13 @@ namespace ApoloniaApp.ViewModels
             set
             {
                 _crudProceso.Subunidad = value;
-                if (ValidateSubunidad())
-                {
-                    ValidateAll();
-                    roles = _roles.Where(r => r.Subunidad.Id == _crudProceso.Subunidad.Id);
-                    _crudProceso.Rol = roles.FirstOrDefault(r => r.Nivel == roles.Min(r => r.Nivel));
-                }
-                OnPropertyChanged("SelectedSubunidad");
 
+                roles = _roles.Where(r => r.Subunidad.Id == _crudProceso.Subunidad.Id);
+                _crudProceso.Rol = roles.FirstOrDefault(r => r.Nivel == roles.Min(r => r.Nivel));
+
+                _validSubunidad = ValidationService.ComboBoxId(value.Id);
+                OnPropertyChanged("SelectedSubunidad");
+                OnPropertyChanged("CanCrud");
                 OnPropertyChanged("Rol");
             }
         }
@@ -147,8 +145,7 @@ namespace ApoloniaApp.ViewModels
             {
                 _crudProceso.Nombre = value;
 
-                ValidNombre = ValidateText(value);
-                ValidateAll();
+                ValidNombre = ValidationService.Text(value);
                 OnPropertyChanged("Nombre");
             }
         }
@@ -159,9 +156,11 @@ namespace ApoloniaApp.ViewModels
             {
                 _validNombre = value;
                 OnPropertyChanged("ValidNombre");
+                OnPropertyChanged("CanCrud");
             }
         }
         private bool _validDescripcion = false;
+
         public string Descripcion
         {
             get => _crudProceso.Descripcion;
@@ -169,9 +168,9 @@ namespace ApoloniaApp.ViewModels
             {
                 _crudProceso.Descripcion = value;
 
-                _validDescripcion = ValidateText(value);
-                ValidateAll();
+                _validDescripcion = ValidationService.Text(value);
                 OnPropertyChanged("Descripcion");
+                OnPropertyChanged("CanCrud");
             }
         }
 
@@ -194,29 +193,6 @@ namespace ApoloniaApp.ViewModels
         }
 
         #endregion
-
-        #region Validaciones
-
-        private bool ValidateText(string text) => !string.IsNullOrEmpty(text);
-
-        private bool ValidateSubunidad()
-        {
-            return (SelectedSubunidad.Id != 0 ? true : false);
-        }
-        public void ValidateAll()
-        {
-
-            foreach (Func<bool> f in _validations)
-            {
-                if (!f())
-                {
-                    CanCrud = false;
-                    return;
-                }
-            }
-            CanCrud = true;
-        }
-        #endregion    
     }
 }
 
