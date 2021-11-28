@@ -28,6 +28,32 @@ namespace ApoloniaApp.ViewModels
             }
 
         }
+
+        private bool _isCheck;
+        public bool IsCheck
+        {
+            get => _isCheck;
+            set
+            {
+                _isCheck = value;
+
+                Collapse = _isCheck ? "Collapsed" : "Visible";
+                OnPropertyChanged("IsCheck");
+            }
+        }
+        private string _collapse;
+        public string Collapse
+        {
+            get => _collapse;
+            set
+            {
+                _collapse = value;
+
+                OnPropertyChanged("Collapse");
+            }
+        }
+
+
         public ProcessDesignerViewModel(NavigationStore navigationStore, AccountStore accountStore, ListStore listStore)
         {
             _navigationStore = navigationStore;
