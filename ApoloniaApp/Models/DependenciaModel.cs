@@ -10,19 +10,20 @@ namespace ApoloniaApp.Models
     public class DependenciaModel : EntityModelBase
     {
         public int IdTarea { get; set; }
-        public TareaModel Tarea{ get; set; }
+        public TareaModel TareaPrevia{ get; set; }
 
         private OracleConnection conn;
         private OracleDataReader r;
 
         public DependenciaModel()
         {
-            Tarea = new TareaModel();
+            TareaPrevia = new TareaModel();
         }
 
-        public DependenciaModel(TareaModel tareaPrevia)
+        public DependenciaModel(TareaModel tareaPrevia, int id)
         {
-            Tarea = tareaPrevia;
+            TareaPrevia = tareaPrevia;
+            IdTarea = id;
         }
 
         public bool Create()
@@ -35,7 +36,7 @@ namespace ApoloniaApp.Models
                 OracleCommand cmd = new OracleCommand("c_dependen_tarea_tipo", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("i_id_tarea_tipo", OracleDbType.Int32).Value = this.IdTarea;
-                cmd.Parameters.Add("i_id_tarea_previa", OracleDbType.Int32).Value = this.Tarea.Id;
+                cmd.Parameters.Add("i_id_tarea_previa", OracleDbType.Int32).Value = this.TareaPrevia.Id;
 
                 cmd.ExecuteNonQuery();
 
@@ -76,7 +77,7 @@ namespace ApoloniaApp.Models
                         Id = r.GetInt32(0),
                         IdTarea = r.GetInt32(1)
                     };
-                    t.Tarea = new TareaModel() { Id = r.GetInt32(2), Nombre = r.GetString(3) };
+                    t.TareaPrevia = new TareaModel() { Id = r.GetInt32(2), Nombre = r.GetString(3) };
                     listaNegocio.Add(t);
                 }
                 conn.Close();
@@ -90,26 +91,33 @@ namespace ApoloniaApp.Models
             }
         }
 
-        public List<DependenciaModel> ReadTareasAll()
+        public bool Update()
         {
-            List<DependenciaModel> listaNegocio = new List<DependenciaModel>();
 
             try
             {
-                foreach (TareaModel  t in new TareaModel().ReadAll())
-                {
-                    listaNegocio.Add(new DependenciaModel(t));
-                }
-                return listaNegocio;
+                conn = Conexion.AbrirConexion();
 
+                OracleCommand cmd = new OracleCommand("u_dependen_tarea_tipo", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_id_tarea_tipo", OracleDbType.Int32).Value = this.IdTarea;
+                cmd.Parameters.Add("i_id_tarea_previa", OracleDbType.Int32).Value = this.TareaPrevia.Id;
+
+
+                cmd.ExecuteNonQuery();
+
+
+                conn.Close();
+
+
+                return true;
             }
             catch (Exception e)
             {
                 conn.Close();
-                return new List<DependenciaModel>();
+                return false;
             }
         }
-
         public bool Delete(int id)
         {
             conn = new OracleConnection();

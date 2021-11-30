@@ -17,8 +17,8 @@ namespace ApoloniaApp.Models
         public int Duracion { get; set; }
         public ProcesoModel Proceso { get; set; }
         public UsuarioInternoModel Creador { get; set; }
-        public ObservableCollection<FuncionarioModel> Responsables { get; set; }
-        public ObservableCollection<TareaModel> Dependencias { get; set; }
+        public FuncionarioModel Responsable { get; set; }
+        public TareaModel Dependencia { get; set; }
 
         OracleConnection conn = null;
         OracleDataReader r = null;
@@ -31,12 +31,17 @@ namespace ApoloniaApp.Models
             Duracion = 0;
             Proceso = new ProcesoModel();
             Creador = new UsuarioInternoModel();
-            Responsables = new ObservableCollection<FuncionarioModel>();
-            Dependencias = new ObservableCollection<TareaModel>();
+            Responsable = new FuncionarioModel() { Run = "0"};
+            Dependencia = new TareaModel("");
 
             NombreEntidad = "Tarea";
             Mensaje = "";
         }
+
+        public TareaModel(string vacio)
+        {
+        }
+    
         #region CRUD
 
         public bool Create()
@@ -60,31 +65,19 @@ namespace ApoloniaApp.Models
 
                 this.Id = int.Parse(id.Value.ToString());
                 conn.Close();
-                if (Dependencias.Any())
+                if(Responsable.Run != "0")
+                    create = new ResponsableModel(this.Responsable, this.Id).Create();
+
+                if (create && Dependencia.Id != 0)
                 {
-                    foreach (TareaModel t in Dependencias)
-                    {
-                        DependenciaModel d = new DependenciaModel() { Tarea = t, IdTarea = this.Id };
-                        create = d.Create();
-                        if (!create)
-                            break;
-                    }
+                    create = new DependenciaModel(this.Dependencia, this.Id).Create();
                 }
-                if (Responsables.Any())
-                {
-                    foreach (FuncionarioModel f in Responsables)
-                    {
-                        ResponsableModel res = new ResponsableModel() { Responsable = f, IdTarea = this.Id };
-                        create = res.Create();
-                        if (!create)
-                            break;
-                    }
-                }
+
+
                 if (!create)
                 {
-                    new DependenciaModel().Delete(this.Id);
-                    new ResponsableModel().Delete(this.Id);
                     this.Delete();
+                    return false;
                 }
                 return true;
             }
@@ -94,7 +87,6 @@ namespace ApoloniaApp.Models
                 return false;
             }
         }
-
 
         public List<TareaModel> ReadAll()
         {
@@ -183,6 +175,7 @@ namespace ApoloniaApp.Models
 
         public bool Update()
         {
+
             try
             {
                 conn = Conexion.AbrirConexion();
@@ -197,26 +190,12 @@ namespace ApoloniaApp.Models
 
                 cmd.ExecuteNonQuery();
 
+                new ResponsableModel(this.Responsable, this.Id).Update();
+                _ = Dependencia.Id != 0 ? new DependenciaModel(this.Dependencia, this.Id).Update() : new DependenciaModel().Delete(this.Id);
 
                 conn.Close();
-                if (this.Dependencias.Any())
-                {
-                    new DependenciaModel().Delete(this.Id);
-                    foreach (TareaModel t in this.Dependencias)
-                    {
-                        DependenciaModel dep = new DependenciaModel() { Tarea = t };
-                        dep.Create();
-                    }
-                }
-                if (this.Responsables.Any())
-                {
-                    new ResponsableModel().Delete(this.Id);
-                    foreach (FuncionarioModel f in this.Responsables)
-                    {
-                        ResponsableModel res = new ResponsableModel() { Responsable = f };
-                        res.Create();
-                    }
-                }
+               
+                    
                 return true;
             }
             catch (Exception e)
