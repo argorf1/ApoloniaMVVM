@@ -68,6 +68,20 @@
         <Setter Property="Margin" Value="0,0,10,0"/>
        
     </Style>
-    
-    
+
+    <!-- // LOGIN TITLE  FONT STYLE TEMPLATE // -->
+    <Style x:Key="loginTitle" TargetType="TextBlock">
+        <Setter Property="FontFamily"
+                    Value="/Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
+        <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+        <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+        <Setter Property="Foreground"
+                    Value="Black"/>
+        <Setter Property="FontSize"
+                    Value="24"/>
+    </Style>
+
+
 </ResourceDictionary>
