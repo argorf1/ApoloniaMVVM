@@ -37,6 +37,7 @@
     <None Remove="Assets\Icons\ico_logout.png" />
     <None Remove="Assets\Icons\ico_menu.png" />
     <None Remove="Assets\Icons\ico_menu_over.png" />
+    <None Remove="Assets\Icons\ico_newprocess.png" />
     <None Remove="Assets\Icons\ico_newtask.png" />
     <None Remove="Assets\Icons\ico_newunit.png" />
     <None Remove="Assets\Icons\ico_penblue.png" />
@@ -56,6 +57,7 @@
     <None Remove="Assets\Icons\ico_usrsint.png" />
     <None Remove="Assets\Icons\ico_valid.png" />
     <None Remove="Assets\Icons\ico_workflow.png" />
+    <None Remove="Assets\Images\FullLogo_Vertical.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -146,6 +148,9 @@
     <Resource Include="Assets\Icons\ico_menu_over.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Assets\Icons\ico_newprocess.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Icons\ico_newtask.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -201,6 +206,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Icons\ico_workflow.png" />
+    <Resource Include="Assets\Images\FullLogo_Vertical.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
