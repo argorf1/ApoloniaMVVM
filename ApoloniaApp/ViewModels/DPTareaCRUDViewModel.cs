@@ -62,40 +62,14 @@ namespace ApoloniaApp.ViewModels
             Return = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView));
 
             #region Carga Listas
-            _funcionarios = new ObservableCollection<FuncionarioModel>();
-            foreach (FuncionarioModel f in _listStore.funcionarios.Where(p=> p.Unidad.Rut == unidad.Rut))
-            {
-                _funcionarios.Add(f);
-            }
-            _tareas = new ObservableCollection<TareaModel>();
-            foreach (TareaModel t in _listStore.tareas.Where(p=> p.Proceso.Id == _crudTarea.Proceso.Id))
-            {
-                _tareas.Add(t);
-            }
-            _responsables = new ObservableCollection<FuncionarioModel>();
-            foreach (ResponsableModel r in _listStore.responsables.Where(p=> p.IdTarea == _crudTarea.Id))
-            {
-                FuncionarioModel f = _funcionarios.First(p => p.Run == r.Responsable.Run);
-                _crudTarea.Responsables.Add(f);
-                _funcionarios.Remove(f);
-            }
-            _dependencias = new ObservableCollection<TareaModel>();
-            foreach (DependenciaModel d in _listStore.dependencias.Where(p=> p.IdTarea == _crudTarea.Id))
-            {
-                TareaModel t = _tareas.First(p => p.Id == d.Tarea.Id);
-                _crudTarea.Dependencias.Add(t);
-                _tareas.Remove(t);
-            }
-            _responsables = _crudTarea.Responsables;
-            _dependencias = _crudTarea.Dependencias;
+            _responsables = ChargeComboBoxService<FuncionarioModel>.ChargeComboBox(_listStore.funcionarios.Where(p => p.Unidad.Rut == unidad.Rut), _responsables, new FuncionarioModel() {Run="0", Nombre="-- Responsable --" });
+            _dependencias = ChargeComboBoxService<TareaModel>.ChargeComboBox(_listStore.tareas.Where(p => p.Proceso.Id == _crudTarea.Proceso.Id),_dependencias, new TareaModel() { Id = 0, Nombre = "-- Dependencia"});
             #endregion
 
 
-            _selectedDependencia = new TareaModel();
-            _selectedTarea = new TareaModel();
+            SelectedDependencia = _dependencias.First(p=> p.Id == _crudTarea.Dependencia.Id);
 
-            _selectedResponsable = new FuncionarioModel();
-            _selectedFuncionario = new FuncionarioModel();
+            SelectedResponsable = _responsables.First(p=> p.Run == _crudTarea.Responsable.Run);
 
 
             #region CargaValidaciones
@@ -105,7 +79,7 @@ namespace ApoloniaApp.ViewModels
                  () => ValidationService.Text(Nombre)
                 ,() => ValidationService.Text(Descripcion)
                 ,() => ValidationService.Number(Duracion)
-                ,() => ValidationService.ListContent(Responsables)
+                ,() => ValidationService.Run(SelectedResponsable.Run)
             });
             #endregion
 
@@ -141,21 +115,6 @@ namespace ApoloniaApp.ViewModels
         #region Funcionalidad Listas
 
         // Lista sin filtrar
-        private ObservableCollection<FuncionarioModel> _funcionarios;
-        public IEnumerable<FuncionarioModel> Funcionarios => _funcionarios;
-        private FuncionarioModel _selectedFuncionario;
-
-        public FuncionarioModel SelectedFuncionario
-        {
-
-            get { return _selectedFuncionario; }
-            set
-            {
-                _selectedFuncionario = value;
-                OnPropertyChanged("SelectedFuncionario");
-            }
-        }
-
         private ObservableCollection<FuncionarioModel> _responsables;
         public IEnumerable<FuncionarioModel> Responsables => _responsables;
         private FuncionarioModel _selectedResponsable;
@@ -163,36 +122,25 @@ namespace ApoloniaApp.ViewModels
         public FuncionarioModel SelectedResponsable
         {
 
-            get { return _selectedResponsable; }
+            get { return _crudTarea.Responsable; }
             set
             {
-                _selectedResponsable = value;
+                _crudTarea.Responsable = value;
+
+                ValidResponsable = ValidationService.Run(value.Run);
+
                 OnPropertyChanged("SelectedResponsable");
             }
         }
 
         public bool ValidResponsable
         {
-            get => ValidationService.ListContent(Responsables);
+            get => ValidationService.Run(SelectedResponsable.Run);
             set
             {
                 _validResponsable = value;
                 OnPropertyChanged("ValidResponsable");
-            }
-        }
-
-        private ObservableCollection<TareaModel> _tareas;
-        public IEnumerable<TareaModel> Tareas => _tareas;
-        private TareaModel _selectedTarea;
-
-        public TareaModel SelectedTarea
-        {
-
-            get { return _selectedTarea; }
-            set
-            {
-                _selectedTarea = value;
-                OnPropertyChanged("SelectedTarea");
+                OnPropertyChanged("CanCrud");
             }
         }
 
@@ -203,10 +151,11 @@ namespace ApoloniaApp.ViewModels
         public TareaModel SelectedDependencia
         {
 
-            get { return _selectedDependencia; }
+            get { return _crudTarea.Dependencia; }
             set
             {
-                _selectedDependencia = value;
+                _crudTarea.Dependencia = value;
+
                 OnPropertyChanged("SelectedDependencia");
             }
         }
@@ -305,85 +254,12 @@ namespace ApoloniaApp.ViewModels
         #endregion
         
 
-        #region Commands
 
-        private void ExchangeList<TModel>(ObservableCollection<TModel> source, ObservableCollection<TModel> target, TModel model, string property)
-            where TModel : ModelBase
-        {
-            if (model != null)
-            {
-                source.Remove(model);
-                target.Add(model);
-                OnPropertyChanged(property);
-            }
-        }
-        private void ExchangeList<TModel>(ObservableCollection<TModel> source, ObservableCollection<TModel> target, TModel model)
-            where TModel : ModelBase
-        {
-            if (model != null)
-            {
-                source.Remove(model);
-                target.Add(model);
-                model = null;
-            }
-        }
-        private ICommand _addResponsable;
-        public ICommand AddResponsable
-        {
-            get
-            {
-                return _addResponsable ?? (_addResponsable = new CommandHandler(() => ExchangeList<FuncionarioModel>(_funcionarios, _responsables, SelectedFuncionario, "CanCrud"), true));
-            }
-        }
-        private ICommand _extractResponsable;
-        public ICommand ExtractResponsable
-        {
-            get
-            {
-                return _extractResponsable ?? (_extractResponsable = new CommandHandler(() => ExchangeList<FuncionarioModel>(_responsables, _funcionarios, SelectedResponsable, "CanCrud"), true));
-            }
-        }
-        private ICommand _addDependencia;
-        public ICommand AddDependencia
-        {
-            get
-            {
-                return _addDependencia ?? (_addDependencia = new CommandHandler(() => ExchangeList<TareaModel>(_tareas, _dependencias, SelectedTarea), true));
-            }
-        }
-        private ICommand _extractDependencia;
-        public ICommand ExtractDependencia
-        {
-            get
-            {
-                return _extractDependencia ?? (_extractDependencia = new CommandHandler(() => ExchangeList<TareaModel>(_dependencias, _tareas, SelectedDependencia), true));
-            }
-        }
+
+       
 
     }
 
-    public class CommandHandler : ICommand
-    {
-        private Action _action;
-        private bool _canExecute;
-        public CommandHandler(Action action, bool canExecute)
-        {
-            _action = action;
-            _canExecute = canExecute;
-        }
+    
 
-        public bool CanExecute(object parameter)
-        {
-            return _canExecute;
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
-        {
-            _action();
-        }
-
-    }
-    #endregion
 }

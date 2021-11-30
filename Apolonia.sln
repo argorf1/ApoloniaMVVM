@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApoloniaApp", "ApoloniaApp\ApoloniaApp.csproj", "{6EC8EC13-1B17-462B-9517-B42B906AF069}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApoloniaApp.Test", "ApoloniaApp.Test\ApoloniaApp.Test.csproj", "{42F86C82-3979-4707-B643-0991D080704F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{6EC8EC13-1B17-462B-9517-B42B906AF069}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EC8EC13-1B17-462B-9517-B42B906AF069}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EC8EC13-1B17-462B-9517-B42B906AF069}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42F86C82-3979-4707-B643-0991D080704F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42F86C82-3979-4707-B643-0991D080704F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42F86C82-3979-4707-B643-0991D080704F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42F86C82-3979-4707-B643-0991D080704F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

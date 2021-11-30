@@ -61,7 +61,7 @@
                                 <ToolBar x:Name="tbrProcessCommands" AllowDrop="False" 
                                          Width="Auto" Height="Auto"
                                          Padding="0" Band="100"
-                                         Margin="-20,0,0,0"
+                                         Margin="-20,0,-635,0"
                                          Background="White">
 
                                     <Image Source="/Assets/Icons/ico_process.png"
@@ -86,7 +86,8 @@
                                     </Button>
 
                                     <!--// EDIT PROCESS BUTTON //-->
-                                <Button x:Name="btnEditProcess" Content="Modificar Proceso"
+                                    
+                                    <Button x:Name="btnEditProcess" Content="Modificar Proceso"
                                             Style="{DynamicResource ToolBtn}"
                                             Padding="0,10,20,10"
                                             IsEnabled="{Binding CanEditProc}"
@@ -101,7 +102,7 @@
                                             Style="{DynamicResource ToolBtn}"
                                             Padding="0,10,20,10"
                                             IsEnabled="{Binding CanEditProc}"
-                                            Command="{Binding NavigationCreateProceso}">
+                                            Command="{Binding DeleteProceso}">
                                         <Button.Tag>
                                             <ImageSource>/Assets/Icons/ico_del.png</ImageSource>
                                         </Button.Tag>
