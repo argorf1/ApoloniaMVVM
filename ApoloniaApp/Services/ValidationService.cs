@@ -25,11 +25,12 @@ namespace ApoloniaApp.Services
             Regex hasLowerChar = new Regex(@"[a-z]+");
             Regex hasMinimum8Chars = new Regex(@".{8,}");
 
-            return Text(password)
+            return (Text(password)
                 && hasNumber.IsMatch(password)
                 && hasUpperChar.IsMatch(password)
                 && hasLowerChar.IsMatch(password)
-                && hasMinimum8Chars.IsMatch(password);
+                && hasMinimum8Chars.IsMatch(password))
+                || !Text(password);
         }
         public static bool Match(string password, string passwordConfirm) => (Text(password) && Text(passwordConfirm) && password == passwordConfirm)|| (!Text(password)&&(!Text(passwordConfirm)));
         public static bool ComboBoxId(int id)=> id != 0;

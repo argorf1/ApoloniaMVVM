@@ -23,9 +23,10 @@ namespace ApoloniaApp.Models
             Responsable = new FuncionarioModel();
         }
 
-        public ResponsableModel(FuncionarioModel responsable)
+        public ResponsableModel(FuncionarioModel responsable, int id)
         {
             Responsable = responsable;
+            IdTarea = id;
         }
 
         public bool Create()
@@ -94,25 +95,31 @@ namespace ApoloniaApp.Models
             }
         }
 
-        public List<ResponsableModel> ReadResponsableAll()
+        public bool Update()
         {
-            List<ResponsableModel> listaNegocio = new List<ResponsableModel>();
 
             try
             {
+                conn = Conexion.AbrirConexion();
 
-                foreach (FuncionarioModel t in new FuncionarioModel().ReadAll())
-                {
-                    listaNegocio.Add(new ResponsableModel(t));
-                }
+                OracleCommand cmd = new OracleCommand("u_resp_tarea_tipo", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("i_id_tarea_tipo", OracleDbType.Int32).Value = this.IdTarea;
+                cmd.Parameters.Add("i_run_funcionario", OracleDbType.NVarchar2).Value = this.Responsable.Run;
 
-                return listaNegocio;
 
+                cmd.ExecuteNonQuery();
+
+
+                conn.Close();
+
+
+                return true;
             }
             catch (Exception e)
             {
                 conn.Close();
-                return new List<ResponsableModel>();
+                return false;
             }
         }
 
