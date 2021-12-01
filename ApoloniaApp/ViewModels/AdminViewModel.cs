@@ -21,7 +21,7 @@ namespace ApoloniaApp.ViewModels
         private PerfilModel rol;
         public string LogUser
         {
-            get => (CurrentAccount.Nombre + " " + CurrentAccount.ApellidoP + " ( " + rol.Nombre + " )");
+            get => (CurrentAccount.Nombre + " " + CurrentAccount.ApellidoP + " (" + rol.Nombre + ")");
             set {
                 OnPropertyChanged("LogUser"); 
             }
