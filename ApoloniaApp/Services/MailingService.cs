@@ -11,7 +11,7 @@ namespace ApoloniaApp.Services
         public static SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
         {
             Port = 587,
-            Credentials = new NetworkCredential("chachesoflo@gmail.com", "Sonicx13*"),
+            Credentials = new NetworkCredential("chachesoflo@gmail.com", "Chachesoflo21*"),
             EnableSsl = true,
         };
 
