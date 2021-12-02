@@ -412,7 +412,7 @@ namespace ApoloniaApp.ViewModels
             {
                 _crudUsuario.Email = value;
 
-                _validEmail = ValidationService.Email(Email);
+                ValidEmail = ValidationService.Email(Email);
                 OnPropertyChanged("Email");
             }
         }

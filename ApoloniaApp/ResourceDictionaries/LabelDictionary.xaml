@@ -29,4 +29,18 @@
                     Value="10"/>
     </Style>
 
+    <!-- // LOGGED USER LABELS FONT STYLE TEMPLATE // -->
+    <Style x:Key="LoggedUser" TargetType="Label">
+        <Setter Property="FontFamily"
+                    Value="/Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
+        <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+        <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+        <Setter Property="Foreground"
+                    Value="#494949"/>
+        <Setter Property="FontSize"
+                    Value="13"/>
+    </Style>
+
 </ResourceDictionary>
