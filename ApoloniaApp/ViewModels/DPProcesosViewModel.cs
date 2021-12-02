@@ -52,7 +52,7 @@ namespace ApoloniaApp.ViewModels
             #region Configuracion Botones
             NavigationCreateProceso = new NavigatePanelCommand<DPProcesosCRUDViewModel>(frameStore, () => new DPProcesosCRUDViewModel(frameStore, currentAccount, new ProcesoModel() { Unidad = _selectedUnidad }, 1, _listStore, mainView));
             NavigationUpdateProceso = new NavigatePanelCommand<DPProcesosCRUDViewModel>(frameStore, () => new DPProcesosCRUDViewModel(frameStore, currentAccount, _crudProceso, 2, _listStore, mainView));
-            NavigationCreateTarea = new NavigatePanelCommand<DPTareaCRUDViewModel>(frameStore, () => new DPTareaCRUDViewModel(frameStore, currentAccount, new TareaModel() { Proceso = _crudProceso }, 1, _selectedUnidad, _listStore, mainView));
+            NavigationCreateTarea = new NavigatePanelCommand<DPTareaCRUDViewModel>(frameStore, () => new DPTareaCRUDViewModel(frameStore, currentAccount, new TareaModel() { Proceso = _selectedProceso }, 1, _selectedUnidad, _listStore, mainView));
             NavigationUpdateTarea = new NavigatePanelCommand<DPTareaCRUDViewModel>(frameStore, () => new DPTareaCRUDViewModel(frameStore, currentAccount, _crudTarea, 2, _selectedUnidad, _listStore, mainView));
 
             DeleteProceso = new CRUDCommand<DPProcesosViewModel, ProcesoModel>(() => _crudProceso.Delete(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, _crudProceso, () => _listStore.ProcesosView(), 4);
@@ -187,7 +187,7 @@ namespace ApoloniaApp.ViewModels
                 _crudTarea.Duracion = _selectedTarea.Duracion;
                 _crudTarea.Responsable = _selectedTarea.Responsable;
                 _crudTarea.Dependencia = _selectedTarea.Dependencia;
-
+                _crudTarea.Proceso = _selectedProceso;
                 CanEditTarea = (_crudTarea != null ? true: false);
                 Responsables = (_crudTarea != null ? _responsables.Where(p => p.IdTarea == _crudTarea.Id) : null);
                 OnPropertyChanged("SelectedTarea");
