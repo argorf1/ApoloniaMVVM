@@ -33,7 +33,7 @@
                     
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Assets/Images/Los Andes2.jfif" 
-                                    Opacity="0.6"/>
+                                    Opacity="0.3"/>
                         
                     </StackPanel.Background>
 

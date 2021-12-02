@@ -299,7 +299,7 @@
                     <!-- // Account Name: TextBox // -->
                     <StackPanel Grid.Row="12" Grid.Column="0"  Orientation="Horizontal">
                         <TextBox x:Name="txtNewUserName"
-                                 Text="{Binding Username}"
+                                 Text="{Binding Run}"
                                  Width="180" IsReadOnly="True"
                                  Style="{DynamicResource TextBoxRoundedCorners}"/>
                         

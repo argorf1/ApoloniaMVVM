@@ -87,7 +87,7 @@ namespace ApoloniaApp.ViewModels
                 _crudFuncionario.Nombre      = value.Nombre;
                 _crudFuncionario.ApellidoP   = value.ApellidoP;
                 _crudFuncionario.ApellidoM   = value.ApellidoM;
-                _crudFuncionario.Email       = value.ApellidoP;
+                _crudFuncionario.Email       = value.Email;
                 _crudFuncionario.Rol         = value.Rol;
                 _crudFuncionario.Estado      = value.Estado;
                 _crudFuncionario.Unidad      = value.Unidad;
@@ -129,6 +129,7 @@ namespace ApoloniaApp.ViewModels
             set
             {
                 _crudFuncionario.Run = value;
+
                 OnPropertyChanged("Run");
             }
         }
