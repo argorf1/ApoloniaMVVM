@@ -18,7 +18,6 @@ namespace ApoloniaApp.ViewModels
         public UsuarioInternoModel CurrentAccount;
         private TareaModel _crudTarea;
         private List<Func<bool>> _validations;
-        private bool _initialized = false;
 
         #region Commands
         public ICommand Crud { get; }
@@ -83,7 +82,6 @@ namespace ApoloniaApp.ViewModels
             });
             #endregion
 
-            _initialized = true;
         }
 
 
@@ -176,8 +174,7 @@ namespace ApoloniaApp.ViewModels
                 OnPropertyChanged("CanCrud");
             }
         }
-        private bool _initializedNombre = false;
-        private bool _validNombre;
+        private bool _validNombre = false;
         public bool ValidNombre
         {
             get => ValidationService.Text(Nombre);
@@ -188,10 +185,6 @@ namespace ApoloniaApp.ViewModels
                 OnPropertyChanged("CanCrud");
             }
         }
-        public string ImageNombre
-        {
-            get => _initializedNombre ? (ValidNombre ? _validField[1] : _validField[2]):_validField[0];
-        }
         public string Nombre
         {
             get => _crudTarea.Nombre;
@@ -199,10 +192,8 @@ namespace ApoloniaApp.ViewModels
             {
                 _crudTarea.Nombre = value;
                 ValidNombre = ValidationService.Text(Nombre);
-                _initializedNombre = true;
                 OnPropertyChanged("Nombre");
                 OnPropertyChanged("ValidNombre");
-                OnPropertyChanged("ImageNombre");
             }
         }
 
