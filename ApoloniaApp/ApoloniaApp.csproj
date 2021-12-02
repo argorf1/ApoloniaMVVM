@@ -49,6 +49,7 @@
     <None Remove="Assets\Icons\ico_required.png" />
     <None Remove="Assets\Icons\ico_roles.png" />
     <None Remove="Assets\Icons\ico_santa.png" />
+    <None Remove="Assets\Icons\ico_subunit.png" />
     <None Remove="Assets\Icons\ico_tasklist.png" />
     <None Remove="Assets\Icons\ico_unit.png" />
     <None Remove="Assets\Icons\ico_units.png" />
@@ -188,6 +189,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Icons\ico_santa.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\ico_subunit.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Icons\ico_tasklist.png">
