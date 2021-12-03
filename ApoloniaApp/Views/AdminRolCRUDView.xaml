@@ -154,7 +154,7 @@
 
                     <StackPanel Grid.Row="8" Grid.Column="0" Orientation="Horizontal">
 
-                        <Label x:Name="lblRol" Content="Superior a quién reporta"
+                        <Label x:Name="lblRol" Content="Superior a quien reporta"
                                Style="{StaticResource FormLabel}"/>
 
                         <Image Source="/Assets/Icons/ico_required.png"

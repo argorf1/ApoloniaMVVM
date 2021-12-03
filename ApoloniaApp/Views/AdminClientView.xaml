@@ -75,7 +75,7 @@
                     <StackPanel>
                         <ComboBox x:Name="ddlUnit"
                                   Grid.Column="6" Grid.Row="0"
-                                  Margin="10,0,0,0" Width="180"
+                                  Margin="10,0,0,0" Width="300"
                                   HorizontalAlignment="Left"
                                   ItemsSource="{Binding Unidades}"
                                   DisplayMemberPath="RazonSocial"

@@ -73,7 +73,7 @@
                                            Height="12"
                                            Margin="5,0,0,5"
                                            VerticalAlignment="Center"                           
-                                           Visibility="Visible"/>
+                                           Visibility="Hidden"/>
                     </StackPanel>
 
                     <DataGrid Grid.Column="0" Grid.Row="1" x:Name="dtgUsers"
