@@ -83,15 +83,15 @@ namespace ApoloniaApp.ViewModels
             {
                 _selectedFuncionario = value != null ? value: new FuncionarioModel();
 
-                _crudFuncionario.Run         = value.Run;
-                _crudFuncionario.Nombre      = value.Nombre;
-                _crudFuncionario.ApellidoP   = value.ApellidoP;
-                _crudFuncionario.ApellidoM   = value.ApellidoM;
-                _crudFuncionario.Email       = value.Email;
-                _crudFuncionario.Rol         = value.Rol;
-                _crudFuncionario.Estado      = value.Estado;
-                _crudFuncionario.Unidad      = value.Unidad;
-                _crudFuncionario.Subunidad   = value.Subunidad;
+                _crudFuncionario.Run         = _selectedFuncionario.Run;
+                _crudFuncionario.Nombre      = _selectedFuncionario.Nombre;
+                _crudFuncionario.ApellidoP   = _selectedFuncionario.ApellidoP;
+                _crudFuncionario.ApellidoM   = _selectedFuncionario.ApellidoM;
+                _crudFuncionario.Email       = _selectedFuncionario.Email;
+                _crudFuncionario.Rol         = _selectedFuncionario.Rol;
+                _crudFuncionario.Estado      = _selectedFuncionario.Estado;
+                _crudFuncionario.Unidad      = _selectedFuncionario.Unidad;
+                _crudFuncionario.Subunidad   = _selectedFuncionario.Subunidad;
                 OnPropertyChanged("SelectedFuncionario");
 
                 CanEdit = SelectedFuncionario.Run != ""? true : false;

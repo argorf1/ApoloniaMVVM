@@ -29,6 +29,7 @@ namespace ApoloniaApp.ViewModels
             _listStore = listStore;
             CurrentAccount = currentAccount;
             _crudTarea = crudTarea;
+            TareaModel returnTarea = new TareaModel() { Proceso = _crudTarea.Proceso };
             _crudTarea.Creador = currentAccount;
             _estado = estado;
 
@@ -49,7 +50,7 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, () => _crudTarea.ReadByName(), _crudTarea, () => _listStore.TareasView(), 1);
+                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView), ()=> new DPTareaCRUDViewModel(_frameStore,CurrentAccount,returnTarea,1,unidad,_listStore,mainView), _frameStore, () => _crudTarea.ReadByName(), _crudTarea, () => _listStore.TareasView(), 5);
                     break;
                 case 2:
                     Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Update(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, _crudTarea, () => _listStore.TareasView(), 2);

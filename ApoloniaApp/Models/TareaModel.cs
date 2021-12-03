@@ -119,6 +119,8 @@ namespace ApoloniaApp.Models
                     };
                     t.Creador = new UsuarioInternoModel() { Nombre = r.GetString(4), Run = r.GetString(5) };
                     t.Proceso = new ProcesoModel() { Nombre = r.GetString(6), Id = r.GetInt32(7) };
+                    t.Responsable = new FuncionarioModel() { Run = r.GetString(8) };
+                    t.Dependencia = new TareaModel() { Id = r.GetInt32(9) };
 
                     listaNegocio.Add(t);
                 }
