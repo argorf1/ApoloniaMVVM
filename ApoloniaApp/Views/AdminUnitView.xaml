@@ -499,7 +499,7 @@
                             <StackPanel Grid.Row="3" Grid.Column="4" Orientation="Horizontal">
 
                                 <Label x:Name="lblProvince" 
-                                       Content="Ciudad (Provincia)"
+                                       Content="Provincia"
                                        Style="{StaticResource FormLabel}"/>
 
                                 <Image Width="12"

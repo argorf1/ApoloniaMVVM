@@ -87,7 +87,7 @@
                     </StackPanel>
                     
                     <StackPanel Grid.Column="0" Grid.Row="3">
-                        <ComboBox Width="180"
+                        <ComboBox Width="300"
                                   Margin="0,0,0,0"                                  
                                   HorizontalAlignment="Left"
                                   ItemsSource="{Binding Subunidades}"

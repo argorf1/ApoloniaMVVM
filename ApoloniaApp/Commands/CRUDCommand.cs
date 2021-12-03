@@ -59,7 +59,7 @@ namespace ApoloniaApp.Commands
 
         public override void Execute(object parameter)
         {
-            if (MessageBox.Show("¿Esta seguro de continuar?", "Confirmación", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show("¿Está seguro que desea continuar?", "Confirmación", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 switch (_estado)
                 {
@@ -68,7 +68,7 @@ namespace ApoloniaApp.Commands
                         {
                             if (_crudModel())
                             {
-                                MessageBox.Show("Creación de " + _model.NombreEntidad + " realizada con exito");
+                                MessageBox.Show("Creación de " + _model.NombreEntidad + " realizada con éxito");
                                 _lista();
                                 _frameStore.CurrentViewModel = _viewModel();
                             }
@@ -86,7 +86,7 @@ namespace ApoloniaApp.Commands
                     case 2:
                         if (_crudModel())
                         {
-                            MessageBox.Show("Actualización de " + _model.NombreEntidad + " realizada con exito");
+                            MessageBox.Show("Actualización de " + _model.NombreEntidad + " realizada con éxito");
                             _lista();
                             _frameStore.CurrentViewModel = _viewModel();
                         }
@@ -100,7 +100,7 @@ namespace ApoloniaApp.Commands
                         {
                             if (_crudModel())
                             {
-                                MessageBox.Show("Eliminación de " + _model.NombreEntidad + " realizada con exito");
+                                MessageBox.Show("Eliminación de " + _model.NombreEntidad + " realizada con éxito");
                                 _lista();
                                 _frameStore.CurrentViewModel = _viewModel();
                             }
@@ -117,7 +117,7 @@ namespace ApoloniaApp.Commands
                     case 4:
                         if (_crudModel())
                         {
-                            MessageBox.Show("Eliminación de " + _model.NombreEntidad + " realizada con exito");
+                            MessageBox.Show("Eliminación de " + _model.NombreEntidad + " realizada con éxito");
                             _lista();
                             _frameStore.CurrentViewModel = _viewModel();
                         }

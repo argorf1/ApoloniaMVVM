@@ -113,7 +113,7 @@
                         </StackPanel>
                         
                         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="7">
-                            <Label Content="Duración en días"
+                            <Label Content="Duración en Días"
                                    Style="{StaticResource FormLabel}"/>
                             
                             <Image Source="/Assets/Icons/ico_required.png"

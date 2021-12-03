@@ -339,7 +339,7 @@
                     
                     <!-- // Account Password: Label // -->
                     <StackPanel Grid.Row="11" Grid.Column="2" Orientation="Horizontal">
-                        <Label  Content="Password"
+                        <Label  Content="Contraseña"
                                 Visibility="{Binding EstadoVisibility}"
                                 Style="{StaticResource FormLabel}"/>
                         
@@ -355,7 +355,7 @@
                     
                     <!-- // Account Password Confirmation: Label // -->
                     <StackPanel Grid.Row="11" Grid.Column="3" Orientation="Horizontal">
-                        <Label  Content="Password Confirmation"
+                        <Label  Content="Confirmación de Contraseña"
                                 Visibility="{Binding EstadoVisibility}"
                                 Style="{StaticResource FormLabel}"/>
                         

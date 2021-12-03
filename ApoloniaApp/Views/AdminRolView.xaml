@@ -21,7 +21,7 @@
 
                 <StackPanel Orientation="Horizontal"
                         Margin="0">
-                    <TextBlock x:Name="tbkTitleAddUser" Text="Gestion de Roles de Funcionarios"
+                    <TextBlock x:Name="tbkTitleAddUser" Text="Gestión de Roles de Funcionarios"
                                Margin="0,10,0,10"
                                Style="{StaticResource MainTitle}"/>
 
@@ -224,7 +224,7 @@
 
                     <!-- // Reporting Role: Label // -->
                     <StackPanel Grid.Row="13" Grid.Column="0" Orientation="Horizontal">
-                        <Label x:Name="lblRol" Content="Superior a quién reporta"
+                        <Label x:Name="lblRol" Content="Superior a quien reporta"
                                Style="{StaticResource FormLabel}"/>
                     
                     </StackPanel>
