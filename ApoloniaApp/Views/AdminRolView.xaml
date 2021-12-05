@@ -127,25 +127,25 @@
 
                             <DataGrid.Columns>
                                 <DataGridTextColumn 
-                                Header="ID" 
-                                Width="70"
-                                MinWidth="70"
-                                Binding="{Binding Id}"/>
+                                    Header="ID" 
+                                    Width="30"
+                                    MinWidth="30"
+                                    Binding="{Binding Id}"/>
                                 <DataGridTextColumn 
-                                Header="Nombre" 
-                                Width="70"
-                                MinWidth="70"
-                                Binding="{Binding Nombre}"/>
+                                    Header="Nombre" 
+                                    Width="150"
+                                    MinWidth="150"
+                                    Binding="{Binding Nombre}"/>
                                 <DataGridTextColumn 
-                                Header="Subunidad" 
-                                Width="70"
-                                MinWidth="70"
-                                Binding="{Binding Subunidad.Nombre}"/>
+                                    Header="Subunidad" 
+                                    Width="100"
+                                    MinWidth="100"
+                                    Binding="{Binding Subunidad.Nombre}"/>
                                 <DataGridTextColumn 
-                                Header="Nivel" 
-                                Width="70"
-                                MinWidth="70"
-                                Binding="{Binding Nivel}"/>
+                                    Header="Nivel" 
+                                    Width="50"
+                                    MinWidth="50"
+                                    Binding="{Binding Nivel}"/>
 
                             </DataGrid.Columns>
 

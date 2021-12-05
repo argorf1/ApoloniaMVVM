@@ -64,7 +64,7 @@
     <None Remove="Assets\Images\apolonia_isotipo.png" />
     <None Remove="Assets\Images\background.jpg" />
     <None Remove="Assets\Images\FullLogo_Vertical.png" />
-    <None Remove="Assets\Images\Los Andes2.jfif" />
+    <None Remove="Assets\Images\loginbkg.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -234,7 +234,7 @@
     <Resource Include="Assets\Images\FullLogo_Vertical.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\Images\Los Andes2.jfif">
+    <Resource Include="Assets\Images\loginbkg.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

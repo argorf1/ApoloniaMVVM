@@ -32,7 +32,7 @@
                 <StackPanel Grid.Column="0" Grid.Row="1" Margin="0 0 0 0">
                     
                     <StackPanel.Background>
-                        <ImageBrush ImageSource="/Assets/Images/Los Andes2.jfif" 
+                    <ImageBrush ImageSource="/Assets/Images/loginbkg.png" 
                                     Opacity="0.3"/>
                         
                     </StackPanel.Background>
@@ -51,7 +51,7 @@
                        Margin="0,0,0,30"
                        Visibility="Hidden"/>
 
-                <TextBlock Text="Inicio de Sesión" Grid.Row="0"
+                <TextBlock Text="Inicio de sesión" Grid.Row="0"
                            HorizontalAlignment="Left" 
                            Margin="30,0,0,10"
                            Style="{StaticResource loginTitle}"/>

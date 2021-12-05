@@ -148,8 +148,8 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn 
                                     Header="Nombre"
-                                    Width="70"
-                                    MinWidth="70"
+                                    Width="280"
+                                    MinWidth="280"
                                     Binding="{Binding Nombre}"/>
                                 <DataGridTextColumn 
                                     Header="Descripción" 
