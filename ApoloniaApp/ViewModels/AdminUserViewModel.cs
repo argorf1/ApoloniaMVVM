@@ -141,7 +141,7 @@ namespace ApoloniaApp.ViewModels
 
         public string Perfil
         {
-            get => _crudUsuario.Perfil.Nombre;
+            get => _crudUsuario.Estado.Nombre;
             set
             {
                 OnPropertyChanged("RolId");
@@ -152,7 +152,7 @@ namespace ApoloniaApp.ViewModels
 
         public string Estado
         {
-            get => _crudUsuario.Estado.Nombre;
+            get => _crudUsuario.Perfil.Nombre;
             set
             {
                 _crudUsuario.Estado.Nombre = value;

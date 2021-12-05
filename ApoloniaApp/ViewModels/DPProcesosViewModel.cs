@@ -129,6 +129,7 @@ namespace ApoloniaApp.ViewModels
                 _crudProceso.Rol            = _selectedProceso.Rol;
                 _crudProceso.Unidad         = _selectedProceso.Unidad;
                 _crudProceso.Creador        = _selectedProceso.Creador;
+                _crudProceso.Subunidad      = _selectedProceso.Subunidad;
 
                 CanEditProc = _selectedProceso != null;
                 CanCreateTarea = _selectedProceso != null;
