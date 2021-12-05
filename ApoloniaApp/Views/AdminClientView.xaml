@@ -74,7 +74,7 @@
                                 <Button x:Name="btnAddUser" Content="Crear Funcionario"
                                                 IsEnabled="True"
                                                 Style="{DynamicResource ToolBtn}"
-                                                Padding="0,10,20,0"
+                                                Padding="0,10,20,10"
                                                 Command="{Binding NavigationCreateUsers}">
                                     <Button.Tag>
                                         <ImageSource>/Assets/Icons/ico_add.png</ImageSource>
