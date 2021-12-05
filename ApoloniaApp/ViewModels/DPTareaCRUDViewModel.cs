@@ -62,7 +62,7 @@ namespace ApoloniaApp.ViewModels
             Return = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView));
 
             #region Carga Listas
-            _responsables = ChargeComboBoxService<FuncionarioModel>.ChargeComboBox(_listStore.funcionarios.Where(p => p.Unidad.Rut == unidad.Rut), _responsables, new FuncionarioModel() {Run="0", Nombre="-- Responsable --" });
+            _responsables = ChargeComboBoxService<FuncionarioModel>.ChargeComboBox(_listStore.funcionarios.Where(p => p.Subunidad.Id == _crudTarea.Proceso.Subunidad.Id), _responsables, new FuncionarioModel() {Run="0", Nombre="-- Responsable --" });
             _dependencias = ChargeComboBoxService<TareaModel>.ChargeComboBox(_listStore.tareas.Where(p => p.Proceso.Id == _crudTarea.Proceso.Id),_dependencias, new TareaModel() { Id = 0, Nombre = "-- Dependencia"});
             #endregion
 

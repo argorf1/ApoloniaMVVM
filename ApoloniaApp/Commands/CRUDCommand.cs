@@ -131,6 +131,7 @@ namespace ApoloniaApp.Commands
                         {
                             if (_crudModel())
                             {
+                                _lista();
                                 MessageBox.Show("Creación de " + _model.NombreEntidad + " realizada con exito");
                                 if (MessageBox.Show("¿Desea Crear otra Tarea?", "Confirmación", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                                 {
@@ -138,7 +139,6 @@ namespace ApoloniaApp.Commands
                                 }
                                 else
                                 {
-                                    _lista();
                                     _frameStore.CurrentViewModel = _viewModel();
                                 }
                             }
