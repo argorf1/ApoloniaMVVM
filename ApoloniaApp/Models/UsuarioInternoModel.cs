@@ -92,8 +92,8 @@ namespace ApoloniaApp.Models
                         ApellidoM = r.GetString(3),
                         Email = r.GetString(4)
                     };
-                    u.Perfil = new PerfilModel() { Id = r.GetInt32(7), Nombre = r.GetString(6) };
-                    u.Estado = new EstadoModel() { Id = r.GetInt32(8), Nombre = r.GetString(5) };
+                    u.Perfil = new PerfilModel() { Id = r.GetInt32(7), Nombre = r.GetString(5) };
+                    u.Estado = new EstadoModel() { Id = r.GetInt32(8), Nombre = r.GetString(6) };
                     listaNegocio.Add(u);
                 }
 

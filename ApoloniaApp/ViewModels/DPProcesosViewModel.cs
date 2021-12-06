@@ -121,7 +121,7 @@ namespace ApoloniaApp.ViewModels
             get { return _selectedProceso; }
             set
             {
-                _selectedProceso = value;
+                _selectedProceso = value != null ? value:new ProcesoModel();
 
                 _crudProceso.Id             = _selectedProceso.Id;
                 _crudProceso.Nombre         = _selectedProceso.Nombre;
@@ -129,6 +129,7 @@ namespace ApoloniaApp.ViewModels
                 _crudProceso.Rol            = _selectedProceso.Rol;
                 _crudProceso.Unidad         = _selectedProceso.Unidad;
                 _crudProceso.Creador        = _selectedProceso.Creador;
+                _crudProceso.Subunidad      = _selectedProceso.Subunidad;
 
                 CanEditProc = _selectedProceso != null;
                 CanCreateTarea = _selectedProceso != null;
@@ -176,10 +177,7 @@ namespace ApoloniaApp.ViewModels
             get => _selectedTarea;
             set
             {
-                if (value != null)
-                    _selectedTarea = value;
-                else
-                    _selectedTarea = new TareaModel();
+                _selectedTarea = value != null ? value : new TareaModel();
 
                 _crudTarea.Id = _selectedTarea.Id;
                 _crudTarea.Nombre = _selectedTarea.Nombre;
@@ -188,7 +186,7 @@ namespace ApoloniaApp.ViewModels
                 _crudTarea.Responsable = _selectedTarea.Responsable;
                 _crudTarea.Dependencia = _selectedTarea.Dependencia;
                 _crudTarea.Proceso = _selectedProceso;
-                CanEditTarea = (_crudTarea != null ? true: false);
+                CanEditTarea = (_selectedTarea.Id != 0 ? true: false);
                 Responsables = (_crudTarea != null ? _responsables.Where(p => p.IdTarea == _crudTarea.Id) : null);
                 OnPropertyChanged("SelectedTarea");
 

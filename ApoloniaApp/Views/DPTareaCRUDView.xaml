@@ -103,17 +103,17 @@
                         </StackPanel>
                         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Margin="0,0,0,0">
                             <TextBox VerticalScrollBarVisibility="Auto"
-
-                                     Text="{Binding Descripcion}" AcceptsReturn="True"
-
-                                     TextWrapping="Wrap" VerticalContentAlignment="Top"
+                                     Text="{Binding Descripcion}"
+                                     AcceptsReturn="True"                                     
+                                     TextWrapping="Wrap" 
+                                     VerticalContentAlignment="Top"
                                      MaxLength="4000"  Height="150" Width="300"                                        
                                      Style="{DynamicResource TextBoxRoundedCorners}" />
                             
                         </StackPanel>
                         
                         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="7">
-                            <Label Content="Duración en días"
+                            <Label Content="Duración en Días"
                                    Style="{StaticResource FormLabel}"/>
                             
                             <Image Source="/Assets/Icons/ico_required.png"

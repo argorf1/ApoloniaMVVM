@@ -58,7 +58,7 @@
                         </ToolBarTray>
                     </StackPanel>
 
-                    <!-- // SECTION 1: LISTADO DE UNIDADES  // -->
+                    <!-- // SECTION 1: LISTADO DE UNIDADES  // --><!--
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Grid.Column="0"  
                                    Grid.Row="0" 
@@ -72,7 +72,7 @@
                                Margin="5,0,0,5"
                                VerticalAlignment="Center"                           
                                Visibility="Visible"/>
-                    </StackPanel>
+                    </StackPanel>-->
 
                     <DataGrid x:Name="dtgUnits" Grid.Column="0" Grid.Row="1" 
                               CanUserReorderColumns="False" 
@@ -92,21 +92,23 @@
                                 Binding="{Binding Rut}"/>
                             <DataGridTextColumn 
                                 Header="RAZÓN SOCIAL" 
-                                Width="100"
-                                MinWidth="100"
+                                Width="150"
+                                MinWidth="150"
                                 Binding="{Binding RazonSocial}"/>
                             <DataGridTextColumn 
                                 Header="RUBRO" 
+                                Width="100" 
+                                MinWidth="100"
                                 Binding="{Binding Rubro.Nombre}"/>
                             <DataGridTextColumn 
                                 Header="DIRECCIÓN (CALLE)" 
-                                Width="100" 
-                                MinWidth="100"
+                                Width="150" 
+                                MinWidth="150"
                                 Binding="{Binding Direccion.Calle}"/>
                             <DataGridTextColumn 
                                 Header="NÚMERO CALLE" 
-                                Width="150" 
-                                MinWidth="150"
+                                Width="100" 
+                                MinWidth="100"
                                 Binding="{Binding Direccion.Numero}"/>
                             <DataGridTextColumn 
                                 Header="COMPLEMENTO" 
@@ -499,7 +501,7 @@
                             <StackPanel Grid.Row="3" Grid.Column="4" Orientation="Horizontal">
 
                                 <Label x:Name="lblProvince" 
-                                       Content="Ciudad (Provincia)"
+                                       Content="Provincia"
                                        Style="{StaticResource FormLabel}"/>
 
                                 <Image Width="12"

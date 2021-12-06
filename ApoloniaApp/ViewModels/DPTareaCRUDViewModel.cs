@@ -29,6 +29,7 @@ namespace ApoloniaApp.ViewModels
             _listStore = listStore;
             CurrentAccount = currentAccount;
             _crudTarea = crudTarea;
+            TareaModel returnTarea = new TareaModel() { Proceso = _crudTarea.Proceso };
             _crudTarea.Creador = currentAccount;
             _estado = estado;
 
@@ -49,7 +50,7 @@ namespace ApoloniaApp.ViewModels
             switch (_estado)
             {
                 case 1:
-                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, () => _crudTarea.ReadByName(), _crudTarea, () => _listStore.TareasView(), 1);
+                    Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Create(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView), ()=> new DPTareaCRUDViewModel(_frameStore,CurrentAccount,returnTarea,1,unidad,_listStore,mainView), _frameStore, () => _crudTarea.ReadByName(), _crudTarea, () => _listStore.TareasView(), 5);
                     break;
                 case 2:
                     Crud = new CRUDCommand<DPProcesosViewModel, TareaModel>(() => _crudTarea.Update(), () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView), _frameStore, _crudTarea, () => _listStore.TareasView(), 2);
@@ -61,7 +62,7 @@ namespace ApoloniaApp.ViewModels
             Return = new NavigatePanelCommand<DPProcesosViewModel>(_frameStore, () => new DPProcesosViewModel(_frameStore, CurrentAccount, _listStore, mainView));
 
             #region Carga Listas
-            _responsables = ChargeComboBoxService<FuncionarioModel>.ChargeComboBox(_listStore.funcionarios.Where(p => p.Unidad.Rut == unidad.Rut), _responsables, new FuncionarioModel() {Run="0", Nombre="-- Responsable --" });
+            _responsables = ChargeComboBoxService<FuncionarioModel>.ChargeComboBox(_listStore.funcionarios.Where(p => p.Subunidad.Id == _crudTarea.Proceso.Subunidad.Id), _responsables, new FuncionarioModel() {Run="0", Nombre="-- Responsable --" });
             _dependencias = ChargeComboBoxService<TareaModel>.ChargeComboBox(_listStore.tareas.Where(p => p.Proceso.Id == _crudTarea.Proceso.Id),_dependencias, new TareaModel() { Id = 0, Nombre = "-- Dependencia"});
             #endregion
 

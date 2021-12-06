@@ -89,13 +89,13 @@ namespace ApoloniaApp.ViewModels
             get { return _selectedRol; }
             set
             {
-                _selectedRol = value;
+                _selectedRol = value != null ? value : new RolModel();
 
-                _crudRol.Id = value.Id;
-                _crudRol.Nombre = value.Nombre;
-                _crudRol.Descripcion = value.Descripcion;
-                _crudRol.RolSuperior = value.RolSuperior;
-                _crudRol.Subunidad = value.Subunidad;
+                _crudRol.Id = _selectedRol.Id;
+                _crudRol.Nombre = _selectedRol.Nombre;
+                _crudRol.Descripcion = _selectedRol.Descripcion;
+                _crudRol.RolSuperior = _selectedRol.RolSuperior;
+                _crudRol.Subunidad = _selectedRol.Subunidad;
                 
                 CanEdit = _crudRol.Id != 0;
                 OnPropertyChanged("SelectedRol");

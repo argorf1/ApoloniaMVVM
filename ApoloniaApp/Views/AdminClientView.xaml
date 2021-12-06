@@ -18,6 +18,31 @@
                                    Style="{StaticResource MainTitle}"/>
                 </StackPanel>
 
+                <!-- // SECTION 1: LISTADO DE USUARIOS  // -->
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="UNIDAD"
+                               Margin="15,0,0,-3"
+                               Style="{StaticResource FormLabel}"/>
+
+                    <Image x:Name="imgUserDtg" Source="/Assets/Icons/ico_collapseup.png"
+                               Width="12" Height="12" Margin="5,0,0,5"
+                               VerticalAlignment="Center"                           
+                               Visibility="Collapsed"/>
+
+                </StackPanel>
+                <StackPanel Margin="5,0,0,0">
+                    <ComboBox x:Name="ddlUnit"
+                                  Grid.Column="6" Grid.Row="0"
+                                  Margin="10,0,0,5" Width="300"
+                                  HorizontalAlignment="Left"
+                                  ItemsSource="{Binding Unidades}"
+                                  DisplayMemberPath="RazonSocial"
+                                  SelectedValuePath="RazonSocial"
+                                  SelectedValue="{Binding SelectedUnidad.RazonSocial}"
+                                  SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}"
+                                  Style="{DynamicResource CboRoundedCornersStyle}"/>
+
+                </StackPanel>
                 <!-- // VIEW UNITS - Stack Panel  // -->
                 <StackPanel x:Name="spViewUsers" Orientation="Vertical" 
                                 HorizontalAlignment="Left"  Margin="5,0,0,5"
@@ -60,38 +85,13 @@
                     </StackPanel>
 
 
-                    <!-- // SECTION 1: LISTADO DE USUARIOS  // -->
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="UNIDAD"
-                               Margin="10,0,0,-3"
-                               Style="{StaticResource FormLabel}"/>
-
-                        <Image x:Name="imgUserDtg" Source="/Assets/Icons/ico_collapseup.png"
-                               Width="12" Height="12" Margin="5,0,0,5"
-                               VerticalAlignment="Center"                           
-                               Visibility="Collapsed"/>
-                        
-                    </StackPanel>
-                    <StackPanel>
-                        <ComboBox x:Name="ddlUnit"
-                                  Grid.Column="6" Grid.Row="0"
-                                  Margin="10,0,0,0" Width="180"
-                                  HorizontalAlignment="Left"
-                                  ItemsSource="{Binding Unidades}"
-                                  DisplayMemberPath="RazonSocial"
-                                  SelectedValuePath="RazonSocial"
-                                  SelectedValue="{Binding SelectedUnidad.RazonSocial}"
-                                  SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}"
-                                  Style="{DynamicResource CboRoundedCornersStyle}"/>
-                        
-                    </StackPanel>
                     <DataGrid x:Name="dtgUsers" Grid.Column="0" Grid.Row="1"
                               CanUserReorderColumns="False"
                               SelectionMode="Single"
                               IsReadOnly="True"
                               AutoGenerateColumns="False"
                               ColumnWidth="auto"
-                              Margin="10" Height="160"
+                              Margin="10,0,10,10" Height="160"
                               HorizontalScrollBarVisibility="Visible"
                               ItemsSource="{Binding Funcionarios}"
                               SelectedItem="{Binding SelectedFuncionario, Mode=TwoWay}"

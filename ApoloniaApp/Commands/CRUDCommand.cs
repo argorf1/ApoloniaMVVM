@@ -17,6 +17,7 @@ namespace ApoloniaApp.Commands
         private readonly Func<bool> _crudModel;
         private readonly Func<bool> _checkModel;
         private readonly Func<TViewModel> _viewModel;
+        private readonly Func<DPTareaCRUDViewModel> _viewReturn;
         private readonly TModel _model;
         private readonly int _estado;
         private FrameStore _frameStore;
@@ -44,9 +45,21 @@ namespace ApoloniaApp.Commands
             _estado = estado;
         }
 
+        public CRUDCommand(Func<bool> crudModel, Func<TViewModel> viewModel, Func<DPTareaCRUDViewModel> viewReturn, FrameStore frameStore, Func<bool> checkModel, TModel model, Action lista, int estado)
+        {
+            _crudModel = crudModel;
+            _checkModel = checkModel;
+            _viewModel = viewModel;
+            _viewReturn = viewReturn;
+            _model = model;
+            _estado = estado;
+            _frameStore = frameStore;
+            _lista = lista;
+        }
+
         public override void Execute(object parameter)
         {
-            if (MessageBox.Show("¿Esta seguro de continuar?", "Confirmación", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show("¿Está seguro que desea continuar?", "Confirmación", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 switch (_estado)
                 {
@@ -55,7 +68,7 @@ namespace ApoloniaApp.Commands
                         {
                             if (_crudModel())
                             {
-                                MessageBox.Show("Creación de " + _model.NombreEntidad + " realizada con exito");
+                                MessageBox.Show("Creación de " + _model.NombreEntidad + " realizada con éxito");
                                 _lista();
                                 _frameStore.CurrentViewModel = _viewModel();
                             }
@@ -73,7 +86,7 @@ namespace ApoloniaApp.Commands
                     case 2:
                         if (_crudModel())
                         {
-                            MessageBox.Show("Actualización de " + _model.NombreEntidad + " realizada con exito");
+                            MessageBox.Show("Actualización de " + _model.NombreEntidad + " realizada con éxito");
                             _lista();
                             _frameStore.CurrentViewModel = _viewModel();
                         }
@@ -87,7 +100,7 @@ namespace ApoloniaApp.Commands
                         {
                             if (_crudModel())
                             {
-                                MessageBox.Show("Eliminación de " + _model.NombreEntidad + " realizada con exito");
+                                MessageBox.Show("Eliminación de " + _model.NombreEntidad + " realizada con éxito");
                                 _lista();
                                 _frameStore.CurrentViewModel = _viewModel();
                             }
@@ -104,13 +117,39 @@ namespace ApoloniaApp.Commands
                     case 4:
                         if (_crudModel())
                         {
-                            MessageBox.Show("Eliminación de " + _model.NombreEntidad + " realizada con exito");
+                            MessageBox.Show("Eliminación de " + _model.NombreEntidad + " realizada con éxito");
                             _lista();
                             _frameStore.CurrentViewModel = _viewModel();
                         }
                         else
                         {
                             MessageBox.Show("Fallo de Conexión con la Base de Datos");
+                        }
+                        break;
+                    case 5:
+                        if (!_checkModel())
+                        {
+                            if (_crudModel())
+                            {
+                                _lista();
+                                MessageBox.Show("Creación de " + _model.NombreEntidad + " realizada con exito");
+                                if (MessageBox.Show("¿Desea Crear otra Tarea?", "Confirmación", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                                {
+                                    _frameStore.CurrentViewModel = _viewReturn();
+                                }
+                                else
+                                {
+                                    _frameStore.CurrentViewModel = _viewModel();
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Fallo de Conexión con la Base de Datos");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show(_model.NombreEntidad + " ya existente");
                         }
                         break;
                     default:

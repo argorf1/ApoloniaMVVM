@@ -49,6 +49,7 @@
     <None Remove="Assets\Icons\ico_required.png" />
     <None Remove="Assets\Icons\ico_roles.png" />
     <None Remove="Assets\Icons\ico_santa.png" />
+    <None Remove="Assets\Icons\ico_subunit.png" />
     <None Remove="Assets\Icons\ico_tasklist.png" />
     <None Remove="Assets\Icons\ico_unit.png" />
     <None Remove="Assets\Icons\ico_units.png" />
@@ -63,7 +64,7 @@
     <None Remove="Assets\Images\apolonia_isotipo.png" />
     <None Remove="Assets\Images\background.jpg" />
     <None Remove="Assets\Images\FullLogo_Vertical.png" />
-    <None Remove="Assets\Images\Los Andes2.jfif" />
+    <None Remove="Assets\Images\loginbkg.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -190,6 +191,9 @@
     <Resource Include="Assets\Icons\ico_santa.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Assets\Icons\ico_subunit.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Icons\ico_tasklist.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -230,7 +234,7 @@
     <Resource Include="Assets\Images\FullLogo_Vertical.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\Images\Los Andes2.jfif">
+    <Resource Include="Assets\Images\loginbkg.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -21,7 +21,7 @@
 
                 <StackPanel Orientation="Horizontal"
                         Margin="0">
-                    <TextBlock x:Name="tbkTitleAddUser" Text="Gestion de Roles de Funcionarios"
+                    <TextBlock x:Name="tbkTitleAddUser" Text="Gestión de Roles de Funcionarios"
                                Margin="0,10,0,10"
                                Style="{StaticResource MainTitle}"/>
 
@@ -54,7 +54,25 @@
                         <RowDefinition Height="10*"/>
                     </Grid.RowDefinitions>
 
-                    <StackPanel Orientation="Horizontal" Margin="10,0,0,5"
+                    <StackPanel Grid.Column="0" Grid.Row="1" Margin="10,0,0,5"
+                                Orientation="Vertical" Grid.ColumnSpan="2">
+                            <Label x:Name="lblUnidad" Content="Unidad"
+                                   Style="{StaticResource FormLabel}"
+                                   Margin="0,0,0,0"/>
+
+                            <ComboBox x:Name="dd" Grid.Column="6"  Grid.Row="0"                              
+                                      Width="270" HorizontalAlignment="Left"
+                                      Margin="0,0,0,0"
+                                      ItemsSource="{Binding Unidades}"
+                                      DisplayMemberPath="RazonSocial"
+                                      SelectedValuePath="RazonSocial"
+                                      SelectedValue="{Binding SelectedUnidad.RazonSocial}"
+                                      SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}"
+                                      Style="{DynamicResource CboRoundedCornersStyle}"/>
+                        </StackPanel>
+
+                    <StackPanel Grid.Column="0" Grid.Row="2"
+                                Orientation="Horizontal" Margin="10,0,0,0"
                                 Grid.ColumnSpan="3">
 
                         <!-- // USERS TOOLBAR TRAY // -->
@@ -94,21 +112,7 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Vertical"
-                                Grid.ColumnSpan="2">
-                        <Label x:Name="lblUnidad" Content="Unidad"
-                               Style="{StaticResource FormLabel}"
-                               Margin="0,0,0,0"/>
-                    
-                        <ComboBox x:Name="dd" Grid.Column="6"  Grid.Row="0"                              
-                                  Width="270" HorizontalAlignment="Left"
-                                  Margin="0,0,0,0"
-                                  ItemsSource="{Binding Unidades}"
-                                  DisplayMemberPath="RazonSocial"
-                                  SelectedValuePath="RazonSocial"
-                                  SelectedValue="{Binding SelectedUnidad.RazonSocial}"
-                                  SelectedItem="{Binding SelectedUnidad, Mode=TwoWay}"
-                                  Style="{DynamicResource CboRoundedCornersStyle}"/>
-
+                                Grid.ColumnSpan="2" Margin="10,0,0,0">
 
                         <DataGrid x:Name="dtg" Grid.Column="0" Grid.ColumnSpan="2"
                                   Grid.Row="5" CanUserReorderColumns="False"
@@ -123,25 +127,25 @@
 
                             <DataGrid.Columns>
                                 <DataGridTextColumn 
-                                Header="ID" 
-                                Width="70"
-                                MinWidth="70"
-                                Binding="{Binding Id}"/>
+                                    Header="ID" 
+                                    Width="30"
+                                    MinWidth="30"
+                                    Binding="{Binding Id}"/>
                                 <DataGridTextColumn 
-                                Header="Nombre" 
-                                Width="70"
-                                MinWidth="70"
-                                Binding="{Binding Nombre}"/>
+                                    Header="Nombre" 
+                                    Width="150"
+                                    MinWidth="150"
+                                    Binding="{Binding Nombre}"/>
                                 <DataGridTextColumn 
-                                Header="Subunidad" 
-                                Width="70"
-                                MinWidth="70"
-                                Binding="{Binding Subunidad.Nombre}"/>
+                                    Header="Subunidad" 
+                                    Width="100"
+                                    MinWidth="100"
+                                    Binding="{Binding Subunidad.Nombre}"/>
                                 <DataGridTextColumn 
-                                Header="Nivel" 
-                                Width="70"
-                                MinWidth="70"
-                                Binding="{Binding Nivel}"/>
+                                    Header="Nivel" 
+                                    Width="50"
+                                    MinWidth="50"
+                                    Binding="{Binding Nivel}"/>
 
                             </DataGrid.Columns>
 
@@ -189,14 +193,14 @@
                     </StackPanel>                  
                 
                     <!-- // Role Description: Label // -->
-                    <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal">
+                    <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal" Margin="10,0,0,0">
                         <Label x:Name="lblNewMail" Content="Descripción"
                                Style="{StaticResource FormLabel}"/>
                         
                     </StackPanel>
 
                     <!-- // Role Description: TextBox // -->
-                    <StackPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                    <StackPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="10,0,0,0">
                         <TextBox x:Name="txtDescripcion" Text="{Binding Descripcion}"
                                  VerticalScrollBarVisibility="Auto"
                                  AcceptsReturn="True" IsEnabled="False"
@@ -207,7 +211,7 @@
                     </StackPanel>
 
                     <!-- // Subunit: Label // -->
-                    <StackPanel Grid.Row="11" Grid.Column="0" Orientation="Horizontal">
+                    <StackPanel Grid.Row="11" Grid.Column="0" Orientation="Horizontal" Margin="10,0,0,0">
                         <Label x:Name="lblSubunidad" Content="Subunidad"
                                Style="{StaticResource FormLabel}"/>
                     
@@ -215,7 +219,7 @@
 
                     <!-- // Subunit: Text Box // -->
                     <StackPanel Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" 
-                                Orientation="Horizontal">
+                                Orientation="Horizontal" Margin="10,0,0,0">
                         <TextBox Text="{Binding Subunidad}" Width="387"
                                  IsEnabled="False"
                                  Style="{DynamicResource TextBoxRoundedCorners}"/>
@@ -223,15 +227,15 @@
                     </StackPanel>
 
                     <!-- // Reporting Role: Label // -->
-                    <StackPanel Grid.Row="13" Grid.Column="0" Orientation="Horizontal">
-                        <Label x:Name="lblRol" Content="Superior a quién reporta"
+                    <StackPanel Grid.Row="13" Grid.Column="0" Orientation="Horizontal" Margin="10,0,0,0">
+                        <Label x:Name="lblRol" Content="Superior a quien reporta"
                                Style="{StaticResource FormLabel}"/>
                     
                     </StackPanel>
                 
                     <!-- // Reporting Role: TextBox // -->
                     <StackPanel Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" 
-                                Orientation="Horizontal">
+                                Orientation="Horizontal" Margin="10,0,0,0">
                         <TextBox Text="{Binding Superior}" Width="386"
                                  IsEnabled="False"
                                  Style="{DynamicResource TextBoxRoundedCorners}"/>
